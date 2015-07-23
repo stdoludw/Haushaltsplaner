@@ -88,15 +88,15 @@ public class Controll{
 
 				else if (sql == statments.konto.toString()) {
 					Konto k = new Konto(result.getString("k.betrag"), result.getString("k.name"), result.getString("k.bankleitzahl"), result.getString("k.kontonummer"), result.getInt("k.minimum"), result.getInt("k.K_ID"));
-					mvecModel.addElement(new Model(0,today,k,new Produkt(),new Markt()));
+					mvecModel.addElement(new Model(result.getInt("me.anzahl"), result.getDate("me.datum"),k,new Produkt(),new Markt()));
 					
 				} else if (sql == statments.markt.toString()) {
 					Markt m = new Markt(result.getString("m.name"), result.getString("m.postleitzahl"), result.getString("m.adresse"), result.getInt("m.entfernung"), result.getInt("m.M_ID"));
-					mvecModel.addElement(new Model(0,today,new Konto(),new Produkt(),m));
+					mvecModel.addElement(new Model(result.getInt("me.anzahl"), result.getDate("me.datum"),new Konto(),new Produkt(),m));
 					
 				} else if (sql == statments.produkt.toString()) {
 					Produkt p = new Produkt(result.getString("p.name"), result.getInt("p.gewicht"), result.getFloat("p.preis"), result.getInt("p.P_ID"));
-					mvecModel.addElement(new Model(0,today,new Konto(),p,new Markt()));
+					mvecModel.addElement(new Model(result.getInt("me.anzahl"), result.getDate("me.datum"),new Konto(),p,new Markt()));
 					
 				}
 
