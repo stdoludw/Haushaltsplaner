@@ -7,6 +7,39 @@ public class Konto {
 	
 	//Konto attribute
 	private String mstrBetrag;
+	private String mstrName;
+	private String mstrBLZ;		
+	private String mstrKnr;
+	private int mintMin;
+	private int mintID;
+	
+	
+	public Konto(String betrag, String name, String blz, String knr, int min, int id)
+	{
+		this.mstrBetrag = betrag;
+		this.mstrName = name;
+		this.mstrBLZ = blz;
+		this.mstrKnr = knr;
+		this.mintMin = min;
+		this.mintID = id;
+	
+	}
+	
+	public Konto()
+	{
+		this.mstrBetrag = "";
+		this.mstrName = "";
+		this.mstrBLZ = "";
+		this.mstrKnr = "";
+		this.mintMin = 0;
+		this.mintID = 999;
+	
+	}
+	
+	
+	
+	
+	
 	public String getMstrBetrag() {
 		return mstrBetrag;
 	}
@@ -43,10 +76,6 @@ public class Konto {
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
-	private String mstrName;
-	private String mstrBLZ;		
-	private String mstrKnr;
-	private int mintMin;
-	private int mintID;
+	
 	
 }

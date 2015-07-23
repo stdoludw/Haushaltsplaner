@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,7 @@ public class Controll {
 	private View mvieView;
 
 	void start() {
+		this.mvecModel = new Vector<Model>();
 		this.mvieView = new View();
 		this.mstrPasswort = "dlu";
 		this.mstrUserName = "dlu";
@@ -27,7 +29,7 @@ public class Controll {
 		this.mintPort = 3306;
 		this.mstrDatenbankName = "HausHaltsPlaner_Database";
 		this.mstrHostName = "dfch-ludwig.de";
-
+		
 		acces();
 	}
 
@@ -49,53 +51,31 @@ public class Controll {
 			// Query bearbeiten
 			String sql = mstStatment.markt.toString();
 			ResultSet result = query.executeQuery(sql);
-
+			Date today =java.util.Calendar.getInstance().getTime();;
+			
 			// speichern in Klasse
 			while (result.next()) {
-				// mvecModel.addElement(new Model());
 
 				
-				if (sql== statments.all.toString()) {
-					System.out.println(result.getString("k.K_ID"));
-					System.out.println(result.getString("k.betrag"));
-					System.out.println(result.getString("k.name"));
-					System.out.println(result.getString("k.bankleitzahl"));
-					System.out.println(result.getString("k.kontonummer"));
-					System.out.println(result.getString("k.minimum"));
-
-					System.out.println(result.getString("p.P_ID"));
-					System.out.println(result.getString("p.name"));
-					System.out.println(result.getString("p.gewicht"));
-					System.out.println(result.getString("p.preis"));
-
-					System.out.println(result.getString("m.M_ID"));
-					System.out.println(result.getString("m.name"));
-					System.out.println(result.getString("m.postleitzahl"));
-					System.out.println(result.getString("m.adresse"));
-					System.out.println(result.getString("m.entfernung"));
-
-					System.out.println(result.getString("me.anzahl"));
-					System.out.println(result.getString("me.datum"));
+				if (sql == statments.all.toString()) {
+					Konto k = new Konto(result.getString("k.betrag"), result.getString("k.name"), result.getString("k.bankleitzahl"), result.getString("k.kontonummer"), result.getInt("k.minimum"), result.getInt("k.K_ID"));
+					Produkt p = new Produkt(result.getString("p.name"), result.getInt("p.gewicht"), result.getFloat("p.preis"), result.getInt("p.P_ID"));
+					Markt m = new Markt(result.getString("m.name"), result.getString("m.postleitzahl"), result.getString("m.adresse"), result.getInt("m.entfernung"), result.getInt("m.M_ID"));
+					mvecModel.addElement(new Model(result.getInt("me.anzahl"), result.getDate("me.datum"),k,p,m));
 				}
 
 				else if (sql == statments.konto.toString()) {
-					System.out.println(result.getString("k.K_ID"));
-					System.out.println(result.getString("k.betrag"));
-					System.out.println(result.getString("k.name"));
-					System.out.println(result.getString("k.bankleitzahl"));
-					System.out.println(result.getString("k.kontonummer"));
-					System.out.println(result.getString("k.minimum"));
+					Konto k = new Konto(result.getString("k.betrag"), result.getString("k.name"), result.getString("k.bankleitzahl"), result.getString("k.kontonummer"), result.getInt("k.minimum"), result.getInt("k.K_ID"));
+					mvecModel.addElement(new Model(0,today,k,new Produkt(),new Markt()));
+					
 				} else if (sql == statments.markt.toString()) {
-					System.out.println(result.getString("m.M_ID"));
-					System.out.println(result.getString("m.name"));
-					System.out.println(result.getString("m.postleitzahl"));
-					System.out.println(result.getString("m.adresse"));
-					System.out.println(result.getString("m.entfernung"));
+					Markt m = new Markt(result.getString("m.name"), result.getString("m.postleitzahl"), result.getString("m.adresse"), result.getInt("m.entfernung"), result.getInt("m.M_ID"));
+					mvecModel.addElement(new Model(0,today,new Konto(),new Produkt(),m));
+					
 				} else if (sql == statments.produkt.toString()) {
-					System.out.println(result.getString("p.P_ID"));
-					System.out.println(result.getString("p.name"));
-					System.out.println(result.getString("p.gewicht"));
-					System.out.println(result.getString("p.preis"));
+					Produkt p = new Produkt(result.getString("p.name"), result.getInt("p.gewicht"), result.getFloat("p.preis"), result.getInt("p.P_ID"));
+					mvecModel.addElement(new Model(0,today,new Konto(),p,new Markt()));
+					
 				}
 
 			}
@@ -107,5 +87,14 @@ public class Controll {
 			System.err.println(e.getMessage());
 		}
 	}
+
+
+
+
+
+
+
+
+
 
 }

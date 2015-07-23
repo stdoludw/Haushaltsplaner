@@ -6,6 +6,26 @@ public class Produkt {
 
 	// Produkt Attribute
 	private String mstrName;
+	private int mintGewicht;
+	private float mfltPreis;
+	private int mintID;
+	
+	public Produkt(String name, int gewicht, float preis, int id) {
+		this.mstrName =name;
+		this.mintGewicht = gewicht;
+		this.mfltPreis = preis;
+		this.mintID = id;
+	}
+	
+	public Produkt()
+	{
+		this.mstrName ="";
+		this.mintGewicht = 0;
+		this.mfltPreis = 0;
+		this.mintID = 999;
+	}
+	
+	
 	public String getMstrName() {
 		return mstrName;
 	}
@@ -30,8 +50,6 @@ public class Produkt {
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
-	private int mintGewicht;
-	private float mfltPreis;
-	private int mintID;
+	
 
 }

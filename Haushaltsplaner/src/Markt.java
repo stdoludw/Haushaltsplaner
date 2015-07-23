@@ -9,7 +9,27 @@ public class Markt {
 	private String mstrPLZ;
 	private String mstrAdr;
 	private int mintEntfernung;
-	private int ID;
+	private int mintID;
+	
+	public Markt(String name, String plz, String adr, int entfernung, int id)
+	{
+		this.mstrName = name;
+		this.mstrPLZ=plz;
+		this.mstrAdr = adr;
+		this.mintEntfernung = entfernung;
+		this.mintID = id;
+	}
+	
+	public Markt()
+	{
+		this.mstrName = "";
+		this.mstrPLZ="";
+		this.mstrAdr = "";
+		this.mintEntfernung = 0;
+		this.mintID = 999;
+	}
+	
+	
 	public String getMstrName() {
 		return mstrName;
 	}
@@ -35,10 +55,10 @@ public class Markt {
 		this.mintEntfernung = mintEntfernung;
 	}
 	public int getID() {
-		return ID;
+		return mintID;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		mintID = iD;
 	}
 
 }
