@@ -20,11 +20,9 @@ public class Controll{
 
 	// Instanzen von M und V
 	private Vector<Model> mvecModel;
-	private ausgabe mvieView;
 
 	void start() {
 		this.mvecModel = new Vector<Model>();
-		this.mvieView = new ausgabe();
 		this.mstrPasswort = "dlu";
 		this.mstrUserName = "dlu";
 		this.mconCon = null;
@@ -82,8 +80,6 @@ public class Controll{
 
 			}
 
-			//an view übergeben
-			mvieView.fill(mvecModel);
 			
 			// scließen des streams
 			result.close();
