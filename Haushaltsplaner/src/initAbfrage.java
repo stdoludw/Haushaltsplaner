@@ -21,7 +21,7 @@ import javax.swing.JButton;
 public class initAbfrage {
 
 	private JFrame frame;
-	private JTextField mTxtHost;
+	protected JTextField mTxtHost;
 	private JTextField mTxtDatabase;
 	private JTextField mTxtUsername;
 	private JTextField mTxtPassword;

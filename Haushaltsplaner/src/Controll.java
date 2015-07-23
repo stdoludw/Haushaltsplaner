@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Controll {
+import javax.swing.text.View;
+
+public class Controll{
 
 	// verbindung mit Datenbank
 	private String mstrUserName;
@@ -18,11 +20,11 @@ public class Controll {
 
 	// Instanzen von M und V
 	private Vector<Model> mvecModel;
-	private View mvieView;
+	private ausgabe mvieView;
 
 	void start() {
 		this.mvecModel = new Vector<Model>();
-		this.mvieView = new View();
+		this.mvieView = new ausgabe();
 		this.mstrPasswort = "dlu";
 		this.mstrUserName = "dlu";
 		this.mconCon = null;
@@ -49,7 +51,7 @@ public class Controll {
 			query = mconCon.createStatement();
 
 			// Query bearbeiten
-			String sql = mstStatment.markt.toString();
+			String sql = mstStatment.all.toString();
 			ResultSet result = query.executeQuery(sql);
 			Date today =java.util.Calendar.getInstance().getTime();;
 			
@@ -80,6 +82,9 @@ public class Controll {
 
 			}
 
+			//an view übergeben
+			mvieView.fill(mvecModel);
+			
 			// scließen des streams
 			result.close();
 
