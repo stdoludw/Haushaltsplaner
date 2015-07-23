@@ -1,9 +1,7 @@
 
 public class HHP {
 
-	public static void main(String[] args) {
-		System.out.println("zes");
-		
+	public static void main(String[] args) {		
 		//einstieg in das Programm
 	 Controll c = new Controll();
 	 

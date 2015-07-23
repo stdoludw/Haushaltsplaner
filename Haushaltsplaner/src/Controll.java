@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.text.View;
-
 public class Controll{
 
 	// verbindung mit Datenbank
@@ -17,11 +15,19 @@ public class Controll{
 	private String mstrDatenbankName;
 	private String mstrHostName;
 	private statments mstStatment;
+	
 
 	// Instanzen von M und V
 	private Vector<Model> mvecModel;
+	private ausgabe mausAusgabe;
 
 	void start() {
+		
+		//abfragen der initdaten
+		mausAusgabe = new ausgabe();
+		mausAusgabe.metaDaten();
+		
+		//vector inizialisieren
 		this.mvecModel = new Vector<Model>();
 		this.mstrPasswort = "dlu";
 		this.mstrUserName = "dlu";
@@ -30,7 +36,23 @@ public class Controll{
 		this.mstrDatenbankName = "HausHaltsPlaner_Database";
 		this.mstrHostName = "dfch-ludwig.de";
 		
+		//Daten aus masuAusgabe in this schreiben
+		/*this.mstrPasswort = mausAusgabe.getMstrPasswort();
+		this.mstrUserName = mausAusgabe.getMstrUserName();
+		this.mconCon = null;
+		this.mintPort = 3306;
+		this.mstrDatenbankName = mausAusgabe.getMstrDatenbankName();
+		this.mstrHostName = mausAusgabe.getMstrHostName();*/
+		
+		//was soll abgefragt werden
+		this.mstStatment = mausAusgabe.choice();
+		
+		//Datenbank befragen
 		acces();
+		
+		//ausgabe der gefundenen Werte
+		mausAusgabe.print(this.mvecModel);
+		
 	}
 
 	void acces() {
@@ -49,7 +71,7 @@ public class Controll{
 			query = mconCon.createStatement();
 
 			// Query bearbeiten
-			String sql = mstStatment.all.toString();
+			String sql = mstStatment.toString();
 			ResultSet result = query.executeQuery(sql);
 			Date today =java.util.Calendar.getInstance().getTime();;
 			
