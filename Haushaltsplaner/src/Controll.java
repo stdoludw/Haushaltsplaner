@@ -11,11 +11,11 @@ public class Controll {
 	//verbindung mit Datenbank
 	private String mstrUserName;
 	private String mstrPasswort;
-	
 	private Connection mconCon;
 	private int mintPort;
 	private String mstrDatenbankName;
 	private String mstrHostName;
+	private statments mstStatment;
 	
 	//Instanzen von M und V
 	private Vector<Model> mvecModel;
@@ -48,13 +48,61 @@ public class Controll {
 	        query = mconCon.createStatement();
 		
 	        //Query bearbeiten
-	        String sql = "select * from merge me, Produkt p, Konto k, Markt m where me.m_ID = m.M_ID AND me.p_ID = p.P_ID AND me.k_ID = k.K_ID;";
+	        String sql = mstStatment.markt.toString();
 	        ResultSet result = query.executeQuery(sql);
 	        
 	        //speichern in Klasse
 	        while(result.next())
 	        {
+	        	//mvecModel.addElement(new Model());
+	        	
+	        	if(mstStatment == statments.all){
+	        	System.out.println(result.getString("k.K_ID"));
+	        	System.out.println(result.getString("k.betrag"));
 	        	System.out.println(result.getString("k.name"));
+	        	System.out.println(result.getString("k.bankleitzahl"));
+	        	System.out.println(result.getString("k.kontonummer"));
+	        	System.out.println(result.getString("k.minimum"));
+
+	        	System.out.println(result.getString("p.P_ID"));
+	        	System.out.println(result.getString("p.name"));
+	        	System.out.println(result.getString("p.gewicht"));
+	        	System.out.println(result.getString("p.preis"));
+
+	        	System.out.println(result.getString("m.M_ID"));
+	        	System.out.println(result.getString("m.name"));
+	        	System.out.println(result.getString("m.postleitzahl"));
+	        	System.out.println(result.getString("m.adresse"));
+	        	System.out.println(result.getString("m.entfernung"));
+
+	        	System.out.println(result.getString("me.anzahl"));
+	        	System.out.println(result.getString("me.datum"));}
+	        	
+	        	else if(mstStatment == statments.konto)
+	        	{
+	        		System.out.println(result.getString("k.K_ID"));
+		        	System.out.println(result.getString("k.betrag"));
+		        	System.out.println(result.getString("k.name"));
+		        	System.out.println(result.getString("k.bankleitzahl"));
+		        	System.out.println(result.getString("k.kontonummer"));
+		        	System.out.println(result.getString("k.minimum"));
+	        	}
+	        	else if(mstStatment == statments.markt)
+	        	{
+	        		System.out.println(result.getString("m.M_ID"));
+		        	System.out.println(result.getString("m.name"));
+		        	System.out.println(result.getString("m.postleitzahl"));
+		        	System.out.println(result.getString("m.adresse"));
+		        	System.out.println(result.getString("m.entfernung"));
+	        	}
+	        	else if(mstStatment == statments.produkt)
+	        	{
+	        		System.out.println(result.getString("p.P_ID"));
+		        	System.out.println(result.getString("p.name"));
+		        	System.out.println(result.getString("p.gewicht"));
+		        	System.out.println(result.getString("p.preis"));
+	        	}
+	        	
 	        }
 	        
 	        //scließen des streams
