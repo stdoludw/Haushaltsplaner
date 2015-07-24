@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /*TODO
- Sortierte ausgabe nach Preis, monat, markt, entfernung,konto
- Hinzufügen vo neuen Artikeln 
  Erstellen von unabhänigen datenbanken
  Kontstand erhöhen jeden monat
  erkennen von schon verwendeten objekten
@@ -15,7 +13,6 @@ import java.sql.Statement;
  IDs automatisch erhöhen
  statistiken als bild
  portierung auf android/php
-
  */
 
 public class Controll {

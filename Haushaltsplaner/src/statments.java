@@ -42,21 +42,21 @@ public enum statments {
 	{
 		public String toString()
 		{
-			return "insert into Produkt(P_ID,name,gewicht,preis) Values(";
+			return "insert into Produkt(name,gewicht,preis) Values(";
 		}
 	},
 	kontoHinzufügen
 	{
 		public String toString()
 		{
-			return "insert into Konto(K_ID,name,bankleitzahl,kontonummer,betrag,minimum) Values(";
+			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values(";
 		}
 	},
 	marktHinzufügen
 	{
 		public String toString()
 		{
-			return "insert into Markt(M_ID,name,postleitzahl,adresse,entfernung) Values(";
+			return "insert into Markt(name,postleitzahl,adresse,entfernung) Values(";
 		}
 	}		
 }

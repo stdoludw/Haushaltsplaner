@@ -12,8 +12,13 @@ public class Konto {
 	private String mstrKnr;
 	private int mintMin;
 	private int mintID;
+
 	
 	
+	public int getMintID() {
+		return mintID;
+	}
+
 	public Konto(String betrag, String name, String blz, String knr, int min, int id)
 	{
 		this.mstrBetrag = betrag;
@@ -22,6 +27,7 @@ public class Konto {
 		this.mstrKnr = knr;
 		this.mintMin = min;
 		this.mintID = id;
+
 	
 	}
 	
@@ -70,12 +76,7 @@ public class Konto {
 	public void setMintMin(int mintMin) {
 		this.mintMin = mintMin;
 	}
-	public int getMintID() {
-		return mintID;
-	}
-	public void setMintID(int mintID) {
-		this.mintID = mintID;
-	}
+	
 	
 	
 }

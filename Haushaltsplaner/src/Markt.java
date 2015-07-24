@@ -11,6 +11,10 @@ public class Markt {
 	private int mintEntfernung;
 	private int mintID;
 	
+	public int getMintID() {
+		return mintID;
+	}
+
 	public Markt(String name, String plz, String adr, int entfernung, int id)
 	{
 		this.mstrName = name;
@@ -54,11 +58,5 @@ public class Markt {
 	public void setMintEntfernung(int mintEntfernung) {
 		this.mintEntfernung = mintEntfernung;
 	}
-	public int getID() {
-		return mintID;
-	}
-	public void setID(int iD) {
-		mintID = iD;
-	}
-
+	
 }
