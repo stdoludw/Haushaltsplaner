@@ -34,7 +34,7 @@ public enum statments {
 	{
 		public String toString()
 		{
-			return null;
+			return "insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(";
  
 		}
 	},
@@ -42,30 +42,21 @@ public enum statments {
 	{
 		public String toString()
 		{
-			return null;
+			return "insert into Produkt(P_ID,name,gewicht,preis) Values(";
 		}
 	},
 	kontoHinzufügen
 	{
 		public String toString()
 		{
-			return null;
+			return "insert into Konto(K_ID,name,bankleitzahl,kontonummer,betrag,minimum) Values(";
 		}
 	},
 	marktHinzufügen
 	{
 		public String toString()
 		{
-			return null;
+			return "insert into Markt(M_ID,name,postleitzahl,adresse,entfernung) Values(";
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-		
-			
+	}		
 }
