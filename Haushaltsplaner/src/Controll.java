@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,18 +56,23 @@ public class Controll {
 		 * this.mstrHostName = mausAusgabe.getMstrHostName();
 		 */
 
-		// was soll abgefragt werden
-		this.mstrStatment = mausAusgabe.choice();
+		while (true) {
+			// was soll abgefragt werden
+			this.mstrStatment = mausAusgabe.choice();
 
-		// Datenbank befragen
-		acces();
+			// Datenbank befragen
+			acces();
 
-		// ausgabe der gefundenen Werte
-		mausAusgabe.print(this.mvecModel);
+			// ausgabe der gefundenen Werte
+			mausAusgabe.print(this.mvecModel);
 
-		// neue Werte in valid Model hinzufügen
-		if (mausAusgabe.isMboolEinlesen()) {
-			this.mvecModel.add(mausAusgabe.getmMdlModel());
+			// neue Werte in valid Model hinzufügen
+			if (mausAusgabe.isMboolEinlesen()) {
+				this.mvecModel.add(mausAusgabe.getmMdlModel());
+			}
+			
+			//vektor clearen
+			this.mvecModel.clear();
 		}
 
 	}
@@ -102,7 +108,9 @@ public class Controll {
 			} else {
 				// executeQuerry nur für selects
 				result = query.executeQuery(sql);
-
+				Date today = null;
+				
+				
 				// speichern in Klasse
 				while (result.next()) {
 
@@ -134,9 +142,7 @@ public class Controll {
 								result.getString("k.kontonummer"),
 								result.getInt("k.minimum"),
 								result.getInt("k.K_ID"));
-						mvecModel.addElement(new Model(result
-								.getInt("me.anzahl"), result
-								.getDate("me.datum"), k, new Produkt(),
+						mvecModel.addElement(new Model(0,today , k, new Produkt(),
 								new Markt(), true));
 
 					} else if (sql == statments.markt.toString()) {
@@ -145,9 +151,7 @@ public class Controll {
 								result.getString("m.adresse"),
 								result.getInt("m.entfernung"),
 								result.getInt("m.M_ID"));
-						mvecModel.addElement(new Model(result
-								.getInt("me.anzahl"), result
-								.getDate("me.datum"), new Konto(),
+						mvecModel.addElement(new Model(0,today , new Konto(),
 								new Produkt(), m, true));
 
 					} else if (sql == statments.produkt.toString()) {
@@ -159,7 +163,6 @@ public class Controll {
 								.getInt("me.anzahl"), result
 								.getDate("me.datum"), new Konto(), p,
 								new Markt(), true));
-
 					}
 
 				}
