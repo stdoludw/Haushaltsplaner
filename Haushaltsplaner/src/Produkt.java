@@ -19,6 +19,8 @@ public class Produkt extends Model{
 	}
 
 	public Produkt(String name, int gewicht, float preis, int id) {
+		super(0,"", true);
+
 		this.mstrName = name;
 		this.mintGewicht = gewicht;
 		this.mfltPreis = preis;
@@ -26,6 +28,8 @@ public class Produkt extends Model{
 	}
 
 	public Produkt() {
+		super(0,"", true);
+
 		this.mstrName = "";
 		this.mintGewicht = 0;
 		this.mfltPreis = 0;
@@ -56,13 +60,16 @@ public class Produkt extends Model{
 		this.mfltPreis = mfltPreis;
 	}
 
-	private void SQLerstellenProdukt()
+	public String SQLerstellenProdukt()
 	{
-		mMdlModel = produktEinlesen();
-		se = statments.produktHinzufügen.toString() + "\""
-				+ mMdlModel.getMprdProdukt().getMstrName() + "\"" + ","
-				+ mMdlModel.getMprdProdukt().getMintGewicht() + ","
-				+ mMdlModel.getMprdProdukt().getMfltPreis() + ");";
+		String statment;
+		statment = statments.produktHinzufügen.toString() + "\""
+				+ mstrName + "\"" + ","
+				+ mintGewicht + ","
+				+ mfltPreis + ");";
+	
+	return  statment;
+
 	}
 	
 }

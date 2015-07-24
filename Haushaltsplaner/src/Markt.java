@@ -21,6 +21,7 @@ public class Markt extends Model{
 
 	public Markt(String name, String plz, String adr, int entfernung, int id)
 	{
+		super(0,"", true);
 		this.mstrName = name;
 		this.mstrPLZ=plz;
 		this.mstrAdr = adr;
@@ -30,6 +31,8 @@ public class Markt extends Model{
 	
 	public Markt()
 	{
+		super(0,"", true);
+
 		this.mstrName = "";
 		this.mstrPLZ="";
 		this.mstrAdr = "";
@@ -63,15 +66,16 @@ public class Markt extends Model{
 		this.mintEntfernung = mintEntfernung;
 	}
 	
-	private void SQLerstellenMarkt()
+	public String SQLerstellenMarkt()
 	{
-	
-		mMdlModel = marktEinlesen();
-		se = statments.marktHinzufügen.toString() + "\""
-				+ mMdlModel.getMmktMarkt().getMstrName() + "\"" + ","
-				+ "\"" + mMdlModel.getMmktMarkt().getMstrPLZ() + "\"" + ","
-				+ "\"" + mMdlModel.getMmktMarkt().getMstrAdr() + "\"" + ","
-				+ mMdlModel.getMmktMarkt().getMintEntfernung() + ");";
+		String statment;
+		statment = statments.marktHinzufügen.toString() + "\""
+				+ mstrName + "\"" + ","
+				+ "\"" + mstrPLZ + "\"" + ","
+				+ "\"" + mstrAdr + "\"" + ","
+				+ mintEntfernung + ");";
+		
+		return statment;
 	}
 	
 }

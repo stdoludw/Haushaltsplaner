@@ -13,8 +13,7 @@ public class Konto extends Model{
 	private int mintMin;
 	private int mintID;
 
-	
-	
+
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
@@ -23,8 +22,9 @@ public class Konto extends Model{
 		return mintID;
 	}
 
-	public Konto(String betrag, String name, String blz, String knr, int min, int id)
+	public Konto (String betrag, String name, String blz, String knr, int min, int id)
 	{
+		super(0,"", true);
 		this.mstrBetrag = betrag;
 		this.mstrName = name;
 		this.mstrBLZ = blz;
@@ -37,6 +37,7 @@ public class Konto extends Model{
 	
 	public Konto()
 	{
+		super(0,"", true);
 		this.mstrBetrag = "";
 		this.mstrName = "";
 		this.mstrBLZ = "";
@@ -45,10 +46,6 @@ public class Konto extends Model{
 		this.mintID = -1;
 	
 	}
-	
-	
-	
-	
 	
 	public String getMstrBetrag() {
 		return mstrBetrag;
@@ -82,16 +79,16 @@ public class Konto extends Model{
 	}
 	
 
-	private void SQLerstellenKonto()
+	public String SQLerstellenKonto()
 	{
-		mMdlModel = kotoEinlesen();
-		se = statments.kontoHinzufügen.toString() + "\""
-				+ mMdlModel.getMkntKonto().getMstrName() + "\"" + ","
-				+ "\"" + mMdlModel.getMkntKonto().getMstrBLZ() + "\"" + ","
-				+ "\"" + mMdlModel.getMkntKonto().getMstrKnr() + "\"" + ","
-				+ mMdlModel.getMkntKonto().getMstrBetrag() + ","
-				+ mMdlModel.getMkntKonto().getMintID() + ");";
-		
+		String statment;
+		statment = statments.kontoHinzufügen.toString() + "\""
+				+ mstrName + "\"" + ","
+				+ "\"" + mstrBLZ + "\"" + ","
+				+ "\"" + mstrKnr + "\"" + ","
+				+ mstrBetrag + ","
+				+ mintID + ");";
+		return statment;
 	}
 	
 	
