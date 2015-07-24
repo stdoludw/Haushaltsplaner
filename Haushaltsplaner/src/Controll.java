@@ -2,6 +2,7 @@ import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /*TODO
@@ -29,11 +30,11 @@ public class Controll {
 	private Vector<Model> mvecModel;
 	private ausgabe mausAusgabe;
 
-	void start() {
+	void start() throws Exception {
 
 		// abfragen der initdaten
 		mausAusgabe = new ausgabe();
-		mausAusgabe.metaDaten();
+		//mausAusgabe.metaDaten();
 
 		// vector inizialisieren
 		this.mvecModel = new Vector<Model>();
@@ -53,18 +54,29 @@ public class Controll {
 		 */
 
 		while (true) {
-			//init laden der werte
-			this.mstrStatment = statments.all.toString();
+			//init lader Datenbank
 			acces();
 			
-			// was soll abgefragt werden
+			//init abfrage der Daten
+			SQLAbfrage();
+			this.mstrStatment = statments.produkt.toString();
+			this.mstrStatment = statments.konto.toString();
+			this.mstrStatment = statments.markt.toString();
+		
+			//was soll abgefragt werden
 			this.mstrStatment = mausAusgabe.choice();
 
+			//wenn nicht neue werte einfügen -> vector clear
+			if(!mausAusgabe.isMboolEinlesen())
+			{
+				this.mvecModel.clear();
+			}
+			
 			// Datenbank befragen
-			acces();
+			
 
 			// ausgabe der gefundenen Werte
-			mausAusgabe.print();
+			mausAusgabe.print(mstrStatment);
 
 			// neue Werte in valid Model hinzufügen
 			if (mausAusgabe.isMboolEinlesen()) {
@@ -78,8 +90,8 @@ public class Controll {
 
 	}
 
-	void acces() {
-		try {
+	void acces() throws Exception {
+		
 			// Datenbanktreiber für JDBC Schnittstellen laden.
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -88,7 +100,11 @@ public class Controll {
 					+ mstrHostName + ":" + mintPort + "/" + mstrDatenbankName
 					+ "?" + "user=" + mstrUserName + "&" + "password="
 					+ mstrPasswort);
-
+		}
+			
+	void SQLAbfrage() throws Exception
+	{
+	
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
 
@@ -96,17 +112,7 @@ public class Controll {
 			String sql = mstrStatment;
 			ResultSet result = null;
 
-			// insert -> update -> drop -> delete
-			if ((mstrStatment.toCharArray()[0] == 'i'
-					|| mstrStatment.toCharArray()[0] == 'u' || mstrStatment
-					.toCharArray()[0] == 'd')
-					&& (mstrStatment.toCharArray()[1] == 'n'
-							|| mstrStatment.toCharArray()[1] == 'p'
-							|| mstrStatment.toCharArray()[1] == 'r' || mstrStatment
-							.toCharArray()[1] == 'e')) {
-				// executeUpdate nur für modifizierende querrys
-				query.executeUpdate(sql);
-			} else {
+			
 				// executeQuerry nur für selects
 				result = query.executeQuery(sql);
 			
@@ -129,7 +135,8 @@ public class Controll {
 								result.getString("m.adresse"),
 								result.getInt("m.entfernung"),
 								result.getInt("m.M_ID"));
-						mvecModel.addElement(new Model(result
+						
+						mvecModel.add(new Model(result
 								.getInt("me.anzahl"), result
 								.getString("me.datum"), k, p, m, true));
 					}
@@ -141,7 +148,8 @@ public class Controll {
 								result.getString("k.kontonummer"),
 								result.getInt("k.minimum"),
 								result.getInt("k.K_ID"));
-						mvecModel.addElement(new Model(0,"" , k, new Produkt(),
+						
+						mvecModel.add(new Model(0,"" , k, new Produkt(),
 								new Markt(), true));
 
 					} else if (sql == statments.markt.toString()) {
@@ -150,7 +158,8 @@ public class Controll {
 								result.getString("m.adresse"),
 								result.getInt("m.entfernung"),
 								result.getInt("m.M_ID"));
-						mvecModel.addElement(new Model(0,"" , new Konto(),
+						
+						mvecModel.add(new Model(0,"" , new Konto(),
 								new Produkt(), m, true));
 
 					} else if (sql == statments.produkt.toString()) {
@@ -158,21 +167,62 @@ public class Controll {
 								result.getInt("p.gewicht"),
 								result.getFloat("p.preis"),
 								result.getInt("p.P_ID"));
-						mvecModel.addElement(new Model(result
-								.getInt("me.anzahl"), result
-								.getString("me.datum"), new Konto(), p,
+						
+						mvecModel.add(new Model(0,"", new Konto(), p,
 								new Markt(), true));
 					}
 
 				}
 				mausAusgabe.setMvecModel(mvecModel);
 
+				
 				// scließen des streams
 				result.close();
 			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
+		 
+	void SQLModifizieren()
+	{
+		
 	}
 
+	private int getNextKonto()
+	{
+		int max = -1;
+		for(int i=0;i<mvecModel.size();i++)
+		{
+			if(mvecModel.get(i).getMkntKonto().getMintID() > max)
+			{
+				max = mvecModel.get(i).getMkntKonto().getMintID();
+			}
+		}
+		return max+1;
+	}
+	
+	private int getNextProdukt()
+	{
+		int max = -1;
+		for(int i=0;i<mvecModel.size();i++)
+		{
+			if(mvecModel.get(i).getMprdProdukt().getMintID() > max)
+			{
+				max = mvecModel.get(i).getMprdProdukt().getMintID();
+			}
+		}
+		return max+1;
+	}
+	
+	private int getNextMarkt()
+	{
+		int max = -1;
+		for(int i=0;i<mvecModel.size();i++)
+		{
+			if(mvecModel.get(i).getMmktMarkt().getMintID() > max)
+			{
+				max = mvecModel.get(i).getMmktMarkt().getMintID();
+			}
+		}
+		return max+1;
+	}
+	
+	
 }

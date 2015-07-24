@@ -1,5 +1,5 @@
 
-public class Konto {
+public class Konto extends Model{
 
 	//Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	//als String abbgebildet, da bei Zahlen mit führender Null 
@@ -42,7 +42,7 @@ public class Konto {
 		this.mstrBLZ = "";
 		this.mstrKnr = "";
 		this.mintMin = 0;
-		this.mintID = 999;
+		this.mintID = -1;
 	
 	}
 	
@@ -81,6 +81,18 @@ public class Konto {
 		this.mintMin = mintMin;
 	}
 	
+
+	private void SQLerstellenKonto()
+	{
+		mMdlModel = kotoEinlesen();
+		se = statments.kontoHinzufügen.toString() + "\""
+				+ mMdlModel.getMkntKonto().getMstrName() + "\"" + ","
+				+ "\"" + mMdlModel.getMkntKonto().getMstrBLZ() + "\"" + ","
+				+ "\"" + mMdlModel.getMkntKonto().getMstrKnr() + "\"" + ","
+				+ mMdlModel.getMkntKonto().getMstrBetrag() + ","
+				+ mMdlModel.getMkntKonto().getMintID() + ");";
+		
+	}
 	
 	
 }

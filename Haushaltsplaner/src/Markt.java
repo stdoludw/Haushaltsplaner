@@ -1,4 +1,4 @@
-public class Markt {
+public class Markt extends Model{
 
 	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	// als String abbgebildet, da bei Zahlen mit führender Null
@@ -34,7 +34,7 @@ public class Markt {
 		this.mstrPLZ="";
 		this.mstrAdr = "";
 		this.mintEntfernung = 0;
-		this.mintID = 999;
+		this.mintID = -1;
 	}
 	
 	
@@ -61,6 +61,17 @@ public class Markt {
 	}
 	public void setMintEntfernung(int mintEntfernung) {
 		this.mintEntfernung = mintEntfernung;
+	}
+	
+	private void SQLerstellenMarkt()
+	{
+	
+		mMdlModel = marktEinlesen();
+		se = statments.marktHinzufügen.toString() + "\""
+				+ mMdlModel.getMmktMarkt().getMstrName() + "\"" + ","
+				+ "\"" + mMdlModel.getMmktMarkt().getMstrPLZ() + "\"" + ","
+				+ "\"" + mMdlModel.getMmktMarkt().getMstrAdr() + "\"" + ","
+				+ mMdlModel.getMmktMarkt().getMintEntfernung() + ");";
 	}
 	
 }

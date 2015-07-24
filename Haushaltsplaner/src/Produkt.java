@@ -1,4 +1,4 @@
-public class Produkt {
+public class Produkt extends Model{
 
 	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	// als String abbgebildet, da bei Zahlen mit führender Null
@@ -29,7 +29,7 @@ public class Produkt {
 		this.mstrName = "";
 		this.mintGewicht = 0;
 		this.mfltPreis = 0;
-		this.mintID = 999;
+		this.mintID = -1;
 	}
 
 	public String getMstrName() {
@@ -56,4 +56,13 @@ public class Produkt {
 		this.mfltPreis = mfltPreis;
 	}
 
+	private void SQLerstellenProdukt()
+	{
+		mMdlModel = produktEinlesen();
+		se = statments.produktHinzufügen.toString() + "\""
+				+ mMdlModel.getMprdProdukt().getMstrName() + "\"" + ","
+				+ mMdlModel.getMprdProdukt().getMintGewicht() + ","
+				+ mMdlModel.getMprdProdukt().getMfltPreis() + ");";
+	}
+	
 }

@@ -12,7 +12,7 @@ public enum statments {
 	{
 		public String toString()
 		{
-		return "select * from Produkt p, merge me where p.P_ID = me.p_ID;";
+		return "select * from Produkt p;"; //, merge me;"; //where p.P_ID = me.p_ID;";
 		}
 	},
 	konto

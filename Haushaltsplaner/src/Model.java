@@ -59,5 +59,15 @@ public class Model {
 		this.mmktMarkt = mmktMarkt;
 	}
 	
+	private void SQlerstellenAll()
+	{
+		mMdlModel = allEinlesen();
+		se = statments.allHinzufügen.toString() + mMdlModel.getMintAnzahl()
+				+ "," + "now()" + ","
+				+ mMdlModel.getMmktMarkt().getMintID() + ","
+				+ mMdlModel.getMkntKonto().getMintID() + ","
+				+ mMdlModel.getMprdProdukt().getMintID() + ");";	
+	}
+	
 	
 }
