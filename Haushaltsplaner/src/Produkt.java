@@ -10,6 +10,10 @@ public class Produkt {
 	private float mfltPreis;
 	private int mintID;
 
+	public void setMintID(int mintID) {
+		this.mintID = mintID;
+	}
+
 	public int getMintID() {
 		return mintID;
 	}

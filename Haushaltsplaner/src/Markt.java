@@ -11,6 +11,10 @@ public class Markt {
 	private int mintEntfernung;
 	private int mintID;
 	
+	public void setMintID(int mintID) {
+		this.mintID = mintID;
+	}
+
 	public int getMintID() {
 		return mintID;
 	}

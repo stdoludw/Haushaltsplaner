@@ -1,4 +1,3 @@
-import java.util.Date;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,6 +53,10 @@ public class Controll {
 		 */
 
 		while (true) {
+			//init laden der werte
+			this.mstrStatment = statments.all.toString();
+			acces();
+			
 			// was soll abgefragt werden
 			this.mstrStatment = mausAusgabe.choice();
 
@@ -61,11 +64,12 @@ public class Controll {
 			acces();
 
 			// ausgabe der gefundenen Werte
-			mausAusgabe.print(this.mvecModel);
+			mausAusgabe.print();
 
 			// neue Werte in valid Model hinzufügen
 			if (mausAusgabe.isMboolEinlesen()) {
 				this.mvecModel.add(mausAusgabe.getmMdlModel());
+				mausAusgabe.setMvecModel(mvecModel);
 			}
 			
 			//vektor clearen
@@ -105,9 +109,7 @@ public class Controll {
 			} else {
 				// executeQuerry nur für selects
 				result = query.executeQuery(sql);
-				Date today = null;
-				
-				
+			
 				// speichern in Klasse
 				while (result.next()) {
 
@@ -129,7 +131,7 @@ public class Controll {
 								result.getInt("m.M_ID"));
 						mvecModel.addElement(new Model(result
 								.getInt("me.anzahl"), result
-								.getDate("me.datum"), k, p, m, true));
+								.getString("me.datum"), k, p, m, true));
 					}
 
 					else if (sql == statments.konto.toString()) {
@@ -139,7 +141,7 @@ public class Controll {
 								result.getString("k.kontonummer"),
 								result.getInt("k.minimum"),
 								result.getInt("k.K_ID"));
-						mvecModel.addElement(new Model(0,today , k, new Produkt(),
+						mvecModel.addElement(new Model(0,"" , k, new Produkt(),
 								new Markt(), true));
 
 					} else if (sql == statments.markt.toString()) {
@@ -148,7 +150,7 @@ public class Controll {
 								result.getString("m.adresse"),
 								result.getInt("m.entfernung"),
 								result.getInt("m.M_ID"));
-						mvecModel.addElement(new Model(0,today , new Konto(),
+						mvecModel.addElement(new Model(0,"" , new Konto(),
 								new Produkt(), m, true));
 
 					} else if (sql == statments.produkt.toString()) {
@@ -158,11 +160,12 @@ public class Controll {
 								result.getInt("p.P_ID"));
 						mvecModel.addElement(new Model(result
 								.getInt("me.anzahl"), result
-								.getDate("me.datum"), new Konto(), p,
+								.getString("me.datum"), new Konto(), p,
 								new Markt(), true));
 					}
 
 				}
+				mausAusgabe.setMvecModel(mvecModel);
 
 				// scließen des streams
 				result.close();

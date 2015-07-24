@@ -1,28 +1,29 @@
-import java.util.Date;
 
 public class Model {
 
 	private int mintAnzahl;
-	private Date mdateDatum;
+	private String mstrDatum;
+	public String getMstrDatum() {
+		return mstrDatum;
+	}
+
 	private Konto mkntKonto;
 	private Produkt mprdProdukt;
 	private Markt mmktMarkt;
+	
 	public boolean isMboolValid() {
 		return mboolValid;
 	}
-
-
-
 
 	public void setMboolValid(boolean mboolValid) {
 		this.mboolValid = mboolValid;
 	}
 	private boolean mboolValid;
 	
-	public Model(int anzahl, Date today,Konto k,Produkt p,Markt m, boolean v)
+	public Model(int anzahl, String today,Konto k,Produkt p,Markt m, boolean v)
 	{
 		this.mintAnzahl = anzahl;
-		this.mdateDatum = today;
+		this.mstrDatum = today;
 		this.mkntKonto = k;
 		this.mprdProdukt =p;
 		this.mmktMarkt =m;
@@ -38,12 +39,7 @@ public class Model {
 	public void setMintAnzahl(int mintAnzahl) {
 		this.mintAnzahl = mintAnzahl;
 	}
-	public Date getMdateDatum() {
-		return mdateDatum;
-	}
-	public void setMdateDatum(Date mdateDatum) {
-		this.mdateDatum = mdateDatum;
-	}
+	
 	public Konto getMkntKonto() {
 		return mkntKonto;
 	}
