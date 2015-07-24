@@ -28,7 +28,42 @@ public enum statments {
 		{
 		return "select * from Markt m;";
 		}
+	},
+	
+	allHinzufügen
+	{
+		public String toString()
+		{
+			return null;
+ 
+		}
+	},
+	produktHinzufügen
+	{
+		public String toString()
+		{
+			return null;
+		}
+	},
+	kontoHinzufügen
+	{
+		public String toString()
+		{
+			return null;
+		}
+	},
+	marktHinzufügen
+	{
+		public String toString()
+		{
+			return null;
+		}
 	}
+	
+	
+	
+	
+	
 	
 	
 		

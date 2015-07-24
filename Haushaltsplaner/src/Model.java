@@ -7,14 +7,26 @@ public class Model {
 	private Konto mkntKonto;
 	private Produkt mprdProdukt;
 	private Markt mmktMarkt;
+	public boolean isMboolValid() {
+		return mboolValid;
+	}
+
+
+
+
+	public void setMboolValid(boolean mboolValid) {
+		this.mboolValid = mboolValid;
+	}
+	private boolean mboolValid;
 	
-	public Model(int anzahl, Date today,Konto k,Produkt p,Markt m)
+	public Model(int anzahl, Date today,Konto k,Produkt p,Markt m, boolean v)
 	{
 		this.mintAnzahl = anzahl;
 		this.mdateDatum = today;
 		this.mkntKonto = k;
 		this.mprdProdukt =p;
 		this.mmktMarkt =m;
+		this.mboolValid = v;
 	}
 	
 
