@@ -12,7 +12,7 @@ public enum statments {
 	{
 		public String toString()
 		{
-		return "select * from Produkt p;"; //, merge me;"; //where p.P_ID = me.p_ID;";
+		return "select * from Produkt p;";
 		}
 	},
 	konto
@@ -58,5 +58,46 @@ public enum statments {
 		{
 			return "insert into Markt(name,postleitzahl,adresse,entfernung) Values(";
 		}
-	}		
+	}	,
+	
+	PreisSortierung
+	{
+		public String toString()
+		{
+			return "select p.Preis from Produkt p order by p.Preis;";
+		}
+	},
+	
+	AusgabenSortierung
+	{
+		public String toString()
+		{
+			//gesamtpreis einführen!!!
+			return "select * from Produkt p, merge me where p.P_ID = me.p_ID;";
+		}
+	},
+	
+	DatumSortierung
+	{
+		public String toString()
+		{
+			return "select * from Produkt p, merge me where p.P_ID = me.p_ID Order by me.Datum;";
+		}
+	},
+	EntfernungsSortierung
+	{
+		public String toString()
+		{
+			return "select m.entfernung,m.name from Markt m;";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

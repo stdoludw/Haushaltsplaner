@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -5,14 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import sun.security.jca.GetInstance.Instance;
-
 /*TODO
- Erstellen von unabhänigen datenbanken
- Kontstand erhöhen jeden monat
- erkennen von schon verwendeten objekten
- commiten beim beenden
- statistiken als bild
+ Kontstand erhöhen jeden monat	mit SQL
+ GUI
+ statistiken als bild (zeit, ausgaben -> zeit, produkt -> zeit->markt)
+ testdaten
  portierung auf android/php
  */
 
@@ -31,11 +29,16 @@ public class Controll {
 	private Vector<Model> mvecModel;
 	private ausgabe mausAusgabe;
 
-	void start() throws Exception {
+	public void start() throws SQLException, ClassNotFoundException  {
 
 		// abfragen der initdaten
 		mausAusgabe = new ausgabe();
-		// mausAusgabe.metaDaten();
+		
+		//neue Datenbank erstellen
+		if(mausAusgabe.metaDaten())
+		{
+		SQLNeuErstellen();
+		}
 
 		// vector inizialisieren
 		this.mvecModel = new Vector<Model>();
@@ -53,7 +56,6 @@ public class Controll {
 		 * 3306; this.mstrDatenbankName = mausAusgabe.getMstrDatenbankName();
 		 * this.mstrHostName = mausAusgabe.getMstrHostName();
 		 */
-
 		while (true) {
 			// init lader Datenbank
 			acces();
@@ -65,8 +67,11 @@ public class Controll {
 			this.mstrStatment = statments.markt.toString();
 
 			// was soll abgefragt werden
-			this.mstrStatment = mausAusgabe.choice();
+			//this.mstrStatment = mausAusgabe.choice();
 
+			//sortierte ausgabe
+			this.mstrStatment = mausAusgabe.sort();
+			
 			// wenn nicht neue werte einfügen -> vector clear
 			if (!mausAusgabe.isMboolEinlesen()) {
 				this.mvecModel.clear();
@@ -115,11 +120,14 @@ public class Controll {
 
 			// vektor clearen
 			this.mvecModel.clear();
+
+			// commiten der Datenbank
+			SQLModifizieren("commit");
 		}
 
 	}
 
-	void acces() throws Exception {
+	private void acces() throws ClassNotFoundException, SQLException  {
 
 		// Datenbanktreiber für JDBC Schnittstellen laden.
 		Class.forName("com.mysql.jdbc.Driver");
@@ -130,7 +138,7 @@ public class Controll {
 				+ mstrUserName + "&" + "password=" + mstrPasswort);
 	}
 
-	void SQLAbfrage() throws Exception {
+	private void SQLAbfrage() throws SQLException  {
 
 		// abfrage statement erstellen
 		Statement query = mconCon.createStatement();
@@ -198,14 +206,14 @@ public class Controll {
 		result.close();
 	}
 
-	void SQLModifizieren(String sql) throws Exception {
+	private void SQLModifizieren(String sql) throws SQLException {
 		// abfrage statement erstellen
 		Statement query = mconCon.createStatement();
 
-		// executeQuerry nur für selects
+		// executeQuerry nur für insert/update/alter
 		query.executeUpdate(sql);
 	}
-
+	
 	private int getNext(Model m) {
 		int max = -1;
 
@@ -231,9 +239,32 @@ public class Controll {
 			}
 			return max + 1;
 		}
-		
-		//standart return
+
+		// standart return
 		return -1;
+
+	}
+
+	private void SQLNeuErstellen() throws SQLException  {
+		System.out.println("Datenbanknamen eingeben: ");
+		
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+		String name = scanner.next();
+
+		// SQL query für ProduktTabelle
+		SQLModifizieren("create table Produkt");
+		
+		// SQL query für MarktTabelle
+		SQLModifizieren("create table Markt");
+		
+		// SQL query für MergeTabelle
+		SQLModifizieren("create table merge");
+		
+		// SQL query für KontoTabelle
+		SQLModifizieren("create table Konto");
+		
+	
 
 	}
 
