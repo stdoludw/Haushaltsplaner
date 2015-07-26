@@ -33,7 +33,8 @@ public class Controll_Main {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		GUI_Statistic test2 = new GUI_Statistic();test2.run();
+		GUI_Statistic test2 = new GUI_Statistic();
+		
 		/*
 		 * abfragen der initdaten mausAusgabe = new ausgabe();
 		 * 
