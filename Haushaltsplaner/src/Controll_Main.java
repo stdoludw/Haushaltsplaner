@@ -37,7 +37,6 @@ public class Controll_Main {
 
 		GUI_Statistic test2 = new GUI_Statistic();
 		test2.run();
-		SQLExport();
 
 		/*
 		 * abfragen der initdaten mausAusgabe = new ausgabe();
@@ -246,58 +245,46 @@ public class Controll_Main {
 
 	}
 
-	private void SQLExport() throws IOException
-	{
-		File file = new File("../Backup.sql");
-		FileOutputStream mfioStream = new FileOutputStream(file);
-		String mstrDaten = null;
-		
-		
-		for(int i =0; i<mvecModel.size();i++)
-		{
-			if(((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0)
-			{
-				mstrDaten +=((Model_Produkt) mvecModel.get(i)).SQLerstellenProdukt();
-				mstrDaten +="\n";
-			}
-			else if(((Model_Konto) mvecModel.get(i)).getMstrKnr() != "")
-			{
-				mstrDaten +=((Model_Konto) mvecModel.get(i)).SQLerstellenKonto();
-				mstrDaten +="\n";
-			}
-			else if(((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0)
-			{
-				mstrDaten +=((Model_Markt) mvecModel.get(i)).SQLerstellenMarkt();
-				mstrDaten +="\n";
-			}
-			else
-			{
-				mstrDaten +=mvecModel.get(i).SQlerstellenAll();
-				mstrDaten +="\n";
+	private void SQLExport() throws IOException {
+		FileWriter file = new FileWriter("../Backup.sql");
+		BufferedWriter mfioStream = new BufferedWriter(file);
+
+		for (int i = 0; i < mvecModel.size(); i++) {
+			if (((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0) {
+				mfioStream.write(((Model_Produkt) mvecModel.get(i))
+						.SQLerstellenProdukt());
+				mfioStream.newLine();
+			} else if (((Model_Konto) mvecModel.get(i)).getMstrKnr() != "") {
+				mfioStream.write(((Model_Konto) mvecModel.get(i))
+						.SQLerstellenKonto());
+				mfioStream.newLine();
+			} else if (((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0) {
+				mfioStream.write(((Model_Markt) mvecModel.get(i))
+						.SQLerstellenMarkt());
+				mfioStream.newLine();
+			} else {
+				mfioStream.write(mvecModel.get(i).SQlerstellenAll());
+				mfioStream.newLine();
 			}
 		}
-		
-		byte [] buff = new byte[mstrDaten.length()];
-		
-		for(int i=0;i<mstrDaten.length();i++)
-		{
-			buff[i]=(byte) mstrDaten.toCharArray()[i];
+
+		mfioStream.close();
+
+	}
+
+	private void SQLImport() throws IOException, SQLException {
+		FileReader file = new FileReader("../Backup.sql");
+		BufferedReader mfosStream = new BufferedReader(file);
+		String read = null;
+
+		while ((read = mfosStream.readLine()) != null) {
+
+			SQLModifizieren(read);
+
 		}
-		
-			
-		mfioStream.write(buff);
-		
+
+		mfosStream.close();
+
 	}
-
-	private void SQLImport() throws FileNotFoundException
-	{
-		File file = new File("../Backup.sql");
-		FileInputStream mfioStream = new FileInputStream(file);
-		String mstrDaten = null;
-		
-		
-	}
-
-
 
 }
