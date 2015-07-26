@@ -64,7 +64,7 @@ public enum Controll_Statments {
 	{
 		public String toString()
 		{
-			return "select p.Preis from Produkt p order by p.Preis;";
+			return "select p.Preis, p.name from Produkt p order by p.Preis;";
 		}
 	},
 	
@@ -72,8 +72,7 @@ public enum Controll_Statments {
 	{
 		public String toString()
 		{
-			//gesamtpreis einführen!!!
-			return "select * from Produkt p, merge me where p.P_ID = me.p_ID;";
+			return "select p.name,p.preis,me.anzahl,ROUND((p.preis * me.anzahl),2) as gesamtpreis from Produkt p, merge me where p.P_ID = me.p_ID;";
 		}
 	},
 	
@@ -104,14 +103,14 @@ public enum Controll_Statments {
 	{
 		public String toString()
 		{
-			return "create table Konto(preis float, name VARCHAR(255), gewicht INT, P_ID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(P_ID));";
+			return "create table Produkt(preis float, name VARCHAR(255), gewicht INT, P_ID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(P_ID));";
 		}
 	},
 	MarktTabelleHinzufügen
 	{
 		public String toString()
 		{
-			return "create table Konto(name VARCHAR(255), postleitzahl VARCHAR(5), adresse VARCHAR(255), entfernung INT, M_ID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(M_ID));";
+			return "create table Markt(name VARCHAR(255), postleitzahl VARCHAR(5), adresse VARCHAR(255), entfernung INT, M_ID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(M_ID));";
 		}
 	},
 	
