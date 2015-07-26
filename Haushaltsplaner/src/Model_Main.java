@@ -1,5 +1,5 @@
 
-public class Model {
+public class Model_Main {
 
 	private int mintAnzahl;
 	private String mstrDatum;
@@ -20,7 +20,7 @@ public class Model {
 		this.mboolValid = mboolValid;
 	}
 	
-	public Model(int anzahl, String today, boolean v)
+	public Model_Main(int anzahl, String today, boolean v)
 	{
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
@@ -48,7 +48,7 @@ public class Model {
 	public String SQlerstellenAll()
 	{
 		String statement;
-		statement = statments.allHinzufügen.toString() + mintAnzahl
+		statement = Controll_Statments.allHinzufügen.toString() + mintAnzahl
 				+ "," + "now()" + ","
 				+ mintIDKonto + ","
 				+ mintIDProdukt + ","

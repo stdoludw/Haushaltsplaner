@@ -1,5 +1,5 @@
 
-public enum statments {
+public enum Controll_Statments {
 	all
 	{
 		public String toString()
@@ -91,13 +91,5 @@ public enum statments {
 			return "select m.entfernung,m.name from Markt m;";
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

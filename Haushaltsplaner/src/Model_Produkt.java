@@ -1,4 +1,4 @@
-public class Produkt extends Model{
+public class Model_Produkt extends Model_Main{
 
 	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	// als String abbgebildet, da bei Zahlen mit führender Null
@@ -18,7 +18,7 @@ public class Produkt extends Model{
 		return mintID;
 	}
 
-	public Produkt(String name, int gewicht, float preis, int id) {
+	public Model_Produkt(String name, int gewicht, float preis, int id) {
 		super(0,"", true);
 
 		this.mstrName = name;
@@ -27,7 +27,7 @@ public class Produkt extends Model{
 		this.mintID = id;
 	}
 
-	public Produkt() {
+	public Model_Produkt() {
 		super(0,"", true);
 
 		this.mstrName = "";
@@ -63,7 +63,7 @@ public class Produkt extends Model{
 	public String SQLerstellenProdukt()
 	{
 		String statment;
-		statment = statments.produktHinzufügen.toString() + "\""
+		statment = Controll_Statments.produktHinzufügen.toString() + "\""
 				+ mstrName + "\"" + ","
 				+ mintGewicht + ","
 				+ mfltPreis + ");";

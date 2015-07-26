@@ -1,4 +1,4 @@
-public class Markt extends Model{
+public class Model_Markt extends Model_Main{
 
 	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	// als String abbgebildet, da bei Zahlen mit führender Null
@@ -19,7 +19,7 @@ public class Markt extends Model{
 		return mintID;
 	}
 
-	public Markt(String name, String plz, String adr, int entfernung, int id)
+	public Model_Markt(String name, String plz, String adr, int entfernung, int id)
 	{
 		super(0,"", true);
 		this.mstrName = name;
@@ -29,7 +29,7 @@ public class Markt extends Model{
 		this.mintID = id;
 	}
 	
-	public Markt()
+	public Model_Markt()
 	{
 		super(0,"", true);
 
@@ -69,7 +69,7 @@ public class Markt extends Model{
 	public String SQLerstellenMarkt()
 	{
 		String statment;
-		statment = statments.marktHinzufügen.toString() + "\""
+		statment = Controll_Statments.marktHinzufügen.toString() + "\""
 				+ mstrName + "\"" + ","
 				+ "\"" + mstrPLZ + "\"" + ","
 				+ "\"" + mstrAdr + "\"" + ","

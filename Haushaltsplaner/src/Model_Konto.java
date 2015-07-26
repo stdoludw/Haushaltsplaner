@@ -1,5 +1,5 @@
 
-public class Konto extends Model{
+public class Model_Konto extends Model_Main{
 
 	//Einige Attribut wurden entgegen ihres natürlichen Datentypes
 	//als String abbgebildet, da bei Zahlen mit führender Null 
@@ -22,7 +22,7 @@ public class Konto extends Model{
 		return mintID;
 	}
 
-	public Konto (String betrag, String name, String blz, String knr, int min, int id)
+	public Model_Konto (String betrag, String name, String blz, String knr, int min, int id)
 	{
 		super(0,"", true);
 		this.mstrBetrag = betrag;
@@ -35,7 +35,7 @@ public class Konto extends Model{
 	
 	}
 	
-	public Konto()
+	public Model_Konto()
 	{
 		super(0,"", true);
 		this.mstrBetrag = "";
@@ -82,7 +82,7 @@ public class Konto extends Model{
 	public String SQLerstellenKonto()
 	{
 		String statment;
-		statment = statments.kontoHinzufügen.toString() + "\""
+		statment = Controll_Statments.kontoHinzufügen.toString() + "\""
 				+ mstrName + "\"" + ","
 				+ "\"" + mstrBLZ + "\"" + ","
 				+ "\"" + mstrKnr + "\"" + ","
