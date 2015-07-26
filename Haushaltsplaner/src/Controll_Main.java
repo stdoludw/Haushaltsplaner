@@ -12,8 +12,6 @@ import lib.*;
 //#TODO Kontstand erhöhen jeden monat	mit SQL
 //#TODO statistiken als bild
 //#TODO canvas test
-//#TODO reinladen der Daten
-//#TODO speichern der Daten
 //#TODO observer für GUI und controll
 //#TODO portierung auf android/php
 
@@ -35,9 +33,7 @@ public class Controll_Main {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		GUI_Statistic test2 = new GUI_Statistic();
-		test2.run();
-
+		GUI_Statistic test2 = new GUI_Statistic();test2.run();
 		/*
 		 * abfragen der initdaten mausAusgabe = new ausgabe();
 		 * 
@@ -101,7 +97,7 @@ public class Controll_Main {
 		 * 
 		 * // vektor clearen this.mvecModel.clear();
 		 * 
-		 * // commiten der Datenbank SQLModifizieren("commit"); }
+		 * // commiten der Datenbank SQLModifizieren(Controll_Statments.commit); }
 		 */
 
 	}
@@ -230,18 +226,27 @@ public class Controll_Main {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String name = scanner.next();
-
+		
+		//neue Datenbank erstellen
+		SQLModifizieren(Controll_Statments.DatenbasisHinzufügen.toString()+name+";");
+		
+		//neue Datenbank benutzen
+		SQLModifizieren(Controll_Statments.DatenbasisBenutzen.toString()+name+";");
+		
 		// SQL query für ProduktTabelle
-		SQLModifizieren("create table Produkt");
+		SQLModifizieren(Controll_Statments.ProduktTabelleHinzufügen.toString());
 
 		// SQL query für MarktTabelle
-		SQLModifizieren("create table Markt");
+		SQLModifizieren(Controll_Statments.MarktTabelleHinzufügen.toString());
 
 		// SQL query für MergeTabelle
-		SQLModifizieren("create table merge");
+		SQLModifizieren(Controll_Statments.MergeTabelleHinzufügen.toString());
 
 		// SQL query für KontoTabelle
-		SQLModifizieren("create table Konto");
+		SQLModifizieren(Controll_Statments.KontoTabelleHinzufügen.toString());
+		
+		//commit
+		SQLModifizieren(Controll_Statments.commit.toString());
 
 	}
 
