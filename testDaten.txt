@@ -1,0 +1,35 @@
+insert into Produkt(name,gewicht,preis) Values("Schokolade",100,1.50);
+insert into Produkt(name,gewicht,preis) Values("Cola",1000,1.90);
+insert into Produkt(name,preis) Values("DVD",9.99);
+insert into Produkt(name,gewicht,preis) Values("Obst",1000,3);
+insert into Produkt(name,preis) Values("Blumen",2);
+insert into Produkt(name,gewicht,preis) Values("Milch",1000,1);
+insert into Produkt(name,gewicht,preis) Values("Wasser",1000,1);
+insert into Produkt(name,gewicht,preis) Values("Zucker",1000,1.50);
+insert into Produkt(name,gewicht,preis) Values("Mehl",2500,2.5);
+
+insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values("Max Mustermann",123456,7891012,999111,500);
+insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values("Thomas Müller",7891012,123456,500,10);
+
+insert into Markt(name,postleitzahl,adresse,entfernung) Values("REWE","60385","Inheitner str.",1);
+insert into Markt(name,postleitzahl,adresse,entfernung) Values("Lidl","60319","Seckbacher ldr.",3);
+insert into Markt(name,postleitzahl,adresse,entfernung) Values("Aldi","60318","Seckbacher ldr.",4);
+insert into Markt(name,postleitzahl,adresse,entfernung) Values("Penny","60439","Hanauer ldr.",8);
+insert into Markt(name,postleitzahl,adresse,entfernung) Values("Metro","60383","Hanauer ldr.",2);
+
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),1,1,1);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,2);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),3,2,6);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),1,2,1);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),4,1,5);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),4,2,4);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),2,2,3);
+
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),2,1,8);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),3,1,4);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),1,2,6);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),4,2,5);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,4);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(5,now(),1,2,3);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),3,2,1);
+insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),4,2,7);
