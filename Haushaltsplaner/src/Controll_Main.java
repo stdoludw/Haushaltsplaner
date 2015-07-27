@@ -18,7 +18,7 @@ import lib.*;
 public class Controll_Main {
 
 	// verbindung mit Datenbank
-	private String mstrUserName;
+	private String mstrUserName;test
 	private String mstrPasswort;
 	private Connection mconCon;
 	private int mintPort;
