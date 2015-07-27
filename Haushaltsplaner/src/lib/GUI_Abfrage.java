@@ -14,7 +14,7 @@ import javax.swing.UIManager;
 @SuppressWarnings("serial")
 public class GUI_Abfrage extends JFrame {
 
-	private JPanel contentPane;test
+	private JPanel contentPane;
 	private JPasswordField mtxtMeta_passwort;
 	private TextField mtxtMeta_Username;
 	private TextField mtxtMeta_DatenabnkServer;

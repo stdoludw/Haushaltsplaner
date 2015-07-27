@@ -33,7 +33,7 @@ public class Controll_Main {
 			IOException {
 
 		// abfragen der initdaten mausAusgabe = new ausgabe();
-
+/*
 		// neue Datenbank erstellen
 		if (mausAusgabe.metaDaten()) {
 			SQLNeuErstellen();
@@ -52,7 +52,7 @@ public class Controll_Main {
 			// neue werte in Datenbank schreiben
 			exit();
 		}
-
+*/
 	}
 
 	private void acces() throws ClassNotFoundException, SQLException {
@@ -129,7 +129,7 @@ public class Controll_Main {
 			}
 
 		}
-		mausAusgabe.setMvecModel(mvecModel);
+		//mausAusgabe.setMvecModel(mvecModel);
 
 		// scließen des streams
 		result.close();
