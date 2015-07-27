@@ -28,78 +28,30 @@ public class Controll_Main {
 
 	// Instanzen von M und V
 	private Vector<Model_Main> mvecModel;
-	private ausgabe mausAusgabe;
 
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		GUI_Statistic test2 = new GUI_Statistic();
-		
-		/*
-		 * abfragen der initdaten mausAusgabe = new ausgabe();
-		 * 
-		 * //neue Datenbank erstellen if(mausAusgabe.metaDaten()) {
-		 * SQLNeuErstellen(); }
-		 * 
-		 * // vector inizialisieren this.mvecModel = new Vector<Model_Main>();
-		 * this.mstrPasswort = "dlu"; this.mstrUserName = "dlu"; this.mconCon =
-		 * null; this.mintPort = 3306; this.mstrDatenbankName =
-		 * "HausHaltsPlaner_Database"; this.mstrHostName = "dfch-ludwig.de";
-		 * 
-		 * // Daten aus masuAusgabe in this schreiben /* this.mstrPasswort =
-		 * mausAusgabe.getMstrPasswort(); this.mstrUserName =
-		 * mausAusgabe.getMstrUserName(); this.mconCon = null; this.mintPort =
-		 * 3306; this.mstrDatenbankName = mausAusgabe.getMstrDatenbankName();
-		 * this.mstrHostName = mausAusgabe.getMstrHostName();
-		 */
-		/*
-		 * while (true) { // init lader Datenbank acces();
-		 * 
-		 * // init abfrage der Daten SQLAbfrage(); this.mstrStatment =
-		 * Controll_Statments.produkt.toString(); this.mstrStatment =
-		 * Controll_Statments.konto.toString(); this.mstrStatment =
-		 * Controll_Statments.markt.toString();
-		 * 
-		 * // was soll abgefragt werden //this.mstrStatment =
-		 * mausAusgabe.choice();
-		 * 
-		 * //sortierte ausgabe this.mstrStatment = mausAusgabe.sort();
-		 * 
-		 * // wenn nicht neue werte einfügen -> vector clear if
-		 * (!mausAusgabe.isMboolEinlesen()) { this.mvecModel.clear(); } //
-		 * updaten des vectors local else { this.mvecModel.clear();
-		 * this.mvecModel = mausAusgabe.getMvecModel(); }
-		 * 
-		 * // Datenbank befragen SQLAbfrage();
-		 * 
-		 * // ausgabe der gefundenen Werte mausAusgabe.print(mstrStatment);
-		 * 
-		 * // neue werte in Datenbank schreiben for (int i = 0; i <
-		 * mvecModel.size(); i++) { // screiben wenn nicht valid if
-		 * (!mvecModel.get(i).isMboolValid()) { // erstellen der IDs if
-		 * (((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0) {
-		 * ((Model_Produkt) mvecModel.get(i)) .setMintID(getNext(new
-		 * Model_Produkt())); SQLModifizieren(((Model_Produkt) mvecModel.get(i))
-		 * .SQLerstellenProdukt()); } else if (((Model_Konto)
-		 * mvecModel.get(i)).getMstrKnr() != "") { ((Model_Konto)
-		 * mvecModel.get(i)) .setMintID(getNext(new Model_Konto()));
-		 * SQLModifizieren(((Model_Konto) mvecModel.get(i))
-		 * .SQLerstellenKonto());
-		 * 
-		 * } else if (((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0)
-		 * { ((Model_Markt) mvecModel.get(i)) .setMintID(getNext(new
-		 * Model_Markt())); SQLModifizieren(((Model_Markt) mvecModel.get(i))
-		 * .SQLerstellenMarkt());
-		 * 
-		 * } else { // immer zuletzt ausführen
-		 * SQLModifizieren(mvecModel.get(i).SQlerstellenAll()); }
-		 * 
-		 * } }
-		 * 
-		 * // vektor clearen this.mvecModel.clear();
-		 * 
-		 * // commiten der Datenbank SQLModifizieren(Controll_Statments.commit); }
-		 */
+		// abfragen der initdaten mausAusgabe = new ausgabe();
+
+		// neue Datenbank erstellen
+		if (mausAusgabe.metaDaten()) {
+			SQLNeuErstellen();
+		}
+
+		// vector inizialisieren
+		this.mvecModel = new Vector<Model_Main>();
+
+		while (true) { // init lader Datenbank acces();
+
+			// init abfrage der Daten SQLAbfrage(); this.mstrStatment =
+			Controll_Statments.produkt.toString();
+			this.mstrStatment = Controll_Statments.konto.toString();
+			this.mstrStatment = Controll_Statments.markt.toString();
+
+			// neue werte in Datenbank schreiben
+			exit();
+		}
 
 	}
 
@@ -129,7 +81,8 @@ public class Controll_Main {
 		// speichern in Klasse
 		while (result.next()) {
 
-			if (sql == Controll_Statments.all.toString()) {
+			if (sql == Controll_Statments.all.toString() + this.mstrUserName
+					+ ");") {
 				Model_Konto k = new Model_Konto(result.getString("k.betrag"),
 						result.getString("k.name"),
 						result.getString("k.bankleitzahl"),
@@ -142,8 +95,8 @@ public class Controll_Main {
 						result.getString("m.postleitzahl"),
 						result.getString("m.adresse"),
 						result.getInt("m.entfernung"), result.getInt("m.M_ID"));
-				Model_Main me = new Model_Main(result.getInt("me.anzahl"),
-						result.getString("me.datum"), true);
+				Model_Main me = new Model_Main(result.getInt("ein.anzahl"),
+						result.getString("ein.datum"), true);
 
 				// verknüpfung reaisieren
 				me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());
@@ -227,13 +180,15 @@ public class Controll_Main {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String name = scanner.next();
-		
-		//neue Datenbank erstellen
-		SQLModifizieren(Controll_Statments.DatenbasisHinzufügen.toString()+name+";");
-		
-		//neue Datenbank benutzen
-		SQLModifizieren(Controll_Statments.DatenbasisBenutzen.toString()+name+";");
-		
+
+		// neue Datenbank erstellen
+		SQLModifizieren(Controll_Statments.DatenbasisHinzufügen.toString()
+				+ name + ";");
+
+		// neue Datenbank benutzen
+		SQLModifizieren(Controll_Statments.DatenbasisBenutzen.toString() + name
+				+ ";");
+
 		// SQL query für ProduktTabelle
 		SQLModifizieren(Controll_Statments.ProduktTabelleHinzufügen.toString());
 
@@ -241,12 +196,12 @@ public class Controll_Main {
 		SQLModifizieren(Controll_Statments.MarktTabelleHinzufügen.toString());
 
 		// SQL query für MergeTabelle
-		SQLModifizieren(Controll_Statments.MergeTabelleHinzufügen.toString());
+		SQLModifizieren(Controll_Statments.EinkaufTabelleHinzufügen.toString());
 
 		// SQL query für KontoTabelle
 		SQLModifizieren(Controll_Statments.KontoTabelleHinzufügen.toString());
-		
-		//commit
+
+		// commit
 		SQLModifizieren(Controll_Statments.commit.toString());
 
 	}
@@ -291,6 +246,42 @@ public class Controll_Main {
 
 		mfosStream.close();
 
+	}
+
+	private void exit() throws SQLException {
+		for (int i = 0; i < mvecModel.size(); i++) {
+			// screiben wenn nicht valid if
+			if (!mvecModel.get(i).isMboolValid()) { // erstellen der IDs
+				if (((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0) {
+					((Model_Produkt) mvecModel.get(i))
+							.setMintID(getNext(new Model_Produkt()));
+					SQLModifizieren(((Model_Produkt) mvecModel.get(i))
+							.SQLerstellenProdukt());
+				} else if (((Model_Konto) mvecModel.get(i)).getMstrKnr() != "") {
+					((Model_Konto) mvecModel.get(i))
+							.setMintID(getNext(new Model_Konto()));
+					SQLModifizieren(((Model_Konto) mvecModel.get(i))
+							.SQLerstellenKonto());
+
+				} else if (((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0) {
+					((Model_Markt) mvecModel.get(i))
+							.setMintID(getNext(new Model_Markt()));
+					SQLModifizieren(((Model_Markt) mvecModel.get(i))
+							.SQLerstellenMarkt());
+
+				} else {
+					// immer zuletzt ausführen
+					SQLModifizieren(mvecModel.get(i).SQlerstellenAll());
+				}
+
+			}
+		}
+
+		// vektor clearen
+		this.mvecModel.clear();
+
+		// commiten der Datenbank
+		SQLModifizieren(Controll_Statments.commit.toString());
 	}
 
 }
