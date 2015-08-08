@@ -23,7 +23,6 @@ public class GUI_Main extends JFrame {
 	private JSlider msldPreis;
 	private JSlider msldDatum;
 	private JSlider msldMarkt;
-	private JComboBox<?> mcmbBox;
 	private JMenu Speichern;
 	private JMenuItem mmenExportiern;
 	private JMenuItem mmenLaden;
@@ -109,10 +108,6 @@ public class GUI_Main extends JFrame {
 		msldAnzahl.setBounds(224, 98, 200, 16);
 		contentPane.add(msldAnzahl);
 
-		mcmbBox = new JComboBox<Object>();
-		mcmbBox.setBounds(126, 126, 174, 19);
-		contentPane.add(mcmbBox);
-
 		Label label = new Label("Preis");
 		label.setBounds(12, 31, 68, 21);
 		contentPane.add(label);
@@ -154,9 +149,7 @@ public class GUI_Main extends JFrame {
 		return msldMarkt;
 	}
 
-	public JComboBox<?> getMcmbBox() {
-		return mcmbBox;
-	}
+	
 
 	public JMenuItem getMmenExportiern() {
 		return mmenExportiern;
