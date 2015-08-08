@@ -18,7 +18,7 @@ import lib.*;
 public class Controll_Main {
 
 	// verbindung mit Datenbank
-	private String mstrUserName;test
+	private String mstrUserName;
 	private String mstrPasswort;
 	private Connection mconCon;
 	private int mintPort;
@@ -32,27 +32,7 @@ public class Controll_Main {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		// abfragen der initdaten mausAusgabe = new ausgabe();
-/*
-		// neue Datenbank erstellen
-		if (mausAusgabe.metaDaten()) {
-			SQLNeuErstellen();
-		}
 
-		// vector inizialisieren
-		this.mvecModel = new Vector<Model_Main>();
-
-		while (true) { // init lader Datenbank acces();
-
-			// init abfrage der Daten SQLAbfrage(); this.mstrStatment =
-			Controll_Statments.produkt.toString();
-			this.mstrStatment = Controll_Statments.konto.toString();
-			this.mstrStatment = Controll_Statments.markt.toString();
-
-			// neue werte in Datenbank schreiben
-			exit();
-		}
-*/
 	}
 
 	private void acces() throws ClassNotFoundException, SQLException {
