@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JSlider;
-import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import java.awt.Label;
 
@@ -20,6 +19,8 @@ public class GUI_Main extends JFrame {
 	private JSlider msldAnzahl;
 	private JMenuItem mmenStatistik;
 	private JTextArea textArea;
+	
+
 	private JSlider msldPreis;
 	private JSlider msldDatum;
 	private JSlider msldMarkt;
@@ -38,6 +39,8 @@ public class GUI_Main extends JFrame {
 
 	public void run() {
 
+		this.repaint();
+		
 		this.setVisible(true);
 
 	}
@@ -149,8 +152,6 @@ public class GUI_Main extends JFrame {
 		return msldMarkt;
 	}
 
-	
-
 	public JMenuItem getMmenExportiern() {
 		return mmenExportiern;
 	}
@@ -161,5 +162,10 @@ public class GUI_Main extends JFrame {
 
 	public JMenuItem getMntmAll() {
 		return mntmAll;
+	}
+	
+	public void setTextArea(String textAreaContent) {
+		textArea.setText("");
+		textArea.setText(textAreaContent);
 	}
 }

@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-import javax.swing.JButton;
-
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -21,17 +19,15 @@ public class Controll_Main implements ActionListener {
 	private int mintPort;
 	private String mstrDatenbankName;
 	private String mstrHostName;
-	private String mstrStatment;
 
 	// Instanzen von M und V
-	private Vector<Model_Main> mvecModel;
+	private Vector<Model_Main> mvecModel = new Vector<Model_Main>();
 	private GUI_Main mguiMain = new GUI_Main();
 	private GUI_Abfrage mguiAbfrage = new GUI_Abfrage();
 	private GUI_Hinzufuegen mguiHinzufuegen = new GUI_Hinzufuegen();
 
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
-
 		mguiAbfrage.getMbntErstellen().addActionListener(this);
 		mguiAbfrage.getMbtnLogin().addActionListener(this);
 
@@ -53,209 +49,186 @@ public class Controll_Main implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 
 		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
+			
+			//auslesen der db Informationen
 			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
 			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
 			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
 					.getText();
 			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
 			mintPort = 3306;
+			
+			mguiMain.run();
 
 			try {
 				acces();
+				
+				//Daten auslesen
+				SQLAbfrage(Controll_Statments.all.toString());
+				SQLAbfrage(Controll_Statments.konto.toString());
+				SQLAbfrage(Controll_Statments.markt.toString());
+				SQLAbfrage(Controll_Statments.produkt.toString());
+
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-			mguiMain.run();
-
-			while (true) {
-				if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL) {
-					// m_ID,k_ID,p_ID,u_ID
-					try {
-						SQLModifizieren(Controll_Statments.allHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtAlles_Anzahl()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtAlles_Datum()
-										.getText() + ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENKONTO) {
-					try {
-						SQLModifizieren(Controll_Statments.kontoHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtKonto_name().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Blz().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_kontonummer()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Betrag()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Min().getText()
-								+ ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENMARKT) {
-					try {
-						SQLModifizieren(Controll_Statments.marktHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtMarkt_Name().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Plz().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Adresse()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Entfernung()
-								+ ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENPRODUKT) {
-					try {
-						SQLModifizieren(Controll_Statments.produktHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtProdukt_Name()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtProdukt_Gewicht()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtProdukt_Preis()
-										.getText() + ");");
-						SQLAbfrage();
-
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiMain.EXPORT) {
-					try {
-						SQLExport();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiMain.LADEN) {
-					try {
-						SQLImport();
-					} catch (IOException | SQLException e) {
-						e.printStackTrace();
-					}
+			
+			//füllen der anzeige box
+			String mstrContent = null;
+			for(int i=0;i<mvecModel.size();i++){
+				if(mvecModel.get(i) instanceof Model_Produkt)
+				{
+					mstrContent += "Name\tGewicht\tPreis\n";
+					mstrContent += ((Model_Produkt) mvecModel.get(i)).print()+"\n";
 				}
+				else if(mvecModel.get(i) instanceof Model_Konto)	
+				{
+					mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
+					mstrContent += ((Model_Konto) mvecModel.get(i)).print()+"\n";
 
+				}
+				else if(mvecModel.get(i) instanceof Model_Markt)
+				{
+					mstrContent+="Name\tPostLeitZahl\tAdresse\tEntfernung\n";
+					mstrContent += ((Model_Markt) mvecModel.get(i)).print()+"\n";
+	
+				}
+				else
+				{
+					mstrContent+="Anzahl\tDatum\n";
+					mstrContent += mvecModel.get(i).print()+"\n";
+
+				}
 			}
+			
+			//Hauptgui starten
+			mguiMain.run();
+			
+			//füllen der GUI
+			mguiMain.setTextArea(mstrContent);
+			
+			//ablaufplan
+			ablauf(ae);
+			
+			
+		
 
-		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
+		}
+		else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
 			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
 			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
 			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
 					.getText();
 			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
 			mintPort = 3306;
+			
+			//kuerzel als wiedererkennung erstellen
 			String kuerzel = null;
-
 			for (int i = 0; i < 3; i++) {
 				kuerzel += mstrUserName.toCharArray()[i];
 			}
-			;
-
+			
+			//!!Neuen user einrichten mit grant auch berechtigungen setzen
+			
 			try {
 				SQLNeuErstellen(kuerzel);
-			} catch (SQLException e) {
+				acces();
+				
+				//Daten auslesen
+				SQLAbfrage(Controll_Statments.all.toString());
+				SQLAbfrage(Controll_Statments.konto.toString());
+				SQLAbfrage(Controll_Statments.markt.toString());
+				SQLAbfrage(Controll_Statments.produkt.toString());
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 
 			mguiMain.run();
+			ablauf(ae);
+			
+		}
+	}
 
-			while (true) {
-				if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL) {
-					// m_ID,k_ID,p_ID,u_ID
-					try {
-						SQLModifizieren(Controll_Statments.allHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtAlles_Anzahl()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtAlles_Datum()
-										.getText() + ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENKONTO) {
-					try {
-						SQLModifizieren(Controll_Statments.kontoHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtKonto_name().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Blz().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_kontonummer()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Betrag()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtKonto_Min().getText()
-								+ ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENMARKT) {
-					try {
-						SQLModifizieren(Controll_Statments.marktHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtMarkt_Name().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Plz().getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Adresse()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtMarkt_Entfernung()
-								+ ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENPRODUKT) {
-					try {
-						SQLModifizieren(Controll_Statments.produktHinzufügen
-								.toString()
-								+ mguiHinzufuegen.getMtxtProdukt_Name()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtProdukt_Gewicht()
-										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtProdukt_Preis()
-										.getText() + ");");
-						SQLAbfrage();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiMain.EXPORT) {
-					try {
-						SQLExport();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else if (ae.getActionCommand() == mguiMain.LADEN) {
-					try {
-						SQLImport();
-					} catch (IOException | SQLException e) {
-						e.printStackTrace();
-					}
+	private void ablauf(ActionEvent ae) {
+
+		while (true) {
+			if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL) {
+				// m_ID,k_ID,p_ID,u_ID
+				try {
+					SQLModifizieren(Controll_Statments.allHinzufügen.toString()
+							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtAlles_Datum().getText()
+							+ ");");
+					SQLAbfrage(Controll_Statments.all.toString());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENKONTO) {
+				try {
+					SQLModifizieren(Controll_Statments.kontoHinzufügen
+							.toString()
+							+ mguiHinzufuegen.getMtxtKonto_name().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtKonto_Blz().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtKonto_kontonummer()
+									.getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtKonto_Betrag().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtKonto_Min().getText()
+							+ ");");
+					SQLAbfrage(Controll_Statments.konto.toString());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENMARKT) {
+				try {
+					SQLModifizieren(Controll_Statments.marktHinzufügen
+							.toString()
+							+ mguiHinzufuegen.getMtxtMarkt_Name().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtMarkt_Plz().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtMarkt_Entfernung()
+							+ ");");
+					SQLAbfrage(Controll_Statments.markt.toString());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENPRODUKT) {
+				try {
+					SQLModifizieren(Controll_Statments.produktHinzufügen
+							.toString()
+							+ mguiHinzufuegen.getMtxtProdukt_Name().getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtProdukt_Gewicht()
+									.getText()
+							+ ","
+							+ mguiHinzufuegen.getMtxtProdukt_Preis().getText()
+							+ ");");
+					SQLAbfrage(Controll_Statments.produkt.toString());
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (ae.getActionCommand() == mguiMain.EXPORT) {
+				try {
+					SQLExport();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (ae.getActionCommand() == mguiMain.LADEN) {
+				try {
+					SQLImport();
+				} catch (IOException | SQLException e) {
+					e.printStackTrace();
 				}
 			}
+
 		}
 	}
 
@@ -269,19 +242,14 @@ public class Controll_Main implements ActionListener {
 				+ ":" + mintPort + "/" + mstrDatenbankName + "?" + "user="
 				+ mstrUserName + "&" + "password=" + mstrPasswort);
 
-		SQLAbfrage();
 	}
 
-	private void SQLAbfrage() throws SQLException {
-
-		// vector clearen
-		mvecModel.clear();
+	private void SQLAbfrage(String sql) throws SQLException {
 
 		// abfrage statement erstellen
 		Statement query = mconCon.createStatement();
 
 		// Query bearbeiten
-		String sql = mstrStatment;
 		ResultSet result = null;
 
 		// executeQuerry nur für selects
@@ -290,22 +258,21 @@ public class Controll_Main implements ActionListener {
 		// speichern in Klasse
 		while (result.next()) {
 
-			if (sql == Controll_Statments.all.toString() + this.mstrUserName
-					+ ");") {
-				Model_Konto k = new Model_Konto(result.getString("k.betrag"),
-						result.getString("k.name"),
-						result.getString("k.bankleitzahl"),
-						result.getString("k.kontonummer"),
-						result.getInt("k.minimum"), result.getInt("k.K_ID"));
-				Model_Produkt p = new Model_Produkt(result.getString("p.name"),
-						result.getInt("p.gewicht"), result.getFloat("p.preis"),
-						result.getInt("p.P_ID"));
-				Model_Markt m = new Model_Markt(result.getString("m.name"),
-						result.getString("m.postleitzahl"),
-						result.getString("m.adresse"),
-						result.getInt("m.entfernung"), result.getInt("m.M_ID"));
-				Model_Main me = new Model_Main(result.getInt("ein.anzahl"),
-						result.getString("ein.datum"), true);
+			if (sql == Controll_Statments.all.toString()) {
+				Model_Konto k = new Model_Konto(result.getString("betrag"),
+						result.getString("Kontoinhaber"),
+						result.getString("bankleitzahl"),
+						result.getString("kontonummer"),
+						result.getInt("minimum"), result.getInt("K_ID"));
+				Model_Produkt p = new Model_Produkt(result.getString("Produktname"),
+						result.getInt("gewicht"), result.getFloat("preis"),
+						result.getInt("P_ID"));
+				Model_Markt m = new Model_Markt(result.getString("Marktname"),
+						result.getString("postleitzahl"),
+						result.getString("adresse"),
+						result.getInt("entfernung"), result.getInt("M_ID"));
+				Model_Main me = new Model_Main(result.getInt("anzahl"),
+						result.getString("datum"), true);
 
 				// verknüpfung reaisieren
 				me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());
@@ -403,9 +370,6 @@ public class Controll_Main implements ActionListener {
 
 		mfosStream.close();
 
-	}
-
-	private void exit() throws SQLException {
 	}
 
 }

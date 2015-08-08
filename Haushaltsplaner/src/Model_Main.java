@@ -57,5 +57,10 @@ public class Model_Main {
 	
 	}
 	
+	public String print()
+	{
+		return mintAnzahl+ "\t" + mstrDatum + "\t";
+	}
+	
 	
 }

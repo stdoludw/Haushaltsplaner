@@ -14,8 +14,7 @@ public enum Controll_Statments {
 	},
 	konto {
 		public String toString() {
-			// user einfügen
-			return "select * from Konto k where k.u_ID =";
+			return "select * from Konto k;";
 		}
 	},
 	markt {

@@ -78,4 +78,8 @@ public class Model_Markt extends Model_Main{
 		return statment;
 	}
 	
+	public String print()
+	{
+		return mstrName+"\t"+ mstrPLZ+"\t"+ mstrAdr+"\t"+ mintEntfernung;
+	}
 }

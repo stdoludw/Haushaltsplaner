@@ -7,10 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import java.awt.Label;
-
-import javax.swing.JList;
 import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")

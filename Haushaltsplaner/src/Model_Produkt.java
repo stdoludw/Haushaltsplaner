@@ -72,4 +72,9 @@ public class Model_Produkt extends Model_Main{
 
 	}
 	
+	public String print()
+	{
+	return  mstrName + "\t" + mintGewicht + "\t"+ mfltPreis;
+	}
+	
 }
