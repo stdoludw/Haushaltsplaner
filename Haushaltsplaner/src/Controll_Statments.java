@@ -73,33 +73,28 @@ public enum Controll_Statments {
 			return "select * from SortEntfernung;";
 		}
 	},
-
-	NeuHinzufügen
-	{
-		@SuppressWarnings("null")
-		public Vector<String> toString(String kuerzel)
-		{
-			Vector<String> mstrAttNew = null;
-			mstrAttNew.add("create database HausHaltsPlaner_"+kuerzel+";");
-			mstrAttNew.add("use HausHaltsPlaner_"+kuerzel+";");
-			mstrAttNew.add("create table Einkauf like Master.Einkauf;");
-			mstrAttNew.add("create table Konto like Master.Konto;");
-			mstrAttNew.add("create table Markt like Master.Markt;");
-			mstrAttNew.add("create table Produkt like Master.Produkt;");
-			mstrAttNew.add("create view ViewAll as select * from Master.ViewAll;");
-			mstrAttNew.add("create view SortAusgaben as select * from Master.SortAusgaben;");
-			mstrAttNew.add("create view SortDatum as select * from Master.SortDatum;");
-			mstrAttNew.add("create view SortEntfernung as select * from master.SortEntfernung;");
-			mstrAttNew.add("create view SortPreis as select * from Master.SortPreis;");
-			
-			return mstrAttNew;
-		}
-	},
 	commit {
 		public String toString() {
 			return "commit";
 		}
-	},
+	},;
+
+	public static Vector<String> toExtendString(String kuerzel) {
+		Vector<String> mstrAttNew = null;
+		mstrAttNew.add("create database HausHaltsPlaner_"+kuerzel+";");
+		mstrAttNew.add("use HausHaltsPlaner_"+kuerzel+";");
+		mstrAttNew.add("create table Einkauf like Master.Einkauf;");
+		mstrAttNew.add("create table Konto like Master.Konto;");
+		mstrAttNew.add("create table Markt like Master.Markt;");
+		mstrAttNew.add("create table Produkt like Master.Produkt;");
+		mstrAttNew.add("create view ViewAll as select * from Master.ViewAll;");
+		mstrAttNew.add("create view SortAusgaben as select * from Master.SortAusgaben;");
+		mstrAttNew.add("create view SortDatum as select * from Master.SortDatum;");
+		mstrAttNew.add("create view SortEntfernung as select * from master.SortEntfernung;");
+		mstrAttNew.add("create view SortPreis as select * from Master.SortPreis;");
+		
+		return mstrAttNew;
+	}
 
 
 }

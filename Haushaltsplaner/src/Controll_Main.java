@@ -1,21 +1,16 @@
-import java.util.Scanner;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
 import lib.*;
 
-//#TODO Kontstand erhöhen jeden monat	mit SQL
-//#TODO statistiken als bild
-//#TODO canvas test
-//#TODO observer für GUI und controll
-//#TODO portierung auf android/php
-
-public class Controll_Main {
+public class Controll_Main implements ActionListener {
 
 	// verbindung mit Datenbank
 	private String mstrUserName;
@@ -32,9 +27,26 @@ public class Controll_Main {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-
+		GUI_Main z = new GUI_Main();
+		z.getMntmAll().addActionListener(this);
+		
+		z.run();
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+	
+		switch(ae.getActionCommand()){
+		case "Hinzufuegen":
+			System.out.println("halloo");break;
+		default:
+			
+		}
+		
+	}
+	
+	
+	
 	private void acces() throws ClassNotFoundException, SQLException {
 
 		// Datenbanktreiber für JDBC Schnittstellen laden.
@@ -123,66 +135,16 @@ public class Controll_Main {
 		query.executeUpdate(sql);
 	}
 
-	private int getNext(Model_Main m) {
-		int max = -1;
-
-		if (m instanceof Model_Produkt) {
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (((Model_Produkt) mvecModel.get(i)).getMintID() > max) {
-					max = ((Model_Produkt) mvecModel.get(i)).getMintID();
-				}
-			}
-			return max + 1;
-		} else if (m instanceof Model_Konto) {
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (((Model_Konto) mvecModel.get(i)).getMintID() > max) {
-					max = ((Model_Konto) mvecModel.get(i)).getMintID();
-				}
-			}
-			return max + 1;
-		} else if (m instanceof Model_Markt) {
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (((Model_Markt) mvecModel.get(i)).getMintID() > max) {
-					max = ((Model_Markt) mvecModel.get(i)).getMintID();
-				}
-			}
-			return max + 1;
-		}
-
-		// standart return
-		return -1;
-
-	}
-
-	private void SQLNeuErstellen() throws SQLException {
-		System.out.println("Datenbanknamen eingeben: ");
-
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		String name = scanner.next();
-
+	private void SQLNeuErstellen(String kuerzel) throws SQLException {
+		
 		// neue Datenbank erstellen
-		SQLModifizieren(Controll_Statments.DatenbasisHinzufügen.toString()
-				+ name + ";");
-
-		// neue Datenbank benutzen
-		SQLModifizieren(Controll_Statments.DatenbasisBenutzen.toString() + name
-				+ ";");
-
-		// SQL query für ProduktTabelle
-		SQLModifizieren(Controll_Statments.ProduktTabelleHinzufügen.toString());
-
-		// SQL query für MarktTabelle
-		SQLModifizieren(Controll_Statments.MarktTabelleHinzufügen.toString());
-
-		// SQL query für MergeTabelle
-		SQLModifizieren(Controll_Statments.EinkaufTabelleHinzufügen.toString());
-
-		// SQL query für KontoTabelle
-		SQLModifizieren(Controll_Statments.KontoTabelleHinzufügen.toString());
-
-		// commit
-		SQLModifizieren(Controll_Statments.commit.toString());
+		Vector<String> mvecMod = Controll_Statments.toExtendString(kuerzel);
+		mvecMod.add(Controll_Statments.commit.toString());
+		
+		for(int i=0;i<mvecMod.size();i++)
+		{
+			SQLModifizieren(mvecMod.get(i));
+		}
 
 	}
 
@@ -229,39 +191,6 @@ public class Controll_Main {
 	}
 
 	private void exit() throws SQLException {
-		for (int i = 0; i < mvecModel.size(); i++) {
-			// screiben wenn nicht valid if
-			if (!mvecModel.get(i).isMboolValid()) { // erstellen der IDs
-				if (((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0) {
-					((Model_Produkt) mvecModel.get(i))
-							.setMintID(getNext(new Model_Produkt()));
-					SQLModifizieren(((Model_Produkt) mvecModel.get(i))
-							.SQLerstellenProdukt());
-				} else if (((Model_Konto) mvecModel.get(i)).getMstrKnr() != "") {
-					((Model_Konto) mvecModel.get(i))
-							.setMintID(getNext(new Model_Konto()));
-					SQLModifizieren(((Model_Konto) mvecModel.get(i))
-							.SQLerstellenKonto());
-
-				} else if (((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0) {
-					((Model_Markt) mvecModel.get(i))
-							.setMintID(getNext(new Model_Markt()));
-					SQLModifizieren(((Model_Markt) mvecModel.get(i))
-							.SQLerstellenMarkt());
-
-				} else {
-					// immer zuletzt ausführen
-					SQLModifizieren(mvecModel.get(i).SQlerstellenAll());
-				}
-
-			}
-		}
-
-		// vektor clearen
-		this.mvecModel.clear();
-
-		// commiten der Datenbank
-		SQLModifizieren(Controll_Statments.commit.toString());
 	}
 
 }
