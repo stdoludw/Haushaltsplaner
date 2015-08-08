@@ -65,22 +65,51 @@ public class Controll_Main implements ActionListener {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
+				mguiMain.run();
+				
+				while(true)
+				{
+					if(ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL)
+					{
+						
+					}
+					else if(ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENKONTO)
+					{
+						
+					}
+					else if(ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENMARKT)
+					{
+						
+					}
+					else if(ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENPRODUKT)
+					{
+						
+					}
+				
+				}
+			
 		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
 			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
 			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
-			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName().getText();
+			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
+					.getText();
 			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
 			mintPort = 3306;
 			String kuerzel = null;
-			
-			for(int i=0;i<3;i++)
-			{kuerzel+=mstrUserName.toCharArray()[i];};
-			
+
+			for (int i = 0; i < 3; i++) {
+				kuerzel += mstrUserName.toCharArray()[i];
+			}
+			;
+
 			try {
 				SQLNeuErstellen(kuerzel);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+
+			mguiMain.run();
+
 		}
 
 	}
@@ -94,6 +123,8 @@ public class Controll_Main implements ActionListener {
 		mconCon = DriverManager.getConnection("jdbc:mysql://" + mstrHostName
 				+ ":" + mintPort + "/" + mstrDatenbankName + "?" + "user="
 				+ mstrUserName + "&" + "password=" + mstrPasswort);
+
+		SQLAbfrage();
 	}
 
 	private void SQLAbfrage() throws SQLException {

@@ -23,7 +23,6 @@ public class GUI_Abfrage extends JFrame {
 	private TextField mtxtMeta_DatenabnkName;
 	private JButton mbntErstellen;
 	private JButton mbtnLogin;
-	private TextField mtxtMeta_ID;
 	
 	public static final String LOGIN = "Login";
 	public static final String ERSTELLEN = "Erstellen";
@@ -54,10 +53,6 @@ public class GUI_Abfrage extends JFrame {
 		return mbtnLogin;
 	}
 
-	public TextField getMtxtMeta_ID() {
-		return mtxtMeta_ID;
-	}
-
 	
 	public void run() {
 		this.setVisible(true);
@@ -66,7 +61,7 @@ public class GUI_Abfrage extends JFrame {
 	public GUI_Abfrage() {
 		setBackground(UIManager.getColor("ComboBox.buttonShadow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 321);
+		setBounds(100, 100, 450, 297);
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("ComboBox.buttonHighlight"));
@@ -75,7 +70,7 @@ public class GUI_Abfrage extends JFrame {
 		contentPane.setLayout(null);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 223, 417, 14);
+		separator.setBounds(12, 206, 417, 14);
 		contentPane.add(separator);
 		
 		mtxtMeta_passwort = new JPasswordField();
@@ -115,21 +110,13 @@ public class GUI_Abfrage extends JFrame {
 		contentPane.add(lblHaushaltsplanerV);
 		
 		mbntErstellen = new JButton("Neue erstellen");
-		mbntErstellen.setBounds(58, 249, 158, 25);
+		mbntErstellen.setBounds(58, 221, 158, 25);
 		contentPane.add(mbntErstellen);
 		mbntErstellen.setActionCommand(ERSTELLEN);
 		
 		mbtnLogin = new JButton("login");
-		mbtnLogin.setBounds(231, 249, 172, 25);
+		mbtnLogin.setBounds(231, 221, 172, 25);
 		contentPane.add(mbtnLogin);
 		mbtnLogin.setActionCommand(LOGIN);
-		
-		Label ID = new Label("ID:");
-		ID.setBounds(37, 175, 116, 21);
-		contentPane.add(ID);
-		
-		mtxtMeta_ID = new TextField();
-		mtxtMeta_ID.setBounds(184, 177, 219, 19);
-		contentPane.add(mtxtMeta_ID);
 	}
 }
