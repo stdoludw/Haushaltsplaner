@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.Label;
+
 import javax.swing.JList;
 import javax.swing.JComboBox;
 
@@ -38,10 +39,101 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JComboBox mcmbMarkt;
 	private JComboBox mcmbKonto;
 	
+	public static final String HINZUFUEGENPRODUKT = "HinzufuegenProdukt";
+	public static final String HINZUFUEGENKONTO = "HinzufuegenKonto";
+	public static final String HINZUFUEGENMARKT = "HinzufuegenMarkt";
+	public static final String HINZUFUEGENALL = "HinzufuegenAll";
+	
+
+	public JTextField getMtxtProdukt_Name() {
+		return mtxtProdukt_Name;
+	}
+
+	public JTextField getMtxtProdukt_Gewicht() {
+		return mtxtProdukt_Gewicht;
+	}
+
+	public JTextField getMtxtProdukt_Preis() {
+		return mtxtProdukt_Preis;
+	}
+
+	public JTextField getMtxtMarkt_Name() {
+		return mtxtMarkt_Name;
+	}
+
+	public JTextField getMtxtMarkt_Adresse() {
+		return mtxtMarkt_Adresse;
+	}
+
+	public JTextField getMtxtMarkt_Plz() {
+		return mtxtMarkt_Plz;
+	}
+
+	public JTextField getMtxtMarkt_Entfernung() {
+		return mtxtMarkt_Entfernung;
+	}
+
+	public JTextField getMtxtKonto_name() {
+		return mtxtKonto_name;
+	}
+
+	public JTextField getMtxtKonto_kontonummer() {
+		return mtxtKonto_kontonummer;
+	}
+
+	public JTextField getMtxtKonto_Blz() {
+		return mtxtKonto_Blz;
+	}
+
+	public JTextField getMtxtKonto_Betrag() {
+		return mtxtKonto_Betrag;
+	}
+
+	public JTextField getMtxtAlles_Anzahl() {
+		return mtxtAlles_Anzahl;
+	}
+
+	public JTextField getMtxtAlles_Datum() {
+		return mtxtAlles_Datum;
+	}
+
+	public JTextField getMtxtKonto_Min() {
+		return mtxtKonto_Min;
+	}
+
+	public JButton getMbtmKonto() {
+		return mbtmKonto;
+	}
+
+	public JButton getMbtmMarkt() {
+		return mbtmMarkt;
+	}
+
+	public JButton getMbtmProdukt() {
+		return mbtmProdukt;
+	}
+
+	public JButton getMbtmAlles() {
+		return mbtmAlles;
+	}
+
+	public JComboBox getMcmbProdukt() {
+		return mcmbProdukt;
+	}
+
+	public JComboBox getMcmbMarkt() {
+		return mcmbMarkt;
+	}
+
+	public JComboBox getMcmbKonto() {
+		return mcmbKonto;
+	}
+
+
+	
 	public void run() {
 
-		GUI_Hinzufuegen frame = new GUI_Hinzufuegen();
-		frame.setVisible(true);
+		this.setVisible(true);
 	}
 
 	public GUI_Hinzufuegen() {
@@ -87,6 +179,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmKonto = new JButton("Hinzufügen");
 		mbtmKonto.setBounds(242, 194, 117, 25);
 		mpnlKonto.add(mbtmKonto);
+		mbtmKonto.setActionCommand(HINZUFUEGENKONTO);
 
 		Label label = new Label("Name");
 		label.setBounds(10, 29, 68, 21);
@@ -156,6 +249,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmMarkt = new JButton("Hinzufügen");
 		mbtmMarkt.setBounds(267, 197, 117, 25);
 		mpnlMarkt.add(mbtmMarkt);
+		mbtmMarkt.setActionCommand(HINZUFUEGENMARKT);
 
 		JPanel mpnlProdukt = new JPanel();
 		tabbedPane.addTab("Produkt", null, mpnlProdukt, null);
@@ -191,6 +285,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmProdukt = new JButton("Hinzufügen");
 		mbtmProdukt.setBounds(267, 214, 117, 25);
 		mpnlProdukt.add(mbtmProdukt);
+		mbtmProdukt.setActionCommand(HINZUFUEGENPRODUKT);
 
 		JPanel mpnlAlles = new JPanel();
 		tabbedPane.addTab("Alles", null, mpnlAlles, null);
@@ -209,6 +304,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmAlles = new JButton("Hinzufügen");
 		mbtmAlles.setBounds(267, 214, 117, 25);
 		mpnlAlles.add(mbtmAlles);
+		mbtmAlles.setActionCommand(HINZUFUEGENALL);
 
 		Label label_12 = new Label("Anzahl");
 		label_12.setBounds(27, 40, 68, 21);

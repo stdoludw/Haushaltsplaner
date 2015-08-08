@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+import javax.swing.JButton;
+
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -23,30 +25,66 @@ public class Controll_Main implements ActionListener {
 
 	// Instanzen von M und V
 	private Vector<Model_Main> mvecModel;
+	private GUI_Main mguiMain = new GUI_Main();
+	private GUI_Abfrage mguiAbfrage = new GUI_Abfrage();
+	private GUI_Hinzufuegen mguiHinzufuegen = new GUI_Hinzufuegen();
 
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		GUI_Main z = new GUI_Main();
-		z.getMntmAll().addActionListener(this);
-		
-		z.run();
+		mguiAbfrage.getMbntErstellen().addActionListener(this);
+		mguiAbfrage.getMbtnLogin().addActionListener(this);
+
+		mguiMain.getMntmAll().addActionListener(this);
+		mguiMain.getMmenExportiern().addActionListener(this);
+		mguiMain.getMmenLaden().addActionListener(this);
+		mguiMain.getMmenStatistik().addActionListener(this);
+
+		mguiHinzufuegen.getMbtmKonto().addActionListener(this);
+		mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
+		mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
+		mguiHinzufuegen.getMbtmAlles().addActionListener(this);
+
+		mguiAbfrage.run();
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-	
-		switch(ae.getActionCommand()){
-		case "Hinzufuegen":
-			System.out.println("halloo");break;
-		default:
+
+		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
+			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
+			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
+			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
+					.getText();
+			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
+			mintPort = 3306;
+
+			try {
+				acces();
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
+			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
+			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
+			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName().getText();
+			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
+			mintPort = 3306;
+			String kuerzel = null;
 			
+			for(int i=0;i<3;i++)
+			{kuerzel+=mstrUserName.toCharArray()[i];};
+			
+			try {
+				SQLNeuErstellen(kuerzel);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 	}
-	
-	
-	
+
 	private void acces() throws ClassNotFoundException, SQLException {
 
 		// Datenbanktreiber für JDBC Schnittstellen laden.
@@ -121,7 +159,7 @@ public class Controll_Main implements ActionListener {
 			}
 
 		}
-		//mausAusgabe.setMvecModel(mvecModel);
+		// mausAusgabe.setMvecModel(mvecModel);
 
 		// scließen des streams
 		result.close();
@@ -136,13 +174,12 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void SQLNeuErstellen(String kuerzel) throws SQLException {
-		
+
 		// neue Datenbank erstellen
 		Vector<String> mvecMod = Controll_Statments.toExtendString(kuerzel);
 		mvecMod.add(Controll_Statments.commit.toString());
-		
-		for(int i=0;i<mvecMod.size();i++)
-		{
+
+		for (int i = 0; i < mvecMod.size(); i++) {
 			SQLModifizieren(mvecMod.get(i));
 		}
 

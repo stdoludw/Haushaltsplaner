@@ -31,6 +31,12 @@ public class GUI_Main extends JFrame {
 	private JMenu mnHinzufgen;
 	private JMenuItem mntmAll;
 
+	public static final String HINZUFUEGEN = "Hinzufuegen";
+	public static final String EXPORT = "Exportieren";
+	public static final String LADEN = "Laden";
+	public static final String STATISTIK = "Statistik";
+	
+
 	public void run() {
 
 		this.setVisible(true);
@@ -50,22 +56,27 @@ public class GUI_Main extends JFrame {
 		
 		mntmAll = new JMenuItem("All..");
 		mnHinzufgen.add(mntmAll);
-		mntmAll.setActionCommand("Hinzufuegen");
+		mntmAll.setActionCommand(HINZUFUEGEN);
 
 		mnExtras = new JMenu("Extras");
 		menuBar.add(mnExtras);
 
 		mmenStatistik = new JMenuItem("Statistik");
 		mnExtras.add(mmenStatistik);
-
+		mmenStatistik.setActionCommand(STATISTIK);
+		
+		
 		Speichern = new JMenu("Speichern");
 		menuBar.add(Speichern);
 
 		mmenExportiern = new JMenuItem("Exportieren ...");
 		Speichern.add(mmenExportiern);
+		mmenExportiern.setActionCommand(EXPORT);
 
 		mmenLaden = new JMenuItem("Laden ...");
 		Speichern.add(mmenLaden);
+		mmenLaden.setActionCommand(LADEN);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
