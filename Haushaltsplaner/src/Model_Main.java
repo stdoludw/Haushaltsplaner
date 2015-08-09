@@ -1,32 +1,21 @@
 
+
 public class Model_Main {
 
 	private int mintAnzahl;
 	private String mstrDatum;
-	private boolean mboolValid;
-	private int mintIDKonto;
-	private int mintIDProdukt;
-	private int mintIDMarkt;
+	
 	
 	public String getMstrDatum() {
 		return mstrDatum;
 	}
 
-	public boolean isMboolValid() {
-		return mboolValid;
-	}
-
-	public void setMboolValid(boolean mboolValid) {
-		this.mboolValid = mboolValid;
-	}
 	
-	public Model_Main(int anzahl, String today, boolean v)
+	public Model_Main(int anzahl, String today)
 	{
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
-	
-		this.mboolValid = v;
-	}
+		}
 	
 	public void ModelArray(int k, int p, int m)
 	{
@@ -62,5 +51,21 @@ public class Model_Main {
 		return mintAnzahl+ "\t" + mstrDatum + "\t";
 	}
 	
-	
+	private int mintIDKonto;
+	public int getMintIDKonto() {
+		return mintIDKonto;
+	}
+
+
+	public int getMintIDProdukt() {
+		return mintIDProdukt;
+	}
+
+
+	public int getMintIDMarkt() {
+		return mintIDMarkt;
+	}
+
+	private int mintIDProdukt;
+	private int mintIDMarkt;
 }

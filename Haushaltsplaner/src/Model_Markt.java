@@ -21,7 +21,7 @@ public class Model_Markt extends Model_Main{
 
 	public Model_Markt(String name, String plz, String adr, int entfernung, int id)
 	{
-		super(0,"", true);
+		super(0,"");
 		this.mstrName = name;
 		this.mstrPLZ=plz;
 		this.mstrAdr = adr;
@@ -31,7 +31,7 @@ public class Model_Markt extends Model_Main{
 	
 	public Model_Markt()
 	{
-		super(0,"", true);
+		super(0,"");
 
 		this.mstrName = "";
 		this.mstrPLZ="";

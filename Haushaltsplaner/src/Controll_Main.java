@@ -71,13 +71,8 @@ public class Controll_Main implements ActionListener {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
 
-			// Hauptgui starten
-			/*
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Das Main
-			 * Window wird nur angezeigt wenn Daten für connection ok
-			 */
+			//Hauptgui starten
+			//Das Main Window wird nur angezeigt wenn Daten für connection ok
 			mguiMain.show(mguiMain);
 
 			try {
@@ -217,7 +212,38 @@ public class Controll_Main implements ActionListener {
 
 				if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Einkauf.toString())
 				{
-					
+					for (int i = 0; i < mvecModel.size(); i++) {
+						{
+							mstrContent += "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
+							mstrContent += mvecModel.get(i).print()+"\n";
+							
+							if (mvecModel.get(i) instanceof Model_Produkt)
+							{
+								if (((Model_Produkt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDProdukt())
+								{
+									mstrContent += ((Model_Produkt) mvecModel.get(i))
+											.print() + "\n";
+								}
+								else if(((Model_Konto) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDKonto())
+								{
+									mstrContent += ((Model_Konto) mvecModel.get(i))
+											.print() + "\n";
+								}
+								else if(((Model_Markt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDMarkt())
+								{
+									mstrContent += ((Model_Markt) mvecModel.get(i))
+											.print() + "\n";
+								}
+							}
+							
+							
+							
+							
+							
+							
+							
+						}
+					}
 				}
 				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Produkt.toString())
 				{
@@ -303,7 +329,7 @@ public class Controll_Main implements ActionListener {
 						result.getString("adresse"),
 						result.getInt("entfernung"), result.getInt("M_ID"));
 				Model_Main me = new Model_Main(result.getInt("anzahl"),
-						result.getString("datum"), true);
+						result.getString("datum"));
 
 				// verknüpfung reaisieren
 				me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());

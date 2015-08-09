@@ -19,7 +19,7 @@ public class Model_Produkt extends Model_Main{
 	}
 
 	public Model_Produkt(String name, int gewicht, float preis, int id) {
-		super(0,"", true);
+		super(0,"");
 
 		this.mstrName = name;
 		this.mintGewicht = gewicht;
@@ -28,7 +28,7 @@ public class Model_Produkt extends Model_Main{
 	}
 
 	public Model_Produkt() {
-		super(0,"", true);
+		super(0,"");
 
 		this.mstrName = "";
 		this.mintGewicht = 0;

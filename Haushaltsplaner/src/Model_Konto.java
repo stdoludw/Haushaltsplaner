@@ -22,7 +22,7 @@ public class Model_Konto extends Model_Main {
 
 	public Model_Konto(String betrag, String name, String blz, String knr,
 			int min, int id) {
-		super(0, "", true);
+		super(0, "");
 		this.mstrBetrag = betrag;
 		this.mstrName = name;
 		this.mstrBLZ = blz;
@@ -33,7 +33,7 @@ public class Model_Konto extends Model_Main {
 	}
 
 	public Model_Konto() {
-		super(0, "", true);
+		super(0, "");
 		this.mstrBetrag = "";
 		this.mstrName = "";
 		this.mstrBLZ = "";
