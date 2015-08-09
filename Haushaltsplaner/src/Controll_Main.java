@@ -23,6 +23,8 @@ public class Controll_Main implements ActionListener {
 	// Instanzen von M und V
 	private Vector<Model_Main> mvecModel;
 	private GUI_Main mguiMain;
+	private GUI_Main mguiMain2;
+
 	private GUI_Abfrage mguiAbfrage;
 	private GUI_Hinzufuegen mguiHinzufuegen;
 
@@ -30,10 +32,10 @@ public class Controll_Main implements ActionListener {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		mguiMain.init();
-		mguiMain.setVisible(true);
-
-		mguiAbfrage.getMbntErstellen().addActionListener(this);
+		mguiMain2 = mguiMain.init();
+		mguiMain2.setVisible(true);
+		
+		/*mguiAbfrage.getMbntErstellen().addActionListener(this);
 		mguiAbfrage.getMbtnLogin().addActionListener(this);
 
 		mguiMain.getMntmAll().addActionListener(this);
@@ -47,7 +49,7 @@ public class Controll_Main implements ActionListener {
 		mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 
 		mguiAbfrage.init();
-		mguiAbfrage.setVisible(true);
+		mguiAbfrage.setVisible(true);*/
 
 	}
 
@@ -59,7 +61,7 @@ public class Controll_Main implements ActionListener {
 			mguiAbfrage.hide();
 
 			// Hauptgui starten
-			GUI_Main.init();
+			
 			try {
 				acces();
 

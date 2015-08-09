@@ -38,7 +38,7 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JComboBox mcmbProdukt;
 	private JComboBox mcmbMarkt;
 	private JComboBox mcmbKonto;
-	private static GUI_Hinzufuegen frame;
+	private static GUI_Hinzufuegen frame = null;
 
 	public static final String HINZUFUEGENPRODUKT = "HinzufuegenProdukt";
 	public static final String HINZUFUEGENKONTO = "HinzufuegenKonto";
@@ -135,7 +135,13 @@ public class GUI_Hinzufuegen extends JFrame {
 	EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
-				frame = new GUI_Hinzufuegen();
+				if (frame == null) {
+					frame = new GUI_Hinzufuegen();
+				}
+				else
+				{
+					throw new Exception("Schon eine Instance vorhanden");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

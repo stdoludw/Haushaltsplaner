@@ -36,22 +36,28 @@ public class GUI_Main extends JFrame {
 	public static final String LADEN = "Laden";
 	public static final String STATISTIK = "Statistik";
 
-	private static GUI_Main frame;
-	
-	public static GUI_Main init()
-	{
-	EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			try {
-				frame = new GUI_Main();
-			} catch (Exception e) {
-				e.printStackTrace();
+	private static GUI_Main frame = null;
+
+	public static GUI_Main init() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					if (frame == null) {
+						frame = new GUI_Main();
+					}
+					else
+					{
+						throw new Exception("Schon eine Instance vorhanden");
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
-	});
-	return frame;
+		});
+		return frame;
 	}
-	
+
 	private GUI_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 438);

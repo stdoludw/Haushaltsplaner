@@ -24,7 +24,7 @@ public class GUI_Abfrage extends JFrame {
 	private TextField mtxtMeta_DatenabnkName;
 	private JButton mbntErstellen;
 	private JButton mbtnLogin;
-	private static GUI_Abfrage frame;
+	private static GUI_Abfrage frame = null;
 
 	public static final String LOGIN = "Login";
 	public static final String ERSTELLEN = "Erstellen";
@@ -60,7 +60,13 @@ public class GUI_Abfrage extends JFrame {
 	EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
-				frame = new GUI_Abfrage();
+				if (frame == null) {
+					frame = new GUI_Abfrage();
+				}
+				else
+				{
+					throw new Exception("Schon eine Instance vorhanden");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
