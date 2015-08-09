@@ -78,6 +78,7 @@ public enum Controll_Statments {
 		}
 	},;
 
+	@SuppressWarnings("null")
 	public static Vector<String> toExtendString(String kuerzel) {
 		Vector<String> mstrAttNew = null;
 		mstrAttNew.add("create database HausHaltsPlaner_"+kuerzel+";");

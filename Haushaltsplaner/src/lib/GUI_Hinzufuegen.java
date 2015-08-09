@@ -8,7 +8,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import java.awt.EventQueue;
 import java.awt.Label;
 
 import javax.swing.JComboBox;
@@ -35,8 +34,12 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JButton mbtmMarkt;
 	private JButton mbtmProdukt;
 	private JButton mbtmAlles;
+	
+	@SuppressWarnings("rawtypes")
 	private JComboBox mcmbProdukt;
+	@SuppressWarnings("rawtypes")
 	private JComboBox mcmbMarkt;
+	@SuppressWarnings("rawtypes")
 	private JComboBox mcmbKonto;
 	private static GUI_Hinzufuegen frame = null;
 
@@ -118,14 +121,17 @@ public class GUI_Hinzufuegen extends JFrame {
 		return mbtmAlles;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getMcmbProdukt() {
 		return mcmbProdukt;
 	}
-
+	
+	@SuppressWarnings("rawtypes")
 	public JComboBox getMcmbMarkt() {
 		return mcmbMarkt;
 	}
-
+	
+	@SuppressWarnings("rawtypes")
 	public JComboBox getMcmbKonto() {
 		return mcmbKonto;
 	}
@@ -153,6 +159,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		tmp.setVisible(true);
 	}
 	
+	@SuppressWarnings({ "rawtypes" })
 	private GUI_Hinzufuegen() {
 		setBounds(100, 100, 457, 385);
 		contentPane = new JPanel();

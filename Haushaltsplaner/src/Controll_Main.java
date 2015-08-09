@@ -30,35 +30,36 @@ public class Controll_Main implements ActionListener {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		//reinigen der variablen
-		mstrUserName="";
-		mstrPasswort="";
-		mconCon = null;
-		mintPort = 3306;
-		mstrDatenbankName="";
-		mstrHostName="";
-		
-		//erstellen der view instanzen
-		mguiMain = mguiMain.init();
-		mguiAbfrage = mguiAbfrage.init();
-		mguiHinzufuegen = mguiHinzufuegen.init();
+		// reinigen der variablen
+		this.mstrUserName = "";
+		this.mstrPasswort = "";
+		this.mconCon = null;
+		this.mintPort = 3306;
+		this.mstrDatenbankName = "";
+		this.mstrHostName = "";
 
-		//hinzufuegend er Listener
-		mguiAbfrage.getMbntErstellen().addActionListener(this);
-		mguiAbfrage.getMbtnLogin().addActionListener(this);
+		// erstellen der view instanzen
+		this.mguiMain = mguiMain.init();
+		this.mguiAbfrage = mguiAbfrage.init();
+		this.mguiHinzufuegen = mguiHinzufuegen.init();
 
-		mguiMain.getMntmAll().addActionListener(this);
-		mguiMain.getMmenExportiern().addActionListener(this);
-		mguiMain.getMmenLaden().addActionListener(this);
-		mguiMain.getMmenStatistik().addActionListener(this);
+		// hinzufuegend der Listener
+		this.mguiAbfrage.getMbntErstellen().addActionListener(this);
+		this.mguiAbfrage.getMbtnLogin().addActionListener(this);
 
-		mguiHinzufuegen.getMbtmKonto().addActionListener(this);
-		mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
-		mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
-		mguiHinzufuegen.getMbtmAlles().addActionListener(this);
+		this.mguiMain.getMntmAll().addActionListener(this);
+		this.mguiMain.getMmenExportiern().addActionListener(this);
+		this.mguiMain.getMmenLaden().addActionListener(this);
+		this.mguiMain.getMmenStatistik().addActionListener(this);
+		this.mguiMain.getComboBox().addActionListener(this);
 
-		//starten des Hauptfensters
-		mguiAbfrage.show(mguiAbfrage);
+		this.mguiHinzufuegen.getMbtmKonto().addActionListener(this);
+		this.mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
+		this.mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
+		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
+
+		// starten des Hauptfensters
+		this.mguiAbfrage.show(mguiAbfrage);
 	}
 
 	@SuppressWarnings({ "static-access" })
@@ -67,15 +68,15 @@ public class Controll_Main implements ActionListener {
 
 		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
 
-			//hiden des alten fensters
+			// hiden des alten fensters
 			mguiAbfrage.dispose();
 
 			// Hauptgui starten
-			
-			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			/*
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * 				Warum entsteht hier kein fenster?
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Das Main
+			 * Window wird nur angezeigt wenn Daten für connection ok
 			 */
 			mguiMain.show(mguiMain);
 
@@ -89,55 +90,29 @@ public class Controll_Main implements ActionListener {
 				SQLAbfrage(Controll_Statments.produkt.toString());
 
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage() + " Daten leider fehlerhaft");
 			}
-
-			// füllen der anzeige box
-			String mstrContent = null;
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i) instanceof Model_Produkt) {
-					mstrContent += "Name\tGewicht\tPreis\n";
-					mstrContent += ((Model_Produkt) mvecModel.get(i)).print()
-							+ "\n";
-				} else if (mvecModel.get(i) instanceof Model_Konto) {
-					mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
-					mstrContent += ((Model_Konto) mvecModel.get(i)).print()
-							+ "\n";
-
-				} else if (mvecModel.get(i) instanceof Model_Markt) {
-					mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
-					mstrContent += ((Model_Markt) mvecModel.get(i)).print()
-							+ "\n";
-
-				} else {
-					mstrContent += "Anzahl\tDatum\n";
-					mstrContent += mvecModel.get(i).print() + "\n";
-
-				}
-			}
-
-			// füllen der GUI
-			mguiMain.setTextArea(mstrContent);
 
 			// ablaufplan
 			ablauf(ae);
 
 		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
-			//hiden des alten fensters
+			// hiden des alten fensters
 			mguiAbfrage.dispose();
-			
+
 			// kuerzel als wiedererkennung erstellen
 			String kuerzel = null;
 			for (int i = 0; i < 3; i++) {
 				kuerzel += mstrUserName.toCharArray()[i];
 			}
 
-			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			/*
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * 				Neuen User hinzufuegen
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Neuen User
+			 * hinzufuegen
 			 */
-			
+
 			try {
 				SQLNeuErstellen(kuerzel);
 				acces();
@@ -235,17 +210,54 @@ public class Controll_Main implements ActionListener {
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();
 				}
-			}
+			} else if (ae.getActionCommand() == mguiMain.AUSWAHL) {
+				
+				// füllen der anzeige box
+				String mstrContent = null;
 
-		}
-	}
+				if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Einkauf.toString())
+				{
+					
+				}
+				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Produkt.toString())
+				{
+					for (int i = 0; i < mvecModel.size(); i++) {
+						if (mvecModel.get(i) instanceof Model_Produkt) {
+							mstrContent += "Name\tGewicht\tPreis\n";
+							mstrContent += ((Model_Produkt) mvecModel.get(i))
+									.print() + "\n";
+						}}
+				}
+				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Markt.toString())
+				{
+					for (int i = 0; i < mvecModel.size(); i++) {
+					if (mvecModel.get(i) instanceof Model_Markt) {
+						mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
+						mstrContent += ((Model_Markt) mvecModel.get(i)).print()
+								+ "\n";}}
+				}
+				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Konto.toString())
+				{
+					for (int i = 0; i < mvecModel.size(); i++) {
+					if (mvecModel.get(i) instanceof Model_Konto) {
+						mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
+						mstrContent += ((Model_Konto) mvecModel.get(i)).print()
+								+ "\n";}}
+				}
+				
+				// füllen der GUI
+				mguiMain.setTextArea(mstrContent);
+			
+			}
+			}	
+			}
 
 	@SuppressWarnings("deprecation")
 	private void acces() throws ClassNotFoundException, SQLException {
 
-		//neuen Vector erstellen
+		// neuen Vector erstellen
 		this.mvecModel = new Vector<Model_Main>();
-		
+
 		mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
 		mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
 		mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName().getText();

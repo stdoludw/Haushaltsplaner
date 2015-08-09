@@ -8,34 +8,32 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JSlider;
 import javax.swing.JMenuBar;
-import java.awt.Label;
+import javax.swing.JComboBox;
+
 
 @SuppressWarnings("serial")
 public class GUI_Main extends JFrame {
 
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBox;
 	private JPanel contentPane;
-	private JSlider msldAnzahl;
 	private JMenuItem mmenStatistik;
 	private JTextArea textArea;
-	private JSlider msldPreis;
-	private JSlider msldDatum;
-	private JSlider msldMarkt;
 	private JMenu Speichern;
 	private JMenuItem mmenExportiern;
 	private JMenuItem mmenLaden;
 	private JMenu mnExtras;
 	private JMenu mnHinzufgen;
 	private JMenuItem mntmAll;
-
+	
+	private static GUI_Main frame = null;
 	public static final String HINZUFUEGEN = "Hinzufuegen";
 	public static final String EXPORT = "Exportieren";
 	public static final String LADEN = "Laden";
 	public static final String STATISTIK = "Statistik";
-
-	private static GUI_Main frame = null;
-
+	public static final String AUSWAHL = "Auswahl";
+	
 	public static GUI_Main init() {
 
 				try {
@@ -59,6 +57,7 @@ public class GUI_Main extends JFrame {
 		tmp.setVisible(true);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GUI_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 438);
@@ -97,7 +96,7 @@ public class GUI_Main extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 163, 412, 207);
+		scrollPane.setBounds(12, 86, 412, 284);
 		contentPane.add(scrollPane);
 
 		textArea = new JTextArea();
@@ -106,42 +105,16 @@ public class GUI_Main extends JFrame {
 		JLabel lblAnzeigen = new JLabel("Anzeigen");
 		lblAnzeigen.setBounds(175, 12, 70, 15);
 		contentPane.add(lblAnzeigen);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(136, 50, 145, 24);
+		comboBox.setActionCommand(AUSWAHL);
+		comboBox.addItem(cmbAuswahl.Produkt.toString());
+		comboBox.addItem(cmbAuswahl.Konto.toString());
+		comboBox.addItem(cmbAuswahl.Markt.toString());
+		comboBox.addItem(cmbAuswahl.Einkauf.toString());
 
-		msldPreis = new JSlider();
-		msldPreis.setBounds(12, 55, 200, 16);
-		contentPane.add(msldPreis);
-
-		msldDatum = new JSlider();
-		msldDatum.setBounds(12, 98, 200, 16);
-		contentPane.add(msldDatum);
-
-		msldMarkt = new JSlider();
-		msldMarkt.setBounds(224, 55, 200, 16);
-		contentPane.add(msldMarkt);
-
-		msldAnzahl = new JSlider();
-		msldAnzahl.setBounds(224, 98, 200, 16);
-		contentPane.add(msldAnzahl);
-
-		Label label = new Label("Preis");
-		label.setBounds(12, 31, 68, 21);
-		contentPane.add(label);
-
-		Label label_1 = new Label("Datum");
-		label_1.setBounds(12, 71, 68, 21);
-		contentPane.add(label_1);
-
-		Label label_2 = new Label("Markt");
-		label_2.setBounds(224, 31, 68, 21);
-		contentPane.add(label_2);
-
-		Label label_3 = new Label("Anzahl");
-		label_3.setBounds(224, 71, 68, 21);
-		contentPane.add(label_3);
-	}
-
-	public JSlider getMsldAnzahl() {
-		return msldAnzahl;
+		contentPane.add(comboBox);
 	}
 
 	public JMenuItem getMmenStatistik() {
@@ -150,18 +123,6 @@ public class GUI_Main extends JFrame {
 
 	public JTextArea getTextArea() {
 		return textArea;
-	}
-
-	public JSlider getMsldPreis() {
-		return msldPreis;
-	}
-
-	public JSlider getMsldDatum() {
-		return msldDatum;
-	}
-
-	public JSlider getMsldMarkt() {
-		return msldMarkt;
 	}
 
 	public JMenuItem getMmenExportiern() {
@@ -179,4 +140,10 @@ public class GUI_Main extends JFrame {
 	public void setTextArea(String textAreaContent) {
 		textArea.setText(textAreaContent);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
 }
