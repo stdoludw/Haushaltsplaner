@@ -10,6 +10,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JSlider;
 import javax.swing.JMenuBar;
+
+import java.awt.EventQueue;
 import java.awt.Label;
 
 @SuppressWarnings("serial")
@@ -19,8 +21,6 @@ public class GUI_Main extends JFrame {
 	private JSlider msldAnzahl;
 	private JMenuItem mmenStatistik;
 	private JTextArea textArea;
-	
-
 	private JSlider msldPreis;
 	private JSlider msldDatum;
 	private JSlider msldMarkt;
@@ -35,18 +35,24 @@ public class GUI_Main extends JFrame {
 	public static final String EXPORT = "Exportieren";
 	public static final String LADEN = "Laden";
 	public static final String STATISTIK = "Statistik";
+
+	private static GUI_Main frame;
 	
-
-	public void run() {
-
-		this.repaint();
-		
-		this.setVisible(true);
-
+	public static GUI_Main init()
+	{
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				frame = new GUI_Main();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+	return frame;
 	}
-
-
-	public GUI_Main() {
+	
+	private GUI_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 438);
 
@@ -55,7 +61,7 @@ public class GUI_Main extends JFrame {
 
 		mnHinzufgen = new JMenu("Hinzufügen");
 		menuBar.add(mnHinzufgen);
-		
+
 		mntmAll = new JMenuItem("All..");
 		mnHinzufgen.add(mntmAll);
 		mntmAll.setActionCommand(HINZUFUEGEN);
@@ -66,8 +72,7 @@ public class GUI_Main extends JFrame {
 		mmenStatistik = new JMenuItem("Statistik");
 		mnExtras.add(mmenStatistik);
 		mmenStatistik.setActionCommand(STATISTIK);
-		
-		
+
 		Speichern = new JMenu("Speichern");
 		menuBar.add(Speichern);
 
@@ -78,7 +83,7 @@ public class GUI_Main extends JFrame {
 		mmenLaden = new JMenuItem("Laden ...");
 		Speichern.add(mmenLaden);
 		mmenLaden.setActionCommand(LADEN);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -163,9 +168,8 @@ public class GUI_Main extends JFrame {
 	public JMenuItem getMntmAll() {
 		return mntmAll;
 	}
-	
+
 	public void setTextArea(String textAreaContent) {
-		textArea.setText("");
 		textArea.setText(textAreaContent);
 	}
 }

@@ -7,7 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.EventQueue;
 import java.awt.Label;
+
 import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
@@ -35,7 +38,8 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JComboBox mcmbProdukt;
 	private JComboBox mcmbMarkt;
 	private JComboBox mcmbKonto;
-	
+	private static GUI_Hinzufuegen frame;
+
 	public static final String HINZUFUEGENPRODUKT = "HinzufuegenProdukt";
 	public static final String HINZUFUEGENKONTO = "HinzufuegenKonto";
 	public static final String HINZUFUEGENMARKT = "HinzufuegenMarkt";
@@ -126,15 +130,21 @@ public class GUI_Hinzufuegen extends JFrame {
 		return mcmbKonto;
 	}
 
-
-	
-	public void run() {
-
-		this.setVisible(true);
+	public static GUI_Hinzufuegen init()
+	{
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				frame = new GUI_Hinzufuegen();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+	return frame;
 	}
 
-	public GUI_Hinzufuegen() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private GUI_Hinzufuegen() {
 		setBounds(100, 100, 457, 385);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

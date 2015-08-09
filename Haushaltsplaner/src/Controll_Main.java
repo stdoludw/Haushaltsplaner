@@ -21,13 +21,18 @@ public class Controll_Main implements ActionListener {
 	private String mstrHostName;
 
 	// Instanzen von M und V
-	private Vector<Model_Main> mvecModel = new Vector<Model_Main>();
-	private GUI_Main mguiMain = new GUI_Main();
-	private GUI_Abfrage mguiAbfrage = new GUI_Abfrage();
-	private GUI_Hinzufuegen mguiHinzufuegen = new GUI_Hinzufuegen();
+	private Vector<Model_Main> mvecModel;
+	private GUI_Main mguiMain;
+	private GUI_Abfrage mguiAbfrage;
+	private GUI_Hinzufuegen mguiHinzufuegen;
 
+	@SuppressWarnings("static-access")
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
+
+		mguiMain.init();
+		mguiMain.setVisible(true);
+
 		mguiAbfrage.getMbntErstellen().addActionListener(this);
 		mguiAbfrage.getMbtnLogin().addActionListener(this);
 
@@ -41,7 +46,8 @@ public class Controll_Main implements ActionListener {
 		mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
 		mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 
-		mguiAbfrage.run();
+		mguiAbfrage.init();
+		mguiAbfrage.setVisible(true);
 
 	}
 
@@ -49,21 +55,15 @@ public class Controll_Main implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 
 		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
-			
-			//auslesen der db Informationen
-			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
-			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
-			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
-					.getText();
-			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
-			mintPort = 3306;
-			
-			mguiMain.run();
 
+			mguiAbfrage.hide();
+
+			// Hauptgui starten
+			GUI_Main.init();
 			try {
 				acces();
-				
-				//Daten auslesen
+
+				// Daten auslesen
 				SQLAbfrage(Controll_Statments.all.toString());
 				SQLAbfrage(Controll_Statments.konto.toString());
 				SQLAbfrage(Controll_Statments.markt.toString());
@@ -72,69 +72,52 @@ public class Controll_Main implements ActionListener {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-			
-			//füllen der anzeige box
-			String mstrContent = null;
-			for(int i=0;i<mvecModel.size();i++){
-				if(mvecModel.get(i) instanceof Model_Produkt)
-				{
-					mstrContent += "Name\tGewicht\tPreis\n";
-					mstrContent += ((Model_Produkt) mvecModel.get(i)).print()+"\n";
-				}
-				else if(mvecModel.get(i) instanceof Model_Konto)	
-				{
-					mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
-					mstrContent += ((Model_Konto) mvecModel.get(i)).print()+"\n";
 
-				}
-				else if(mvecModel.get(i) instanceof Model_Markt)
-				{
-					mstrContent+="Name\tPostLeitZahl\tAdresse\tEntfernung\n";
-					mstrContent += ((Model_Markt) mvecModel.get(i)).print()+"\n";
-	
-				}
-				else
-				{
-					mstrContent+="Anzahl\tDatum\n";
-					mstrContent += mvecModel.get(i).print()+"\n";
+			// füllen der anzeige box
+			String mstrContent = null;
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Produkt) {
+					mstrContent += "Name\tGewicht\tPreis\n";
+					mstrContent += ((Model_Produkt) mvecModel.get(i)).print()
+							+ "\n";
+				} else if (mvecModel.get(i) instanceof Model_Konto) {
+					mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
+					mstrContent += ((Model_Konto) mvecModel.get(i)).print()
+							+ "\n";
+
+				} else if (mvecModel.get(i) instanceof Model_Markt) {
+					mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
+					mstrContent += ((Model_Markt) mvecModel.get(i)).print()
+							+ "\n";
+
+				} else {
+					mstrContent += "Anzahl\tDatum\n";
+					mstrContent += mvecModel.get(i).print() + "\n";
 
 				}
 			}
-			
-			//Hauptgui starten
-			mguiMain.run();
-			
-			//füllen der GUI
-			mguiMain.setTextArea(mstrContent);
-			
-			//ablaufplan
-			ablauf(ae);
-			
-			
-		
 
-		}
-		else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
-			mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
-			mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
-			mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName()
-					.getText();
-			mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
-			mintPort = 3306;
-			
-			//kuerzel als wiedererkennung erstellen
+			// füllen der GUI
+			mguiMain.setTextArea(mstrContent);
+
+			// ablaufplan
+			ablauf(ae);
+
+		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
+
+			// kuerzel als wiedererkennung erstellen
 			String kuerzel = null;
 			for (int i = 0; i < 3; i++) {
 				kuerzel += mstrUserName.toCharArray()[i];
 			}
-			
-			//!!Neuen user einrichten mit grant auch berechtigungen setzen
-			
+
+			// !!Neuen user einrichten mit grant auch berechtigungen setzen
+
 			try {
 				SQLNeuErstellen(kuerzel);
 				acces();
-				
-				//Daten auslesen
+
+				// Daten auslesen
 				SQLAbfrage(Controll_Statments.all.toString());
 				SQLAbfrage(Controll_Statments.konto.toString());
 				SQLAbfrage(Controll_Statments.markt.toString());
@@ -143,9 +126,8 @@ public class Controll_Main implements ActionListener {
 				e.printStackTrace();
 			}
 
-			mguiMain.run();
 			ablauf(ae);
-			
+
 		}
 	}
 
@@ -234,6 +216,15 @@ public class Controll_Main implements ActionListener {
 
 	private void acces() throws ClassNotFoundException, SQLException {
 
+		//neuen Vector erstellen
+		this.mvecModel = new Vector<Model_Main>();
+		
+		mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
+		mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
+		mstrDatenbankName = mguiAbfrage.getMtxtMeta_DatenabnkName().getText();
+		mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
+		mintPort = 3306;
+
 		// Datenbanktreiber für JDBC Schnittstellen laden.
 		Class.forName("com.mysql.jdbc.Driver");
 
@@ -264,7 +255,8 @@ public class Controll_Main implements ActionListener {
 						result.getString("bankleitzahl"),
 						result.getString("kontonummer"),
 						result.getInt("minimum"), result.getInt("K_ID"));
-				Model_Produkt p = new Model_Produkt(result.getString("Produktname"),
+				Model_Produkt p = new Model_Produkt(
+						result.getString("Produktname"),
 						result.getInt("gewicht"), result.getFloat("preis"),
 						result.getInt("P_ID"));
 				Model_Markt m = new Model_Markt(result.getString("Marktname"),

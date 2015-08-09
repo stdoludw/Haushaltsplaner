@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JPasswordField;
 
+import java.awt.EventQueue;
 import java.awt.TextField;
 import java.awt.Label;
 
@@ -23,12 +24,12 @@ public class GUI_Abfrage extends JFrame {
 	private TextField mtxtMeta_DatenabnkName;
 	private JButton mbntErstellen;
 	private JButton mbtnLogin;
-	
+	private static GUI_Abfrage frame;
+
 	public static final String LOGIN = "Login";
 	public static final String ERSTELLEN = "Erstellen";
 	
 	
-
 	public JPasswordField getMtxtMeta_passwort() {
 		return mtxtMeta_passwort;
 	}
@@ -54,13 +55,22 @@ public class GUI_Abfrage extends JFrame {
 	}
 
 	
-	public void run() {
-		this.setVisible(true);
+	public static GUI_Abfrage init()
+	{
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				frame = new GUI_Abfrage();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+	return frame;
 	}
 
-	public GUI_Abfrage() {
+	private GUI_Abfrage() {
 		setBackground(UIManager.getColor("ComboBox.buttonShadow"));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 297);
 		
 		contentPane = new JPanel();
