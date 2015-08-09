@@ -17,19 +17,19 @@ insert into Markt(name,postleitzahl,adresse,entfernung) Values("Aldi","60318","S
 insert into Markt(name,postleitzahl,adresse,entfernung) Values("Penny","60439","Hanauer ldr.",8);
 insert into Markt(name,postleitzahl,adresse,entfernung) Values("Metro","60383","Hanauer ldr.",2);
 
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),1,1,1);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,2);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),3,2,6);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),1,2,1);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),4,1,5);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),4,2,4);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),2,2,3);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),1,1,1);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,2);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),3,2,6);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),1,2,1);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),4,1,5);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),4,2,4);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),2,2,3);
 
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),2,1,8);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),3,1,4);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),1,2,6);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),4,2,5);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,4);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(5,now(),1,2,3);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),3,2,1);
-insert into merge(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),4,2,7);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(2,now(),2,1,8);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),3,1,4);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(6,now(),1,2,6);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(1,now(),4,2,5);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(3,now(),2,1,4);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(5,now(),1,2,3);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(8,now(),3,2,1);
+insert into Einkauf(anzahl,datum,m_ID,k_ID,p_ID) Values(4,now(),4,2,7);
