@@ -61,14 +61,14 @@ public class Controll_Main implements ActionListener {
 		mguiAbfrage.show(mguiAbfrage);
 	}
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings({ "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
 		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
 
 			//hiden des alten fensters
-			mguiAbfrage.hide();
+			mguiAbfrage.dispose();
 
 			// Hauptgui starten
 			
@@ -77,7 +77,7 @@ public class Controll_Main implements ActionListener {
 			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			 * 				Warum entsteht hier kein fenster?
 			 */
-			mguiMain.show();
+			mguiMain.show(mguiMain);
 
 			try {
 				acces();
@@ -123,15 +123,21 @@ public class Controll_Main implements ActionListener {
 			ablauf(ae);
 
 		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
-
+			//hiden des alten fensters
+			mguiAbfrage.dispose();
+			
 			// kuerzel als wiedererkennung erstellen
 			String kuerzel = null;
 			for (int i = 0; i < 3; i++) {
 				kuerzel += mstrUserName.toCharArray()[i];
 			}
 
-			// !!Neuen user einrichten mit grant auch berechtigungen setzen
-
+			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * 				Neuen User hinzufuegen
+			 */
+			
 			try {
 				SQLNeuErstellen(kuerzel);
 				acces();
