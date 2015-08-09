@@ -6,11 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JPasswordField;
-
-import java.awt.EventQueue;
 import java.awt.TextField;
 import java.awt.Label;
-
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 
@@ -57,8 +54,7 @@ public class GUI_Abfrage extends JFrame {
 	
 	public static GUI_Abfrage init()
 	{
-	EventQueue.invokeLater(new Runnable() {
-		public void run() {
+	
 			try {
 				if (frame == null) {
 					frame = new GUI_Abfrage();
@@ -70,9 +66,13 @@ public class GUI_Abfrage extends JFrame {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-	});
+		
 	return frame;
+	}
+	
+	public void show(GUI_Abfrage tmp)
+	{
+		tmp.setVisible(true);
 	}
 
 	private GUI_Abfrage() {

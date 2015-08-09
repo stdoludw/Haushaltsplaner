@@ -10,8 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JSlider;
 import javax.swing.JMenuBar;
-
-import java.awt.EventQueue;
 import java.awt.Label;
 
 @SuppressWarnings("serial")
@@ -39,8 +37,7 @@ public class GUI_Main extends JFrame {
 	private static GUI_Main frame = null;
 
 	public static GUI_Main init() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+
 				try {
 					if (frame == null) {
 						frame = new GUI_Main();
@@ -53,11 +50,15 @@ public class GUI_Main extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
+			
 		return frame;
 	}
-
+	
+	public void show(GUI_Main tmp)
+	{
+		tmp.setVisible(true);
+	}
+	
 	private GUI_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 438);

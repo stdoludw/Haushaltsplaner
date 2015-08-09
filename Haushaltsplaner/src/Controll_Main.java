@@ -20,11 +20,9 @@ public class Controll_Main implements ActionListener {
 	private String mstrDatenbankName;
 	private String mstrHostName;
 
-	// Instanzen von M und V
+	// Instanzen von Model und View
 	private Vector<Model_Main> mvecModel;
 	private GUI_Main mguiMain;
-	private GUI_Main mguiMain2;
-
 	private GUI_Abfrage mguiAbfrage;
 	private GUI_Hinzufuegen mguiHinzufuegen;
 
@@ -32,10 +30,21 @@ public class Controll_Main implements ActionListener {
 	public void start() throws SQLException, ClassNotFoundException,
 			IOException {
 
-		mguiMain2 = mguiMain.init();
-		mguiMain2.setVisible(true);
+		//reinigen der variablen
+		mstrUserName="";
+		mstrPasswort="";
+		mconCon = null;
+		mintPort = 3306;
+		mstrDatenbankName="";
+		mstrHostName="";
 		
-		/*mguiAbfrage.getMbntErstellen().addActionListener(this);
+		//erstellen der view instanzen
+		mguiMain = mguiMain.init();
+		mguiAbfrage = mguiAbfrage.init();
+		mguiHinzufuegen = mguiHinzufuegen.init();
+
+		//hinzufuegend er Listener
+		mguiAbfrage.getMbntErstellen().addActionListener(this);
 		mguiAbfrage.getMbtnLogin().addActionListener(this);
 
 		mguiMain.getMntmAll().addActionListener(this);
@@ -48,20 +57,28 @@ public class Controll_Main implements ActionListener {
 		mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
 		mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 
-		mguiAbfrage.init();
-		mguiAbfrage.setVisible(true);*/
-
+		//starten des Hauptfensters
+		mguiAbfrage.show(mguiAbfrage);
 	}
 
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
 		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
 
+			//hiden des alten fensters
 			mguiAbfrage.hide();
 
 			// Hauptgui starten
 			
+			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			 * 				Warum entsteht hier kein fenster?
+			 */
+			mguiMain.show();
+
 			try {
 				acces();
 
@@ -133,6 +150,7 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void ablauf(ActionEvent ae) {
 
 		while (true) {
@@ -216,6 +234,7 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void acces() throws ClassNotFoundException, SQLException {
 
 		//neuen Vector erstellen

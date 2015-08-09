@@ -132,8 +132,7 @@ public class GUI_Hinzufuegen extends JFrame {
 
 	public static GUI_Hinzufuegen init()
 	{
-	EventQueue.invokeLater(new Runnable() {
-		public void run() {
+	
 			try {
 				if (frame == null) {
 					frame = new GUI_Hinzufuegen();
@@ -145,11 +144,15 @@ public class GUI_Hinzufuegen extends JFrame {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-	});
+
 	return frame;
 	}
 
+	public void show(GUI_Hinzufuegen tmp)
+	{
+		tmp.setVisible(true);
+	}
+	
 	private GUI_Hinzufuegen() {
 		setBounds(100, 100, 457, 385);
 		contentPane = new JPanel();
