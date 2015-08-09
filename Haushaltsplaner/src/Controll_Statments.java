@@ -25,7 +25,7 @@ public enum Controll_Statments {
 
 	allHinzufügen {
 		public String toString() {
-			return "insert into ein(anzahl,datum,m_ID,k_ID,p_ID,u_ID) Values(";
+			return "insert into ein(anzahl,datum,m_ID,k_ID,p_ID) Values(";
 
 		}
 	},

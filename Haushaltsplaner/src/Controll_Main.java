@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+import javax.swing.JComboBox;
+
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -71,8 +73,8 @@ public class Controll_Main implements ActionListener {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
 
-			//Hauptgui starten
-			//Das Main Window wird nur angezeigt wenn Daten für connection ok
+			// Hauptgui starten
+			// Das Main Window wird nur angezeigt wenn Daten für connection ok
 			mguiMain.show(mguiMain);
 
 			try {
@@ -126,18 +128,64 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "unchecked" })
 	private void ablauf(ActionEvent ae) {
 
 		while (true) {
 			if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL) {
-				// m_ID,k_ID,p_ID,u_ID
+				
 				try {
+					
+					//Comboboxen füllen
+					for (int i = 0; i < mvecModel.size(); i++) {
+						{
+							
+							if (mvecModel.get(i) instanceof Model_Produkt)
+							{
+								mguiHinzufuegen.getMcmbProdukt().addItem(((Model_Produkt) mvecModel.get(i)).getMstrName());
+							}
+							
+								else if(((Model_Konto) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDKonto())
+								{
+									mguiHinzufuegen.getMcmbKonto().addItem(((Model_Konto) mvecModel.get(i)).getMstrName());
+								}
+								else if(((Model_Markt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDMarkt())
+								{
+									 mguiHinzufuegen.getMcmbMarkt().addItem(((Model_Markt) mvecModel.get(i)).getMstrName());
+								}
+								}
+							}
+							
+					
+					//Konto, Produkt und Markt PK ermitteln 
+					int K_ID = 0, M_ID = 0,P_ID = 0;
+					for(int i=0;i<mvecModel.size();i++)
+					{
+						if(((Model_Produkt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbProdukt().getSelectedItem())
+						{
+							P_ID = ((Model_Produkt) mvecModel.get(i)).getMintID();
+						}
+						else if(((Model_Konto) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbKonto().getSelectedItem())
+						{
+							K_ID = ((Model_Konto) mvecModel.get(i)).getMintID();
+						}
+						else if(((Model_Markt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbMarkt().getSelectedItem())
+						{
+							M_ID = ((Model_Markt) mvecModel.get(i)).getMintID();
+						}
+					}
+					
+					
+					//Einkauf hinzufuegen
 					SQLModifizieren(Controll_Statments.allHinzufügen.toString()
 							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText()
 							+ ","
-							+ mguiHinzufuegen.getMtxtAlles_Datum().getText()
-							+ ");");
+							+ mguiHinzufuegen.getMtxtAlles_Datum().getText()+ ","
+							+ M_ID+ ","
+							+K_ID + ","
+							+P_ID+");");
+					
+					//Model Akutell halten
 					SQLAbfrage(Controll_Statments.all.toString());
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -157,6 +205,8 @@ public class Controll_Main implements ActionListener {
 							+ ","
 							+ mguiHinzufuegen.getMtxtKonto_Min().getText()
 							+ ");");
+					
+					//Model Akutell halten
 					SQLAbfrage(Controll_Statments.konto.toString());
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -173,6 +223,8 @@ public class Controll_Main implements ActionListener {
 							+ ","
 							+ mguiHinzufuegen.getMtxtMarkt_Entfernung()
 							+ ");");
+					
+					//Model Akutell halten
 					SQLAbfrage(Controll_Statments.markt.toString());
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -188,6 +240,8 @@ public class Controll_Main implements ActionListener {
 							+ ","
 							+ mguiHinzufuegen.getMtxtProdukt_Preis().getText()
 							+ ");");
+					
+					//Model Akutell halten
 					SQLAbfrage(Controll_Statments.produkt.toString());
 
 				} catch (SQLException e) {
@@ -235,13 +289,7 @@ public class Controll_Main implements ActionListener {
 											.print() + "\n";
 								}
 							}
-							
-							
-							
-							
-							
-							
-							
+											
 						}
 					}
 				}
