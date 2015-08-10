@@ -70,23 +70,53 @@ create parent database
 		create view SortEntfernung as select * from master.SortEntfernung;
 		create view SortPreis as select * from master.SortPreis;
 		
-			
+Wichtigste Brechtigungen anzeigen
+		select  Select_priv,  Insert_priv,  Update_priv,         
+		Delete_priv, Create_priv, Drop_priv,              
+ 		Shutdown_priv, Grant_priv,        
+ 		Alter_priv,  Show_db_priv,           
+ 		Lock_tables_priv,  Execute_priv,           
+		Create_view_priv, Show_view_priv         
+		from user;  
+		
+User anlegen nur durch root
+		create user 'USERNAME'@'%' identified by 'PASSWORT';	
+	
 STANDARD USER hat keine Berechtigung für
 		-> User anlegen
 		-> Kein drop auf Master
 		-> Kein update auf Master
 		-> Kein drop auf eigene Databases
- 		-> Kein update auf eigene Databases
  		-> Kein Privileg weitergeben
  
 STANDARD USER darf
  		-> Neue Databases erstellen
- 		-> Insert auf eigene Databases
+ 		-> Insert/update auf eigene Databases
  		-> Login von any client
  		-> Commit
  		-> Abfragen der Databases
  		-> Zugriff nur auf eigene Databases
- 		
+ 
+Berechtigung für User setzen -> nur root
+		grant select, insert, create, update, CREATE VIEW on DBNAME.* to 'USERNAME'@'%';	-> realisierung der DML
+		grant select on master.* to 'USERNAME'@'%';						-> Nur select auf master tabelle
+		grant CREATE on *.* to 'USERNAME'@'%';							-> User kann neue Datenbank erstellen
+
+ Neue Database erstellen, kann user erledigen
+		create database NEWDATABASE;
+		use NEWDATABASE;
+		create table Einkauf like master.Einkauf;
+		create table Konto like master.Konto;
+		create table Markt like master.Markt;
+		create table Produkt like master.Produkt;
+		create view ViewAll as select * from master.ViewAll;
+		create view SortAusgaben as select * from master.SortAusgaben;
+		create view SortDatum as select * from master.SortDatum;
+		create view SortEntfernung as select * from master.SortEntfernung;
+		create view SortPreis as select * from master.SortPreis;
+ 
+ 
+ 
  Hilfreich
  show Databases;
  show tables;
