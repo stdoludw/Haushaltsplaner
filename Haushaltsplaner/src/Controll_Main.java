@@ -68,7 +68,6 @@ public class Controll_Main implements ActionListener  {
 	public void actionPerformed(ActionEvent ae) {
 
 		String string = ae.getActionCommand().toString();
-		System.out.println(string);
 		if (mguiAbfrage.LOGIN.equals(string)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
@@ -187,12 +186,13 @@ public class Controll_Main implements ActionListener  {
 		else if (mguiHinzufuegen.HINZUFUEGENKONTO.equals(string)) {
 			try {
 				SQLModifizieren(Controll_Statments.kontoHinzufügen.toString()
-						+ mguiHinzufuegen.getMtxtKonto_name().getText() + ","
+						+ '\''+mguiHinzufuegen.getMtxtKonto_name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtKonto_Blz().getText() + ","
 						+ mguiHinzufuegen.getMtxtKonto_kontonummer().getText()
 						+ "," + mguiHinzufuegen.getMtxtKonto_Betrag().getText()
 						+ "," + mguiHinzufuegen.getMtxtKonto_Min().getText()
 						+ ");");
+			
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.konto.toString());
@@ -202,9 +202,9 @@ public class Controll_Main implements ActionListener  {
 		} else if (mguiHinzufuegen.HINZUFUEGENMARKT.equals(string)) {
 			try {
 				SQLModifizieren(Controll_Statments.marktHinzufügen.toString()
-						+ mguiHinzufuegen.getMtxtMarkt_Name().getText() + ","
+						+ '\''+mguiHinzufuegen.getMtxtMarkt_Name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtMarkt_Plz().getText() + ","
-						+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()
+						+'\''+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()+'\''
 						+ "," + mguiHinzufuegen.getMtxtMarkt_Entfernung()
 						+ ");");
 
@@ -216,7 +216,7 @@ public class Controll_Main implements ActionListener  {
 		} else if (mguiHinzufuegen.HINZUFUEGENPRODUKT.equals(string)) {
 			try {
 				SQLModifizieren(Controll_Statments.produktHinzufügen.toString()
-						+ mguiHinzufuegen.getMtxtProdukt_Name().getText() + ","
+						+'\''+ mguiHinzufuegen.getMtxtProdukt_Name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtProdukt_Gewicht().getText()
 						+ ","
 						+ mguiHinzufuegen.getMtxtProdukt_Preis().getText()
