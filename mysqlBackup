@@ -4,7 +4,7 @@ Einrichten von mysql
 	      vi /etc/mysql/my.cnf 						-> bind adresse auskommentiern
 	      mysqladmin -u root -p password "" 				-> password evt ändern
 	      mysql -u root -p 							-> anmelden via localhost
-	      create user 'bro'@'%' IDENTIFIED BY ""; 				-> neuen user anlegen
+	      create user 'USER'@'%' IDENTIFIED BY ""; 				-> neuen user anlegen
 	      GRANT ALL PRIVILEGES ON HausHaltsPlaner_Database . * TO 'bro'@'%';-> Berechtigung setzen
 	      GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY ""; 	-> remoute für root
 	      FLUSH PRIVILEGES;							-> festschreiben
@@ -50,9 +50,9 @@ create master database
 		create table Markt(name VARCHAR(255), postleitzahl VARCHAR(5), adresse VARCHAR(255), entfernung INT, M_ID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(M_ID));
 		
 		//Einkauf table
-		create table Einkauf(anzahl INT, datum DATE, m_ID INT, FOREIGN KEY(m_ID) REFERENCES Markt(M_ID) ON DELETE CASCADE,
-		k_ID INT, FOREIGN KEY(k_ID) REFERENCES Konto(K_ID) ON DELETE CASCADE,
-		p_ID INT,FOREIGN KEY(p_ID) REFERENCES Produkt(P_ID) ON DELETE CASCADE,
+		create table Einkauf(anzahl INT, datum DATE, m_ID INT, FOREIGN KEY(m_ID) REFERENCES Markt(M_ID),
+		k_ID INT, FOREIGN KEY(k_ID) REFERENCES Konto(K_ID),
+		p_ID INT,FOREIGN KEY(p_ID) REFERENCES Produkt(P_ID),
  		PRIMARY KEY(m_ID,p_ID,k_ID));
  		
  		
