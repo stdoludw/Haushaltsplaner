@@ -24,9 +24,10 @@ public class GUI_Main extends JFrame {
 	private JMenuItem mmenExportiern;
 	private JMenuItem mmenLaden;
 	private JMenu mnExtras;
-	private JMenu mnHinzufgen;
-	private JMenuItem mntmAll;
+	private JMenuItem mntmHinzufgen;
+
 	
+
 	private static GUI_Main frame = null;
 	public static final String HINZUFUEGEN = "Hinzufuegen";
 	public static final String EXPORT = "Exportieren";
@@ -65,15 +66,12 @@ public class GUI_Main extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		mnHinzufgen = new JMenu("Hinzufügen");
-		menuBar.add(mnHinzufgen);
-
-		mntmAll = new JMenuItem("All..");
-		mnHinzufgen.add(mntmAll);
-		mntmAll.setActionCommand(HINZUFUEGEN);
-
 		mnExtras = new JMenu("Extras");
 		menuBar.add(mnExtras);
+		
+		mntmHinzufgen = new JMenuItem("Hinzufügen");
+		mnExtras.add(mntmHinzufgen);
+		mntmHinzufgen.setActionCommand(HINZUFUEGEN);
 
 		mmenStatistik = new JMenuItem("Statistik");
 		mnExtras.add(mmenStatistik);
@@ -133,10 +131,6 @@ public class GUI_Main extends JFrame {
 		return mmenLaden;
 	}
 
-	public JMenuItem getMntmAll() {
-		return mntmAll;
-	}
-
 	public void setTextArea(String textAreaContent) {
 		textArea.setText(textAreaContent);
 	}
@@ -144,6 +138,9 @@ public class GUI_Main extends JFrame {
 	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBox() {
 		return comboBox;
+	}
+	public JMenuItem getMntmHinzufgen() {
+		return mntmHinzufgen;
 	}
 
 }

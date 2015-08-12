@@ -6,13 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.*;
-
-import javax.swing.JComboBox;
 
 import lib.*;
 
-public class Controll_Main implements ActionListener {
+public class Controll_Main implements ActionListener  {
 
 	// verbindung mit Datenbank
 	private String mstrUserName;
@@ -49,34 +48,33 @@ public class Controll_Main implements ActionListener {
 		this.mguiAbfrage.getMbntErstellen().addActionListener(this);
 		this.mguiAbfrage.getMbtnLogin().addActionListener(this);
 
-		this.mguiMain.getMntmAll().addActionListener(this);
+		this.mguiMain.getMntmHinzufgen().addActionListener(this);
 		this.mguiMain.getMmenExportiern().addActionListener(this);
 		this.mguiMain.getMmenLaden().addActionListener(this);
 		this.mguiMain.getMmenStatistik().addActionListener(this);
 		this.mguiMain.getComboBox().addActionListener(this);
 
-		this.mguiHinzufuegen.getMbtmKonto().addActionListener(this);
+		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 		this.mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
 		this.mguiHinzufuegen.getMbtmProdukt().addActionListener(this);
-		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
+		this.mguiHinzufuegen.getMbtmKonto().addActionListener(this);
 
 		// starten des Hauptfensters
 		this.mguiAbfrage.show(mguiAbfrage);
 	}
 
-	@SuppressWarnings({ "static-access" })
+	@SuppressWarnings({ "static-access", "unchecked" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
-		if (ae.getActionCommand() == mguiAbfrage.LOGIN) {
-
+		String string = ae.getActionCommand().toString();
+		System.out.println(string);
+		if (mguiAbfrage.LOGIN.equals(string)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
-
 			// Hauptgui starten
 			// Das Main Window wird nur angezeigt wenn Daten für connection ok
 			mguiMain.show(mguiMain);
-
 			try {
 				acces();
 
@@ -89,27 +87,49 @@ public class Controll_Main implements ActionListener {
 			} catch (ClassNotFoundException | SQLException e) {
 				System.err.println(e.getMessage() + " Daten leider fehlerhaft");
 			}
+		} else if (mguiMain.HINZUFUEGEN.equals(string)) {
+			mguiHinzufuegen.show(mguiHinzufuegen);
+			//erst comboboxen clearen
+			mguiHinzufuegen.getMcmbProdukt().removeAllItems();
+			mguiHinzufuegen.getMcmbKonto().removeAllItems();
+			mguiHinzufuegen.getMcmbMarkt().removeAllItems();
+			
+				// Comboboxen füllen
+					for (int i = 0; i < mvecModel.size(); i++) {
+						if (mvecModel.get(i) instanceof Model_Produkt) {
+							mguiHinzufuegen.getMcmbProdukt().addItem(
+									((Model_Produkt) mvecModel.get(i))
+											.getMstrName());
+							
 
-			// ablaufplan
-			ablauf(ae);
+						} else if (mvecModel.get(i) instanceof Model_Konto) {
 
-		} else if (ae.getActionCommand() == mguiAbfrage.ERSTELLEN) {
+							mguiHinzufuegen.getMcmbKonto().addItem(
+									((Model_Konto) mvecModel.get(i))
+											.getMstrName());
+
+						} else if (mvecModel.get(i) instanceof Model_Markt) {
+							mguiHinzufuegen.getMcmbMarkt().addItem(
+									((Model_Markt) mvecModel.get(i))
+											.getMstrName());
+						} 
+				}
+
+				
+		}
+			else if (mguiMain.STATISTIK.equals(string)) {
+			
+			
+		} 
+
+			else if (mguiAbfrage.ERSTELLEN.equals(string)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
-
 			// kuerzel als wiedererkennung erstellen
 			String kuerzel = null;
 			for (int i = 0; i < 3; i++) {
 				kuerzel += mstrUserName.toCharArray()[i];
 			}
-
-			/*
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Neuen User
-			 * hinzufuegen
-			 */
-
 			try {
 				SQLNeuErstellen(kuerzel);
 				acces();
@@ -122,209 +142,170 @@ public class Controll_Main implements ActionListener {
 			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-
-			ablauf(ae);
-
-		}
-	}
-
-	@SuppressWarnings({ "static-access", "unchecked" })
-	private void ablauf(ActionEvent ae) {
-
-		while (true) {
-			if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENALL) {
+		} else if (mguiHinzufuegen.HINZUFUEGENALL.equals(string)) {
+		
+			// Konto, Produkt und Markt PK ermitteln
+			int K_ID = 0, M_ID = 0, P_ID = 0;
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Produkt){
+						if(((Model_Produkt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
+						.getMcmbProdukt().getSelectedItem()) {
+					P_ID = ((Model_Produkt) mvecModel.get(i)).getMintID();
+						}	
+				} else if (mvecModel.get(i) instanceof Model_Konto)
+				{
 				
+				if(((Model_Konto) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
+						.getMcmbKonto().getSelectedItem()) {
+					K_ID = ((Model_Konto) mvecModel.get(i)).getMintID();
+				}
+				} else if (mvecModel.get(i) instanceof Model_Markt)
+				{
+						if(((Model_Markt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
+						.getMcmbMarkt().getSelectedItem()) {
+					M_ID = ((Model_Markt) mvecModel.get(i)).getMintID();
+				}
+			
+				// Einkauf hinzufuegen
 				try {
-					
-					//Comboboxen füllen
-					for (int i = 0; i < mvecModel.size(); i++) {
-						{
-							
-							if (mvecModel.get(i) instanceof Model_Produkt)
-							{
-								mguiHinzufuegen.getMcmbProdukt().addItem(((Model_Produkt) mvecModel.get(i)).getMstrName());
-							}
-							
-								else if(((Model_Konto) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDKonto())
-								{
-									mguiHinzufuegen.getMcmbKonto().addItem(((Model_Konto) mvecModel.get(i)).getMstrName());
-								}
-								else if(((Model_Markt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDMarkt())
-								{
-									 mguiHinzufuegen.getMcmbMarkt().addItem(((Model_Markt) mvecModel.get(i)).getMstrName());
-								}
-								}
-							}
-							
-					
-					//Konto, Produkt und Markt PK ermitteln 
-					int K_ID = 0, M_ID = 0,P_ID = 0;
-					for(int i=0;i<mvecModel.size();i++)
-					{
-						if(((Model_Produkt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbProdukt().getSelectedItem())
-						{
-							P_ID = ((Model_Produkt) mvecModel.get(i)).getMintID();
-						}
-						else if(((Model_Konto) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbKonto().getSelectedItem())
-						{
-							K_ID = ((Model_Konto) mvecModel.get(i)).getMintID();
-						}
-						else if(((Model_Markt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen.getMcmbMarkt().getSelectedItem())
-						{
-							M_ID = ((Model_Markt) mvecModel.get(i)).getMintID();
-						}
-					}
-					
-					
-					//Einkauf hinzufuegen
 					SQLModifizieren(Controll_Statments.allHinzufügen.toString()
-							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtAlles_Datum().getText()+ ","
-							+ M_ID+ ","
-							+K_ID + ","
-							+P_ID+");");
+							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText() + ","
+							+ mguiHinzufuegen.getMtxtAlles_Datum().getText() + ","
+							+ M_ID + "," + K_ID + "," + P_ID + ");");
 					
-					//Model Akutell halten
 					SQLAbfrage(Controll_Statments.all.toString());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENKONTO) {
-				try {
-					SQLModifizieren(Controll_Statments.kontoHinzufügen
-							.toString()
-							+ mguiHinzufuegen.getMtxtKonto_name().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtKonto_Blz().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtKonto_kontonummer()
-									.getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtKonto_Betrag().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtKonto_Min().getText()
-							+ ");");
-					
-					//Model Akutell halten
-					SQLAbfrage(Controll_Statments.konto.toString());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENMARKT) {
-				try {
-					SQLModifizieren(Controll_Statments.marktHinzufügen
-							.toString()
-							+ mguiHinzufuegen.getMtxtMarkt_Name().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtMarkt_Plz().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtMarkt_Entfernung()
-							+ ");");
-					
-					//Model Akutell halten
-					SQLAbfrage(Controll_Statments.markt.toString());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (ae.getActionCommand() == mguiHinzufuegen.HINZUFUEGENPRODUKT) {
-				try {
-					SQLModifizieren(Controll_Statments.produktHinzufügen
-							.toString()
-							+ mguiHinzufuegen.getMtxtProdukt_Name().getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtProdukt_Gewicht()
-									.getText()
-							+ ","
-							+ mguiHinzufuegen.getMtxtProdukt_Preis().getText()
-							+ ");");
-					
-					//Model Akutell halten
-					SQLAbfrage(Controll_Statments.produkt.toString());
 
 				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (ae.getActionCommand() == mguiMain.EXPORT) {
-				try {
-					SQLExport();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (ae.getActionCommand() == mguiMain.LADEN) {
-				try {
-					SQLImport();
-				} catch (IOException | SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (ae.getActionCommand() == mguiMain.AUSWAHL) {
-				
-				// füllen der anzeige box
-				String mstrContent = null;
 
-				if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Einkauf.toString())
-				{
-					for (int i = 0; i < mvecModel.size(); i++) {
-						{
-							mstrContent += "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
-							mstrContent += mvecModel.get(i).print()+"\n";
-							
-							if (mvecModel.get(i) instanceof Model_Produkt)
-							{
-								if (((Model_Produkt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDProdukt())
-								{
-									mstrContent += ((Model_Produkt) mvecModel.get(i))
-											.print() + "\n";
-								}
-								else if(((Model_Konto) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDKonto())
-								{
-									mstrContent += ((Model_Konto) mvecModel.get(i))
-											.print() + "\n";
-								}
-								else if(((Model_Markt) mvecModel.get(i)).getMintID() == mvecModel.get(i).getMintIDMarkt())
-								{
-									mstrContent += ((Model_Markt) mvecModel.get(i))
-											.print() + "\n";
-								}
-							}
-											
+			
+		}
+			}
+		}
+		else if (mguiHinzufuegen.HINZUFUEGENKONTO.equals(string)) {
+			try {
+				SQLModifizieren(Controll_Statments.kontoHinzufügen.toString()
+						+ mguiHinzufuegen.getMtxtKonto_name().getText() + ","
+						+ mguiHinzufuegen.getMtxtKonto_Blz().getText() + ","
+						+ mguiHinzufuegen.getMtxtKonto_kontonummer().getText()
+						+ "," + mguiHinzufuegen.getMtxtKonto_Betrag().getText()
+						+ "," + mguiHinzufuegen.getMtxtKonto_Min().getText()
+						+ ");");
+
+				// Model Akutell halten
+				SQLAbfrage(Controll_Statments.konto.toString());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (mguiHinzufuegen.HINZUFUEGENMARKT.equals(string)) {
+			try {
+				SQLModifizieren(Controll_Statments.marktHinzufügen.toString()
+						+ mguiHinzufuegen.getMtxtMarkt_Name().getText() + ","
+						+ mguiHinzufuegen.getMtxtMarkt_Plz().getText() + ","
+						+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()
+						+ "," + mguiHinzufuegen.getMtxtMarkt_Entfernung()
+						+ ");");
+
+				// Model Akutell halten
+				SQLAbfrage(Controll_Statments.markt.toString());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (mguiHinzufuegen.HINZUFUEGENPRODUKT.equals(string)) {
+			try {
+				SQLModifizieren(Controll_Statments.produktHinzufügen.toString()
+						+ mguiHinzufuegen.getMtxtProdukt_Name().getText() + ","
+						+ mguiHinzufuegen.getMtxtProdukt_Gewicht().getText()
+						+ ","
+						+ mguiHinzufuegen.getMtxtProdukt_Preis().getText()
+						+ ");");
+
+				// Model Akutell halten
+				SQLAbfrage(Controll_Statments.produkt.toString());
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (mguiMain.EXPORT.equals(string)) {
+			try {
+				SQLExport();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else if (mguiMain.LADEN.equals(string)) {
+			try {
+				SQLImport();
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (mguiMain.AUSWAHL.equals(string)) {
+			// füllen der anzeige box
+			String mstrContent = null;
+			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf
+					.toString()) {
+				for (int i = 0; i < mvecModel.size(); i++) {
+					{
+						mstrContent += "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
+						mstrContent += mvecModel.get(i).print() + "\n";
+
+						if (mvecModel.get(i) instanceof Model_Produkt) {
+							if (((Model_Produkt) mvecModel.get(i)).getMintID() == mvecModel
+									.get(i).getMintIDProdukt()) {
+								mstrContent += ((Model_Produkt) mvecModel
+										.get(i)).print() + "\n";
+							} else if (mvecModel.get(i) instanceof Model_Konto)
+								if (((Model_Konto) mvecModel.get(i))
+										.getMintID() == mvecModel.get(i)
+										.getMintIDKonto()) {
+									mstrContent += ((Model_Konto) mvecModel
+											.get(i)).print() + "\n";
+								} else if (mvecModel.get(i) instanceof Model_Markt)
+									if (((Model_Markt) mvecModel.get(i))
+											.getMintID() == mvecModel.get(i)
+											.getMintIDMarkt()) {
+										mstrContent += ((Model_Markt) mvecModel
+												.get(i)).print() + "\n";
+									}
 						}
+
 					}
 				}
-				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Produkt.toString())
-				{
-					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Produkt) {
-							mstrContent += "Name\tGewicht\tPreis\n";
-							mstrContent += ((Model_Produkt) mvecModel.get(i))
-									.print() + "\n";
-						}}
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt
+					.toString()) {
+				for (int i = 0; i < mvecModel.size(); i++) {
+					if (mvecModel.get(i) instanceof Model_Produkt) {
+						mstrContent += "Name\tGewicht\tPreis\n";
+						mstrContent += ((Model_Produkt) mvecModel.get(i))
+								.print() + "\n";
+					}
 				}
-				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Markt.toString())
-				{
-					for (int i = 0; i < mvecModel.size(); i++) {
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt
+					.toString()) {
+				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Markt) {
 						mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
 						mstrContent += ((Model_Markt) mvecModel.get(i)).print()
-								+ "\n";}}
+								+ "\n";
+					}
 				}
-				else if (mguiMain.getComboBox().getSelectedItem().toString()== cmbAuswahl.Konto.toString())
-				{
-					for (int i = 0; i < mvecModel.size(); i++) {
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
+					.toString()) {
+				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Konto) {
 						mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
 						mstrContent += ((Model_Konto) mvecModel.get(i)).print()
-								+ "\n";}}
+								+ "\n";
+					}
 				}
-				
-				// füllen der GUI
-				mguiMain.setTextArea(mstrContent);
-			
 			}
-			}	
-			}
+			// füllen der GUI
+			mguiMain.setTextArea(mstrContent);
+		}
+		
+		
+	}
 
 	@SuppressWarnings("deprecation")
 	private void acces() throws ClassNotFoundException, SQLException {
@@ -440,15 +421,19 @@ public class Controll_Main implements ActionListener {
 		BufferedWriter mfioStream = new BufferedWriter(file);
 
 		for (int i = 0; i < mvecModel.size(); i++) {
-			if (((Model_Produkt) mvecModel.get(i)).getMfltPreis() != 0.0) {
+			if (mvecModel.get(i) instanceof Model_Produkt) {
+
 				mfioStream.write(((Model_Produkt) mvecModel.get(i))
 						.SQLerstellenProdukt());
 				mfioStream.newLine();
-			} else if (((Model_Konto) mvecModel.get(i)).getMstrKnr() != "") {
+
+			} else if (mvecModel.get(i) instanceof Model_Konto) {
+
 				mfioStream.write(((Model_Konto) mvecModel.get(i))
 						.SQLerstellenKonto());
 				mfioStream.newLine();
-			} else if (((Model_Markt) mvecModel.get(i)).getMintEntfernung() != 0) {
+
+			} else if (mvecModel.get(i) instanceof Model_Markt) {
 				mfioStream.write(((Model_Markt) mvecModel.get(i))
 						.SQLerstellenMarkt());
 				mfioStream.newLine();

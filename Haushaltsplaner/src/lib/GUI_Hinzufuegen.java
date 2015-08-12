@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.Label;
 
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class GUI_Hinzufuegen extends JFrame {
@@ -47,7 +49,7 @@ public class GUI_Hinzufuegen extends JFrame {
 	public static final String HINZUFUEGENKONTO = "HinzufuegenKonto";
 	public static final String HINZUFUEGENMARKT = "HinzufuegenMarkt";
 	public static final String HINZUFUEGENALL = "HinzufuegenAll";
-	
+
 
 	public JTextField getMtxtProdukt_Name() {
 		return mtxtProdukt_Name;
@@ -200,9 +202,12 @@ public class GUI_Hinzufuegen extends JFrame {
 		mpnlKonto.add(mtxtKonto_Betrag);
 
 		mbtmKonto = new JButton("Hinzufügen");
+		mbtmKonto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		mbtmKonto.setBounds(242, 194, 117, 25);
 		mpnlKonto.add(mbtmKonto);
-		mbtmKonto.setActionCommand(HINZUFUEGENKONTO);
 
 		Label label = new Label("Name");
 		label.setBounds(10, 29, 68, 21);
@@ -272,7 +277,6 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmMarkt = new JButton("Hinzufügen");
 		mbtmMarkt.setBounds(267, 197, 117, 25);
 		mpnlMarkt.add(mbtmMarkt);
-		mbtmMarkt.setActionCommand(HINZUFUEGENMARKT);
 
 		JPanel mpnlProdukt = new JPanel();
 		tabbedPane.addTab("Produkt", null, mpnlProdukt, null);
@@ -308,7 +312,6 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmProdukt = new JButton("Hinzufügen");
 		mbtmProdukt.setBounds(267, 214, 117, 25);
 		mpnlProdukt.add(mbtmProdukt);
-		mbtmProdukt.setActionCommand(HINZUFUEGENPRODUKT);
 
 		JPanel mpnlAlles = new JPanel();
 		tabbedPane.addTab("Alles", null, mpnlAlles, null);
@@ -327,7 +330,6 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmAlles = new JButton("Hinzufügen");
 		mbtmAlles.setBounds(267, 214, 117, 25);
 		mpnlAlles.add(mbtmAlles);
-		mbtmAlles.setActionCommand(HINZUFUEGENALL);
 
 		Label label_12 = new Label("Anzahl");
 		label_12.setBounds(27, 40, 68, 21);
@@ -360,5 +362,11 @@ public class GUI_Hinzufuegen extends JFrame {
 		Label label_16 = new Label("Konto");
 		label_16.setBounds(27, 176, 74, 21);
 		mpnlAlles.add(label_16);
+		
+
+		mbtmKonto.setActionCommand(HINZUFUEGENKONTO);
+		mbtmMarkt.setActionCommand(HINZUFUEGENMARKT);
+		mbtmProdukt.setActionCommand(HINZUFUEGENPRODUKT);
+		mbtmAlles.setActionCommand(HINZUFUEGENALL);
 	}
 }

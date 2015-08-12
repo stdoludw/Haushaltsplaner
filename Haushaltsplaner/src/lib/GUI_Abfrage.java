@@ -102,10 +102,12 @@ public class GUI_Abfrage extends JFrame {
 		contentPane.add(label);
 		
 		mtxtMeta_DatenabnkServer = new TextField();
+		mtxtMeta_DatenabnkServer.setText("dfch-ludwig.de");
 		mtxtMeta_DatenabnkServer.setBounds(184, 75, 219, 19);
 		contentPane.add(mtxtMeta_DatenabnkServer);
 		
 		mtxtMeta_DatenabnkName = new TextField();
+		mtxtMeta_DatenabnkName.setText("HausHaltsPlaner_Database");
 		mtxtMeta_DatenabnkName.setBounds(184, 42, 219, 19);
 		contentPane.add(mtxtMeta_DatenabnkName);
 		
