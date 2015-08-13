@@ -15,8 +15,7 @@ public class Model_Produkt extends Model_Main {
 	}
 
 	public Model_Produkt(String name, int gewicht, float preis, int id) {
-		super(0, "");
-
+super(0,"",-1);
 		this.mstrName = name;
 		this.mintGewicht = gewicht;
 		this.mfltPreis = preis;
@@ -24,8 +23,7 @@ public class Model_Produkt extends Model_Main {
 	}
 
 	public Model_Produkt() {
-		super(0, "");
-
+		super(0,"",-1);
 		this.mstrName = "";
 		this.mintGewicht = 0;
 		this.mfltPreis = 0;
@@ -66,7 +64,7 @@ public class Model_Produkt extends Model_Main {
 	}
 
 	public String print() {
-		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis;
+		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis+"\t"+mintID;
 	}
 
 	public boolean equal(Model_Produkt tmp) {

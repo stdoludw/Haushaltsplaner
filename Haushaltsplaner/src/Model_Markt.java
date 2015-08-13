@@ -17,8 +17,7 @@ public class Model_Markt extends Model_Main {
 
 	public Model_Markt(String name, String plz, String adr, int entfernung,
 			int id) {
-		super(0, "");
-		this.mstrName = name;
+		super(0,"",-1);		this.mstrName = name;
 		this.mstrPLZ = plz;
 		this.mstrAdr = adr;
 		this.mintEntfernung = entfernung;
@@ -26,8 +25,7 @@ public class Model_Markt extends Model_Main {
 	}
 
 	public Model_Markt() {
-		super(0, "");
-
+		super(0,"",-1);
 		this.mstrName = "";
 		this.mstrPLZ = "";
 		this.mstrAdr = "";
@@ -78,7 +76,7 @@ public class Model_Markt extends Model_Main {
 
 	public String print() {
 		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t"
-				+ mintEntfernung;
+				+ mintEntfernung+"\t"+mintID;
 	}
 
 	public boolean equal(Model_Markt tmp) {

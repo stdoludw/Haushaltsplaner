@@ -6,6 +6,7 @@ public class Model_Main {
 	private int mintIDProdukt;
 	private int mintIDMarkt;
 	private int mintIDKonto;
+	private int mintID;
 	private boolean change = false;
 
 	public boolean isChange() {
@@ -15,14 +16,22 @@ public class Model_Main {
 	public void setChange(boolean change) {
 		this.change = change;
 	}
+	public int getMintID() {
+		return mintID;
+	}
+
+	public void setMintID(int mintID) {
+		this.mintID = mintID;
+	}
 
 	public String getMstrDatum() {
 		return mstrDatum;
 	}
 
-	public Model_Main(int anzahl, String today) {
+	public Model_Main(int anzahl, String today, int pk) {
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
+		this.mintID = pk;
 	}
 
 	public void ModelArray(int p, int k, int m) {
@@ -50,7 +59,7 @@ public class Model_Main {
 	}
 
 	public String print() {
-		return mintAnzahl + "\t" + mstrDatum + "\t";
+		return mintAnzahl + "\t" + mstrDatum + "\t"+mintID;
 	}
 
 	public int getMintIDKonto() {

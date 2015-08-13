@@ -18,8 +18,7 @@ public class Model_Konto extends Model_Main {
 
 	public Model_Konto(String name, String blz, String knr, String betrag,
 			int min, int id) {
-		super(0, "");
-		this.mstrBetrag = betrag;
+		super(0,"",-1);		this.mstrBetrag = betrag;
 		this.mstrName = name;
 		this.mstrBLZ = blz;
 		this.mstrKnr = knr;
@@ -29,8 +28,7 @@ public class Model_Konto extends Model_Main {
 	}
 
 	public Model_Konto() {
-		super(0, "");
-		this.mstrBetrag = "";
+		super(0,"",-1);		this.mstrBetrag = "";
 		this.mstrName = "";
 		this.mstrBLZ = "";
 		this.mstrKnr = "";
@@ -83,13 +81,13 @@ public class Model_Konto extends Model_Main {
 		String statment;
 		statment = Controll_Statments.kontoUpdateInsert.toString() + "\""
 				+ mstrName + "\"" + "," + "\"" + mstrBLZ + "\"" + "," + "\""
-				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mintID + ");";
+				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mintMin+","+mintID + ");";
 		return statment;
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag
-				+ "\t" + mintID;
+		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag+"\t"+mintMin+"\t"+mintID;
+				
 	}
 
 	public boolean equal(Model_Konto tmp) {
