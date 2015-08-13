@@ -83,21 +83,6 @@ public enum Controll_Statments {
 		}
 	},
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	PreisSortierung {
 		public String toString() {
 			return "select * from SortPreis;";
@@ -158,9 +143,9 @@ public enum Controll_Statments {
 		mstrAttNew.add("create table Konto(betrag float, name VARCHAR(255), bankleitzahl VARCHAR(8), kontonummer VARCHAR(9), minimum INT, K_ID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(K_ID));");
 		mstrAttNew.add("create table Produkt(preis float, name VARCHAR(255), gewicht INT, P_ID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(P_ID));");
 		mstrAttNew.add("create table Markt(name VARCHAR(255), postleitzahl VARCHAR(5), adresse VARCHAR(255), entfernung INT, M_ID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(M_ID));");
-		mstrAttNew.add("create table Einkauf(anzahl INT, datum DATE, m_ID INT, FOREIGN KEY(m_ID) REFERENCES Markt(M_ID) ON DELETE CASCADE,"+
-		"k_ID INT, FOREIGN KEY(k_ID) REFERENCES Konto(K_ID) ON DELETE CASCADE,"+
-		"p_ID INT,FOREIGN KEY(p_ID) REFERENCES Produkt(P_ID) ON DELETE CASCADE,"+
+		mstrAttNew.add("create table Einkauf(anzahl INT, datum DATE, m_ID INT, FOREIGN KEY(m_ID) REFERENCES Markt(M_ID),"+
+		"k_ID INT, FOREIGN KEY(k_ID) REFERENCES Konto(K_ID),"+
+		"p_ID INT,FOREIGN KEY(p_ID) REFERENCES Produkt(P_ID),"+
  		"PRIMARY KEY(m_ID,p_ID,k_ID));");
 		mstrAttNew.add("create view ViewAll as select" 
 		+"k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID,"
