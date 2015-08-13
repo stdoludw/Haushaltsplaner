@@ -81,7 +81,7 @@ public class Model_Konto extends Model_Main {
 
 	public String SQLerstellenKonto() {
 		String statment;
-		statment = Controll_Statments.kontoHinzufuegen.toString() + "\""
+		statment = Controll_Statments.kontoUpdateInsert.toString() + "\""
 				+ mstrName + "\"" + "," + "\"" + mstrBLZ + "\"" + "," + "\""
 				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mintID + ");";
 		return statment;

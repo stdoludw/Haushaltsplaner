@@ -69,9 +69,9 @@ public class Model_Markt extends Model_Main {
 
 	public String SQLerstellenMarkt() {
 		String statment;
-		statment = Controll_Statments.marktHinzufuegen.toString() + "\""
+		statment = Controll_Statments.marktUpdateInsert.toString() + "\""
 				+ mstrName + "\"" + "," + "\"" + mstrPLZ + "\"" + "," + "\""
-				+ mstrAdr + "\"" + "," + mintEntfernung + ");";
+				+ mstrAdr + "\"" + "," + mintEntfernung + mintID+");";
 
 		return statment;
 	}

@@ -58,8 +58,8 @@ public class Model_Produkt extends Model_Main {
 
 	public String SQLerstellenProdukt() {
 		String statment;
-		statment = Controll_Statments.produktHinzufuegen.toString() + "\""
-				+ mstrName + "\"" + "," + mintGewicht + "," + mfltPreis + ");";
+		statment = Controll_Statments.produktUpdateInsert.toString() + "\""
+				+ mstrName + "\"" + "," + mintGewicht + "," + mfltPreis + mintID+");";
 
 		return statment;
 

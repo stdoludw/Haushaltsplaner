@@ -193,6 +193,58 @@ public class Controll_Main implements ActionListener {
 				}
 			}
 
+			//veraenderungen schreiben
+			for(int i=0;i< mvecModel.size(); i++)
+			{
+				if(mvecModel.get(i).isChange())
+				{
+					if (mvecModel.get(i) instanceof Model_Produkt) 
+					{
+						try {
+							SQLModifizieren(Controll_Statments.produktUpdate.toString()+((Model_Produkt) mvecModel.get(i)).getMintID()+");");
+							SQLModifizieren(((Model_Produkt) mvecModel.get(i)).SQLerstellenProdukt());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+					else if (mvecModel.get(i) instanceof Model_Konto) 
+					{
+						try {
+							SQLModifizieren(Controll_Statments.kontoUpdate.toString()+((Model_Konto) mvecModel.get(i)).getMintID()+");");
+							SQLModifizieren(((Model_Konto) mvecModel.get(i)).SQLerstellenKonto());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						
+					} 
+					else if (mvecModel.get(i) instanceof Model_Markt) 
+					{
+						try {
+							SQLModifizieren(Controll_Statments.marktUpdate.toString()+((Model_Markt) mvecModel.get(i)).getMintID()+");");
+							SQLModifizieren(((Model_Markt) mvecModel.get(i)).SQLerstellenMarkt());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}			 
+					else if (mvecModel.get(i) instanceof Model_Main) 
+					{
+						try {
+							SQLModifizieren(Controll_Statments.AllUpdate.toString()+
+									 mvecModel.get(i).getMintIDMarkt() +"and p_ID = " + 
+									 mvecModel.get(i).getMintIDProdukt()+" and k_ID = "+
+									 mvecModel.get(i).getMintIDKonto()+");");
+									
+									
+									SQLModifizieren(mvecModel.get(i).SQlerstellenAll());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}	
+					}
+					
+					
+					
+			}
+			}
 		} else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();

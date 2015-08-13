@@ -25,7 +25,7 @@ public enum Controll_Statments {
 
 	allHinzufuegen {
 		public String toString() {
-			return "insert into ein(anzahl,datum,m_ID,k_ID,p_ID) Values(";
+			return "insert into ein(anzahl,datum,k_ID,p_ID,m_ID) Values(";
 
 		}
 	},
@@ -45,11 +45,59 @@ public enum Controll_Statments {
 		}
 	},
 
-	userHinzufuegen {
+	kontoUpdate {
 		public String toString() {
-			return "insert into User(name) Values(";
+			return "delete from Konto where K_ID = ";
 		}
 	},
+	kontoUpdateInsert {
+		public String toString() {
+			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum,K_ID) Values(";
+		}
+	},
+	
+	produktUpdate {
+		public String toString() {
+			return "delete from Produkt where P_ID = ";
+		}
+	},
+	produktUpdateInsert {
+		public String toString() {
+			return "insert into Produkt(name,gewicht,preis,P_ID) Values(";
+		}
+	},
+	marktUpdate {
+		public String toString() {
+			return "delete from Markt where M_ID = ";
+		}
+	},
+	marktUpdateInsert {
+		public String toString() {
+			return "insert into Markt(name,postleitzahl,adresse,entfernung,M_ID) Values(";
+		}
+	},
+	
+	AllUpdate {
+		public String toString() {
+			return "delete from Markt where M_ID = ";
+		}
+	},
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	PreisSortierung {
 		public String toString() {
 			return "select * from SortPreis;";
