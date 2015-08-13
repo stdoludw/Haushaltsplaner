@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+import javax.swing.JOptionPane;
+
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -84,9 +86,13 @@ public class Controll_Main implements ActionListener {
 				SQLAbfrage(Controll_Statments.konto.toString());
 				SQLAbfrage(Controll_Statments.markt.toString());
 				SQLAbfrage(Controll_Statments.produkt.toString());
+				JOptionPane.showMessageDialog(null, "Login war erfolgreich", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
+
 
 			} catch (ClassNotFoundException | SQLException e) {
 				System.err.println(e.getMessage() + " Daten leider fehlerhaft");
+				JOptionPane.showMessageDialog(null, "Logindaten fehlerhaft\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
+
 
 			} finally {
 				mguiAbfrage.clear();
@@ -117,7 +123,7 @@ public class Controll_Main implements ActionListener {
 		} else if (mguiMain.STATISTIK.equals(mstrCommand)) {
 
 		} else if (mguiMain.UPDATE.equals(mstrCommand)) {
-
+			System.out.println(mstrCommand);
 			String mstrevent = mguiMain.getComboBox().getSelectedItem()
 					.toString();
 			if (cmbAuswahl.Konto.toString().equals(mstrevent)) {
@@ -263,8 +269,11 @@ public class Controll_Main implements ActionListener {
 				SQLAbfrage(Controll_Statments.konto.toString());
 				SQLAbfrage(Controll_Statments.markt.toString());
 				SQLAbfrage(Controll_Statments.produkt.toString());
+				
+				JOptionPane.showMessageDialog(null, "Viel Spaß beim benutzen der Software", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
+
 			} catch (SQLException | ClassNotFoundException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Konto konnte nicht hinzugefügt werden\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
 			} finally {
 				mguiAbfrage.clear();
 			}
@@ -296,9 +305,10 @@ public class Controll_Main implements ActionListener {
 								.toString()
 								+ mguiHinzufuegen.getMtxtAlles_Anzahl()
 										.getText()
-								+ ","
-								+ mguiHinzufuegen.getMtxtAlles_Datum()
-										.getText()
+								+ ","+"STR_TO_DATE("+"\'"
+								+ mguiHinzufuegen.getMtxtAlles_Datum().getText().toString()
+								+
+								"\', '%d-%m-%Y') "
 								+ ","
 								+ M_ID
 								+ ","
@@ -306,9 +316,11 @@ public class Controll_Main implements ActionListener {
 								+ "," + P_ID + ");");
 
 						SQLAbfrage(Controll_Statments.all.toString());
+						JOptionPane.showMessageDialog(null, "Einkauf wure hinzugefügt", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 					} catch (SQLException e) {
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Einkauf konnte nicht hinzugefügt werden\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
+
 					} finally {
 						mguiHinzufuegen.clear();
 					}
@@ -328,8 +340,10 @@ public class Controll_Main implements ActionListener {
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.konto.toString());
+				JOptionPane.showMessageDialog(null, "Konto wure hinzugefügt", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
+
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Konto konnte nicht hinzugefügt werden\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
 			} finally {
 				mguiHinzufuegen.clear();
 			}
@@ -347,8 +361,10 @@ public class Controll_Main implements ActionListener {
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.markt.toString());
+				JOptionPane.showMessageDialog(null, "Markt wure hinzugefügt", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
+
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Markt konnte nicht hinzugefügt werden\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
 			} finally {
 				mguiHinzufuegen.clear();
 			}
@@ -368,9 +384,10 @@ public class Controll_Main implements ActionListener {
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.produkt.toString());
+				JOptionPane.showMessageDialog(null, "Produkt wure hinzugefügt", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Produkt konnte nicht hinzugefügt werden\n"+e.getMessage(), "Fail", JOptionPane.OK_CANCEL_OPTION);
 			} finally {
 				mguiHinzufuegen.clear();
 			}

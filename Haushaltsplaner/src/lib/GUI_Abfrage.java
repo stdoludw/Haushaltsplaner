@@ -4,12 +4,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JPasswordField;
+
 import java.awt.TextField;
 import java.awt.Label;
+
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class GUI_Abfrage extends JFrame {

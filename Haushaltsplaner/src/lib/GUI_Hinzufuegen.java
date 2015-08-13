@@ -226,7 +226,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mtxtKonto_Betrag.setBounds(121, 122, 238, 19);
 		mpnlKonto.add(mtxtKonto_Betrag);
 
-		mbtmKonto = new JButton("Hinzufügen");
+		mbtmKonto = new JButton("Hinzufï¿½gen");
 	
 		mbtmKonto.setBounds(242, 194, 117, 25);
 		mpnlKonto.add(mbtmKonto);
@@ -331,7 +331,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_11.setBounds(24, 96, 84, 21);
 		mpnlProdukt.add(label_11);
 
-		mbtmProdukt = new JButton("Hinzufügen");
+		mbtmProdukt = new JButton("Hinzufï¿½gen");
 		mbtmProdukt.setBounds(267, 214, 117, 25);
 		mpnlProdukt.add(mbtmProdukt);
 
@@ -345,6 +345,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mpnlAlles.add(mtxtAlles_Anzahl);
 
 		mtxtAlles_Datum = new JTextField();
+		mtxtAlles_Datum.setToolTipText("TAG-MONAT-JAHR");
 		mtxtAlles_Datum.setColumns(10);
 		mtxtAlles_Datum.setBounds(127, 71, 238, 19);
 		mpnlAlles.add(mtxtAlles_Datum);
