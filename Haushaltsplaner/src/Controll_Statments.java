@@ -146,7 +146,8 @@ public enum Controll_Statments {
 		mstrAttNew.add("create table Einkauf(anzahl INT, datum DATE, m_ID INT, FOREIGN KEY(m_ID) REFERENCES Markt(M_ID),"+
 		"k_ID INT, FOREIGN KEY(k_ID) REFERENCES Konto(K_ID),"+
 		"p_ID INT,FOREIGN KEY(p_ID) REFERENCES Produkt(P_ID),"+
- 		"PRIMARY KEY(m_ID,p_ID,k_ID));");
+		"E_ID INT NOT NULL AUTO_INCREMENT,"+
+ 		"PRIMARY KEY(E_ID));");
 		mstrAttNew.add("create view ViewAll as select" 
 		+"k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID,"
 		+"p.name as 'Produktname',p.gewicht, p.preis, p.P_ID,"
