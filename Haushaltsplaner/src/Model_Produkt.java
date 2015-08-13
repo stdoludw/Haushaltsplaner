@@ -1,4 +1,4 @@
-public class Model_Produkt extends Model_Main{
+public class Model_Produkt extends Model_Main {
 
 	// Produkt Attribute
 	private String mstrName;
@@ -15,7 +15,7 @@ public class Model_Produkt extends Model_Main{
 	}
 
 	public Model_Produkt(String name, int gewicht, float preis, int id) {
-		super(0,"");
+		super(0, "");
 
 		this.mstrName = name;
 		this.mintGewicht = gewicht;
@@ -24,7 +24,7 @@ public class Model_Produkt extends Model_Main{
 	}
 
 	public Model_Produkt() {
-		super(0,"");
+		super(0, "");
 
 		this.mstrName = "";
 		this.mintGewicht = 0;
@@ -56,21 +56,33 @@ public class Model_Produkt extends Model_Main{
 		this.mfltPreis = mfltPreis;
 	}
 
-	public String SQLerstellenProdukt()
-	{
+	public String SQLerstellenProdukt() {
 		String statment;
 		statment = Controll_Statments.produktHinzufuegen.toString() + "\""
-				+ mstrName + "\"" + ","
-				+ mintGewicht + ","
-				+ mfltPreis + ");";
-	
-	return  statment;
+				+ mstrName + "\"" + "," + mintGewicht + "," + mfltPreis + ");";
+
+		return statment;
 
 	}
-	
-	public String print()
-	{
-	return  mstrName + "\t" + mintGewicht + "\t"+ mfltPreis;
+
+	public String print() {
+		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis;
 	}
-	
+
+	public boolean equal(Model_Produkt tmp) {
+		if (this.mstrName == tmp.mstrName
+				&& this.mintGewicht == tmp.mintGewicht
+				&& this.mfltPreis == tmp.mfltPreis) {
+			return true;
+		}
+		return false;
+	}
+
+	public void chnage(Model_Produkt tmp) {
+		this.mstrName = tmp.mstrName;
+		this.mintGewicht = tmp.mintGewicht;
+		this.mfltPreis = tmp.mfltPreis;
+		super.setChange(true);
+	}
+
 }

@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 
 @SuppressWarnings("serial")
@@ -25,7 +26,7 @@ public class GUI_Main extends JFrame {
 	private JMenuItem mmenLaden;
 	private JMenu mnExtras;
 	private JMenuItem mntmHinzufgen;
-
+	private JButton mbtnupdate;
 	
 	private static GUI_Main frame = null;
 	public static final String HINZUFUEGEN = "Hinzufuegen";
@@ -33,7 +34,8 @@ public class GUI_Main extends JFrame {
 	public static final String LADEN = "Laden";
 	public static final String STATISTIK = "Statistik";
 	public static final String AUSWAHL = "Auswahl";
-	
+	public static final String UPDATE = "update";
+
 	public static GUI_Main init() {
 
 				try {
@@ -51,11 +53,6 @@ public class GUI_Main extends JFrame {
 			
 		return frame;
 	}
-	
-	//wenn button geclickt dann nach anderungen schaen anhand von objekt vergleich
-	//eine zeile = 1 objekt
-	
-	
 	
 	public void show(GUI_Main tmp)
 	{
@@ -115,7 +112,7 @@ public class GUI_Main extends JFrame {
 		contentPane.add(lblAnzeigen);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(136, 50, 145, 24);
+		comboBox.setBounds(56, 50, 145, 24);
 		comboBox.setActionCommand(AUSWAHL);
 		comboBox.addItem(cmbAuswahl.Produkt.toString());
 		comboBox.addItem(cmbAuswahl.Konto.toString());
@@ -123,6 +120,11 @@ public class GUI_Main extends JFrame {
 		comboBox.addItem(cmbAuswahl.Einkauf.toString());
 
 		contentPane.add(comboBox);
+		
+		mbtnupdate = new JButton("update");
+		mbtnupdate.setBounds(229, 49, 117, 25);
+		contentPane.add(mbtnupdate);
+		mbtnupdate.setActionCommand(UPDATE);
 	}
 
 	public JMenuItem getMmenStatistik() {
@@ -152,5 +154,9 @@ public class GUI_Main extends JFrame {
 	public JMenuItem getMntmHinzufgen() {
 		return mntmHinzufgen;
 	}
-
+	
+	public JButton getMbtnupdate() {
+		return mbtnupdate;
+	}
+	
 }

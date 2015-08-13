@@ -1,6 +1,5 @@
 public class Model_Konto extends Model_Main {
 
-
 	// Konto attribute
 	private String mstrBetrag;
 	private String mstrName;
@@ -17,7 +16,7 @@ public class Model_Konto extends Model_Main {
 		return mintID;
 	}
 
-	public Model_Konto(String betrag, String name, String blz, String knr,
+	public Model_Konto(String name, String blz, String knr, String betrag,
 			int min, int id) {
 		super(0, "");
 		this.mstrBetrag = betrag;
@@ -92,4 +91,24 @@ public class Model_Konto extends Model_Main {
 		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag
 				+ "\t" + mintID;
 	}
+
+	public boolean equal(Model_Konto tmp) {
+		if (this.mstrBetrag == tmp.mstrBetrag && this.mstrName == tmp.mstrName
+				&& this.mstrBLZ == tmp.mstrBLZ && this.mstrKnr == tmp.mstrKnr
+				&& this.mintMin == tmp.mintMin) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public void change(Model_Konto tmp) {
+		this.mstrBetrag = tmp.mstrBetrag;
+		this.mstrName = tmp.mstrName;
+		this.mstrBLZ = tmp.mstrBLZ;
+		this.mstrKnr = tmp.mstrKnr;
+		this.mintMin = tmp.mintMin;
+		super.setChange(true);
+	}
+
 }
