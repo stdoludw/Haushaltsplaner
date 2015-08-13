@@ -6,10 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.io.*;
 
 import lib.*;
+
+//#TODO best�aedigung auf button click
+//#TODO ausgabe mit update und delete -> button
+//#TODO verschl�sseln von Konto -> name ->kontonummer->bankleitzahl->betrag->minimum
 
 public class Controll_Main implements ActionListener  {
 
@@ -72,7 +75,7 @@ public class Controll_Main implements ActionListener  {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
 			// Hauptgui starten
-			// Das Main Window wird nur angezeigt wenn Daten für connection ok
+			// Das Main Window wird nur angezeigt wenn Daten fuer connection ok
 			mguiMain.show(mguiMain);
 			try {
 				acces();
@@ -85,15 +88,20 @@ public class Controll_Main implements ActionListener  {
 
 			} catch (ClassNotFoundException | SQLException e) {
 				System.err.println(e.getMessage() + " Daten leider fehlerhaft");
+				
+			}
+			finally
+			{
+				mguiAbfrage.clear();
+
 			}
 		} else if (mguiMain.HINZUFUEGEN.equals(string)) {
 			mguiHinzufuegen.show(mguiHinzufuegen);
-			//erst comboboxen clearen
-			mguiHinzufuegen.getMcmbProdukt().removeAllItems();
-			mguiHinzufuegen.getMcmbKonto().removeAllItems();
-			mguiHinzufuegen.getMcmbMarkt().removeAllItems();
 			
-				// Comboboxen füllen
+			//erst comboboxen clearen
+			mguiHinzufuegen.clear();
+			
+				// Comboboxen fuellen
 					for (int i = 0; i < mvecModel.size(); i++) {
 						if (mvecModel.get(i) instanceof Model_Produkt) {
 							mguiHinzufuegen.getMcmbProdukt().addItem(
@@ -141,6 +149,10 @@ public class Controll_Main implements ActionListener  {
 			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+			finally
+			{
+				mguiAbfrage.clear();
+			}
 		} else if (mguiHinzufuegen.HINZUFUEGENALL.equals(string)) {
 		
 			// Konto, Produkt und Markt PK ermitteln
@@ -167,7 +179,7 @@ public class Controll_Main implements ActionListener  {
 			
 				// Einkauf hinzufuegen
 				try {
-					SQLModifizieren(Controll_Statments.allHinzufügen.toString()
+					SQLModifizieren(Controll_Statments.allHinzufuegen.toString()
 							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText() + ","
 							+ mguiHinzufuegen.getMtxtAlles_Datum().getText() + ","
 							+ M_ID + "," + K_ID + "," + P_ID + ");");
@@ -175,8 +187,11 @@ public class Controll_Main implements ActionListener  {
 					SQLAbfrage(Controll_Statments.all.toString());
 
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				finally
+				{
+					mguiHinzufuegen.clear();
 				}
 
 			
@@ -185,7 +200,7 @@ public class Controll_Main implements ActionListener  {
 		}
 		else if (mguiHinzufuegen.HINZUFUEGENKONTO.equals(string)) {
 			try {
-				SQLModifizieren(Controll_Statments.kontoHinzufügen.toString()
+				SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString()
 						+ '\''+mguiHinzufuegen.getMtxtKonto_name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtKonto_Blz().getText() + ","
 						+ mguiHinzufuegen.getMtxtKonto_kontonummer().getText()
@@ -199,9 +214,14 @@ public class Controll_Main implements ActionListener  {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			finally
+			{
+				mguiHinzufuegen.clear();
+			}
+
 		} else if (mguiHinzufuegen.HINZUFUEGENMARKT.equals(string)) {
 			try {
-				SQLModifizieren(Controll_Statments.marktHinzufügen.toString()
+				SQLModifizieren(Controll_Statments.marktHinzufuegen.toString()
 						+ '\''+mguiHinzufuegen.getMtxtMarkt_Name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtMarkt_Plz().getText() + ","
 						+'\''+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText()+'\''
@@ -213,9 +233,15 @@ public class Controll_Main implements ActionListener  {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			finally
+			{
+				mguiHinzufuegen.clear();
+			}
+
+			
 		} else if (mguiHinzufuegen.HINZUFUEGENPRODUKT.equals(string)) {
 			try {
-				SQLModifizieren(Controll_Statments.produktHinzufügen.toString()
+				SQLModifizieren(Controll_Statments.produktHinzufuegen.toString()
 						+'\''+ mguiHinzufuegen.getMtxtProdukt_Name().getText() + '\''+","
 						+ mguiHinzufuegen.getMtxtProdukt_Gewicht().getText()
 						+ ","
@@ -228,6 +254,11 @@ public class Controll_Main implements ActionListener  {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			finally
+			{
+				mguiHinzufuegen.clear();
+			}
+
 		} else if (mguiMain.EXPORT.equals(string)) {
 			try {
 				SQLExport();
@@ -241,15 +272,16 @@ public class Controll_Main implements ActionListener  {
 				e.printStackTrace();
 			}
 		} else if (mguiMain.AUSWAHL.equals(string)) {
-			// füllen der anzeige box
+			
+			// fuellen der anzeige box
 			String mstrContent = null;
 			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf
 					.toString()) {
+				mstrContent += "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
+				
 				for (int i = 0; i < mvecModel.size(); i++) {
 					{
-						mstrContent += "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
 						mstrContent += mvecModel.get(i).print() + "\n";
-
 						if (mvecModel.get(i) instanceof Model_Produkt) {
 							if (((Model_Produkt) mvecModel.get(i)).getMintID() == mvecModel
 									.get(i).getMintIDProdukt()) {
@@ -274,33 +306,34 @@ public class Controll_Main implements ActionListener  {
 				}
 			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt
 					.toString()) {
+				mstrContent += "Name\tGewicht\tPreis\n";
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Produkt) {
-						mstrContent += "Name\tGewicht\tPreis\n";
 						mstrContent += ((Model_Produkt) mvecModel.get(i))
 								.print() + "\n";
 					}
 				}
 			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt
 					.toString()) {
+				mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Markt) {
-						mstrContent += "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
 						mstrContent += ((Model_Markt) mvecModel.get(i)).print()
 								+ "\n";
 					}
 				}
 			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
 					.toString()) {
+				mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
+
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Konto) {
-						mstrContent += "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
 						mstrContent += ((Model_Konto) mvecModel.get(i)).print()
 								+ "\n";
 					}
 				}
 			}
-			// füllen der GUI
+			// fuellen der GUI
 			mguiMain.setTextArea(mstrContent);
 		}
 		
@@ -319,7 +352,7 @@ public class Controll_Main implements ActionListener  {
 		mstrHostName = mguiAbfrage.getMtxtMeta_DatenabnkServer().getText();
 		mintPort = 3306;
 
-		// Datenbanktreiber für JDBC Schnittstellen laden.
+		// Datenbanktreiber fuer JDBC Schnittstellen laden.
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// Verbindung zur JDBC-Datenbank herstellen.
@@ -337,7 +370,7 @@ public class Controll_Main implements ActionListener  {
 		// Query bearbeiten
 		ResultSet result = null;
 
-		// executeQuerry nur für selects
+		// executeQuerry nur fuer selects
 		result = query.executeQuery(sql);
 
 		// speichern in Klasse
@@ -360,7 +393,7 @@ public class Controll_Main implements ActionListener  {
 				Model_Main me = new Model_Main(result.getInt("anzahl"),
 						result.getString("datum"));
 
-				// verknüpfung reaisieren
+				// verknuepfung reaisieren
 				me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());
 				mvecModel.add(me);
 			}
@@ -400,7 +433,7 @@ public class Controll_Main implements ActionListener  {
 		// abfrage statement erstellen
 		Statement query = mconCon.createStatement();
 
-		// executeQuerry nur für insert/update/alter
+		// executeQuerry nur fuer insert/update/alter
 		query.executeUpdate(sql);
 	}
 
@@ -438,6 +471,7 @@ public class Controll_Main implements ActionListener  {
 						.SQLerstellenMarkt());
 				mfioStream.newLine();
 			} else {
+				//#TODO kein enter in diesen block?
 				mfioStream.write(mvecModel.get(i).SQlerstellenAll());
 				mfioStream.newLine();
 			}

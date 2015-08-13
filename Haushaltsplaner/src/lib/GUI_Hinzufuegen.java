@@ -7,12 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import java.awt.Label;
-
 import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 @SuppressWarnings("serial")
 public class GUI_Hinzufuegen extends JFrame {
@@ -36,7 +33,11 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JButton mbtmMarkt;
 	private JButton mbtmProdukt;
 	private JButton mbtmAlles;
-	
+	private JPanel mpnlKonto;
+	private JPanel mpnlProdukt;
+	private JPanel mpnlMarkt;
+	private JPanel mpnlAlles;
+
 	@SuppressWarnings("rawtypes")
 	private JComboBox mcmbProdukt;
 	@SuppressWarnings("rawtypes")
@@ -51,6 +52,28 @@ public class GUI_Hinzufuegen extends JFrame {
 	public static final String HINZUFUEGENALL = "HinzufuegenAll";
 
 
+	public void clear()
+	{
+		mtxtProdukt_Name.setText("");;
+		  mtxtProdukt_Gewicht.setText("");
+		  mtxtProdukt_Preis.setText("");
+		  mtxtMarkt_Name.setText("");
+		  mtxtMarkt_Adresse.setText("");
+		  mtxtMarkt_Plz.setText("");
+		  mtxtMarkt_Entfernung.setText("");
+		  mtxtKonto_name.setText("");
+		  mtxtKonto_kontonummer.setText("");
+		  mtxtKonto_Blz.setText("");
+		  mtxtKonto_Betrag.setText("");
+		  mtxtAlles_Anzahl.setText("");
+		  mtxtAlles_Datum.setText("");
+		  mtxtKonto_Min.setText("");
+		   mcmbProdukt.removeAll();
+			mcmbMarkt.removeAll();
+			mcmbKonto.removeAll();
+	}
+	
+	
 	public JTextField getMtxtProdukt_Name() {
 		return mtxtProdukt_Name;
 	}
@@ -173,11 +196,13 @@ public class GUI_Hinzufuegen extends JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(12, 44, 417, 294);
+		
+		
 		contentPane.setLayout(null);
 		contentPane.add(lblHinzufgen);
 		contentPane.add(tabbedPane);
 
-		JPanel mpnlKonto = new JPanel();
+		mpnlKonto = new JPanel();
 		tabbedPane.addTab("Konto", null, mpnlKonto, null);
 		mpnlKonto.setLayout(null);
 
@@ -201,11 +226,8 @@ public class GUI_Hinzufuegen extends JFrame {
 		mtxtKonto_Betrag.setBounds(121, 122, 238, 19);
 		mpnlKonto.add(mtxtKonto_Betrag);
 
-		mbtmKonto = new JButton("HinzufÃ¼gen");
-		mbtmKonto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		mbtmKonto = new JButton("Hinzufügen");
+	
 		mbtmKonto.setBounds(242, 194, 117, 25);
 		mpnlKonto.add(mbtmKonto);
 
@@ -234,7 +256,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_4.setBounds(10, 152, 68, 21);
 		mpnlKonto.add(label_4);
 
-		JPanel mpnlMarkt = new JPanel();
+		mpnlMarkt = new JPanel();
 		tabbedPane.addTab("Markt", null, mpnlMarkt, null);
 		mpnlMarkt.setLayout(null);
 
@@ -278,7 +300,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		mbtmMarkt.setBounds(267, 197, 117, 25);
 		mpnlMarkt.add(mbtmMarkt);
 
-		JPanel mpnlProdukt = new JPanel();
+		mpnlProdukt = new JPanel();
 		tabbedPane.addTab("Produkt", null, mpnlProdukt, null);
 		mpnlProdukt.setLayout(null);
 
@@ -309,11 +331,11 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_11.setBounds(24, 96, 84, 21);
 		mpnlProdukt.add(label_11);
 
-		mbtmProdukt = new JButton("HinzufÃ¼gen");
+		mbtmProdukt = new JButton("Hinzufügen");
 		mbtmProdukt.setBounds(267, 214, 117, 25);
 		mpnlProdukt.add(mbtmProdukt);
 
-		JPanel mpnlAlles = new JPanel();
+		mpnlAlles = new JPanel();
 		tabbedPane.addTab("Alles", null, mpnlAlles, null);
 		mpnlAlles.setLayout(null);
 

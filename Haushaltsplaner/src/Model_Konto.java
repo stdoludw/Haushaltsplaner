@@ -1,8 +1,5 @@
 public class Model_Konto extends Model_Main {
 
-	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
-	// als String abbgebildet, da bei Zahlen mit führender Null
-	// der Eigentliche Wert verfallen würde.
 
 	// Konto attribute
 	private String mstrBetrag;
@@ -85,7 +82,7 @@ public class Model_Konto extends Model_Main {
 
 	public String SQLerstellenKonto() {
 		String statment;
-		statment = Controll_Statments.kontoHinzufügen.toString() + "\""
+		statment = Controll_Statments.kontoHinzufuegen.toString() + "\""
 				+ mstrName + "\"" + "," + "\"" + mstrBLZ + "\"" + "," + "\""
 				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mintID + ");";
 		return statment;

@@ -1,9 +1,5 @@
 public class Model_Produkt extends Model_Main{
 
-	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
-	// als String abbgebildet, da bei Zahlen mit führender Null
-	// der Eigentliche Wert verfallen würde.
-
 	// Produkt Attribute
 	private String mstrName;
 	private int mintGewicht;
@@ -63,7 +59,7 @@ public class Model_Produkt extends Model_Main{
 	public String SQLerstellenProdukt()
 	{
 		String statment;
-		statment = Controll_Statments.produktHinzufügen.toString() + "\""
+		statment = Controll_Statments.produktHinzufuegen.toString() + "\""
 				+ mstrName + "\"" + ","
 				+ mintGewicht + ","
 				+ mfltPreis + ");";

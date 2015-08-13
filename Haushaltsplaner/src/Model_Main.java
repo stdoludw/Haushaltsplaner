@@ -37,7 +37,7 @@ public class Model_Main {
 	public String SQlerstellenAll()
 	{
 		String statement;
-		statement = Controll_Statments.allHinzufügen.toString() + mintAnzahl
+		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl
 				+ "," + "now()" + ","
 				+ mintIDKonto + ","
 				+ mintIDProdukt + ","

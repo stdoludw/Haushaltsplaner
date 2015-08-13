@@ -26,7 +26,13 @@ public class GUI_Abfrage extends JFrame {
 	public static final String LOGIN = "Login";
 	public static final String ERSTELLEN = "Erstellen";
 	
-	
+	public void clear()
+	{
+		mtxtMeta_passwort.setText("");
+		mtxtMeta_Username.setText("");
+		mtxtMeta_DatenabnkServer.setText("");
+		mtxtMeta_DatenabnkName.setText("");
+	}
 	public JPasswordField getMtxtMeta_passwort() {
 		return mtxtMeta_passwort;
 	}

@@ -11,7 +11,12 @@ import java.awt.Graphics;
 public class GUI_Statistic extends JFrame {
 
 	
-	   public GUI_Statistic() {
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public GUI_Statistic() {
 
 		      super("Statistik");
 		      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,7 +30,12 @@ public class GUI_Statistic extends JFrame {
 		}
 
 		class Sheet extends JPanel {
-		   public void paintComponent(Graphics g) {
+		   /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		public void paintComponent(Graphics g) {
 			   
 			   //Zeit Achse
 			   	g.drawLine(20, 320, 700, 320);

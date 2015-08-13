@@ -23,29 +23,29 @@ public enum Controll_Statments {
 		}
 	},
 
-	allHinzufügen {
+	allHinzufuegen {
 		public String toString() {
 			return "insert into ein(anzahl,datum,m_ID,k_ID,p_ID) Values(";
 
 		}
 	},
-	produktHinzufügen {
+	produktHinzufuegen {
 		public String toString() {
 			return "insert into Produkt(name,gewicht,preis) Values(";
 		}
 	},
-	kontoHinzufügen {
+	kontoHinzufuegen {
 		public String toString() {
 			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values(";
 		}
 	},
-	marktHinzufügen {
+	marktHinzufuegen {
 		public String toString() {
 			return "insert into Markt(name,postleitzahl,adresse,entfernung) Values(";
 		}
 	},
 
-	userHinzufügen {
+	userHinzufuegen {
 		public String toString() {
 			return "insert into User(name) Values(";
 		}
@@ -101,6 +101,7 @@ public enum Controll_Statments {
 		return mstrAttNew;
 	}
 
+	@SuppressWarnings("null")
 	public static Vector<String> MasterErstellen() {
 		Vector<String> mstrAttNew = null;
 		

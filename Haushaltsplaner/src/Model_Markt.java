@@ -1,8 +1,5 @@
 public class Model_Markt extends Model_Main{
 
-	// Einige Attribut wurden entgegen ihres natürlichen Datentypes
-	// als String abbgebildet, da bei Zahlen mit führender Null
-	// der Eigentliche Wert verfallen würde.
 
 	// Markt Attribute
 	private String mstrName;
@@ -69,7 +66,7 @@ public class Model_Markt extends Model_Main{
 	public String SQLerstellenMarkt()
 	{
 		String statment;
-		statment = Controll_Statments.marktHinzufügen.toString() + "\""
+		statment = Controll_Statments.marktHinzufuegen.toString() + "\""
 				+ mstrName + "\"" + ","
 				+ "\"" + mstrPLZ + "\"" + ","
 				+ "\"" + mstrAdr + "\"" + ","

@@ -27,7 +27,6 @@ public class GUI_Main extends JFrame {
 	private JMenuItem mntmHinzufgen;
 
 	
-
 	private static GUI_Main frame = null;
 	public static final String HINZUFUEGEN = "Hinzufuegen";
 	public static final String EXPORT = "Exportieren";
@@ -53,10 +52,21 @@ public class GUI_Main extends JFrame {
 		return frame;
 	}
 	
+	//wenn button geclickt dann nach anderungen schaen anhand von objekt vergleich
+	//eine zeile = 1 objekt
+	
+	
+	
 	public void show(GUI_Main tmp)
 	{
 		tmp.setVisible(true);
 	}
+	
+	public void clear()
+	{
+		textArea.removeAll();
+	}
+	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GUI_Main() {
