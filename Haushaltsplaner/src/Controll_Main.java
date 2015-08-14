@@ -28,7 +28,7 @@ public class Controll_Main implements ActionListener {
 	private GUI_Abfrage mguiAbfrage;
 	private GUI_Hinzufuegen mguiHinzufuegen;
 
-	//aes verschlüsslung
+	//aes verschluesslung
 	AES_verschluesselung aes;
 	
 	@SuppressWarnings("static-access")
@@ -68,8 +68,6 @@ public class Controll_Main implements ActionListener {
 		this.mguiAbfrage.show(mguiAbfrage);
 		
 		this.aes = new AES_verschluesselung();
-		aes.setkey("test");
-		System.out.println(aes.entschluesselnAES(aes.verschluesselnAES("test")));
 	}
 
 	@SuppressWarnings({ "static-access", "unchecked" })
@@ -78,6 +76,8 @@ public class Controll_Main implements ActionListener {
 
 		String mstrCommand = ae.getActionCommand().toString();
 		if (mguiAbfrage.LOGIN.equals(mstrCommand)) {
+
+			aes.setkey(mguiAbfrage.getMtxtMeta_passwort().getText());
 
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
@@ -140,7 +140,7 @@ public class Controll_Main implements ActionListener {
 					String splitoftab[] = myarray[ii].split("\t");
 					Model_Konto tmp = new Model_Konto(splitoftab[0],
 							splitoftab[1], splitoftab[2], splitoftab[3],
-							Integer.valueOf(splitoftab[4]), Integer.valueOf(splitoftab[5]));
+							splitoftab[4], Integer.valueOf(splitoftab[5]));
 
 					for (int i = 0; i < mvecModel.size(); i++) {
 						if (mvecModel.get(i) instanceof Model_Konto) 
@@ -148,7 +148,6 @@ public class Controll_Main implements ActionListener {
 						
 						{
 							if (!((Model_Konto) mvecModel.get(i)).equals(tmp)) {
-								// mark als change
 								((Model_Konto) mvecModel.get(i)).change(tmp);
 							}
 						}
@@ -302,7 +301,7 @@ public class Controll_Main implements ActionListener {
 			} catch (SQLException | ClassNotFoundException e) {
 				JOptionPane.showMessageDialog(
 						null,
-						"Konto konnte nicht hinzugefügt werden\n"
+						"Konto konnte nicht hinzugefuegt werden\n"
 								+ e.getMessage(), "Fail",
 						JOptionPane.OK_CANCEL_OPTION);
 			} finally {
@@ -350,13 +349,13 @@ public class Controll_Main implements ActionListener {
 
 						SQLAbfrage(Controll_Statments.all.toString());
 						JOptionPane.showMessageDialog(null,
-								"Einkauf wure hinzugefügt", "Erfolg",
+								"Einkauf wure hinzugefuegt", "Erfolg",
 								JOptionPane.OK_CANCEL_OPTION);
 
 					} catch (SQLException e) {
 						JOptionPane.showMessageDialog(
 								null,
-								"Einkauf konnte nicht hinzugefügt werden\n"
+								"Einkauf konnte nicht hinzugefuegt werden\n"
 										+ e.getMessage(), "Fail",
 								JOptionPane.OK_CANCEL_OPTION);
 
@@ -369,23 +368,23 @@ public class Controll_Main implements ActionListener {
 		} else if (mguiHinzufuegen.HINZUFUEGENKONTO.equals(mstrCommand)) {
 			try {
 				SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString()
-						+ '\'' + mguiHinzufuegen.getMtxtKonto_name().getText()
+						+ '\'' + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_name().getText())
 						+ '\'' + ","
-						+ mguiHinzufuegen.getMtxtKonto_Blz().getText() + ","
-						+ mguiHinzufuegen.getMtxtKonto_kontonummer().getText()
-						+ "," + mguiHinzufuegen.getMtxtKonto_Betrag().getText()
-						+ "," + mguiHinzufuegen.getMtxtKonto_Min().getText()
+						+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Blz().getText()) + ","
+						+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_kontonummer().getText())
+						+ "," + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Betrag().getText())
+						+ "," + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Min().getText())
 						+ ");");
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.konto.toString());
-				JOptionPane.showMessageDialog(null, "Konto wure hinzugefügt",
+				JOptionPane.showMessageDialog(null, "Konto wure hinzugefuegt",
 						"Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(
 						null,
-						"Konto konnte nicht hinzugefügt werden\n"
+						"Konto konnte nicht hinzugefuegt werden\n"
 								+ e.getMessage(), "Fail",
 						JOptionPane.OK_CANCEL_OPTION);
 			} finally {
@@ -405,13 +404,13 @@ public class Controll_Main implements ActionListener {
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.markt.toString());
-				JOptionPane.showMessageDialog(null, "Markt wure hinzugefügt",
+				JOptionPane.showMessageDialog(null, "Markt wure hinzugefuegt",
 						"Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(
 						null,
-						"Markt konnte nicht hinzugefügt werden\n"
+						"Markt konnte nicht hinzugefuegt werden\n"
 								+ e.getMessage(), "Fail",
 						JOptionPane.OK_CANCEL_OPTION);
 			} finally {
@@ -433,13 +432,13 @@ public class Controll_Main implements ActionListener {
 
 				// Model Akutell halten
 				SQLAbfrage(Controll_Statments.produkt.toString());
-				JOptionPane.showMessageDialog(null, "Produkt wure hinzugefügt",
+				JOptionPane.showMessageDialog(null, "Produkt wure hinzugefuegt",
 						"Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(
 						null,
-						"Produkt konnte nicht hinzugefügt werden\n"
+						"Produkt konnte nicht hinzugefuegt werden\n"
 								+ e.getMessage(), "Fail",
 						JOptionPane.OK_CANCEL_OPTION);
 			} finally {
@@ -567,7 +566,7 @@ public class Controll_Main implements ActionListener {
 						result.getString("Kontoinhaber"),
 						result.getString("bankleitzahl"),
 						result.getString("kontonummer"),
-						result.getInt("minimum"), result.getInt("K_ID"));
+						result.getString("minimum"), result.getInt("K_ID"));
 				Model_Produkt p = new Model_Produkt(
 						result.getString("Produktname"),
 						result.getInt("gewicht"), result.getFloat("preis"),
@@ -585,11 +584,13 @@ public class Controll_Main implements ActionListener {
 			}
 
 			else if (sql == Controll_Statments.konto.toString()) {
-				Model_Konto k = new Model_Konto(result.getString("k.name"),
-						result.getString("k.bankleitzahl"),
-						result.getString("k.kontonummer"),
-						result.getString("k.betrag"),
-						result.getInt("k.minimum"), result.getInt("k.K_ID"));
+				Model_Konto k = new Model_Konto(
+						aes.entschluesselnAES(result.getString("k.name")),
+						aes.entschluesselnAES(result.getString("k.bankleitzahl")),
+								aes.entschluesselnAES(result.getString("k.kontonummer")),
+										aes.entschluesselnAES(result.getString("k.betrag")),
+												aes.entschluesselnAES(result.getString("k.minimum")),
+												result.getInt("k.K_ID"));
 
 				mvecModel.add(k);
 
@@ -611,7 +612,7 @@ public class Controll_Main implements ActionListener {
 
 		}
 
-		// scließen des streams
+		// scliessen des streams
 		result.close();
 	}
 

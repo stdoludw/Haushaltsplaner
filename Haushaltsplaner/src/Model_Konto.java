@@ -5,7 +5,7 @@ public class Model_Konto extends Model_Main {
 	private String mstrName;
 	private String mstrBLZ;
 	private String mstrKnr;
-	private int mintMin;
+	private String mstrMin;
 	private int mintID;
 
 	public void setMintID(int mintID) {
@@ -17,12 +17,12 @@ public class Model_Konto extends Model_Main {
 	}
 
 	public Model_Konto(String name, String blz, String knr, String betrag,
-			int min, int id) {
+			String min, int id) {
 		super(0,"",-1);		this.mstrBetrag = betrag;
 		this.mstrName = name;
 		this.mstrBLZ = blz;
 		this.mstrKnr = knr;
-		this.mintMin = min;
+		this.mstrMin = min;
 		this.mintID = id;
 
 	}
@@ -32,7 +32,7 @@ public class Model_Konto extends Model_Main {
 		this.mstrName = "";
 		this.mstrBLZ = "";
 		this.mstrKnr = "";
-		this.mintMin = 0;
+		this.mstrMin = "";
 		this.mintID = -1;
 
 	}
@@ -69,31 +69,31 @@ public class Model_Konto extends Model_Main {
 		this.mstrKnr = mstrKnr;
 	}
 
-	public int getMintMin() {
-		return mintMin;
+	public String getMintMin() {
+		return mstrMin;
 	}
 
-	public void setMintMin(int mintMin) {
-		this.mintMin = mintMin;
+	public void setMintMin(String mintMin) {
+		this.mstrMin = mintMin;
 	}
 
 	public String SQLerstellenKonto() {
 		String statment;
 		statment = Controll_Statments.kontoUpdateInsert.toString() + "\""
 				+ mstrName + "\"" + "," + "\"" + mstrBLZ + "\"" + "," + "\""
-				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mintMin+","+mintID + ");";
+				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mstrMin+","+mintID + ");";
 		return statment;
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag+"\t"+mintMin+"\t"+mintID;
+		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag+"\t"+mstrMin+"\t"+mintID;
 				
 	}
 
 	public boolean equal(Model_Konto tmp) {
 		if (this.mstrBetrag == tmp.mstrBetrag && this.mstrName == tmp.mstrName
 				&& this.mstrBLZ == tmp.mstrBLZ && this.mstrKnr == tmp.mstrKnr
-				&& this.mintMin == tmp.mintMin) {
+				&& this.mstrMin == tmp.mstrMin) {
 			return true;
 		}
 		return false;
@@ -105,7 +105,7 @@ public class Model_Konto extends Model_Main {
 		this.mstrName = tmp.mstrName;
 		this.mstrBLZ = tmp.mstrBLZ;
 		this.mstrKnr = tmp.mstrKnr;
-		this.mintMin = tmp.mintMin;
+		this.mstrMin = tmp.mstrMin;
 		super.setChange(true);
 	}
 
