@@ -227,9 +227,9 @@ public class GUI_Hinzufuegen extends JFrame {
 		mtxtKonto_Betrag.setBounds(121, 122, 238, 19);
 		mpnlKonto.add(mtxtKonto_Betrag);
 
-		mbtmKonto = new JButton("Hinzuf�gen");
+		mbtmKonto = new JButton("Hinzufuegen");
 	
-		mbtmKonto.setBounds(242, 194, 117, 25);
+		mbtmKonto.setBounds(228, 196, 131, 25);
 		mpnlKonto.add(mbtmKonto);
 
 		Label label = new Label("Name");
@@ -297,8 +297,8 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_8.setBounds(27, 113, 84, 21);
 		mpnlMarkt.add(label_8);
 
-		mbtmMarkt = new JButton("Hinzufügen");
-		mbtmMarkt.setBounds(267, 197, 117, 25);
+		mbtmMarkt = new JButton("Hinzufuegen");
+		mbtmMarkt.setBounds(260, 197, 124, 25);
 		mpnlMarkt.add(mbtmMarkt);
 
 		mpnlProdukt = new JPanel();
@@ -332,8 +332,8 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_11.setBounds(24, 96, 84, 21);
 		mpnlProdukt.add(label_11);
 
-		mbtmProdukt = new JButton("Hinzuf�gen");
-		mbtmProdukt.setBounds(267, 214, 117, 25);
+		mbtmProdukt = new JButton("Hinzufuegen");
+		mbtmProdukt.setBounds(260, 214, 124, 25);
 		mpnlProdukt.add(mbtmProdukt);
 
 		mpnlAlles = new JPanel();
@@ -351,8 +351,8 @@ public class GUI_Hinzufuegen extends JFrame {
 		mtxtAlles_Datum.setBounds(127, 71, 238, 19);
 		mpnlAlles.add(mtxtAlles_Datum);
 
-		mbtmAlles = new JButton("Hinzufügen");
-		mbtmAlles.setBounds(267, 214, 117, 25);
+		mbtmAlles = new JButton("Hinzufuegen");
+		mbtmAlles.setBounds(235, 212, 130, 25);
 		mpnlAlles.add(mbtmAlles);
 
 		Label label_12 = new Label("Anzahl");

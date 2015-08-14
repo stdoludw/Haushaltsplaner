@@ -70,7 +70,7 @@ public class Controll_Main implements ActionListener {
 		this.aes = new AES_verschluesselung();
 	}
 
-	@SuppressWarnings({ "static-access", "unchecked" })
+	@SuppressWarnings({ "static-access", "unchecked", "deprecation" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
@@ -369,11 +369,11 @@ public class Controll_Main implements ActionListener {
 			try {
 				SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString()
 						+ '\'' + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_name().getText())
-						+ '\'' + ","
-						+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Blz().getText()) + ","
-						+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_kontonummer().getText())
-						+ "," + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Betrag().getText())
-						+ "," + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Min().getText())
+						+ '\'' + ","+ '\''
+						+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Blz().getText()) + '\''+","
+						+ '\''+aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_kontonummer().getText())+'\''
+						+ ","+'\'' + aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Betrag().getText())+'\''
+						+ "," +'\''+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Min().getText())+'\''
 						+ ");");
 
 				// Model Akutell halten
