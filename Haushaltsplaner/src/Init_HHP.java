@@ -12,7 +12,6 @@ public class Init_HHP {
 			try {
 				c.start();
 			} catch (ClassNotFoundException | SQLException  | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 

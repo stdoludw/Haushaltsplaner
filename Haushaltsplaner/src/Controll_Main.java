@@ -23,7 +23,7 @@ public class Controll_Main implements ActionListener {
 	private String mstrHostName;
 
 	// Instanzen von Model und View
-	private Vector<Model_Main> mvecModel;
+	private Vector<Object> mvecModel;
 	private GUI_Main mguiMain;
 	private GUI_Abfrage mguiAbfrage;
 	private GUI_Hinzufuegen mguiHinzufuegen;
@@ -222,7 +222,7 @@ public class Controll_Main implements ActionListener {
 
 			// veraenderungen schreiben
 			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i).isChange()) {
+				if (((Model_Main)mvecModel.get(i)).isChange()) {
 					if (mvecModel.get(i) instanceof Model_Produkt) {
 						try {
 							SQLModifizieren(Controll_Statments.produktUpdate
@@ -261,13 +261,13 @@ public class Controll_Main implements ActionListener {
 						try {
 							SQLModifizieren(Controll_Statments.AllUpdate
 									.toString()
-									+ mvecModel.get(i).getMintIDMarkt()
+									+ ((Model_Main)mvecModel.get(i)).getMintIDMarkt()
 									+ "and p_ID = "
-									+ mvecModel.get(i).getMintIDProdukt()
+									+ ((Model_Main)mvecModel.get(i)).getMintIDProdukt()
 									+ " and k_ID = "
-									+ mvecModel.get(i).getMintIDKonto() + ");");
+									+ ((Model_Main)mvecModel.get(i)).getMintIDKonto() + ");");
 
-							SQLModifizieren(mvecModel.get(i).SQlerstellenAll());
+							SQLModifizieren(((Model_Main)mvecModel.get(i)).SQlerstellenAll());
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -467,21 +467,23 @@ public class Controll_Main implements ActionListener {
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					{
-						mstrContent += mvecModel.get(i).print() + "\n";
+						mstrContent += ((Model_Main)mvecModel.get(i)).print() + "\n";
 						if (mvecModel.get(i) instanceof Model_Produkt) {
-							if (((Model_Produkt) mvecModel.get(i)).getMintID() == mvecModel
-									.get(i).getMintIDProdukt()) {
+							if (((Model_Produkt) mvecModel.get(i)).getMintID() == 
+									((Model_Main)mvecModel.get(i)).getMintIDProdukt())
+							{
 								mstrContent += ((Model_Produkt) mvecModel
 										.get(i)).print() + "\n";
 							} else if (mvecModel.get(i) instanceof Model_Konto)
 								if (((Model_Konto) mvecModel.get(i))
-										.getMintID() == mvecModel.get(i)
-										.getMintIDKonto()) {
+										.getMintID() == 
+										
+												((Model_Main)mvecModel.get(i)).getMintIDKonto()) {
 									mstrContent += ((Model_Konto) mvecModel
 											.get(i)).print() + "\n";
 								} else if (mvecModel.get(i) instanceof Model_Markt)
 									if (((Model_Markt) mvecModel.get(i))
-											.getMintID() == mvecModel.get(i)
+											.getMintID() == ((Model_Main)mvecModel.get(i))
 											.getMintIDMarkt()) {
 										mstrContent += ((Model_Markt) mvecModel
 												.get(i)).print() + "\n";
@@ -529,7 +531,7 @@ public class Controll_Main implements ActionListener {
 	private void acces() throws ClassNotFoundException, SQLException {
 
 		// neuen Vector erstellen
-		this.mvecModel = new Vector<Model_Main>();
+		this.mvecModel = new Vector<Object>();
 
 		mstrUserName = mguiAbfrage.getMtxtMeta_Username().getText();
 		mstrPasswort = mguiAbfrage.getMtxtMeta_passwort().getText();
@@ -659,7 +661,7 @@ public class Controll_Main implements ActionListener {
 				mfioStream.newLine();
 			} else {
 				// #TODO kein enter in diesen block?
-				mfioStream.write(mvecModel.get(i).SQlerstellenAll());
+				mfioStream.write(((Model_Main)mvecModel.get(i)).SQlerstellenAll());
 				mfioStream.newLine();
 			}
 		}

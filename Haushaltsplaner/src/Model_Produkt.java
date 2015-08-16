@@ -1,10 +1,11 @@
-public class Model_Produkt extends Model_Main {
+public class Model_Produkt  {
 
 	// Produkt Attribute
 	private String mstrName;
 	private int mintGewicht;
 	private float mfltPreis;
 	private int mintID;
+	private boolean change;
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -15,7 +16,6 @@ public class Model_Produkt extends Model_Main {
 	}
 
 	public Model_Produkt(String name, int gewicht, float preis, int id) {
-super(0,"",-1);
 		this.mstrName = name;
 		this.mintGewicht = gewicht;
 		this.mfltPreis = preis;
@@ -23,7 +23,6 @@ super(0,"",-1);
 	}
 
 	public Model_Produkt() {
-		super(0,"",-1);
 		this.mstrName = "";
 		this.mintGewicht = 0;
 		this.mfltPreis = 0;
@@ -75,12 +74,19 @@ super(0,"",-1);
 		}
 		return false;
 	}
+	public boolean isChange() {
+		return change;
+	}
 
-	public void chnage(Model_Produkt tmp) {
+	public void setChange(boolean change) {
+		this.change = change;
+	}
+
+	public void change(Model_Produkt tmp) {
 		this.mstrName = tmp.mstrName;
 		this.mintGewicht = tmp.mintGewicht;
 		this.mfltPreis = tmp.mfltPreis;
-		super.setChange(true);
+		this.setChange(true);
 	}
 
 }
