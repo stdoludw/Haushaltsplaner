@@ -5,7 +5,7 @@ public class Model_Produkt  {
 	private int mintGewicht;
 	private float mfltPreis;
 	private int mintID;
-	private boolean change;
+	private boolean change = false;
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -56,7 +56,7 @@ public class Model_Produkt  {
 	public String SQLerstellenProdukt() {
 		String statment;
 		statment = Controll_Statments.produktUpdateInsert.toString() + "\""
-				+ mstrName + "\"" + "," + mintGewicht + "," + mfltPreis + mintID+");";
+				+ mstrName + "\"" + "," + mintGewicht + "," + mfltPreis + mintID+","+mintID+");";
 
 		return statment;
 

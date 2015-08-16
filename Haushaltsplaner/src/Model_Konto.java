@@ -7,7 +7,7 @@ public class Model_Konto {
 	private String mstrKnr;
 	private String mstrMin;
 	private int mintID;
-	private boolean change;
+	private boolean change = false;
 
 	public boolean isChange() {
 		return change;

@@ -6,7 +6,7 @@ public class Model_Markt  {
 	private String mstrAdr;
 	private int mintEntfernung;
 	private int mintID;
-	private boolean change;
+	private boolean change = false;
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;

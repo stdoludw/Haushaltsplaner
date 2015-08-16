@@ -221,6 +221,7 @@ public class Controll_Main implements ActionListener {
 			}
 
 			// veraenderungen schreiben
+			//Alter PK als neuer eintragen
 			for (int i = 0; i < mvecModel.size(); i++) {
 				
 					if (mvecModel.get(i) instanceof Model_Produkt) {
@@ -230,7 +231,7 @@ public class Controll_Main implements ActionListener {
 							SQLModifizieren(Controll_Statments.produktUpdate
 									.toString()
 									+ ((Model_Produkt) mvecModel.get(i))
-											.getMintID() + ");");
+											.getMintID() + ";");
 							SQLModifizieren(((Model_Produkt) mvecModel.get(i))
 									.SQLerstellenProdukt());
 						} catch (SQLException e) {
@@ -244,7 +245,7 @@ public class Controll_Main implements ActionListener {
 							SQLModifizieren(Controll_Statments.kontoUpdate
 									.toString()
 									+ ((Model_Konto) mvecModel.get(i))
-											.getMintID() + ");");
+											.getMintID() + ";");
 							SQLModifizieren(((Model_Konto) mvecModel.get(i))
 									.SQLerstellenKonto());
 						} catch (SQLException e) {
@@ -258,7 +259,7 @@ public class Controll_Main implements ActionListener {
 							SQLModifizieren(Controll_Statments.marktUpdate
 									.toString()
 									+ ((Model_Markt) mvecModel.get(i))
-											.getMintID() + ");");
+											.getMintID() + ";");
 							SQLModifizieren(((Model_Markt) mvecModel.get(i))
 									.SQLerstellenMarkt());
 						} catch (SQLException e) {
@@ -275,7 +276,7 @@ public class Controll_Main implements ActionListener {
 									+ "and p_ID = "
 									+ ((Model_Main)mvecModel.get(i)).getMintIDProdukt()
 									+ " and k_ID = "
-									+ ((Model_Main)mvecModel.get(i)).getMintIDKonto() + ");");
+									+ ((Model_Main)mvecModel.get(i)).getMintIDKonto() + ";");
 
 							SQLModifizieren(((Model_Main)mvecModel.get(i)).SQlerstellenAll());
 						} catch (SQLException e) {
@@ -306,7 +307,7 @@ public class Controll_Main implements ActionListener {
 				SQLAbfrage(Controll_Statments.produkt.toString());
 
 				JOptionPane.showMessageDialog(null,
-						"Viel Spaß beim benutzen der Software", "Erfolg",
+						"Viel Spass beim benutzen der Software", "Erfolg",
 						JOptionPane.OK_CANCEL_OPTION);
 
 			} catch (SQLException | ClassNotFoundException e) {
@@ -630,6 +631,7 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void SQLModifizieren(String sql) throws SQLException {
+		System.out.println(sql);
 		// abfrage statement erstellen
 		Statement query = mconCon.createStatement();
 
