@@ -194,13 +194,13 @@ public enum Controll_Statments {
 		mstrAttNew.add("select name,preis from HausHaltsPlaner_Database.Produkt where preis <= ("
 				+ "		select min(preis) from HausHaltsPlaner_Database.Produkt);");
 
-		mstrAttNew.add("select * from HausHaltsPlaner_Database.Markt where entfernung <= " + "			("
+		mstrAttNew.add("select name, entfernung from HausHaltsPlaner_Database.Markt where entfernung <= " + "			("
 				+ "				select AVG(entfernung) from HausHaltsPlaner_Database.Markt" + "				);");
 
-		mstrAttNew.add("select * from HausHaltsPlaner_Database.Markt where entfernung <= " + "				("
+		mstrAttNew.add("select name, entfernung from HausHaltsPlaner_Database.Markt where entfernung <= " + "				("
 				+ "				select MAX(entfernung) from HausHaltsPlaner_Database.Markt" + "				);");
 
-		mstrAttNew.add("select * from HausHaltsPlaner_Database.Markt where entfernung = " + "				("
+		mstrAttNew.add("select name, entfernung from HausHaltsPlaner_Database.Markt where entfernung = " + "				("
 				+ "				select min(entfernung) from HausHaltsPlaner_Database.Markt" + "				);");
 
 		return mstrAttNew;
