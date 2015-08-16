@@ -76,7 +76,7 @@ public class GUI_Main extends JFrame {
 		mnExtras = new JMenu("Extras");
 		menuBar.add(mnExtras);
 		
-		mntmHinzufgen = new JMenuItem("Hinzufügen");
+		mntmHinzufgen = new JMenuItem("Hinzufuegen");
 		mnExtras.add(mntmHinzufgen);
 		mntmHinzufgen.setActionCommand(HINZUFUEGEN);
 

@@ -222,8 +222,10 @@ public class Controll_Main implements ActionListener {
 
 			// veraenderungen schreiben
 			for (int i = 0; i < mvecModel.size(); i++) {
-				if (((Model_Main)mvecModel.get(i)).isChange()) {
+				
 					if (mvecModel.get(i) instanceof Model_Produkt) {
+						if (((Model_Produkt)mvecModel.get(i)).isChange()) 
+						{
 						try {
 							SQLModifizieren(Controll_Statments.produktUpdate
 									.toString()
@@ -234,7 +236,10 @@ public class Controll_Main implements ActionListener {
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					} else if (mvecModel.get(i) instanceof Model_Konto) {
+					}
+				}else if (mvecModel.get(i) instanceof Model_Konto) {
+					if (((Model_Konto)mvecModel.get(i)).isChange()) 
+					{
 						try {
 							SQLModifizieren(Controll_Statments.kontoUpdate
 									.toString()
@@ -246,7 +251,9 @@ public class Controll_Main implements ActionListener {
 							e.printStackTrace();
 						}
 
-					} else if (mvecModel.get(i) instanceof Model_Markt) {
+					}} else if (mvecModel.get(i) instanceof Model_Markt) {
+						if (((Model_Markt)mvecModel.get(i)).isChange()) 
+						{
 						try {
 							SQLModifizieren(Controll_Statments.marktUpdate
 									.toString()
@@ -257,7 +264,10 @@ public class Controll_Main implements ActionListener {
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					} else if (mvecModel.get(i) instanceof Model_Main) {
+					}
+					}else if (mvecModel.get(i) instanceof Model_Main) {
+						if (((Model_Main)mvecModel.get(i)).isChange()) 
+						{
 						try {
 							SQLModifizieren(Controll_Statments.AllUpdate
 									.toString()
@@ -271,11 +281,12 @@ public class Controll_Main implements ActionListener {
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					}
+					}}
 
-				}
 			}
-		} else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
+		}
+			
+		 else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
 
