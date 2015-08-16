@@ -16,8 +16,7 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class GUI_Main extends JFrame {
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private JPanel contentPane;
 	private JMenuItem mmenStatistik;
 	private JTextArea textArea;
@@ -27,7 +26,9 @@ public class GUI_Main extends JFrame {
 	private JMenu mnExtras;
 	private JMenuItem mntmHinzufgen;
 	private JButton mbtnupdate;
+	private JComboBox<String> mcmbMonat;
 	
+
 	private static GUI_Main frame = null;
 	public static final String HINZUFUEGEN = "Hinzufuegen";
 	public static final String EXPORT = "Exportieren";
@@ -65,7 +66,6 @@ public class GUI_Main extends JFrame {
 	}
 	
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GUI_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 438);
@@ -111,20 +111,39 @@ public class GUI_Main extends JFrame {
 		lblAnzeigen.setBounds(175, 12, 70, 15);
 		contentPane.add(lblAnzeigen);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(56, 50, 145, 24);
+		comboBox = new JComboBox<String>();
+		comboBox.setBounds(152, 51, 145, 24);
 		comboBox.setActionCommand(AUSWAHL);
 		comboBox.addItem(cmbAuswahl.Produkt.toString());
 		comboBox.addItem(cmbAuswahl.Konto.toString());
 		comboBox.addItem(cmbAuswahl.Markt.toString());
 		comboBox.addItem(cmbAuswahl.Einkauf.toString());
+		comboBox.addItem(cmbAuswahl.Statistik.toString());
 
 		contentPane.add(comboBox);
 		
 		mbtnupdate = new JButton("update");
-		mbtnupdate.setBounds(229, 49, 117, 25);
+		mbtnupdate.setBounds(307, 50, 117, 25);
 		contentPane.add(mbtnupdate);
 		mbtnupdate.setActionCommand(UPDATE);
+		
+		mcmbMonat = new JComboBox<String>();
+		mcmbMonat.setEnabled(false);
+		mcmbMonat.setBounds(12, 51, 130, 24);
+		contentPane.add(mcmbMonat);
+		mcmbMonat.setActionCommand(AUSWAHL);
+		mcmbMonat.addItem(cmbAuswahl.Januar.toString());
+		mcmbMonat.addItem(cmbAuswahl.Februar.toString());
+		mcmbMonat.addItem(cmbAuswahl.März.toString());
+		mcmbMonat.addItem(cmbAuswahl.April.toString());
+		mcmbMonat.addItem(cmbAuswahl.Mai.toString());
+		mcmbMonat.addItem(cmbAuswahl.Juni.toString());
+		mcmbMonat.addItem(cmbAuswahl.Juli.toString());
+		mcmbMonat.addItem(cmbAuswahl.August.toString());
+		mcmbMonat.addItem(cmbAuswahl.September.toString());
+		mcmbMonat.addItem(cmbAuswahl.Oktober.toString());
+		mcmbMonat.addItem(cmbAuswahl.November.toString());
+		mcmbMonat.addItem(cmbAuswahl.Dezember.toString());
 	}
 
 	public JMenuItem getMmenStatistik() {
@@ -147,8 +166,11 @@ public class GUI_Main extends JFrame {
 		textArea.setText(textAreaContent);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBox() {
+	public JComboBox<String> getMcmbMonat() {
+		return mcmbMonat;
+	}
+	
+	public JComboBox<String> getComboBox() {
 		return comboBox;
 	}
 	public JMenuItem getMntmHinzufgen() {
@@ -158,5 +180,4 @@ public class GUI_Main extends JFrame {
 	public JButton getMbtnupdate() {
 		return mbtnupdate;
 	}
-	
 }

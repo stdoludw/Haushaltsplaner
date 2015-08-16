@@ -58,6 +58,7 @@ public class Controll_Main implements ActionListener {
 		this.mguiMain.getMmenStatistik().addActionListener(this);
 		this.mguiMain.getComboBox().addActionListener(this);
 		this.mguiMain.getMbtnupdate().addActionListener(this);
+		this.mguiMain.getMcmbMonat().addActionListener(this);
 
 		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 		this.mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
@@ -70,7 +71,7 @@ public class Controll_Main implements ActionListener {
 		this.aes = new AES_verschluesselung();
 	}
 
-	@SuppressWarnings({ "static-access", "unchecked", "deprecation" })
+	@SuppressWarnings({ "static-access", "unchecked", "deprecation", "null" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
@@ -221,7 +222,6 @@ public class Controll_Main implements ActionListener {
 			}
 
 			// veraenderungen schreiben
-			//Alter PK als neuer eintragen
 			for (int i = 0; i < mvecModel.size(); i++) {
 				
 					if (mvecModel.get(i) instanceof Model_Produkt) {
@@ -476,6 +476,7 @@ public class Controll_Main implements ActionListener {
 			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf
 					.toString()) {
 				mstrContent = "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
+				mguiMain.getMcmbMonat().setEnabled(true);
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					{
@@ -522,7 +523,8 @@ public class Controll_Main implements ActionListener {
 								+ "\n";
 					}
 				}
-			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
+			} 
+			else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
 					.toString()) {
 				mstrContent = "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
 
@@ -533,9 +535,56 @@ public class Controll_Main implements ActionListener {
 					}
 				}
 			}
+			else if(mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik.toString())
+			{
+				//hoechste kontostand -> niedirgste kontostand
+				//minimum erreicht per konto
+
+				for (Object element : mvecModel) {
+					int max = -1, min = 999;
+					String name_max, name_min;
+					Vector<String> name_minimumGrenze = null;
+					
+					if(element instanceof Model_Konto)
+					{
+						if(Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min)
+						{
+							min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+							name_min = ((Model_Konto) element).getMstrName();
+						}
+						else
+						{
+							max = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+							name_max = ((Model_Konto) element).getMstrName();
+
+						}
+						
+						if(Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer.valueOf(((Model_Konto) element).getMintMin()))
+								{
+							name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
+								}
+
+						
+						
+						
+					}
+					
+					
+				}
+				
+				//guenstigste Produkt
+				//teuerste Produkt
+				//hoechste anzahl
+				//älteste produkt
+				
+			
+				
+				
+			}
 			// fuellen der GUI
 			mguiMain.setTextArea(mstrContent);
 		}
+		
 
 	}
 
