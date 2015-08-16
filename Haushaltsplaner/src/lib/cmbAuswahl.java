@@ -89,4 +89,11 @@ public enum cmbAuswahl {
 			return "Dezember anzeigen";
 		}
 	}
+	
+	,
+	Alles {
+		public String toString() {
+			return "Alles anzeigen";
+		}
+	}
 }

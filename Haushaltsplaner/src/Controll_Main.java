@@ -28,12 +28,11 @@ public class Controll_Main implements ActionListener {
 	private GUI_Abfrage mguiAbfrage;
 	private GUI_Hinzufuegen mguiHinzufuegen;
 
-	//aes verschluesslung
+	// aes verschluesslung
 	AES_verschluesselung aes;
-	
+
 	@SuppressWarnings("static-access")
-	public void start() throws SQLException, ClassNotFoundException,
-			IOException {
+	public void start() throws SQLException, ClassNotFoundException, IOException {
 
 		// reinigen der variablen
 		this.mstrUserName = "";
@@ -67,7 +66,7 @@ public class Controll_Main implements ActionListener {
 
 		// starten des Hauptfensters
 		this.mguiAbfrage.show(mguiAbfrage);
-		
+
 		this.aes = new AES_verschluesselung();
 	}
 
@@ -205,15 +204,15 @@ public class Controll_Main implements ActionListener {
 				for (int ii = 1; ii < myarray.length; ii++) {
 
 					String splitoftab[] = myarray[ii].split("\t");
-					Model_Main tmp = new Model_Main(
+					Model_Einkauf tmp = new Model_Einkauf(
 							Integer.valueOf(splitoftab[0]), splitoftab[1],Integer.valueOf(splitoftab[2]));
 
 					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Main) {
-							if(((Model_Main) mvecModel.get(i)).getMintID() == tmp.getMintID())
+						if (mvecModel.get(i) instanceof Model_Einkauf) {
+							if(((Model_Einkauf) mvecModel.get(i)).getMintID() == tmp.getMintID())
 							{
-							if (!((Model_Main) mvecModel.get(i)).equals(tmp)) {
-								((Model_Main) mvecModel.get(i)).change(tmp);
+							if (!((Model_Einkauf) mvecModel.get(i)).equals(tmp)) {
+								((Model_Einkauf) mvecModel.get(i)).change(tmp);
 							}
 							}
 						}
@@ -266,19 +265,19 @@ public class Controll_Main implements ActionListener {
 							e.printStackTrace();
 						}
 					}
-					}else if (mvecModel.get(i) instanceof Model_Main) {
-						if (((Model_Main)mvecModel.get(i)).isChange()) 
+					}else if (mvecModel.get(i) instanceof Model_Einkauf) {
+						if (((Model_Einkauf)mvecModel.get(i)).isChange()) 
 						{
 						try {
 							SQLModifizieren(Controll_Statments.AllUpdate
 									.toString()
-									+ ((Model_Main)mvecModel.get(i)).getMintIDMarkt()
+									+ ((Model_Einkauf)mvecModel.get(i)).getMintIDMarkt()
 									+ "and p_ID = "
-									+ ((Model_Main)mvecModel.get(i)).getMintIDProdukt()
+									+ ((Model_Einkauf)mvecModel.get(i)).getMintIDProdukt()
 									+ " and k_ID = "
-									+ ((Model_Main)mvecModel.get(i)).getMintIDKonto() + ";");
+									+ ((Model_Einkauf)mvecModel.get(i)).getMintIDKonto() + ";");
 
-							SQLModifizieren(((Model_Main)mvecModel.get(i)).SQlerstellenAll());
+							SQLModifizieren(((Model_Einkauf)mvecModel.get(i)).SQlerstellenAll());
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -480,10 +479,10 @@ public class Controll_Main implements ActionListener {
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					{
-						mstrContent += ((Model_Main)mvecModel.get(i)).print() + "\n";
+						mstrContent += ((Model_Einkauf)mvecModel.get(i)).print() + "\n";
 						if (mvecModel.get(i) instanceof Model_Produkt) {
 							if (((Model_Produkt) mvecModel.get(i)).getMintID() == 
-									((Model_Main)mvecModel.get(i)).getMintIDProdukt())
+									((Model_Einkauf)mvecModel.get(i)).getMintIDProdukt())
 							{
 								mstrContent += ((Model_Produkt) mvecModel
 										.get(i)).print() + "\n";
@@ -491,12 +490,12 @@ public class Controll_Main implements ActionListener {
 								if (((Model_Konto) mvecModel.get(i))
 										.getMintID() == 
 										
-												((Model_Main)mvecModel.get(i)).getMintIDKonto()) {
+												((Model_Einkauf)mvecModel.get(i)).getMintIDKonto()) {
 									mstrContent += ((Model_Konto) mvecModel
 											.get(i)).print() + "\n";
 								} else if (mvecModel.get(i) instanceof Model_Markt)
 									if (((Model_Markt) mvecModel.get(i))
-											.getMintID() == ((Model_Main)mvecModel.get(i))
+											.getMintID() == ((Model_Einkauf)mvecModel.get(i))
 											.getMintIDMarkt()) {
 										mstrContent += ((Model_Markt) mvecModel
 												.get(i)).print() + "\n";
@@ -539,12 +538,12 @@ public class Controll_Main implements ActionListener {
 			{
 				//hoechste kontostand -> niedirgste kontostand
 				//minimum erreicht per konto
-
+				int max = -1, min = 999;
+				String name_max = null, name_min = null;
+				Vector<String> name_minimumGrenze = null;
+				
 				for (Object element : mvecModel) {
-					int max = -1, min = 999;
-					String name_max, name_min;
-					Vector<String> name_minimumGrenze = null;
-					
+				
 					if(element instanceof Model_Konto)
 					{
 						if(Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min)
@@ -562,20 +561,26 @@ public class Controll_Main implements ActionListener {
 						if(Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer.valueOf(((Model_Konto) element).getMintMin()))
 								{
 							name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
-								}
-
-						
-						
-						
+								}		
 					}
-					
 					
 				}
 				
-				//guenstigste Produkt
-				//teuerste Produkt
-				//hoechste anzahl
-				//älteste produkt
+				mstrContent += "Den niedrigsten Kontostand hat "+name_min+" mit " +min+" EURO\n";
+				mstrContent += "Den hoechsten Kontostand hat "+name_max+" mit " +max+" EURO\n";
+				for(int i=0;i<name_minimumGrenze.size();i++)
+				mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: "+name_minimumGrenze.get(i)+"\n";
+				
+				
+				for(int i=0;i<Controll_Statments.statistic().size();i++)
+					try {
+						SQLModifizieren(Controll_Statments.statistic().get(i));
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				
+				
+			
 				
 			
 				
@@ -584,7 +589,6 @@ public class Controll_Main implements ActionListener {
 			// fuellen der GUI
 			mguiMain.setTextArea(mstrContent);
 		}
-		
 
 	}
 
@@ -604,9 +608,8 @@ public class Controll_Main implements ActionListener {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// Verbindung zur JDBC-Datenbank herstellen.
-		mconCon = DriverManager.getConnection("jdbc:mysql://" + mstrHostName
-				+ ":" + mintPort + "/" + mstrDatenbankName + "?" + "user="
-				+ mstrUserName + "&" + "password=" + mstrPasswort);
+		mconCon = DriverManager.getConnection("jdbc:mysql://" + mstrHostName + ":" + mintPort + "/" + mstrDatenbankName
+				+ "?" + "user=" + mstrUserName + "&" + "password=" + mstrPasswort);
 
 	}
 
@@ -625,21 +628,15 @@ public class Controll_Main implements ActionListener {
 		while (result.next()) {
 
 			if (sql == Controll_Statments.all.toString()) {
-				Model_Konto k = new Model_Konto(result.getString("betrag"),
-						result.getString("Kontoinhaber"),
-						result.getString("bankleitzahl"),
-						result.getString("kontonummer"),
-						result.getString("minimum"), result.getInt("K_ID"));
-				Model_Produkt p = new Model_Produkt(
-						result.getString("Produktname"),
-						result.getInt("gewicht"), result.getFloat("preis"),
-						result.getInt("P_ID"));
-				Model_Markt m = new Model_Markt(result.getString("Marktname"),
-						result.getString("postleitzahl"),
-						result.getString("adresse"),
-						result.getInt("entfernung"), result.getInt("M_ID"));
-				Model_Main me = new Model_Main(result.getInt("anzahl"),
-						result.getString("datum"),result.getInt("E_ID"));
+				Model_Konto k = new Model_Konto(result.getString("betrag"), result.getString("Kontoinhaber"),
+						result.getString("bankleitzahl"), result.getString("kontonummer"), result.getString("minimum"),
+						result.getInt("K_ID"));
+				Model_Produkt p = new Model_Produkt(result.getString("Produktname"), result.getInt("gewicht"),
+						result.getFloat("preis"), result.getInt("P_ID"));
+				Model_Markt m = new Model_Markt(result.getString("Marktname"), result.getString("postleitzahl"),
+						result.getString("adresse"), result.getInt("entfernung"), result.getInt("M_ID"));
+				Model_Einkauf me = new Model_Einkauf(result.getInt("anzahl"), result.getString("datum"),
+						result.getInt("E_ID"));
 
 				// verknuepfung reaisieren
 				me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());
@@ -647,28 +644,23 @@ public class Controll_Main implements ActionListener {
 			}
 
 			else if (sql == Controll_Statments.konto.toString()) {
-				Model_Konto k = new Model_Konto(
-						aes.entschluesselnAES(result.getString("k.name")),
+				Model_Konto k = new Model_Konto(aes.entschluesselnAES(result.getString("k.name")),
 						aes.entschluesselnAES(result.getString("k.bankleitzahl")),
-								aes.entschluesselnAES(result.getString("k.kontonummer")),
-										aes.entschluesselnAES(result.getString("k.betrag")),
-												aes.entschluesselnAES(result.getString("k.minimum")),
-												result.getInt("k.K_ID"));
+						aes.entschluesselnAES(result.getString("k.kontonummer")),
+						aes.entschluesselnAES(result.getString("k.betrag")),
+						aes.entschluesselnAES(result.getString("k.minimum")), result.getInt("k.K_ID"));
 
 				mvecModel.add(k);
 
 			} else if (sql == Controll_Statments.markt.toString()) {
-				Model_Markt m = new Model_Markt(result.getString("m.name"),
-						result.getString("m.postleitzahl"),
-						result.getString("m.adresse"),
-						result.getInt("m.entfernung"), result.getInt("m.M_ID"));
+				Model_Markt m = new Model_Markt(result.getString("m.name"), result.getString("m.postleitzahl"),
+						result.getString("m.adresse"), result.getInt("m.entfernung"), result.getInt("m.M_ID"));
 
 				mvecModel.add(m);
 
 			} else if (sql == Controll_Statments.produkt.toString()) {
-				Model_Produkt p = new Model_Produkt(result.getString("p.name"),
-						result.getInt("p.gewicht"), result.getFloat("p.preis"),
-						result.getInt("p.P_ID"));
+				Model_Produkt p = new Model_Produkt(result.getString("p.name"), result.getInt("p.gewicht"),
+						result.getFloat("p.preis"), result.getInt("p.P_ID"));
 
 				mvecModel.add(p);
 			}
@@ -707,23 +699,20 @@ public class Controll_Main implements ActionListener {
 		for (int i = 0; i < mvecModel.size(); i++) {
 			if (mvecModel.get(i) instanceof Model_Produkt) {
 
-				mfioStream.write(((Model_Produkt) mvecModel.get(i))
-						.SQLerstellenProdukt());
+				mfioStream.write(((Model_Produkt) mvecModel.get(i)).SQLerstellenProdukt());
 				mfioStream.newLine();
 
 			} else if (mvecModel.get(i) instanceof Model_Konto) {
 
-				mfioStream.write(((Model_Konto) mvecModel.get(i))
-						.SQLerstellenKonto());
+				mfioStream.write(((Model_Konto) mvecModel.get(i)).SQLerstellenKonto());
 				mfioStream.newLine();
 
 			} else if (mvecModel.get(i) instanceof Model_Markt) {
-				mfioStream.write(((Model_Markt) mvecModel.get(i))
-						.SQLerstellenMarkt());
+				mfioStream.write(((Model_Markt) mvecModel.get(i)).SQLerstellenMarkt());
 				mfioStream.newLine();
 			} else {
 				// #TODO kein enter in diesen block?
-				mfioStream.write(((Model_Main)mvecModel.get(i)).SQlerstellenAll());
+				mfioStream.write(((Model_Einkauf) mvecModel.get(i)).SQlerstellenAll());
 				mfioStream.newLine();
 			}
 		}

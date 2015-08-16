@@ -1,5 +1,5 @@
 
-public class Model_Main {
+public class Model_Einkauf {
 
 	private int mintAnzahl;
 	private String mstrDatum;
@@ -28,7 +28,7 @@ public class Model_Main {
 		return mstrDatum;
 	}
 
-	public Model_Main(int anzahl, String today, int pk) {
+	public Model_Einkauf(int anzahl, String today, int pk) {
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
 		this.mintID = pk;
@@ -74,7 +74,7 @@ public class Model_Main {
 		return mintIDMarkt;
 	}
 
-	public boolean equal(Model_Main tmp) {
+	public boolean equal(Model_Einkauf tmp) {
 		if (this.mintAnzahl == tmp.mintAnzahl
 				&& this.mstrDatum == tmp.mstrDatum
 				&& this.mintIDProdukt == tmp.mintIDProdukt
@@ -85,7 +85,7 @@ public class Model_Main {
 		return false;
 	}
 
-	public void change(Model_Main tmp) {
+	public void change(Model_Einkauf tmp) {
 		this.mintAnzahl = tmp.mintAnzahl;
 		this.mstrDatum = tmp.mstrDatum;
 		this.change = true;
