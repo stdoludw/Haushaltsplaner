@@ -7,15 +7,7 @@ public class Model_Einkauf {
 	private int mintIDMarkt;
 	private int mintIDKonto;
 	private int mintID;
-	private boolean change = false;
 
-	public boolean isChange() {
-		return change;
-	}
-
-	public void setChange(boolean change) {
-		this.change = change;
-	}
 	public int getMintID() {
 		return mintID;
 	}
@@ -85,10 +77,6 @@ public class Model_Einkauf {
 		return false;
 	}
 
-	public void change(Model_Einkauf tmp) {
-		this.mintAnzahl = tmp.mintAnzahl;
-		this.mstrDatum = tmp.mstrDatum;
-		this.change = true;
-	}
+	
 
 }

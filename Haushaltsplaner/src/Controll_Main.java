@@ -54,7 +54,6 @@ public class Controll_Main implements ActionListener {
 		this.mguiMain.getMntmHinzufgen().addActionListener(this);
 		this.mguiMain.getMmenExportiern().addActionListener(this);
 		this.mguiMain.getMmenLaden().addActionListener(this);
-		this.mguiMain.getMmenStatistik().addActionListener(this);
 		this.mguiMain.getComboBox().addActionListener(this);
 		this.mguiMain.getMbtnupdate().addActionListener(this);
 		this.mguiMain.getMcmbMonat().addActionListener(this);
@@ -70,7 +69,7 @@ public class Controll_Main implements ActionListener {
 		this.aes = new AES_verschluesselung();
 	}
 
-	@SuppressWarnings({ "static-access", "unchecked", "deprecation", "null" })
+	@SuppressWarnings({ "static-access", "unchecked", "deprecation" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
@@ -127,139 +126,102 @@ public class Controll_Main implements ActionListener {
 
 		} else if (mguiMain.UPDATE.equals(mstrCommand)) {
 			String mstrevent = mguiMain.getComboBox().getSelectedItem().toString();
-			if (cmbAuswahl.Konto.toString().equals(mstrevent)) {
-				String myarray[] = mguiMain.getTextArea().getText().split("\n");
+			if (mstrevent.equals(cmbAuswahl.Produkt.toString())) {
+				mstrevent = mguiMain.getTextArea().getText();
 
-				for (int ii = 1; ii < myarray.length; ii++) {
-
-					String splitoftab[] = myarray[ii].split("\t");
-					Model_Konto tmp = new Model_Konto(splitoftab[0], splitoftab[1], splitoftab[2], splitoftab[3],
-							splitoftab[4], Integer.valueOf(splitoftab[5]));
-
-					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Konto)
-							if (((Model_Konto) mvecModel.get(i)).getMintID() == tmp.getMintID())
-
-							{
-								if (!((Model_Konto) mvecModel.get(i)).equals(tmp)) {
-									((Model_Konto) mvecModel.get(i)).change(tmp);
-								}
-							}
+				// alle Produkte entfernen
+				for (int i = 0; i < mvecModel.size(); i++) {
+					try {
+						SQLModifizieren(Controll_Statments.produktUpdate.toString()
+								+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ";");
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
 				}
 
-			} else if (cmbAuswahl.Markt.toString().equals(mstrevent)) {
+				// update der veränderungen
+				String[] myArray = mstrevent.split("\n");
 
-				String myarray[] = mguiMain.getTextArea().getText().split("\n");
+				for (String element : myArray) {
 
-				for (int ii = 1; ii < myarray.length; ii++) {
+					String tmp[] = element.split("\t");
+					Model_Produkt tmpProdukt = new Model_Produkt(tmp[0], Integer.valueOf(tmp[1]), Float.valueOf(tmp[2]),
+							Integer.valueOf(tmp[3]));
+					try {
+						SQLModifizieren(tmpProdukt.SQLerstellenProdukt());
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 
-					String splitoftab[] = myarray[ii].split("\t");
-					Model_Markt tmp = new Model_Markt(splitoftab[0], splitoftab[1], splitoftab[2],
-							Integer.valueOf(splitoftab[3]), Integer.valueOf(splitoftab[4]));
+				}
 
-					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Markt) {
-							if (((Model_Markt) mvecModel.get(i)).getMintID() == tmp.getMintID()) {
-								if (!((Model_Markt) mvecModel.get(i)).equals(tmp)) {
-									((Model_Markt) mvecModel.get(i)).change(tmp);
-								}
-							}
-						}
+			} else if (mstrevent.equals(cmbAuswahl.Konto.toString())) {
+				mstrevent = mguiMain.getTextArea().getText();
+
+				// alle Produkte entfernen
+				for (int i = 0; i < mvecModel.size(); i++) {
+					try {
+						SQLModifizieren(Controll_Statments.kontoUpdate.toString()
+								+ ((Model_Konto) mvecModel.get(i)).getMintID() + ";");
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
 				}
-			} else if (cmbAuswahl.Produkt.toString().equals(mstrevent)) {
 
-				String myarray[] = mguiMain.getTextArea().getText().split("\n");
+				// update der veränderungen
+				String[] myArray = mstrevent.split("\n");
 
-				for (int ii = 1; ii < myarray.length; ii++) {
+				for (String element : myArray) {
 
-					String splitoftab[] = myarray[ii].split("\t");
-					Model_Produkt tmp = new Model_Produkt(splitoftab[0], Integer.valueOf(splitoftab[1]),
-							Float.valueOf(splitoftab[2]), Integer.valueOf(splitoftab[3]));
+					String tmp[] = element.split("\t");
+					Model_Konto tmpKonto = new Model_Konto(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4],
+							Integer.valueOf(tmp[5]));
+					try {
+						SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString() + '\''
+								+ aes.verschluesselnAES(tmpKonto.getMstrName()) + '\'' + "," + '\''
+								+ aes.verschluesselnAES(tmpKonto.getMstrBLZ()) + '\'' + "," + '\''
+								+ aes.verschluesselnAES(tmpKonto.getMstrKnr()) + '\'' + ","
+								+ '\'' + aes.verschluesselnAES(tmpKonto.getMstrBetrag()) + '\'' + ","
+								+ '\'' + aes.verschluesselnAES(tmpKonto.getMintMin()) + '\'' + 
+								tmpKonto.getMintID()+
+								");");
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 
-					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Produkt) {
-							if (((Model_Produkt) mvecModel.get(i)).getMintID() == tmp.getMintID()) {
-								if (!((Model_Produkt) mvecModel.get(i)).equals(tmp)) {
-									((Model_Produkt) mvecModel.get(i)).change(tmp);
-								}
-							}
-						}
+				}
+			} else if (mstrevent.equals(cmbAuswahl.Markt.toString())) {
+
+				mstrevent = mguiMain.getTextArea().getText();
+
+				// alle Produkte entfernen
+				for (int i = 0; i < mvecModel.size(); i++) {
+					try {
+						SQLModifizieren(Controll_Statments.marktUpdate.toString()
+								+ ((Model_Markt) mvecModel.get(i)).getMintID() + ";");
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
 				}
-			} else if (cmbAuswahl.Einkauf.toString().equals(mstrevent)) {
 
-				String myarray[] = mguiMain.getTextArea().getText().split("\n");
+				// update der veränderungen
+				String[] myArray = mstrevent.split("\n");
 
-				for (int ii = 1; ii < myarray.length; ii++) {
+				for (String element : myArray) {
 
-					String splitoftab[] = myarray[ii].split("\t");
-					Model_Einkauf tmp = new Model_Einkauf(Integer.valueOf(splitoftab[0]), splitoftab[1],
-							Integer.valueOf(splitoftab[2]));
-
-					for (int i = 0; i < mvecModel.size(); i++) {
-						if (mvecModel.get(i) instanceof Model_Einkauf) {
-							if (((Model_Einkauf) mvecModel.get(i)).getMintID() == tmp.getMintID()) {
-								if (!((Model_Einkauf) mvecModel.get(i)).equals(tmp)) {
-									((Model_Einkauf) mvecModel.get(i)).change(tmp);
-								}
-							}
-						}
+					String tmp[] = element.split("\t");
+					Model_Markt tmpMarkt = new Model_Markt(tmp[0], tmp[1], tmp[2], Integer.valueOf(tmp[3]),
+							Integer.valueOf(tmp[4]));
+					try {
+						SQLModifizieren(tmpMarkt.SQLerstellenMarkt());
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
-				}
-			}
 
-			// veraenderungen schreiben
-			for (int i = 0; i < mvecModel.size(); i++) {
-
-				if (mvecModel.get(i) instanceof Model_Produkt) {
-					if (((Model_Produkt) mvecModel.get(i)).isChange()) {
-						try {
-							SQLModifizieren(Controll_Statments.produktUpdate.toString()
-									+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ";");
-							SQLModifizieren(((Model_Produkt) mvecModel.get(i)).SQLerstellenProdukt());
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-				} else if (mvecModel.get(i) instanceof Model_Konto) {
-					if (((Model_Konto) mvecModel.get(i)).isChange()) {
-						try {
-							SQLModifizieren(Controll_Statments.kontoUpdate.toString()
-									+ ((Model_Konto) mvecModel.get(i)).getMintID() + ";");
-							SQLModifizieren(((Model_Konto) mvecModel.get(i)).SQLerstellenKonto());
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-
-					}
-				} else if (mvecModel.get(i) instanceof Model_Markt) {
-					if (((Model_Markt) mvecModel.get(i)).isChange()) {
-						try {
-							SQLModifizieren(Controll_Statments.marktUpdate.toString()
-									+ ((Model_Markt) mvecModel.get(i)).getMintID() + ";");
-							SQLModifizieren(((Model_Markt) mvecModel.get(i)).SQLerstellenMarkt());
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-				} else if (mvecModel.get(i) instanceof Model_Einkauf) {
-					if (((Model_Einkauf) mvecModel.get(i)).isChange()) {
-						try {
-							SQLModifizieren(Controll_Statments.AllUpdate.toString()
-									+ ((Model_Einkauf) mvecModel.get(i)).getMintIDMarkt() + "and p_ID = "
-									+ ((Model_Einkauf) mvecModel.get(i)).getMintIDProdukt() + " and k_ID = "
-									+ ((Model_Einkauf) mvecModel.get(i)).getMintIDKonto() + ";");
-
-							SQLModifizieren(((Model_Einkauf) mvecModel.get(i)).SQlerstellenAll());
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
 				}
 
 			}
+
 		}
 
 		else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
@@ -407,8 +369,8 @@ public class Controll_Main implements ActionListener {
 		} else if (mguiMain.AUSWAHL.equals(mstrCommand)) {
 
 			// fuellen der anzeige box
-			//#TODO füllen by sort DATUM
-			//kein SQL nur java
+			// #TODO füllen by sort DATUM
+			// kein SQL nur java
 			String mstrContent = null;
 			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf.toString()) {
 				mstrContent = "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
@@ -462,7 +424,7 @@ public class Controll_Main implements ActionListener {
 				// minimum erreicht per konto
 				int max = -1, min = 999;
 				String name_max = null, name_min = null;
-				Vector<String> name_minimumGrenze = null;
+				Vector<String> name_minimumGrenze = new Vector<>();
 
 				for (Object element : mvecModel) {
 
@@ -486,17 +448,18 @@ public class Controll_Main implements ActionListener {
 
 				mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit " + min + " EURO\n";
 				mstrContent += "Den hoechsten Kontostand hat " + name_max + " mit " + max + " EURO\n";
+
 				for (int i = 0; i < name_minimumGrenze.size(); i++)
 					mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: "
 							+ name_minimumGrenze.get(i) + "\n";
 
-				for (int i = 0; i < Controll_Statments.statistic().size(); i++)
-					//weiter gabe an
-					//SQLStatistic(sql)
-					//write into mstrCommand
-					//#TODO Monday
-						Controll_Statments.statistic().get(i);
-					
+				try {
+					for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
+						System.out.println(SQLStatistic(Controll_Statments.statistic().get(i)));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 
 			}
 			// fuellen der GUI
@@ -526,28 +489,26 @@ public class Controll_Main implements ActionListener {
 
 	}
 
-	@SuppressWarnings("unused")
-	private String SQLStatistic(String sql) throws SQLException
-	{
-		
+	private String SQLStatistic(String sql) throws SQLException {
+
 		String resultString = null;
+
 		// abfrage statement erstellen
-				Statement query = mconCon.createStatement();
+		Statement query = mconCon.createStatement();
 
-				// Query bearbeiten
-				ResultSet result = null;
+		// Query bearbeiten
+		ResultSet result = null;
 
-				// executeQuerry nur fuer selects
-				result = query.executeQuery(sql);
+		// executeQuerry nur fuer selects
+		result = query.executeQuery(sql);
 
-				// speichern in Klasse
-				while (result.next()) {
-					for(int i=0;i<2;i++)
-					{
-						resultString += result.getString(i);
-					}
-				}
-				return resultString;
+		// speichern in Klasse
+		while (result.next()) {
+			for (int i = 0; i < 2; i++) {
+				resultString += result.getString(i) + "\n";
+			}
+		}
+		return resultString;
 	}
 
 	private void SQLAbfrage(String sql) throws SQLException {

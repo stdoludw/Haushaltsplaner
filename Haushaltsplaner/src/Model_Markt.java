@@ -6,7 +6,6 @@ public class Model_Markt  {
 	private String mstrAdr;
 	private int mintEntfernung;
 	private int mintID;
-	private boolean change = false;
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -23,6 +22,7 @@ public class Model_Markt  {
 		this.mstrAdr = adr;
 		this.mintEntfernung = entfernung;
 		this.mintID = id;
+
 	}
 
 	public Model_Markt() {
@@ -88,19 +88,5 @@ public class Model_Markt  {
 		return false;
 	}
 
-	public boolean isChange() {
-		return change;
-	}
 
-	public void setChange(boolean change) {
-		this.change = change;
-	}
-	
-	public void change(Model_Markt tmp) {
-		this.mstrName = tmp.mstrName;
-		this.mstrPLZ = tmp.mstrPLZ;
-		this.mstrAdr = tmp.mstrAdr;
-		this.mintEntfernung = tmp.mintEntfernung;
-		this.setChange(true);
-	}
 }

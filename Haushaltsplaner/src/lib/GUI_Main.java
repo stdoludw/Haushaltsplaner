@@ -18,7 +18,6 @@ public class GUI_Main extends JFrame {
 
 	private JComboBox<String> comboBox;
 	private JPanel contentPane;
-	private JMenuItem mmenStatistik;
 	private JTextArea textArea;
 	private JMenu Speichern;
 	private JMenuItem mmenExportiern;
@@ -79,10 +78,6 @@ public class GUI_Main extends JFrame {
 		mntmHinzufgen = new JMenuItem("Hinzufuegen");
 		mnExtras.add(mntmHinzufgen);
 		mntmHinzufgen.setActionCommand(HINZUFUEGEN);
-
-		mmenStatistik = new JMenuItem("Statistik");
-		mnExtras.add(mmenStatistik);
-		mmenStatistik.setActionCommand(STATISTIK);
 
 		Speichern = new JMenu("Speichern");
 		menuBar.add(Speichern);
@@ -147,9 +142,7 @@ public class GUI_Main extends JFrame {
 		mcmbMonat.addItem(cmbAuswahl.Dezember.toString());
 	}
 
-	public JMenuItem getMmenStatistik() {
-		return mmenStatistik;
-	}
+
 
 	public JTextArea getTextArea() {
 		return textArea;

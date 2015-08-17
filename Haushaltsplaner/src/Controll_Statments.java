@@ -163,10 +163,9 @@ public enum Controll_Statments {
 		return mstrAttNew;
 	}
 
-	@SuppressWarnings("null")
 	public static Vector<String> statistic() {
 
-		Vector<String> mstrAttNew = null;
+		Vector<String> mstrAttNew = new Vector<String>();
 
 		mstrAttNew
 				.add("select  m.name,p.name from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "
@@ -186,7 +185,7 @@ public enum Controll_Statments {
 		mstrAttNew
 				.add("select  m.name,p.name from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
 						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and datum >=("
-						+ "				select min(dautm) from HausHaltsPlaner_Database.Einkauf);");
+						+ "				select min(datum) from HausHaltsPlaner_Database.Einkauf);");
 
 		mstrAttNew.add("select name,preis from HausHaltsPlaner_Database.Produkt where preis >= ("
 				+ "		select max(preis) from HausHaltsPlaner_Database.Produkt);");

@@ -5,7 +5,6 @@ public class Model_Produkt  {
 	private int mintGewicht;
 	private float mfltPreis;
 	private int mintID;
-	private boolean change = false;
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -20,6 +19,7 @@ public class Model_Produkt  {
 		this.mintGewicht = gewicht;
 		this.mfltPreis = preis;
 		this.mintID = id;
+
 	}
 
 	public Model_Produkt() {
@@ -74,19 +74,6 @@ public class Model_Produkt  {
 		}
 		return false;
 	}
-	public boolean isChange() {
-		return change;
-	}
-
-	public void setChange(boolean change) {
-		this.change = change;
-	}
-
-	public void change(Model_Produkt tmp) {
-		this.mstrName = tmp.mstrName;
-		this.mintGewicht = tmp.mintGewicht;
-		this.mfltPreis = tmp.mfltPreis;
-		this.setChange(true);
-	}
+	
 
 }

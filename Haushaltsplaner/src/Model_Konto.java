@@ -7,15 +7,7 @@ public class Model_Konto {
 	private String mstrKnr;
 	private String mstrMin;
 	private int mintID;
-	private boolean change = false;
 
-	public boolean isChange() {
-		return change;
-	}
-
-	public void setChange(boolean change) {
-		this.change = change;
-	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -33,6 +25,7 @@ public class Model_Konto {
 		this.mstrKnr = knr;
 		this.mstrMin = min;
 		this.mintID = id;
+
 
 	}
 
@@ -109,13 +102,6 @@ public class Model_Konto {
 
 	}
 
-	public void change(Model_Konto tmp) {
-		this.mstrBetrag = tmp.mstrBetrag;
-		this.mstrName = tmp.mstrName;
-		this.mstrBLZ = tmp.mstrBLZ;
-		this.mstrKnr = tmp.mstrKnr;
-		this.mstrMin = tmp.mstrMin;
-		this.setChange(true);
-	}
+
 
 }
