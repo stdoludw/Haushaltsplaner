@@ -530,9 +530,8 @@ public class Controll_Main implements ActionListener {
 
 	}
 
-	private String removeDate(String string, String mstrContentEinkauf) {
-		String content = mguiMain.getTextArea().getText();
-		String[] tmp = content.split("\n");
+	private String removeDate(String enumDate, String mstrContentEinkauf) {
+		String[] tmp = mstrContentEinkauf.split("\n");
 		Vector<String[]> value = new Vector<>();
 
 		for (int i = 0; i < tmp.length; i++) {
@@ -540,9 +539,53 @@ public class Controll_Main implements ActionListener {
 		}
 		
 		
+		//enum to String
+		//bsp: Januar to 1
+		String valueDate = null;
+		if(cmbAuswahl.Januar.toString().equals(enumDate)){
+			valueDate = "01";
+		}else if (cmbAuswahl.Februar.toString().equals(enumDate)) {
+			valueDate = "02";
+		} else if (cmbAuswahl.März.toString().equals(enumDate)) {
+			valueDate = "03";
+		} else if (cmbAuswahl.April.toString().equals(enumDate)) {
+			valueDate = "04";
+		} else if (cmbAuswahl.Mai.toString().equals(enumDate)) {
+			valueDate = "05";
+		} else if (cmbAuswahl.Juni.toString().equals(enumDate)) {
+			valueDate = "06";
+		} else if (cmbAuswahl.Juli.toString().equals(enumDate)) {
+			valueDate = "07";
+		} else if (cmbAuswahl.August.toString().equals(enumDate)) {
+			valueDate = "08";
+		} else if (cmbAuswahl.September.toString().equals(enumDate)) {
+			valueDate = "09";
+		} else if (cmbAuswahl.Oktober.toString().equals(enumDate)) {
+			valueDate = "10";
+		} else if (cmbAuswahl.November.toString().equals(enumDate)) {
+			valueDate = "11";
+		} else if (cmbAuswahl.Dezember.toString().equals(enumDate)) {
+			valueDate = "12";
+		}
 		
 		
-		return null;
+		for(int i=0;i<value.size();i++)
+		{
+			if(value.get(i)[2].split(".")[2] == valueDate)
+			{
+				value.remove(i);
+			}
+			
+		}
+		
+		String returnDate = null;
+		for(int i=0;i<value.size();i++)
+		{
+			returnDate += value.get(i)[0] + "\t"+ value.get(i)[1] +"\t"+ value.get(i)[2]+"\n";
+		}
+		
+		
+		return returnDate;
 	}
 
 
