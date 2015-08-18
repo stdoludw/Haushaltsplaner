@@ -1,4 +1,4 @@
-public class Model_Markt  {
+public class Model_Markt {
 
 	// Markt Attribute
 	private String mstrName;
@@ -6,6 +6,11 @@ public class Model_Markt  {
 	private String mstrAdr;
 	private int mintEntfernung;
 	private int mintID;
+	private boolean mboolequal;
+
+	public boolean isMboolequal() {
+		return mboolequal;
+	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -15,13 +20,13 @@ public class Model_Markt  {
 		return mintID;
 	}
 
-	public Model_Markt(String name, String plz, String adr, int entfernung,
-			int id) {
+	public Model_Markt(String name, String plz, String adr, int entfernung, int id) {
 		this.mstrName = name;
 		this.mstrPLZ = plz;
 		this.mstrAdr = adr;
 		this.mintEntfernung = entfernung;
 		this.mintID = id;
+		this.mboolequal = true;
 
 	}
 
@@ -67,26 +72,28 @@ public class Model_Markt  {
 
 	public String SQLerstellenMarkt() {
 		String statment;
-		statment = Controll_Statments.marktUpdateInsert.toString() + "\""
-				+ mstrName + "\"" + "," + "\"" + mstrPLZ + "\"" + "," + "\""
-				+ mstrAdr + "\"" + "," + mintEntfernung + mintID+");";
+		statment = Controll_Statments.marktUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrPLZ
+				+ "\"" + "," + "\"" + mstrAdr + "\"" + "," + mintEntfernung + mintID + ");";
 
 		return statment;
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t"
-				+ mintEntfernung+"\t"+mintID;
+		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t" + mintEntfernung + "\t" + mintID;
 	}
 
 	public boolean equal(Model_Markt tmp) {
-		if (this.mstrName == tmp.mstrName && this.mstrPLZ == tmp.mstrPLZ
-				&& this.mstrAdr == tmp.mstrAdr
+		if (this.mstrName == tmp.mstrName && this.mstrPLZ == tmp.mstrPLZ && this.mstrAdr == tmp.mstrAdr
 				&& this.mintEntfernung == tmp.mintEntfernung) {
+			mboolequal = true;
 			return true;
 		}
+		mboolequal = false;
+		this.mstrName = tmp.mstrName;
+		this.mstrPLZ = tmp.mstrPLZ;
+		this.mstrAdr = tmp.mstrAdr;
+		this.mintEntfernung = tmp.mintEntfernung;
 		return false;
 	}
-
 
 }

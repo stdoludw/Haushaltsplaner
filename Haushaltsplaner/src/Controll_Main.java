@@ -122,109 +122,125 @@ public class Controll_Main implements ActionListener {
 				}
 			}
 
-		} else if (mguiMain.STATISTIK.equals(mstrCommand)) {
-
 		} else if (mguiMain.UPDATE.equals(mstrCommand)) {
-			String mstrevent = mguiMain.getComboBox().getSelectedItem().toString();
-			if (mstrevent.equals(cmbAuswahl.Produkt.toString())) {
-				mstrevent = mguiMain.getTextArea().getText();
 
-				// alle Produkte entfernen
+			String content = mguiMain.getTextArea().getText();
+			String[] tmp = content.split("\n");
+			Vector<String[]> value = new Vector<>();
+
+			for (int i = 0; i < tmp.length; i++) {
+				value.add(tmp[i].split("\t"));
+			}
+			Object[] tmpObject = new Object[value.size()];
+			Object selectedItem = mguiMain.getComboBox().getSelectedItem();
+
+			if (selectedItem == cmbAuswahl.Produkt) {
+
+				for (int i = 0; i < value.size(); i++) {
+					tmpObject[i] = new Model_Produkt(value.get(i)[0], Integer.valueOf(value.get(i)[1]),
+							Float.valueOf(value.get(i)[2]), -1);
+				}
+
 				for (int i = 0; i < mvecModel.size(); i++) {
-					try {
-						SQLModifizieren(Controll_Statments.produktUpdate.toString()
-								+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ";");
-					} catch (SQLException e) {
-						e.printStackTrace();
+					if (mvecModel.get(i) instanceof Model_Produkt) {
+						for (int j = 0; j < tmpObject.length; j++) {
+							((Model_Produkt) mvecModel.get(i)).equal((Model_Produkt) tmpObject[j]);
+						}
 					}
 				}
 
-				// update der veränderungen
-				String[] myArray = mstrevent.split("\n");
+			} else if (selectedItem == cmbAuswahl.Markt) {
 
-				for (String element : myArray) {
-
-					String tmp[] = element.split("\t");
-					Model_Produkt tmpProdukt = new Model_Produkt(tmp[0], Integer.valueOf(tmp[1]), Float.valueOf(tmp[2]),
-							Integer.valueOf(tmp[3]));
-					try {
-						SQLModifizieren(tmpProdukt.SQLerstellenProdukt());
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
+				for (int i = 0; i < value.size(); i++) {
+					tmpObject[i] = new Model_Markt(value.get(i)[0], value.get(i)[1], value.get(i)[2],
+							Integer.valueOf(value.get(i)[3]), -1);
 				}
 
-			} else if (mstrevent.equals(cmbAuswahl.Konto.toString())) {
-				mstrevent = mguiMain.getTextArea().getText();
-
-				// alle Produkte entfernen
 				for (int i = 0; i < mvecModel.size(); i++) {
-					try {
-						SQLModifizieren(Controll_Statments.kontoUpdate.toString()
-								+ ((Model_Konto) mvecModel.get(i)).getMintID() + ";");
-					} catch (SQLException e) {
-						e.printStackTrace();
+					if (mvecModel.get(i) instanceof Model_Markt) {
+						for (int j = 0; j < tmpObject.length; j++) {
+							((Model_Markt) mvecModel.get(i)).equal((Model_Markt) tmpObject[j]);
+						}
 					}
 				}
 
-				// update der veränderungen
-				String[] myArray = mstrevent.split("\n");
+			} else if (selectedItem == cmbAuswahl.Konto) {
 
-				for (String element : myArray) {
-
-					String tmp[] = element.split("\t");
-					Model_Konto tmpKonto = new Model_Konto(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4],
-							Integer.valueOf(tmp[5]));
-					try {
-						SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString() + '\''
-								+ aes.verschluesselnAES(tmpKonto.getMstrName()) + '\'' + "," + '\''
-								+ aes.verschluesselnAES(tmpKonto.getMstrBLZ()) + '\'' + "," + '\''
-								+ aes.verschluesselnAES(tmpKonto.getMstrKnr()) + '\'' + ","
-								+ '\'' + aes.verschluesselnAES(tmpKonto.getMstrBetrag()) + '\'' + ","
-								+ '\'' + aes.verschluesselnAES(tmpKonto.getMintMin()) + '\'' + 
-								tmpKonto.getMintID()+
-								");");
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
+				for (int i = 0; i < value.size(); i++) {
+					tmpObject[i] = new Model_Konto(value.get(i)[0], value.get(i)[1], value.get(i)[2], value.get(i)[3],
+							value.get(i)[4], -1);
 				}
-			} else if (mstrevent.equals(cmbAuswahl.Markt.toString())) {
 
-				mstrevent = mguiMain.getTextArea().getText();
-
-				// alle Produkte entfernen
 				for (int i = 0; i < mvecModel.size(); i++) {
-					try {
-						SQLModifizieren(Controll_Statments.marktUpdate.toString()
-								+ ((Model_Markt) mvecModel.get(i)).getMintID() + ";");
-					} catch (SQLException e) {
-						e.printStackTrace();
+					if (mvecModel.get(i) instanceof Model_Konto) {
+						for (int j = 0; j < tmpObject.length; j++) {
+							((Model_Konto) mvecModel.get(i)).equal((Model_Konto) tmpObject[j]);
+						}
 					}
 				}
-
-				// update der veränderungen
-				String[] myArray = mstrevent.split("\n");
-
-				for (String element : myArray) {
-
-					String tmp[] = element.split("\t");
-					Model_Markt tmpMarkt = new Model_Markt(tmp[0], tmp[1], tmp[2], Integer.valueOf(tmp[3]),
-							Integer.valueOf(tmp[4]));
-					try {
-						SQLModifizieren(tmpMarkt.SQLerstellenMarkt());
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
-				}
-
 			}
 
-		}
+			// wenn !equal im tmpObject schreibe in DB
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Konto) {
+					if (!((Model_Konto) mvecModel.get(i)).isMboolequal()) {
+						try {
+							SQLModifizieren(Controll_Statments.kontoUpdate.toString()
+									+ ((Model_Konto) mvecModel.get(i)).getMintID() + ");");
 
-		else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
+							SQLModifizieren(Controll_Statments.kontoUpdateInsert.toString()
+									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrName()) + ","
+									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrBLZ()) + ","
+									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrKnr()) + ","
+									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMintMin()) + ","
+									+ ((Model_Konto) mvecModel.get(i)).getMintID() + ");");
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+				} else if (mvecModel.get(i) instanceof Model_Produkt) {
+					if (!((Model_Produkt) mvecModel.get(i)).isMboolequal()) {
+
+						try {
+							SQLModifizieren(Controll_Statments.produktUpdate.toString()+
+									((Model_Produkt) mvecModel.get(i)).getMintID()+");");
+							
+							SQLModifizieren(Controll_Statments.produktUpdateInsert.toString()
+									+((Model_Produkt) mvecModel.get(i)).getMstrName()+ ","
+									+((Model_Produkt) mvecModel.get(i)).getMintGewicht()+ ","
+									+((Model_Produkt) mvecModel.get(i)).getMfltPreis()+ ","
+									+((Model_Produkt) mvecModel.get(i)).getMintID()+ ");");
+								
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					
+					}
+				} else if (mvecModel.get(i) instanceof Model_Markt) {
+					if (!((Model_Markt) mvecModel.get(i)).isMboolequal()) {
+
+						try {
+							SQLModifizieren(Controll_Statments.marktUpdate.toString()+
+									((Model_Markt) mvecModel.get(i)).getMintID()+");");
+							
+							SQLModifizieren(Controll_Statments.marktUpdateInsert.toString()
+									+((Model_Markt) mvecModel.get(i)).getMstrName()+ ","
+									+((Model_Markt) mvecModel.get(i)).getMstrPLZ()+ ","
+									+((Model_Markt) mvecModel.get(i)).getMstrAdr()+ ","
+									+((Model_Markt) mvecModel.get(i)).getMintEntfernung()+","
+									+((Model_Markt) mvecModel.get(i)).getMintID()+");");
+								
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+							
+					}
+				}
+			}
+
+		} else if (mguiAbfrage.ERSTELLEN.equals(mstrCommand)) {
 			// hiden des alten fensters
 			mguiAbfrage.dispose();
 
@@ -452,6 +468,8 @@ public class Controll_Main implements ActionListener {
 				for (int i = 0; i < name_minimumGrenze.size(); i++)
 					mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: "
 							+ name_minimumGrenze.get(i) + "\n";
+
+				// #TODO prüfen der SQL
 
 				try {
 					for (int i = 0; i < Controll_Statments.statistic().size(); i++) {

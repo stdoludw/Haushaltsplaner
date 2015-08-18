@@ -7,6 +7,11 @@ public class Model_Einkauf {
 	private int mintIDMarkt;
 	private int mintIDKonto;
 	private int mintID;
+	private boolean mboolequal;
+
+	public boolean isMboolequal() {
+		return mboolequal;
+	}
 
 	public int getMintID() {
 		return mintID;
@@ -24,6 +29,7 @@ public class Model_Einkauf {
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
 		this.mintID = pk;
+		this.mboolequal = true;
 	}
 
 	public void ModelArray(int p, int k, int m) {
@@ -43,15 +49,14 @@ public class Model_Einkauf {
 
 	public String SQlerstellenAll() {
 		String statement;
-		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl
-				+ "," + "now()" + "," + mintIDKonto + "," + mintIDProdukt + ","
-				+ mintIDMarkt + ");";
+		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl + "," + "now()" + "," + mintIDKonto + ","
+				+ mintIDProdukt + "," + mintIDMarkt + ");";
 		return statement;
 
 	}
 
 	public String print() {
-		return mintAnzahl + "\t" + mstrDatum + "\t"+mintID;
+		return mintAnzahl + "\t" + mstrDatum + "\t" + mintID;
 	}
 
 	public int getMintIDKonto() {
@@ -67,16 +72,19 @@ public class Model_Einkauf {
 	}
 
 	public boolean equal(Model_Einkauf tmp) {
-		if (this.mintAnzahl == tmp.mintAnzahl
-				&& this.mstrDatum == tmp.mstrDatum
-				&& this.mintIDProdukt == tmp.mintIDProdukt
-				&& this.mintIDMarkt == tmp.mintIDMarkt
+		if (this.mintAnzahl == tmp.mintAnzahl && this.mstrDatum == tmp.mstrDatum
+				&& this.mintIDProdukt == tmp.mintIDProdukt && this.mintIDMarkt == tmp.mintIDMarkt
 				&& this.mintIDKonto == tmp.mintIDKonto) {
+			mboolequal = true;
 			return true;
 		}
+		mboolequal = false;
+		this.mintAnzahl = tmp.mintAnzahl;
+		this.mstrDatum = tmp.mstrDatum;
+		this.mintIDProdukt = tmp.mintIDProdukt;
+		this.mintIDMarkt = tmp.mintIDMarkt;
+		this.mintIDKonto = tmp.mintIDKonto;
 		return false;
 	}
-
-	
 
 }

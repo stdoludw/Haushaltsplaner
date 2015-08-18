@@ -7,7 +7,11 @@ public class Model_Konto {
 	private String mstrKnr;
 	private String mstrMin;
 	private int mintID;
+	private boolean mboolequal;
 
+	public boolean isMboolequal() {
+		return mboolequal;
+	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -17,15 +21,14 @@ public class Model_Konto {
 		return mintID;
 	}
 
-	public Model_Konto(String name, String blz, String knr, String betrag,
-			String min, int id) {
+	public Model_Konto(String name, String blz, String knr, String betrag, String min, int id) {
 		this.mstrBetrag = betrag;
 		this.mstrName = name;
 		this.mstrBLZ = blz;
 		this.mstrKnr = knr;
 		this.mstrMin = min;
 		this.mintID = id;
-
+		this.mboolequal = true;
 
 	}
 
@@ -81,27 +84,32 @@ public class Model_Konto {
 
 	public String SQLerstellenKonto() {
 		String statment;
-		statment = Controll_Statments.kontoUpdateInsert.toString() + "\""
-				+ mstrName + "\"" + "," + "\"" + mstrBLZ + "\"" + "," + "\""
-				+ mstrKnr + "\"" + "," + mstrBetrag + "," + mstrMin+","+mintID + ");";
+		statment = Controll_Statments.kontoUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrBLZ
+				+ "\"" + "," + "\"" + mstrKnr + "\"" + "," + mstrBetrag + "," + mstrMin + "," + mintID + ");";
 		return statment;
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag+"\t"+mstrMin+"\t"+mintID;
-				
+		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag + "\t" + mstrMin + "\t" + mintID;
+
 	}
 
 	public boolean equal(Model_Konto tmp) {
-		if (this.mstrBetrag == tmp.mstrBetrag && this.mstrName == tmp.mstrName
-				&& this.mstrBLZ == tmp.mstrBLZ && this.mstrKnr == tmp.mstrKnr
-				&& this.mstrMin == tmp.mstrMin) {
+		if (this.mstrBetrag == tmp.mstrBetrag && this.mstrName == tmp.mstrName && this.mstrBLZ == tmp.mstrBLZ
+				&& this.mstrKnr == tmp.mstrKnr && this.mstrMin == tmp.mstrMin) {
+			mboolequal = true;
 			return true;
 		}
+		mboolequal = false;
+
+		this.mstrBetrag = tmp.mstrBetrag;
+		this.mstrName = tmp.mstrName;
+		this.mstrBLZ = tmp.mstrBLZ;
+		this.mstrKnr = tmp.mstrKnr;
+		this.mstrMin = tmp.mstrMin;
+
 		return false;
 
 	}
-
-
 
 }
