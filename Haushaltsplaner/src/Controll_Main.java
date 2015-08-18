@@ -145,6 +145,7 @@ public class Controll_Main implements ActionListener {
 					if (mvecModel.get(i) instanceof Model_Produkt) {
 						for (int j = 0; j < tmpObject.length; j++) {
 							((Model_Produkt) mvecModel.get(i)).equal((Model_Produkt) tmpObject[j]);
+							break;
 						}
 					}
 				}
@@ -160,6 +161,7 @@ public class Controll_Main implements ActionListener {
 					if (mvecModel.get(i) instanceof Model_Markt) {
 						for (int j = 0; j < tmpObject.length; j++) {
 							((Model_Markt) mvecModel.get(i)).equal((Model_Markt) tmpObject[j]);
+							break;
 						}
 					}
 				}
@@ -175,6 +177,7 @@ public class Controll_Main implements ActionListener {
 					if (mvecModel.get(i) instanceof Model_Konto) {
 						for (int j = 0; j < tmpObject.length; j++) {
 							((Model_Konto) mvecModel.get(i)).equal((Model_Konto) tmpObject[j]);
+							break;
 						}
 					}
 				}
@@ -204,38 +207,38 @@ public class Controll_Main implements ActionListener {
 					if (!((Model_Produkt) mvecModel.get(i)).isMboolequal()) {
 
 						try {
-							SQLModifizieren(Controll_Statments.produktUpdate.toString()+
-									((Model_Produkt) mvecModel.get(i)).getMintID()+");");
-							
+							SQLModifizieren(Controll_Statments.produktUpdate.toString()
+									+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ");");
+
 							SQLModifizieren(Controll_Statments.produktUpdateInsert.toString()
-									+((Model_Produkt) mvecModel.get(i)).getMstrName()+ ","
-									+((Model_Produkt) mvecModel.get(i)).getMintGewicht()+ ","
-									+((Model_Produkt) mvecModel.get(i)).getMfltPreis()+ ","
-									+((Model_Produkt) mvecModel.get(i)).getMintID()+ ");");
-								
+									+ ((Model_Produkt) mvecModel.get(i)).getMstrName() + ","
+									+ ((Model_Produkt) mvecModel.get(i)).getMintGewicht() + ","
+									+ ((Model_Produkt) mvecModel.get(i)).getMfltPreis() + ","
+									+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ");");
+
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					
+
 					}
 				} else if (mvecModel.get(i) instanceof Model_Markt) {
 					if (!((Model_Markt) mvecModel.get(i)).isMboolequal()) {
 
 						try {
-							SQLModifizieren(Controll_Statments.marktUpdate.toString()+
-									((Model_Markt) mvecModel.get(i)).getMintID()+");");
-							
+							SQLModifizieren(Controll_Statments.marktUpdate.toString()
+									+ ((Model_Markt) mvecModel.get(i)).getMintID() + ");");
+
 							SQLModifizieren(Controll_Statments.marktUpdateInsert.toString()
-									+((Model_Markt) mvecModel.get(i)).getMstrName()+ ","
-									+((Model_Markt) mvecModel.get(i)).getMstrPLZ()+ ","
-									+((Model_Markt) mvecModel.get(i)).getMstrAdr()+ ","
-									+((Model_Markt) mvecModel.get(i)).getMintEntfernung()+","
-									+((Model_Markt) mvecModel.get(i)).getMintID()+");");
-								
+									+ ((Model_Markt) mvecModel.get(i)).getMstrName() + ","
+									+ ((Model_Markt) mvecModel.get(i)).getMstrPLZ() + ","
+									+ ((Model_Markt) mvecModel.get(i)).getMstrAdr() + ","
+									+ ((Model_Markt) mvecModel.get(i)).getMintEntfernung() + ","
+									+ ((Model_Markt) mvecModel.get(i)).getMintID() + ");");
+
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-							
+
 					}
 				}
 			}
@@ -385,106 +388,163 @@ public class Controll_Main implements ActionListener {
 		} else if (mguiMain.AUSWAHL.equals(mstrCommand)) {
 
 			// fuellen der anzeige box
-			// #TODO füllen by sort DATUM
-			// kein SQL nur java
 			String mstrContent = null;
+			String mstrContentEinkauf = null;
 			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf.toString()) {
 				mstrContent = "Anzahl\tDatum\tProdukt\tKonto\tMarkt\n";
 				mguiMain.getMcmbMonat().setEnabled(true);
 
 				for (int i = 0; i < mvecModel.size(); i++) {
-					{
-						mstrContent += ((Model_Einkauf) mvecModel.get(i)).print() + "\n";
-						if (mvecModel.get(i) instanceof Model_Produkt) {
-							if (((Model_Produkt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
-									.getMintIDProdukt()) {
-								mstrContent += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
-							} else if (mvecModel.get(i) instanceof Model_Konto)
-								if (((Model_Konto) mvecModel.get(i)).getMintID() ==
-
-								((Model_Einkauf) mvecModel.get(i)).getMintIDKonto()) {
-									mstrContent += ((Model_Konto) mvecModel.get(i)).print() + "\n";
-								} else if (mvecModel.get(i) instanceof Model_Markt)
-									if (((Model_Markt) mvecModel.get(i))
-											.getMintID() == ((Model_Einkauf) mvecModel.get(i)).getMintIDMarkt()) {
-										mstrContent += ((Model_Markt) mvecModel.get(i)).print() + "\n";
-									}
-						}
-
-					}
-				}
-			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt.toString()) {
-				mstrContent = "Name\tGewicht\tPreis\n";
-				for (int i = 0; i < mvecModel.size(); i++) {
+					{			
+						mstrContentEinkauf += ((Model_Einkauf) mvecModel.get(i)).print() + "\n";
 					if (mvecModel.get(i) instanceof Model_Produkt) {
-						mstrContent += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
+						mguiMain.getTextArea().setEditable(true);
+
+						if (((Model_Produkt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
+								.getMintIDProdukt()) {
+							mstrContentEinkauf += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
+						} else if (mvecModel.get(i) instanceof Model_Konto)
+							if (((Model_Konto) mvecModel.get(i)).getMintID() ==
+
+							((Model_Einkauf) mvecModel.get(i)).getMintIDKonto()) {
+								mstrContentEinkauf += ((Model_Konto) mvecModel.get(i)).print() + "\n";
+							} else if (mvecModel.get(i) instanceof Model_Markt)
+								if (((Model_Markt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
+										.getMintIDMarkt()) {
+									mstrContentEinkauf += ((Model_Markt) mvecModel.get(i)).print() + "\n";
+								}
 					}
 				}
-			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt.toString()) {
-				mstrContent = "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
-				for (int i = 0; i < mvecModel.size(); i++) {
-					if (mvecModel.get(i) instanceof Model_Markt) {
-						mstrContent += ((Model_Markt) mvecModel.get(i)).print() + "\n";
-					}
+					
+				String string = mguiMain.getMcmbMonat().getSelectedItem().toString();
+				if (cmbAuswahl.Januar.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Januar.toString(),mstrContentEinkauf);
+				} else if (cmbAuswahl.Februar.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Februar.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.März.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.März.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.April.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.April.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Mai.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Mai.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Juni.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Juni.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Juli.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Juli.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.August.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.August.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.September.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.September.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Oktober.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Oktober.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.November.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.November.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Dezember.toString().equals(string)) {
+					mstrContentEinkauf = removeDate(cmbAuswahl.Dezember.toString(),mstrContentEinkauf);
+
+				} else if (cmbAuswahl.Alles.toString().equals(string)) {
+					mstrContent = mstrContentEinkauf;
+				} 
+								
+			}
+		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt.toString()) {
+			mstrContent = "Name\tGewicht\tPreis\n";
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Produkt) {
+					mstrContent += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
 				}
-			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto.toString()) {
-				mstrContent = "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
-
-				for (int i = 0; i < mvecModel.size(); i++) {
-					if (mvecModel.get(i) instanceof Model_Konto) {
-						mstrContent += ((Model_Konto) mvecModel.get(i)).print() + "\n";
-					}
+			}
+		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt.toString()) {
+			mstrContent = "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Markt) {
+					mstrContent += ((Model_Markt) mvecModel.get(i)).print() + "\n";
 				}
-			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik.toString()) {
-				// hoechste kontostand -> niedirgste kontostand
-				// minimum erreicht per konto
-				int max = -1, min = 999;
-				String name_max = null, name_min = null;
-				Vector<String> name_minimumGrenze = new Vector<>();
+			}
+		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto.toString()) {
+			mstrContent = "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
 
-				for (Object element : mvecModel) {
-
-					if (element instanceof Model_Konto) {
-						if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) {
-							min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-							name_min = ((Model_Konto) element).getMstrName();
-						} else {
-							max = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-							name_max = ((Model_Konto) element).getMstrName();
-
-						}
-
-						if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer
-								.valueOf(((Model_Konto) element).getMintMin())) {
-							name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
-						}
-					}
-
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Konto) {
+					mstrContent += ((Model_Konto) mvecModel.get(i)).print() + "\n";
 				}
+			}
+		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik.toString()) {
+			// hoechste kontostand -> niedirgste kontostand
+			// minimum erreicht per konto
+			int max = -1, min = 999;
+			String name_max = null, name_min = null;
+			Vector<String> name_minimumGrenze = new Vector<>();
 
-				mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit " + min + " EURO\n";
-				mstrContent += "Den hoechsten Kontostand hat " + name_max + " mit " + max + " EURO\n";
+			for (Object element : mvecModel) {
 
-				for (int i = 0; i < name_minimumGrenze.size(); i++)
-					mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: "
-							+ name_minimumGrenze.get(i) + "\n";
+				if (element instanceof Model_Konto) {
+					if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) {
+						min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+						name_min = ((Model_Konto) element).getMstrName();
+					} else {
+						max = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+						name_max = ((Model_Konto) element).getMstrName();
 
-				// #TODO prüfen der SQL
-
-				try {
-					for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-						System.out.println(SQLStatistic(Controll_Statments.statistic().get(i)));
 					}
-				} catch (SQLException e) {
-					e.printStackTrace();
+
+					if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer
+							.valueOf(((Model_Konto) element).getMintMin())) {
+						name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
+					}
 				}
 
 			}
-			// fuellen der GUI
-			mguiMain.setTextArea(mstrContent);
+
+			mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit " + min + " EURO\n";
+			mstrContent += "Den hoechsten Kontostand hat " + name_max + " mit " + max + " EURO\n";
+
+			for (int i = 0; i < name_minimumGrenze.size(); i++)
+				mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: " + name_minimumGrenze.get(i)
+						+ "\n";
+
+			// #TODO prüfen der SQL
+
+			try {
+				for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
+					System.out.println(SQLStatistic(Controll_Statments.statistic().get(i)));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		}
+		// fuellen der GUI
+		mguiMain.setTextArea(mstrContent);
+	}
 
 	}
+
+	private String removeDate(String string, String mstrContentEinkauf) {
+		String content = mguiMain.getTextArea().getText();
+		String[] tmp = content.split("\n");
+		Vector<String[]> value = new Vector<>();
+
+		for (int i = 0; i < tmp.length; i++) {
+			value.add(tmp[i].split("\t"));
+		}
+		
+		
+		
+		
+		return null;
+	}
+
 
 	@SuppressWarnings("deprecation")
 	private void acces() throws ClassNotFoundException, SQLException {
