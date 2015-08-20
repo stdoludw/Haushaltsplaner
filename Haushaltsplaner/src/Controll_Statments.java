@@ -122,16 +122,16 @@ public enum Controll_Statments {
 		mstrAttNew
 				.add("create view HausHaltsPlaner_" + kuerzel + ".ViewAll as select k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID, p.name as 'Produktname',p.gewicht, p.preis, p.P_ID, m.name as 'Marktname',"
 						+ "m.postleitzahl,m.adresse, m.entfernung, m.M_ID,"
-						+ "ein.anzahl,ein.datum from HausHaltsPlaner_" + kuerzel + ".Einkauf ein, HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Konto k, HausHaltsPlaner_" + kuerzel + ".Markt m where ein.m_ID = m.M_ID AND ein.p_ID = p.P_ID AND ein.k_ID = k.K_ID;");
+						+ "ein.anzahl,ein.datum,ein.E_ID from HausHaltsPlaner_" + kuerzel + ".Einkauf ein, HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Konto k, HausHaltsPlaner_" + kuerzel + ".Markt m where ein.m_ID = m.M_ID AND ein.p_ID = p.P_ID AND ein.k_ID = k.K_ID;");
 
 		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortPreis as"
 				+ "			select p.name as 'Produktname', p.Preis, p.gewicht from HausHaltsPlaner_" + kuerzel + ".Produkt p order by p.Preis;");
 
 		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortAusgaben as"
-				+ "			select p.name as 'Produktname', p.preis , ein.anzahl ,ROUND((p.preis * ein.anzahl),2) as 'gesamtpreis' from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID;");
+				+ "			select p.name as 'Produktname', p.preis , ein.anzahl,ein.E_ID ,ROUND((p.preis * ein.anzahl),2) as 'gesamtpreis',ein.E_ID from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID;");
 
 		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortDatum as"
-				+ "			select p.name as 'Produktname', p.preis , p.gewicht , ein.datum  from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID Order by ein.Datum;");
+				+ "			select p.name as 'Produktname', p.preis , p.gewicht , ein.datum,ein.E_ID  from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID Order by ein.Datum;");
 
 		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortEntfernung as"
 				+ "			select m.name as 'Martname', m.entfernung , m.postleitzahl, m.adresse  from HausHaltsPlaner_" + kuerzel + ".Markt m;");

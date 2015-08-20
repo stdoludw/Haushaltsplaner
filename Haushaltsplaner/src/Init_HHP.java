@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class Init_HHP {
 
@@ -9,12 +7,8 @@ public class Init_HHP {
 			Controll_Main c = new Controll_Main();
 
 			// init von controll aufrufen
-			try {
 				c.start();
-			} catch (ClassNotFoundException | SQLException  | IOException e) {
-				e.printStackTrace();
-			} 
-
+			
 			// beenden des Programms
 			c = null;
 		

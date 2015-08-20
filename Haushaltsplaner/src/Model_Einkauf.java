@@ -66,7 +66,7 @@ public class Model_Einkauf {
 				}
 			} else if (element instanceof Model_Konto) {
 				if (((Model_Konto) element).getMintID() == this.mintIDKonto) {
-					konto = ((Model_Produkt) element).print();
+					konto = ((Model_Konto) element).print();
 				}
 			} else if (element instanceof Model_Markt) {
 				if (((Model_Markt) element).getMintID() == this.mintIDMarkt) {
@@ -74,7 +74,7 @@ public class Model_Einkauf {
 				}
 			}
 		}
-		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt + "\n";
+		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt;
 	}
 
 	public int getMintIDKonto() {
