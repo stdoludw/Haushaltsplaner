@@ -119,12 +119,22 @@ public enum Controll_Statments {
 		mstrAttNew.add("create table Einkauf like master.Einkauf;");
 		mstrAttNew.add("create table Konto like master.Konto;");
 		mstrAttNew.add("create table Markt like master.Markt;");
-		mstrAttNew.add("create table Produkt like master.Produkt;");
-		mstrAttNew.add("create view ViewAll as select * from master.ViewAll;");
-		mstrAttNew.add("create view SortAusgaben as select * from master.SortAusgaben;");
-		mstrAttNew.add("create view SortDatum as select * from master.SortDatum;");
-		mstrAttNew.add("create view SortEntfernung as select * from master.SortEntfernung;");
-		mstrAttNew.add("create view SortPreis as select * from master.SortPreis;");
+		mstrAttNew
+				.add("create view HausHaltsPlaner_" + kuerzel + ".ViewAll as select k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID, p.name as 'Produktname',p.gewicht, p.preis, p.P_ID, m.name as 'Marktname',"
+						+ "m.postleitzahl,m.adresse, m.entfernung, m.M_ID,"
+						+ "ein.anzahl,ein.datum from HausHaltsPlaner_" + kuerzel + ".Einkauf ein, HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Konto k, HausHaltsPlaner_" + kuerzel + ".Markt m where ein.m_ID = m.M_ID AND ein.p_ID = p.P_ID AND ein.k_ID = k.K_ID;");
+
+		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortPreis as"
+				+ "			select p.name as 'Produktname', p.Preis, p.gewicht from HausHaltsPlaner_" + kuerzel + ".Produkt p order by p.Preis;");
+
+		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortAusgaben as"
+				+ "			select p.name as 'Produktname', p.preis , ein.anzahl ,ROUND((p.preis * ein.anzahl),2) as 'gesamtpreis' from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID;");
+
+		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortDatum as"
+				+ "			select p.name as 'Produktname', p.preis , p.gewicht , ein.datum  from HausHaltsPlaner_" + kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID Order by ein.Datum;");
+
+		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortEntfernung as"
+				+ "			select m.name as 'Martname', m.entfernung , m.postleitzahl, m.adresse  from HausHaltsPlaner_" + kuerzel + ".Markt m;");
 
 		return mstrAttNew;
 	}
@@ -167,45 +177,48 @@ public enum Controll_Statments {
 
 		Vector<String> mstrAttNew = new Vector<String>();
 
-		//maximale anzahl an Produkten mit name des produkts und Markt
+		// maximale anzahl an Produkten mit name des produkts und Markt
 		mstrAttNew
 				.add("select  m.name,p.name, ein.anzahl from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "
 						+ "where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and anzahl =("
 						+ "	select max(anzahl) from HausHaltsPlaner_Database.Einkauf);");
 
-		//mehr als die AVG anzahl
+		// mehr als die AVG anzahl
 		mstrAttNew
-		.add("select  m.name,p.name,ein.anzahl from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
-				+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and anzahl >=("
-				+ "		select AVG(anzahl) from HausHaltsPlaner_Database.Einkauf);");
+				.add("select  m.name,p.name,ein.anzahl from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
+						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and anzahl >=("
+						+ "		select AVG(anzahl) from HausHaltsPlaner_Database.Einkauf);");
 
-		//älteste Produkt mit Produktname und Marktname
+		// älteste Produkt mit Produktname und Marktname
 		mstrAttNew
 				.add("select  m.name,p.name, ein.datum from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
 						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and datum >=("
 						+ "				select max(datum) from HausHaltsPlaner_Database.Einkauf);");
 
-		//neuste Produkt mit Produktname und Marktname
+		// neuste Produkt mit Produktname und Marktname
 		mstrAttNew
 				.add("select  m.name,p.name, ein.datum from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
 						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and datum >=("
 						+ "				select min(datum) from HausHaltsPlaner_Database.Einkauf);");
 
-		//teuerste Produkt
+		// teuerste Produkt
 		mstrAttNew.add("select name,preis from HausHaltsPlaner_Database.Produkt where preis >= ("
 				+ "		select max(preis) from HausHaltsPlaner_Database.Produkt);");
 
-		//billigste Produkt
+		// billigste Produkt
 		mstrAttNew.add("select name,preis from HausHaltsPlaner_Database.Produkt where preis <= ("
 				+ "		select min(preis) from HausHaltsPlaner_Database.Produkt);");
 
-		//laengste entfernung 
-		mstrAttNew.add("select name, entfernung, ein.entfernung from HausHaltsPlaner_Database.Markt where entfernung <= " + "				("
-				+ "				select MAX(entfernung) from HausHaltsPlaner_Database.Markt" + "				);");
+		// laengste entfernung
+		mstrAttNew
+				.add("select name, entfernung, ein.entfernung from HausHaltsPlaner_Database.Markt where entfernung <= "
+						+ "				(" + "				select MAX(entfernung) from HausHaltsPlaner_Database.Markt"
+						+ "				);");
 
-		//kuerzeste entfernung
-		mstrAttNew.add("select name, entfernung, ein.entfernung from HausHaltsPlaner_Database.Markt where entfernung = " + "				("
-				+ "				select min(entfernung) from HausHaltsPlaner_Database.Markt" + "				);");
+		// kuerzeste entfernung
+		mstrAttNew.add("select name, entfernung, ein.entfernung from HausHaltsPlaner_Database.Markt where entfernung = "
+				+ "				(" + "				select min(entfernung) from HausHaltsPlaner_Database.Markt"
+				+ "				);");
 
 		return mstrAttNew;
 
