@@ -79,7 +79,7 @@ public class Model_Markt {
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t" + mintEntfernung + "\t" + mintID;
+		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t" + mintEntfernung;
 	}
 
 	public boolean equal(Model_Markt tmp) {

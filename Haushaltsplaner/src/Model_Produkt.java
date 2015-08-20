@@ -69,7 +69,7 @@ public class Model_Produkt {
 	}
 
 	public String print() {
-		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis + "\t" + mintID;
+		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis;
 	}
 
 	public boolean equal(Model_Produkt tmp) {

@@ -1,3 +1,4 @@
+import java.util.Vector;
 
 public class Model_Einkauf {
 
@@ -55,8 +56,25 @@ public class Model_Einkauf {
 
 	}
 
-	public String print() {
-		return mintAnzahl + "\t" + mstrDatum + "\t" + mintID;
+	public String print(Vector<Object> tmp) {
+
+		String produkt = null, markt = null, konto = null;
+		for (Object element : tmp) {
+			if (element instanceof Model_Produkt) {
+				if (((Model_Produkt) element).getMintID() == this.mintIDProdukt) {
+					produkt = ((Model_Produkt) element).print();
+				}
+			} else if (element instanceof Model_Konto) {
+				if (((Model_Konto) element).getMintID() == this.mintIDKonto) {
+					konto = ((Model_Produkt) element).print();
+				}
+			} else if (element instanceof Model_Markt) {
+				if (((Model_Markt) element).getMintID() == this.mintIDMarkt) {
+					markt = ((Model_Markt) element).print();
+				}
+			}
+		}
+		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt + "\n";
 	}
 
 	public int getMintIDKonto() {

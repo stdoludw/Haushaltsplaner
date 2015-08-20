@@ -402,25 +402,13 @@ public class Controll_Main implements ActionListener {
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					{
-						mstrContentEinkauf += ((Model_Einkauf) mvecModel.get(i)).print() + "\n";
-						if (mvecModel.get(i) instanceof Model_Produkt) {
-
-							if (((Model_Produkt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
-									.getMintIDProdukt()) {
-								mstrContentEinkauf += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
-							} else if (mvecModel.get(i) instanceof Model_Konto)
-								if (((Model_Konto) mvecModel.get(i)).getMintID() ==
-
-								((Model_Einkauf) mvecModel.get(i)).getMintIDKonto()) {
-									mstrContentEinkauf += ((Model_Konto) mvecModel.get(i)).print() + "\n";
-								} else if (mvecModel.get(i) instanceof Model_Markt)
-									if (((Model_Markt) mvecModel.get(i))
-											.getMintID() == ((Model_Einkauf) mvecModel.get(i)).getMintIDMarkt()) {
-										mstrContentEinkauf += ((Model_Markt) mvecModel.get(i)).print() + "\n";
-									}
+						if(mvecModel.get(i) instanceof Model_Einkauf)
+						{
+						mstrContentEinkauf += ((Model_Einkauf) mvecModel.get(i)).print(mvecModel) + "\n";
 						}
-					}
-
+						
+				}
+					
 					String string = mguiMain.getMcmbMonat().getSelectedItem().toString();
 					if (cmbAuswahl.Q1.toString().equals(string)) {
 						mstrContentEinkauf = removeDate(cmbAuswahl.Q1.toString(), mstrContentEinkauf);

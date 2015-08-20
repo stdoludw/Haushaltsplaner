@@ -90,7 +90,7 @@ public class Model_Konto {
 	}
 
 	public String print() {
-		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag + "\t" + mstrMin + "\t" + mintID;
+		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag + "\t" + mstrMin;
 
 	}
 
