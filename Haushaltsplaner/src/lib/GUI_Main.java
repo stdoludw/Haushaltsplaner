@@ -128,18 +128,12 @@ public class GUI_Main extends JFrame {
 		contentPane.add(mcmbMonat);
 		mcmbMonat.setActionCommand(AUSWAHL);
 		mcmbMonat.addItem(cmbAuswahl.Alles.toString());
-		mcmbMonat.addItem(cmbAuswahl.Januar.toString());
-		mcmbMonat.addItem(cmbAuswahl.Februar.toString());
-		mcmbMonat.addItem(cmbAuswahl.März.toString());
-		mcmbMonat.addItem(cmbAuswahl.April.toString());
-		mcmbMonat.addItem(cmbAuswahl.Mai.toString());
-		mcmbMonat.addItem(cmbAuswahl.Juni.toString());
-		mcmbMonat.addItem(cmbAuswahl.Juli.toString());
-		mcmbMonat.addItem(cmbAuswahl.August.toString());
-		mcmbMonat.addItem(cmbAuswahl.September.toString());
-		mcmbMonat.addItem(cmbAuswahl.Oktober.toString());
-		mcmbMonat.addItem(cmbAuswahl.November.toString());
-		mcmbMonat.addItem(cmbAuswahl.Dezember.toString());
+		mcmbMonat.addItem(cmbAuswahl.Q1.toString());
+		mcmbMonat.addItem(cmbAuswahl.Q2.toString());
+		mcmbMonat.addItem(cmbAuswahl.Q3.toString());
+		mcmbMonat.addItem(cmbAuswahl.Q4.toString());
+
+	
 	}
 
 

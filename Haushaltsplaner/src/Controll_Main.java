@@ -66,16 +66,18 @@ public class Controll_Main implements ActionListener {
 		// starten des Hauptfensters
 		this.mguiAbfrage.show(mguiAbfrage);
 
+		// aes verschluesselung
 		this.aes = new AES_verschluesselung();
 	}
 
-	@SuppressWarnings({ "static-access", "unchecked", "deprecation" })
+	@SuppressWarnings({ "static-access", "unchecked", "deprecation", "unused" })
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
 		String mstrCommand = ae.getActionCommand().toString();
 		if (mguiAbfrage.LOGIN.equals(mstrCommand)) {
 
+			// einmaliges setzen des aes key
 			aes.setkey(mguiAbfrage.getMtxtMeta_passwort().getText());
 
 			// hiden des alten fensters
@@ -131,20 +133,22 @@ public class Controll_Main implements ActionListener {
 			for (int i = 0; i < tmp.length; i++) {
 				value.add(tmp[i].split("\t"));
 			}
-			Object[] tmpObject = new Object[value.size()];
-			Object selectedItem = mguiMain.getComboBox().getSelectedItem();
+			Vector<Object> tmpObject = new Vector<Object>();
 
+			Object selectedItem = mguiMain.getComboBox().getSelectedItem();
 			if (selectedItem == cmbAuswahl.Produkt) {
 
+				// einzelne Produkte in vektor schreiben
 				for (int i = 0; i < value.size(); i++) {
-					tmpObject[i] = new Model_Produkt(value.get(i)[0], Integer.valueOf(value.get(i)[1]),
-							Float.valueOf(value.get(i)[2]), -1);
+					tmpObject.add(new Model_Produkt(value.get(i)[0], Integer.valueOf(value.get(i)[1]),
+							Float.valueOf(value.get(i)[2]), -1));
 				}
 
+				// vergleiche vector tmpObject mit mvec
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Produkt) {
-						for (int j = 0; j < tmpObject.length; j++) {
-							((Model_Produkt) mvecModel.get(i)).equal((Model_Produkt) tmpObject[j]);
+						for (int j = 0; j < tmpObject.size(); j++) {
+							((Model_Produkt) mvecModel.get(i)).equal((Model_Produkt) tmpObject.get(j));
 							break;
 						}
 					}
@@ -153,14 +157,14 @@ public class Controll_Main implements ActionListener {
 			} else if (selectedItem == cmbAuswahl.Markt) {
 
 				for (int i = 0; i < value.size(); i++) {
-					tmpObject[i] = new Model_Markt(value.get(i)[0], value.get(i)[1], value.get(i)[2],
-							Integer.valueOf(value.get(i)[3]), -1);
+					tmpObject.add(new Model_Markt(value.get(i)[0], value.get(i)[1], value.get(i)[2],
+							Integer.valueOf(value.get(i)[3]), -1));
 				}
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Markt) {
-						for (int j = 0; j < tmpObject.length; j++) {
-							((Model_Markt) mvecModel.get(i)).equal((Model_Markt) tmpObject[j]);
+						for (int j = 0; j < tmpObject.size(); j++) {
+							((Model_Markt) mvecModel.get(i)).equal((Model_Markt) tmpObject.get(j));
 							break;
 						}
 					}
@@ -169,14 +173,14 @@ public class Controll_Main implements ActionListener {
 			} else if (selectedItem == cmbAuswahl.Konto) {
 
 				for (int i = 0; i < value.size(); i++) {
-					tmpObject[i] = new Model_Konto(value.get(i)[0], value.get(i)[1], value.get(i)[2], value.get(i)[3],
-							value.get(i)[4], -1);
+					tmpObject.add(new Model_Konto(value.get(i)[0], value.get(i)[1], value.get(i)[2], value.get(i)[3],
+							value.get(i)[4], -1));
 				}
 
 				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Konto) {
-						for (int j = 0; j < tmpObject.length; j++) {
-							((Model_Konto) mvecModel.get(i)).equal((Model_Konto) tmpObject[j]);
+						for (int j = 0; j < tmpObject.size(); j++) {
+							((Model_Konto) mvecModel.get(i)).equal((Model_Konto) tmpObject.get(j));
 							break;
 						}
 					}
@@ -188,9 +192,11 @@ public class Controll_Main implements ActionListener {
 				if (mvecModel.get(i) instanceof Model_Konto) {
 					if (!((Model_Konto) mvecModel.get(i)).isMboolequal()) {
 						try {
+							// nur not equal entfernen
 							SQLModifizieren(Controll_Statments.kontoUpdate.toString()
 									+ ((Model_Konto) mvecModel.get(i)).getMintID() + ");");
 
+							// beonserheit insert into mit aes
 							SQLModifizieren(Controll_Statments.kontoUpdateInsert.toString()
 									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrName()) + ","
 									+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrBLZ()) + ","
@@ -395,138 +401,122 @@ public class Controll_Main implements ActionListener {
 				mguiMain.getMcmbMonat().setEnabled(true);
 
 				for (int i = 0; i < mvecModel.size(); i++) {
-					{			
+					{
 						mstrContentEinkauf += ((Model_Einkauf) mvecModel.get(i)).print() + "\n";
+						if (mvecModel.get(i) instanceof Model_Produkt) {
+
+							if (((Model_Produkt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
+									.getMintIDProdukt()) {
+								mstrContentEinkauf += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
+							} else if (mvecModel.get(i) instanceof Model_Konto)
+								if (((Model_Konto) mvecModel.get(i)).getMintID() ==
+
+								((Model_Einkauf) mvecModel.get(i)).getMintIDKonto()) {
+									mstrContentEinkauf += ((Model_Konto) mvecModel.get(i)).print() + "\n";
+								} else if (mvecModel.get(i) instanceof Model_Markt)
+									if (((Model_Markt) mvecModel.get(i))
+											.getMintID() == ((Model_Einkauf) mvecModel.get(i)).getMintIDMarkt()) {
+										mstrContentEinkauf += ((Model_Markt) mvecModel.get(i)).print() + "\n";
+									}
+						}
+					}
+
+					String string = mguiMain.getMcmbMonat().getSelectedItem().toString();
+					if (cmbAuswahl.Q1.toString().equals(string)) {
+						mstrContentEinkauf = removeDate(cmbAuswahl.Q1.toString(), mstrContentEinkauf);
+
+					} else if (cmbAuswahl.Q2.toString().equals(string)) {
+						mstrContentEinkauf = removeDate(cmbAuswahl.Q2.toString(), mstrContentEinkauf);
+
+					} else if (cmbAuswahl.Q3.toString().equals(string)) {
+						mstrContentEinkauf = removeDate(cmbAuswahl.Q3.toString(), mstrContentEinkauf);
+
+					} else if (cmbAuswahl.Q4.toString().equals(string)) {
+						mstrContentEinkauf = removeDate(cmbAuswahl.Q4.toString(), mstrContentEinkauf);
+
+					}
+
+				}
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt.toString()) {
+				mstrContent = "Name\tGewicht\tPreis\n";
+				for (int i = 0; i < mvecModel.size(); i++) {
 					if (mvecModel.get(i) instanceof Model_Produkt) {
-						mguiMain.getTextArea().setEditable(true);
-
-						if (((Model_Produkt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
-								.getMintIDProdukt()) {
-							mstrContentEinkauf += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
-						} else if (mvecModel.get(i) instanceof Model_Konto)
-							if (((Model_Konto) mvecModel.get(i)).getMintID() ==
-
-							((Model_Einkauf) mvecModel.get(i)).getMintIDKonto()) {
-								mstrContentEinkauf += ((Model_Konto) mvecModel.get(i)).print() + "\n";
-							} else if (mvecModel.get(i) instanceof Model_Markt)
-								if (((Model_Markt) mvecModel.get(i)).getMintID() == ((Model_Einkauf) mvecModel.get(i))
-										.getMintIDMarkt()) {
-									mstrContentEinkauf += ((Model_Markt) mvecModel.get(i)).print() + "\n";
-								}
+						mstrContent += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
 					}
 				}
-					
-				String string = mguiMain.getMcmbMonat().getSelectedItem().toString();
-				if (cmbAuswahl.Januar.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Januar.toString(),mstrContentEinkauf);
-				} else if (cmbAuswahl.Februar.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Februar.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.März.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.März.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.April.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.April.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Mai.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Mai.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Juni.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Juni.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Juli.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Juli.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.August.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.August.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.September.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.September.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Oktober.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Oktober.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.November.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.November.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Dezember.toString().equals(string)) {
-					mstrContentEinkauf = removeDate(cmbAuswahl.Dezember.toString(),mstrContentEinkauf);
-
-				} else if (cmbAuswahl.Alles.toString().equals(string)) {
-					mstrContent = mstrContentEinkauf;
-				} 
-								
-			}
-		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt.toString()) {
-			mstrContent = "Name\tGewicht\tPreis\n";
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i) instanceof Model_Produkt) {
-					mstrContent += ((Model_Produkt) mvecModel.get(i)).print() + "\n";
-				}
-			}
-		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt.toString()) {
-			mstrContent = "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i) instanceof Model_Markt) {
-					mstrContent += ((Model_Markt) mvecModel.get(i)).print() + "\n";
-				}
-			}
-		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto.toString()) {
-			mstrContent = "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
-
-			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i) instanceof Model_Konto) {
-					mstrContent += ((Model_Konto) mvecModel.get(i)).print() + "\n";
-				}
-			}
-		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik.toString()) {
-			// hoechste kontostand -> niedirgste kontostand
-			// minimum erreicht per konto
-			int max = -1, min = 999;
-			String name_max = null, name_min = null;
-			Vector<String> name_minimumGrenze = new Vector<>();
-
-			for (Object element : mvecModel) {
-
-				if (element instanceof Model_Konto) {
-					if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) {
-						min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-						name_min = ((Model_Konto) element).getMstrName();
-					} else {
-						max = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-						name_max = ((Model_Konto) element).getMstrName();
-
-					}
-
-					if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer
-							.valueOf(((Model_Konto) element).getMintMin())) {
-						name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt.toString()) {
+				mstrContent = "Name\tPostLeitZahl\tAdresse\tEntfernung\n";
+				for (int i = 0; i < mvecModel.size(); i++) {
+					if (mvecModel.get(i) instanceof Model_Markt) {
+						mstrContent += ((Model_Markt) mvecModel.get(i)).print() + "\n";
 					}
 				}
+			} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto.toString()) {
+				mstrContent = "Name\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\n";
 
-			}
-
-			mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit " + min + " EURO\n";
-			mstrContent += "Den hoechsten Kontostand hat " + name_max + " mit " + max + " EURO\n";
-
-			for (int i = 0; i < name_minimumGrenze.size(); i++)
-				mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: " + name_minimumGrenze.get(i)
-						+ "\n";
-
-			// #TODO prüfen der SQL
-
-			try {
-				for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-					System.out.println(SQLStatistic(Controll_Statments.statistic().get(i)));
+				for (int i = 0; i < mvecModel.size(); i++) {
+					if (mvecModel.get(i) instanceof Model_Konto) {
+						mstrContent += ((Model_Konto) mvecModel.get(i)).print() + "\n";
+					}
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			} else if (mguiMain.getComboBox().getSelectedItem().toString().equals(cmbAuswahl.Statistik.toString())) {
+				// hoechste kontostand -> niedirgste kontostand
+				// minimum erreicht per konto
+				int max = -1, min = 999;
+				String name_max = null, name_min = null;
+				Vector<String> name_minimumGrenze = new Vector<>();
 
+				for (Object element : mvecModel) {
+
+					if (element instanceof Model_Konto) {
+						if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) {
+							min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+							name_min = ((Model_Konto) element).getMstrName();
+						} else {
+							max = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+							name_max = ((Model_Konto) element).getMstrName();
+
+						}
+
+						if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <= Integer
+								.valueOf(((Model_Konto) element).getMintMin())) {
+							name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
+						}
+					}
+
+				}
+
+				mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit " + min + " EURO\n";
+				mstrContent += "Den hoechsten Kontostand hat " + name_max + " mit " + max + " EURO\n";
+
+				for (int i = 0; i < name_minimumGrenze.size(); i++)
+					mstrCommand += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: "
+							+ name_minimumGrenze.get(i) + "\n";
+
+				// #TODO prüfen der SQL
+				Vector<String> bezeichner = new Vector<String>();
+				bezeichner.add("maximale anzahl der Produkten");
+				bezeichner.add("mehr als die AVG anzahl der Produkten");
+				bezeichner.add("Aelteste Produkt");
+				bezeichner.add("neuste Produkt");
+				bezeichner.add("teuerste Produkt");
+				bezeichner.add("billigste Produkt");
+				bezeichner.add("laengste entfernung");
+				bezeichner.add("kuerzeste entfernung");
+
+				try {
+					for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
+						mstrCommand += bezeichner.get(i).toString() + "\n";
+						mstrCommand += SQLStatistic(Controll_Statments.statistic().get(i))+"\n";
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+			// fuellen der GUI
+			mguiMain.setTextArea(mstrContent);
 		}
-		// fuellen der GUI
-		mguiMain.setTextArea(mstrContent);
-	}
 
 	}
 
@@ -537,57 +527,45 @@ public class Controll_Main implements ActionListener {
 		for (int i = 0; i < tmp.length; i++) {
 			value.add(tmp[i].split("\t"));
 		}
-		
-		
-		//enum to String
-		//bsp: Januar to 1
-		String valueDate = null;
-		if(cmbAuswahl.Januar.toString().equals(enumDate)){
-			valueDate = "01";
-		}else if (cmbAuswahl.Februar.toString().equals(enumDate)) {
-			valueDate = "02";
-		} else if (cmbAuswahl.März.toString().equals(enumDate)) {
-			valueDate = "03";
-		} else if (cmbAuswahl.April.toString().equals(enumDate)) {
-			valueDate = "04";
-		} else if (cmbAuswahl.Mai.toString().equals(enumDate)) {
-			valueDate = "05";
-		} else if (cmbAuswahl.Juni.toString().equals(enumDate)) {
-			valueDate = "06";
-		} else if (cmbAuswahl.Juli.toString().equals(enumDate)) {
-			valueDate = "07";
-		} else if (cmbAuswahl.August.toString().equals(enumDate)) {
-			valueDate = "08";
-		} else if (cmbAuswahl.September.toString().equals(enumDate)) {
-			valueDate = "09";
-		} else if (cmbAuswahl.Oktober.toString().equals(enumDate)) {
-			valueDate = "10";
-		} else if (cmbAuswahl.November.toString().equals(enumDate)) {
-			valueDate = "11";
-		} else if (cmbAuswahl.Dezember.toString().equals(enumDate)) {
-			valueDate = "12";
-		}
-		
-		
-		for(int i=0;i<value.size();i++)
-		{
-			if(value.get(i)[2].split(".")[2] == valueDate)
-			{
-				value.remove(i);
+
+		// enum to String
+		if (cmbAuswahl.Q1.toString().equals(enumDate)) {
+			for (int i = 0; i < value.size(); i++) {
+				if (!(value.get(i)[2].split(".")[2] == "01" || value.get(i)[2].split(".")[2] == "02"
+						|| value.get(i)[2].split(".")[2] == "03")) {
+					value.remove(i);
+				}
 			}
-			
+		} else if (cmbAuswahl.Q2.toString().equals(enumDate)) {
+			for (int i = 0; i < value.size(); i++) {
+				if (!(value.get(i)[2].split(".")[2] == "04" || value.get(i)[2].split(".")[2] == "05"
+						|| value.get(i)[2].split(".")[2] == "06")) {
+					value.remove(i);
+				}
+			}
+		} else if (cmbAuswahl.Q3.toString().equals(enumDate)) {
+			for (int i = 0; i < value.size(); i++) {
+				if (!(value.get(i)[2].split(".")[2] == "07" || value.get(i)[2].split(".")[2] == "08"
+						|| value.get(i)[2].split(".")[2] == "09")) {
+					value.remove(i);
+				}
+			}
+		} else if (cmbAuswahl.Q4.toString().equals(enumDate)) {
+			for (int i = 0; i < value.size(); i++) {
+				if (!(value.get(i)[2].split(".")[2] == "10" || value.get(i)[2].split(".")[2] == "11"
+						|| value.get(i)[2].split(".")[2] == "12")) {
+					value.remove(i);
+				}
+			}
 		}
-		
-		String returnDate = null;
-		for(int i=0;i<value.size();i++)
-		{
-			returnDate += value.get(i)[0] + "\t"+ value.get(i)[1] +"\t"+ value.get(i)[2]+"\n";
+
+		String returnDate = "";
+		for (int i = 0; i < value.size(); i++) {
+			returnDate += value.get(i)[0] + "\t" + value.get(i)[1] + "\t" + value.get(i)[2] + "\n";
 		}
-		
-		
+
 		return returnDate;
 	}
-
 
 	@SuppressWarnings("deprecation")
 	private void acces() throws ClassNotFoundException, SQLException {
@@ -625,7 +603,7 @@ public class Controll_Main implements ActionListener {
 
 		// speichern in Klasse
 		while (result.next()) {
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 3; i++) {
 				resultString += result.getString(i) + "\n";
 			}
 		}
@@ -729,8 +707,7 @@ public class Controll_Main implements ActionListener {
 			} else if (mvecModel.get(i) instanceof Model_Markt) {
 				mfioStream.write(((Model_Markt) mvecModel.get(i)).SQLerstellenMarkt());
 				mfioStream.newLine();
-			} else {
-				// #TODO kein enter in diesen block?
+			} else if (mvecModel.get(i) instanceof Model_Einkauf) {
 				mfioStream.write(((Model_Einkauf) mvecModel.get(i)).SQlerstellenAll());
 				mfioStream.newLine();
 			}

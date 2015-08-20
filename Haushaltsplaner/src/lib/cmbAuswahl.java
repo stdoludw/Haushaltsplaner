@@ -2,68 +2,26 @@ package lib;
 
 public enum cmbAuswahl {
 	
-	Januar {
+	Q1 {
 		public String toString() {
-			return "Januar anzeigen";
+			return "Quartal eins";
 		}
 	},
-	Februar {
+	Q2 {
 		public String toString() {
-			return "Februar anzeigen";
+			return "Quartal zwei";
 		}
 	},
-	März {
+	Q3 {
 		public String toString() {
-			return "März anzeigen";
+			return "Quartal drei";
 		}
 	},
-	April {
+	Q4 {
 		public String toString() {
-			return "April anzeigen";
+			return "Quartal vier";
 		}
 	},
-	Mai {
-		public String toString() {
-			return "Mai anzeigen";
-		}
-	},
-	Juni {
-		public String toString() {
-			return "Juni anzeigen";
-		}
-	},
-	Juli {
-		public String toString() {
-			return "Juli anzeigen";
-		}
-	},
-	August {
-		public String toString() {
-			return "August anzeigen";
-		}
-	},
-	September {
-		public String toString() {
-			return "September anzeigen";
-		}
-	},
-	Oktober {
-		public String toString() {
-			return "Oktober anzeigen";
-		}
-	},
-	November {
-		public String toString() {
-			return "November anzeigen";
-		}
-	},
-	Dezember {
-		public String toString() {
-			return "Dezember anzeigen";
-		}
-	}
-	
-	,
 	Alles {
 		public String toString() {
 			return "Alles anzeigen";
