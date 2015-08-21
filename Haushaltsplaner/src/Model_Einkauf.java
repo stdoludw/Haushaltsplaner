@@ -74,9 +74,14 @@ public class Model_Einkauf {
 				}
 			}
 		}
-		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt;
+		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt +"\n";
 	}
 
+	public String print()
+	{
+		return mintAnzahl + "\t" + mstrDatum + "\t" + mintIDKonto + "\t" + mintIDMarkt + "\t" + mintIDProdukt +"\n";
+
+	}
 	public int getMintIDKonto() {
 		return mintIDKonto;
 	}

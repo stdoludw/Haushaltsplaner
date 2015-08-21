@@ -127,11 +127,9 @@ public class GUI_Main extends JFrame {
 		mcmbMonat.setBounds(12, 51, 130, 24);
 		contentPane.add(mcmbMonat);
 		mcmbMonat.setActionCommand(AUSWAHL);
-		mcmbMonat.addItem(cmbAuswahl.Alles.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q1.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q2.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q3.toString());
-		mcmbMonat.addItem(cmbAuswahl.Q4.toString());
 
 	
 	}

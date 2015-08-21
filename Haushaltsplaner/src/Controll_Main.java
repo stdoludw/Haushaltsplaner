@@ -124,7 +124,7 @@ public class Controll_Main implements ActionListener {
 
 	@SuppressWarnings("finally")
 	private String SQLStatistic(String sql) {
-		String resultString = null;
+		String resultString = "";
 		try {
 
 			// abfrage statement erstellen
@@ -137,11 +137,15 @@ public class Controll_Main implements ActionListener {
 			result = query.executeQuery(sql);
 
 			// speichern in Klasse
-			while (result.next()) {
-				for (int i = 0; i < 3; i++) {
-					resultString += result.getString(i) + "\n";
-				}
+			while(result.next())
+			{
+				resultString += result.getObject(1).toString()+"\t";
+				resultString += result.getObject(2).toString()+"\t";
+				resultString += result.getObject(3).toString()+"\t";
+
+
 			}
+			
 			return resultString;
 		} catch (SQLException ex) {
 			ex.getMessage();
@@ -214,7 +218,6 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void SQLModifizieren(String sql) {
-		System.out.println(sql);
 		try {
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
@@ -311,10 +314,7 @@ public class Controll_Main implements ActionListener {
 			acces();
 
 			// Daten auslesen
-			SQLAbfrage(Controll_Statments.all.toString());
-			SQLAbfrage(Controll_Statments.konto.toString());
-			SQLAbfrage(Controll_Statments.markt.toString());
-			SQLAbfrage(Controll_Statments.produkt.toString());
+			auslesen();
 			JOptionPane.showMessageDialog(null, "Login war erfolgreich", "Erfolg", JOptionPane.OK_CANCEL_OPTION);
 
 		} finally {
@@ -322,6 +322,14 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
+	private void auslesen()
+	{
+		SQLAbfrage(Controll_Statments.all.toString());
+		SQLAbfrage(Controll_Statments.konto.toString());
+		SQLAbfrage(Controll_Statments.markt.toString());
+		SQLAbfrage(Controll_Statments.produkt.toString());
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void GUIHinzufuegen() {
 		mguiHinzufuegen.show(mguiHinzufuegen);
@@ -456,10 +464,7 @@ public class Controll_Main implements ActionListener {
 				}
 			}
 			// Daten auslesen
-			SQLAbfrage(Controll_Statments.all.toString());
-			SQLAbfrage(Controll_Statments.konto.toString());
-			SQLAbfrage(Controll_Statments.markt.toString());
-			SQLAbfrage(Controll_Statments.produkt.toString());
+			auslesen();
 		}
 	}
 
@@ -477,10 +482,7 @@ public class Controll_Main implements ActionListener {
 			acces();
 
 			// Daten auslesen
-			SQLAbfrage(Controll_Statments.all.toString());
-			SQLAbfrage(Controll_Statments.konto.toString());
-			SQLAbfrage(Controll_Statments.markt.toString());
-			SQLAbfrage(Controll_Statments.produkt.toString());
+			auslesen();
 
 		} finally {
 			mguiAbfrage.clear();
@@ -580,14 +582,14 @@ public class Controll_Main implements ActionListener {
 		if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf.toString()) {
 			mstrContent = "Anzahl\tDatum\tProduktname\tProduktgewicht\tProduktpreis\t"
 					+ "Kontoinhaber\tBankLeitZahl\tKontonummer\tBetrag\tMinimum\t"
-					+ "Marktname\tPostLeitZahl\tAdresse\tEntfernung";
+					+ "Marktname\tPostLeitZahl\tAdresse\tEntfernung\n";
 
 			for (int i = 0; i < mvecModel.size(); i++) {
 				{
 					if (mvecModel.get(i) instanceof Model_Einkauf) {
 						mstrContent += ((Model_Einkauf) mvecModel.get(i)).print(mvecModel);
-						mstrContent += "\n";
 					}
+				
 				}
 
 			}
@@ -614,6 +616,9 @@ public class Controll_Main implements ActionListener {
 				}
 			}
 		} else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik.toString()) {
+			
+			mguiMain.getMcmbMonat().setEnabled(true);
+			mguiMain.clear();
 			// hoechste kontostand -> niedirgste kontostand
 			// minimum erreicht per konto
 			int max = -1, min = 999;
@@ -647,21 +652,45 @@ public class Controll_Main implements ActionListener {
 				mstrContent += "Folgende Leute haben ihre Limitbegrenzung ueberschritten: " + name_minimumGrenze.get(i)
 						+ "\n";
 
-			// #TODO prüfen der SQL
 			Vector<String> bezeichner = new Vector<String>();
-			bezeichner.add("maximale anzahl der Produkten");
-			bezeichner.add("mehr als die AVG anzahl der Produkten");
-			bezeichner.add("Aelteste Produkt");
-			bezeichner.add("neuste Produkt");
-			bezeichner.add("teuerste Produkt");
-			bezeichner.add("billigste Produkt");
-			bezeichner.add("laengste entfernung");
-			bezeichner.add("kuerzeste entfernung");
+			bezeichner.add("Name\tadresse\tAVG(entfernung)");
+			bezeichner.add("Name\tadresse\tmax(entfernung)");
+			bezeichner.add("Name\tadresse\tmin(entfernung)");
+			bezeichner.add("Marktname\tProduktname\tmax(anzahl)");
+			bezeichner.add("Marktname\tProduktname\tmin(anzahl)");
+			bezeichner.add("Marktname\tProduktname\tmax(datum)");
+			bezeichner.add("Marktname\tProduktname\tmin(datum)");
+			bezeichner.add("Produktname\tGewicht\tmax(preis)");
+			bezeichner.add("Produktname\tGewicht\tmin(preis)");
+			bezeichner.add("Produktname\tGewicht\tavg(preis)");
 
 			for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
 				mstrContent += bezeichner.get(i).toString() + "\n";
 				mstrContent += SQLStatistic(Controll_Statments.statistic().get(i)) + "\n";
 			}
+			
+		
+			if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.toString())))
+					{
+				mstrContent += "(Alles) Kontoinhaber\tProduktname\tMarktname\n";
+				String tmp = SQLStatistic(Controll_Statments.Q1.toString());
+				String myArray[] = tmp.split("\t");
+				//mstrContent += aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2];					
+				}
+			else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2.toString())))
+			{
+				mstrContent += "(Alles) Kontoinhaber\tProduktname\tMarktname\n";
+				String tmp = SQLStatistic(Controll_Statments.Q2.toString());
+				String myArray[] = tmp.split("\t");
+				mstrContent += aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2];			}
+			else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3.toString())))
+			{
+				mstrContent += "(Alles) Kontoinhaber\tProduktname\tMarktname\n";
+				String tmp = SQLStatistic(Controll_Statments.Q3.toString());
+				String myArray[] = tmp.split("\t");
+				//mstrContent += aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2];
+			}
+			
 		}
 		// fuellen der GUI
 		mguiMain.setTextArea(mstrContent);
