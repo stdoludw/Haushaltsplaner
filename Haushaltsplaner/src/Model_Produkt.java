@@ -73,6 +73,8 @@ public class Model_Produkt {
 	}
 
 	public boolean equal(Model_Produkt tmp) {
+		System.out.println(tmp.print());
+		System.out.println(this.print());
 		if (this.mstrName == tmp.mstrName && this.mintGewicht == tmp.mintGewicht && this.mfltPreis == tmp.mfltPreis) {
 			mboolequal = true;
 			return true;

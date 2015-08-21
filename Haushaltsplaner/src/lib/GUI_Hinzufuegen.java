@@ -192,7 +192,7 @@ public class GUI_Hinzufuegen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblHinzufgen = new JLabel("Hinzufügen");
+		JLabel lblHinzufgen = new JLabel("Hinzufuegen");
 		lblHinzufgen.setBounds(164, 17, 101, 15);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
