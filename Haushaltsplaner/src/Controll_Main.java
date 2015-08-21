@@ -433,11 +433,11 @@ public class Controll_Main implements ActionListener {
 								+ ((Model_Konto) mvecModel.get(i)).getMintID() + ");");
 
 						// beonserheit insert into mit aes
-						SQLModifizieren(Controll_Statments.kontoUpdateInsert.toString()
-								+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrName()) + ","
-								+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrBLZ()) + ","
-								+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrKnr()) + ","
-								+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMintMin()) + ","
+						SQLModifizieren(Controll_Statments.kontoUpdateInsert.toString()+"\'"
+								+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrName()) +"\'"+ ","
+								+"\'"+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrBLZ())  +"\'"+ ","
+								+"\'"+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMstrKnr())  +"\'"+ ","
+								+"\'"+ aes.verschluesselnAES(((Model_Konto) mvecModel.get(i)).getMintMin())  +"\'"+ ","
 								+ ((Model_Konto) mvecModel.get(i)).getMintID() + ");");
 
 					
@@ -449,9 +449,8 @@ public class Controll_Main implements ActionListener {
 					
 						SQLModifizieren(Controll_Statments.produktUpdate.toString()
 								+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ");");
-
-						SQLModifizieren(Controll_Statments.produktUpdateInsert.toString()
-								+ ((Model_Produkt) mvecModel.get(i)).getMstrName() + ","
+						SQLModifizieren(Controll_Statments.produktUpdateInsert.toString() +"\'"
+								+ ((Model_Produkt) mvecModel.get(i)).getMstrName() +"\'" + ","
 								+ ((Model_Produkt) mvecModel.get(i)).getMintGewicht() + ","
 								+ ((Model_Produkt) mvecModel.get(i)).getMfltPreis() + ","
 								+ ((Model_Produkt) mvecModel.get(i)).getMintID() + ");");
@@ -462,11 +461,10 @@ public class Controll_Main implements ActionListener {
 
 						SQLModifizieren(Controll_Statments.marktUpdate.toString()
 								+ ((Model_Markt) mvecModel.get(i)).getMintID() + ");");
-
 						SQLModifizieren(Controll_Statments.marktUpdateInsert.toString()
-								+ ((Model_Markt) mvecModel.get(i)).getMstrName() + ","
-								+ ((Model_Markt) mvecModel.get(i)).getMstrPLZ() + ","
-								+ ((Model_Markt) mvecModel.get(i)).getMstrAdr() + ","
+								+"\'"+((Model_Markt) mvecModel.get(i)).getMstrName() +"\'"+ ","
+								+"\'"+((Model_Markt) mvecModel.get(i)).getMstrPLZ()  +"\'"+ ","
+								+"\'"+((Model_Markt) mvecModel.get(i)).getMstrAdr()  +"\'"+ ","
 								+ ((Model_Markt) mvecModel.get(i)).getMintEntfernung() + ","
 								+ ((Model_Markt) mvecModel.get(i)).getMintID() + ");");
 
