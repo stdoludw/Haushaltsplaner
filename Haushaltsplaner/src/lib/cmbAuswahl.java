@@ -17,16 +17,6 @@ public enum cmbAuswahl {
 			return "Quartal drei";
 		}
 	},
-	Q4 {
-		public String toString() {
-			return "Quartal vier";
-		}
-	},
-	Alles {
-		public String toString() {
-			return "Alles anzeigen";
-		}
-	},
 	
 	Produkt {
 		public String toString() {
