@@ -78,8 +78,9 @@ public class Model_Markt {
 		return statment;
 	}
 
-	public String print() {
-		return mstrName + "\t" + mstrPLZ + "\t" + mstrAdr + "\t" + mintEntfernung;
+	public Object[] print() {
+		Object[] tmp = {this.mstrName, this.mstrPLZ , this.mstrAdr ,this.mintEntfernung,this.mintID};
+		return tmp;
 	}
 
 	public boolean equal(Model_Markt tmp) {

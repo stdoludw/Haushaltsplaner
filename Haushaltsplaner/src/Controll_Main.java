@@ -189,7 +189,7 @@ public class Controll_Main implements ActionListener {
 							result.getInt("E_ID"));
 
 					// verknuepfung reaisieren
-					me.ModelArray(k.getMintID(), p.getMintID(), m.getMintID());
+					me.ModelArray(k, p, m);
 					mvecModel.add(me);
 				}
 
@@ -488,24 +488,28 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void AddAll() {
-		// Konto, Produkt und Markt PK ermitteln
-		int K_ID = 0, M_ID = 0, P_ID = 0;
+		// Konto, Produkt und Markt ermitteln
+		Model_Konto k= null;
+		Model_Markt m = null;
+		Model_Produkt p= null;
+		
+		//objekte überschreiben
 		for (int i = 0; i < mvecModel.size(); i++) {
 			if (mvecModel.get(i) instanceof Model_Produkt) {
 				if (((Model_Produkt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
 						.getMcmbProdukt().getSelectedItem()) {
-					P_ID = ((Model_Produkt) mvecModel.get(i)).getMintID();
+					p = ((Model_Produkt) mvecModel.get(i));
 				}
 			} else if (mvecModel.get(i) instanceof Model_Konto) {
 
 				if (((Model_Konto) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
 						.getMcmbKonto().getSelectedItem()) {
-					K_ID = ((Model_Konto) mvecModel.get(i)).getMintID();
+					k = ((Model_Konto) mvecModel.get(i));
 				}
 			} else if (mvecModel.get(i) instanceof Model_Markt) {
 				if (((Model_Markt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
 						.getMcmbMarkt().getSelectedItem()) {
-					M_ID = ((Model_Markt) mvecModel.get(i)).getMintID();
+					m = ((Model_Markt) mvecModel.get(i));
 				}
 
 				// Einkauf hinzufuegen
@@ -520,7 +524,7 @@ public class Controll_Main implements ActionListener {
 									.toString()
 							+ "\', '%d-%m-%Y') "
 							+ ","
-							+ M_ID + "," + K_ID + "," + P_ID + ");");
+							+ m.getMintID() + "," + k.getMintID() + "," + p.getMintID() + ");");
 
 					SQLAbfrage(Controll_Statments.all.toString());
 				} finally {
@@ -609,8 +613,13 @@ public class Controll_Main implements ActionListener {
 
 			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
 					columns) {
-				public Class getColumnClass(int column) {
-					Class returnValue;
+				/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+				public Class<?> getColumnClass(int column) {
+					Class<?> returnValue;
 					if ((column >= 0) && (column < getColumnCount())) {
 						returnValue = getValueAt(0, column).getClass();
 					} else {
@@ -638,8 +647,13 @@ public class Controll_Main implements ActionListener {
 
 			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
 					columns) {
-				public Class getColumnClass(int column) {
-					Class returnValue;
+				/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+				public Class<?> getColumnClass(int column) {
+					Class<?> returnValue;
 					if ((column >= 0) && (column < getColumnCount())) {
 						returnValue = getValueAt(0, column).getClass();
 					} else {
@@ -659,6 +673,79 @@ public class Controll_Main implements ActionListener {
 			mguiMain.setTableModel(dTableModel);
 		}
 
+		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Markt
+				.toString()) {
+			Object[][] databaseInfo = null;
+			Object[] columns = { "Name", "Adresse", "Entfernung",
+					"Postleitzahl", "PK" };
+
+			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
+					columns) {
+				/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+				public Class<?> getColumnClass(int column) {
+					Class<?> returnValue;
+					if ((column >= 0) && (column < getColumnCount())) {
+						returnValue = getValueAt(0, column).getClass();
+					} else {
+						returnValue = Object.class;
+					}
+					return returnValue;
+				}
+			};
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Markt) {
+
+					dTableModel.addRow(((Model_Markt) mvecModel.get(i))
+							.print());
+
+				}
+			}
+			mguiMain.setTableModel(dTableModel);
+		}
+		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Einkauf
+				.toString()) {
+			Object[][] databaseInfo = null;
+			Object[] columns = { "Datum", "Anzahl", "Kontoinhaber",
+					"Kontonummer", "Bankleitzahl",
+					"Betrag", "Minimum","K_PK", 
+					"Marktname", "Adresse", "Entfernung",
+					"Postleitzahl","M_PK","Produktname", "Preis", "Gewicht","P_PK"};
+					
+			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
+					columns) {
+				/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+				public Class<?> getColumnClass(int column) {
+					Class<?> returnValue;
+					if ((column >= 0) && (column < getColumnCount())) {
+						returnValue = getValueAt(0, column).getClass();
+					} else {
+						returnValue = Object.class;
+					}
+					return returnValue;
+				}
+			};
+			
+			for (int i = 0; i < mvecModel.size(); i++) {
+				if (mvecModel.get(i) instanceof Model_Einkauf) {
+
+					dTableModel.addRow(((Model_Einkauf) mvecModel.get(i)).print());
+
+				}
+			}
+			mguiMain.setTableModel(dTableModel);
+		}
+		
+		
+		
+		
 		/*
 		 * (mguiMain.getComboBox().getSelectedItem().toString() ==
 		 * cmbAuswahl.Statistik.toString()) {

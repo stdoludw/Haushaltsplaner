@@ -1,12 +1,11 @@
-import java.util.Vector;
 
 public class Model_Einkauf {
 
 	private int mintAnzahl;
 	private String mstrDatum;
-	private int mintIDProdukt;
-	private int mintIDMarkt;
-	private int mintIDKonto;
+	private Model_Konto mkntKonto;
+	private Model_Produkt mprdProdukt;
+	private Model_Markt mmkrMarkt;
 	private int mintID;
 	private boolean mboolequal;
 
@@ -33,10 +32,10 @@ public class Model_Einkauf {
 		this.mboolequal = true;
 	}
 
-	public void ModelArray(int p, int k, int m) {
-		this.mintIDKonto = k;
-		this.mintIDMarkt = m;
-		this.mintIDProdukt = p;
+	public void ModelArray(Model_Konto k, Model_Produkt p, Model_Markt m) {
+		this.mkntKonto = k;
+		this.mmkrMarkt = m;
+		this.mprdProdukt = p;
 
 	}
 
@@ -50,66 +49,43 @@ public class Model_Einkauf {
 
 	public String SQlerstellenAll() {
 		String statement;
-		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl + "," + "now()" + "," + mintIDKonto + ","
-				+ mintIDProdukt + "," + mintIDMarkt + ");";
+		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl + "," + "now()" + "," + mkntKonto.getMintID() + ","
+				+ mprdProdukt.getMintID() + "," + mmkrMarkt.getMintID() + ");";
 		return statement;
 
 	}
 
-	public String print(Vector<Object> tmp) {
-
-		/*String produkt = null, markt = null, konto = null;
-		for (Object element : tmp) {
-			if (element instanceof Model_Produkt) {
-				if (((Model_Produkt) element).getMintID() == this.mintIDProdukt) {
-					produkt = ((Model_Produkt) element).print();
-				}
-			} else if (element instanceof Model_Konto) {
-				if (((Model_Konto) element).getMintID() == this.mintIDKonto) {
-					konto = ((Model_Konto) element).print();
-				}
-			} else if (element instanceof Model_Markt) {
-				if (((Model_Markt) element).getMintID() == this.mintIDMarkt) {
-					markt = ((Model_Markt) element).print();
-				}
-			}
-		}
-		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt +"\n";
-	*/
-	return null;
-	}
-
-	public String print()
-	{
-		return mintAnzahl + "\t" + mstrDatum + "\t" + mintIDKonto + "\t" + mintIDMarkt + "\t" + mintIDProdukt +"\n";
-
-	}
-	public int getMintIDKonto() {
-		return mintIDKonto;
-	}
-
-	public int getMintIDProdukt() {
-		return mintIDProdukt;
-	}
-
-	public int getMintIDMarkt() {
-		return mintIDMarkt;
-	}
 
 	public boolean equal(Model_Einkauf tmp) {
-		if (this.mintAnzahl == tmp.mintAnzahl && this.mstrDatum == tmp.mstrDatum
-				&& this.mintIDProdukt == tmp.mintIDProdukt && this.mintIDMarkt == tmp.mintIDMarkt
-				&& this.mintIDKonto == tmp.mintIDKonto) {
+		if (
+				(this.mintAnzahl == tmp.mintAnzahl) 
+				&& (this.mstrDatum == tmp.mstrDatum)
+				&& (this.mprdProdukt.getMintID() == tmp.mprdProdukt.getMintID())
+				&& (this.mmkrMarkt.getMintID() == tmp.mmkrMarkt.getMintID())
+				&& (this.mkntKonto.getMintID() == tmp.mkntKonto.getMintID())
+			) 
+				{
 			mboolequal = true;
 			return true;
-		}
+				}
 		mboolequal = false;
+		
+		//#TODO Fehler wegen tiefenkopie?
 		this.mintAnzahl = tmp.mintAnzahl;
 		this.mstrDatum = tmp.mstrDatum;
-		this.mintIDProdukt = tmp.mintIDProdukt;
-		this.mintIDMarkt = tmp.mintIDMarkt;
-		this.mintIDKonto = tmp.mintIDKonto;
+		this.mprdProdukt = tmp.mprdProdukt;
+		this.mmkrMarkt = tmp.mmkrMarkt;
+		this.mkntKonto = tmp.mkntKonto;
 		return false;
 	}
+
+	public Object[] print() {
+	
+		Object [] tmp=
+			{
+				this.mstrDatum,this.mintAnzahl,this.mkntKonto.print(), this.mmkrMarkt.print(), this.mprdProdukt.print()
+			};
+				return tmp;
+		}
 
 }
