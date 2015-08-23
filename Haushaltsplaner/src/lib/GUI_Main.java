@@ -17,14 +17,14 @@ import javax.swing.JTable;
 public class GUI_Main extends JFrame {
 
 	private JComboBox<String> comboBox;
-	private JPanel contentPane;
-	private JMenu Speichern;
+	private JPanel mjpPane;
+	private JMenu menSpeichern;
 	private JMenuItem mmenExportiern;
 	private JMenuItem mmenLaden;
 	private JMenu mnExtras;
 	private JMenuItem mntmHinzufgen;
 	private JComboBox<String> mcmbMonat;
-	private JTable table;
+	private JTable mtblTable;
 	private JButton btnUpdate;
 
 	private static GUI_Main frame = null;
@@ -55,7 +55,7 @@ public class GUI_Main extends JFrame {
 	
 	public void clear()
 	{
-		table.removeAll();
+		mtblTable.removeAll();
 	}
 	
 	
@@ -73,25 +73,25 @@ public class GUI_Main extends JFrame {
 		mnExtras.add(mntmHinzufgen);
 		mntmHinzufgen.setActionCommand(cmbAuswahl.HinzufuegenMainAktion.toString());
 
-		Speichern = new JMenu("Speichern");
-		menuBar.add(Speichern);
+		menSpeichern = new JMenu("Speichern");
+		menuBar.add(menSpeichern);
 
 		mmenExportiern = new JMenuItem("Exportieren ...");
-		Speichern.add(mmenExportiern);
+		menSpeichern.add(mmenExportiern);
 		mmenExportiern.setActionCommand(cmbAuswahl.ExportMainAktion.toString());
 
 		mmenLaden = new JMenuItem("Laden ...");
-		Speichern.add(mmenLaden);
+		menSpeichern.add(mmenLaden);
 		mmenLaden.setActionCommand(cmbAuswahl.LadenMainAktion.toString());
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		mjpPane = new JPanel();
+		mjpPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mjpPane);
+		mjpPane.setLayout(null);
 
 		JLabel lblAnzeigen = new JLabel("Anzeigen");
 		lblAnzeigen.setBounds(175, 12, 70, 15);
-		contentPane.add(lblAnzeigen);
+		mjpPane.add(lblAnzeigen);
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(104, 51, 188, 24);
@@ -101,22 +101,22 @@ public class GUI_Main extends JFrame {
 		comboBox.addItem(cmbAuswahl.Markt.toString());
 		comboBox.addItem(cmbAuswahl.Einkauf.toString());
 		comboBox.addItem(cmbAuswahl.Statistik.toString());
-		contentPane.add(comboBox);
+		mjpPane.add(comboBox);
 		
 		mcmbMonat = new JComboBox<String>();
 		mcmbMonat.setEnabled(false);
 		mcmbMonat.setBounds(22, 51, 70, 24);
-		contentPane.add(mcmbMonat);
+		mjpPane.add(mcmbMonat);
 		mcmbMonat.setActionCommand(cmbAuswahl.AuswahlMainAktion.toString());
 		
-		table = new JTable();
-		table.setBounds(22, 87, 402, 283);
-		contentPane.add(table);
+		mtblTable = new JTable();
+		mtblTable.setBounds(22, 87, 402, 283);
+		mjpPane.add(mtblTable);
 		
 		btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(307, 51, 117, 25);
 		btnUpdate.setActionCommand(cmbAuswahl.UpdateMainAktion.toString());
-		contentPane.add(btnUpdate);
+		mjpPane.add(btnUpdate);
 		mcmbMonat.addItem(cmbAuswahl.Q1.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q2.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q3.toString());
@@ -125,7 +125,7 @@ public class GUI_Main extends JFrame {
 	}
 	public void setTableModel(DefaultTableModel mdoel)
 	{
-		table.setModel(mdoel);
+		mtblTable.setModel(mdoel);
 	}
 
 
@@ -136,7 +136,10 @@ public class GUI_Main extends JFrame {
 	public JMenuItem getMmenLaden() {
 		return mmenLaden;
 	}
-
+	
+	public JTable getMtblTable() {
+		return mtblTable;
+	}
 	
 	public JComboBox<String> getMcmbMonat() {
 		return mcmbMonat;
