@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 public class Model_Produkt {
 
 	// Produkt Attribute
@@ -68,8 +70,9 @@ public class Model_Produkt {
 
 	}
 
-	public String print() {
-		return mstrName + "\t" + mintGewicht + "\t" + mfltPreis;
+	public Object[] print() {
+		Object [] tmp ={this.mstrName,this.getMfltPreis(),this.mintGewicht,this.getMintID()};
+		return tmp;
 	}
 
 	public boolean equal(Model_Produkt tmp) {

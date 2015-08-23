@@ -58,7 +58,7 @@ public class Model_Einkauf {
 
 	public String print(Vector<Object> tmp) {
 
-		String produkt = null, markt = null, konto = null;
+		/*String produkt = null, markt = null, konto = null;
 		for (Object element : tmp) {
 			if (element instanceof Model_Produkt) {
 				if (((Model_Produkt) element).getMintID() == this.mintIDProdukt) {
@@ -75,6 +75,8 @@ public class Model_Einkauf {
 			}
 		}
 		return mintAnzahl + "\t" + mstrDatum + "\t" + produkt + "\t" + konto + "\t" + markt +"\n";
+	*/
+	return null;
 	}
 
 	public String print()
