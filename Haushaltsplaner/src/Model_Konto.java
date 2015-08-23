@@ -89,8 +89,9 @@ public class Model_Konto {
 		return statment;
 	}
 
-	public String print() {
-		return mstrName + "\t" + mstrBLZ + "\t" + mstrKnr + "\t" + mstrBetrag + "\t" + mstrMin;
+	public Object[] print() {
+		Object [] tmp = {this.mstrName,this.mstrBLZ,this.mstrKnr,this.mstrBetrag,this.mstrMin,this.mintID};
+		return tmp;
 
 	}
 

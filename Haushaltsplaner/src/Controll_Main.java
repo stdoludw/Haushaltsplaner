@@ -601,13 +601,14 @@ public class Controll_Main implements ActionListener {
 
 	private void print() {
 
-	
+		if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt
+				.toString()) {
 
-			
 			Object[][] databaseInfo = null;
-			Object[] columns = {"Produktname","Preis","Gewicht","PK"};
+			Object[] columns = { "Produktname", "Preis", "Gewicht", "PK" };
 
-			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,columns) {
+			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
+					columns) {
 				public Class getColumnClass(int column) {
 					Class returnValue;
 					if ((column >= 0) && (column < getColumnCount())) {
@@ -618,45 +619,45 @@ public class Controll_Main implements ActionListener {
 					return returnValue;
 				}
 			};
-			
-
-			if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt
-					.toString()) {
-	
-
-			Object [] tmp = new Object[4];
 			for (int i = 0; i < mvecModel.size(); i++) {
 				if (mvecModel.get(i) instanceof Model_Produkt) {
-					
+
 					dTableModel.addRow(((Model_Produkt) mvecModel.get(i))
 							.print());
 
 				}
 			}
 			mguiMain.setTableModel(dTableModel);
-			}
+		}
 
-		/*else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
+		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Konto
 				.toString()) {
+			Object[][] databaseInfo = null;
+			Object[] columns = { "Kontoinhaber", "Kontonummer", "Bankleitzahl",
+					"Betrag", "Minimum", "PK" };
 
-			columns = new Object[6];
-			columns[0] = "Kontoinhaber";
-			columns[1] = "Kontonummer";
-			columns[2] = "BankLeitzahl";
-			columns[3] = "Betrag";
-			columns[4] = "Minimum";
-			columns[5] = "PK";
-
+			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
+					columns) {
+				public Class getColumnClass(int column) {
+					Class returnValue;
+					if ((column >= 0) && (column < getColumnCount())) {
+						returnValue = getValueAt(0, column).getClass();
+					} else {
+						returnValue = Object.class;
+					}
+					return returnValue;
+				}
+			};
 			for (int i = 0; i < mvecModel.size(); i++) {
-				if (mvecModel.get(i) instanceof Model_Produkt) {
-					dTableModel.addRow(((Model_Produkt) mvecModel.get(i))
+				if (mvecModel.get(i) instanceof Model_Konto) {
+
+					dTableModel.addRow(((Model_Konto) mvecModel.get(i))
 							.print());
 
 				}
 			}
-			dTableModel.addColumn(columns);
 			mguiMain.setTableModel(dTableModel);
-		}*/
+		}
 
 		/*
 		 * (mguiMain.getComboBox().getSelectedItem().toString() ==
