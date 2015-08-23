@@ -11,6 +11,8 @@ import java.io.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -633,7 +635,6 @@ public class Controll_Main implements ActionListener {
 
 					dTableModel.addRow(((Model_Produkt) mvecModel.get(i))
 							.print());
-
 				}
 			}
 			mguiMain.setTableModel(dTableModel);
@@ -742,84 +743,115 @@ public class Controll_Main implements ActionListener {
 			}
 			mguiMain.setTableModel(dTableModel);
 		}
+		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik
+				.toString()) {
+			
+			Object[][] databaseInfo = null;
+			Object[] columns = {"Name","info","info"};
+					
+			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
+					columns) {
+				/**
+						 * 
+						 */
+				private static final long serialVersionUID = 1L;
+
+				public Class<?> getColumnClass(int column) {
+					Class<?> returnValue;
+					if ((column >= 0) && (column < getColumnCount())) {
+						returnValue = getValueAt(0, column).getClass();
+					} else {
+						returnValue = Object.class;
+					}
+					return returnValue;
+				}
+			};
+			
+			dTableModel.addRow(getStatistic());
+			mguiMain.setTableModel(dTableModel);
+		}
 		
-		
-		
-		
-		/*
-		 * (mguiMain.getComboBox().getSelectedItem().toString() ==
-		 * cmbAuswahl.Statistik.toString()) {
-		 * 
-		 * mguiMain.getMcmbMonat().setEnabled(true); mguiMain.clear(); //
-		 * hoechste kontostand -> niedirgste kontostand // minimum erreicht per
-		 * konto int max = -1, min = 999; String name_max = null, name_min =
-		 * null; Vector<String> name_minimumGrenze = new Vector<>();
-		 * 
-		 * for (Object element : mvecModel) {
-		 * 
-		 * if (element instanceof Model_Konto) { if
-		 * (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) {
-		 * min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-		 * name_min = ((Model_Konto) element).getMstrName(); } else { max =
-		 * Integer.valueOf(((Model_Konto) element).getMstrBetrag()); name_max =
-		 * ((Model_Konto) element).getMstrName();
-		 * 
-		 * }
-		 * 
-		 * if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <=
-		 * Integer .valueOf(((Model_Konto) element).getMintMin())) {
-		 * name_minimumGrenze.addElement(((Model_Konto) element).getMstrName());
-		 * } }
-		 * 
-		 * }
-		 * 
-		 * mstrContent += "Den niedrigsten Kontostand hat " + name_min + " mit "
-		 * + min + " EURO\n"; mstrContent += "Den hoechsten Kontostand hat " +
-		 * name_max + " mit " + max + " EURO\n";
-		 * 
-		 * for (int i = 0; i < name_minimumGrenze.size(); i++) mstrContent +=
-		 * "Folgende Leute haben ihre Limitbegrenzung ueberschritten: " +
-		 * name_minimumGrenze.get(i) + "\n";
-		 * 
-		 * Vector<String> bezeichner = new Vector<String>();
-		 * bezeichner.add("Name\tadresse\tAVG(entfernung)");
-		 * bezeichner.add("Name\tadresse\tmax(entfernung)");
-		 * bezeichner.add("Name\tadresse\tmin(entfernung)");
-		 * bezeichner.add("Marktname\tProduktname\tmax(anzahl)");
-		 * bezeichner.add("Marktname\tProduktname\tmin(anzahl)");
-		 * bezeichner.add("Marktname\tProduktname\tmax(datum)");
-		 * bezeichner.add("Marktname\tProduktname\tmin(datum)");
-		 * bezeichner.add("Produktname\tGewicht\tmax(preis)");
-		 * bezeichner.add("Produktname\tGewicht\tmin(preis)");
-		 * bezeichner.add("Produktname\tGewicht\tavg(preis)");
-		 * 
-		 * for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-		 * mstrContent += bezeichner.get(i).toString() + "\n"; mstrContent +=
-		 * SQLStatistic(Controll_Statments.statistic().get(i)) + "\n"; }
-		 * 
-		 * 
-		 * if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.
-		 * toString()))) { mstrContent +=
-		 * "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-		 * SQLStatistic(Controll_Statments.Q1.toString()); String myArray[] =
-		 * tmp.split("\t"); //mstrContent +=
-		 * aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
-		 * else
-		 * if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2
-		 * .toString()))) { mstrContent +=
-		 * "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-		 * SQLStatistic(Controll_Statments.Q2.toString()); String myArray[] =
-		 * tmp.split("\t"); mstrContent +=
-		 * aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
-		 * else
-		 * if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3
-		 * .toString()))) { mstrContent +=
-		 * "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-		 * SQLStatistic(Controll_Statments.Q3.toString()); String myArray[] =
-		 * tmp.split("\t"); //mstrContent +=
-		 * aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
-		 * 
-		 * } // fuellen der GUI mguiMain.setTextArea(mstrContent);
-		 */
+		 
 	}
+
+	private Object[] getStatistic()
+{
+	  int max = -1, min = 999; 
+	  String name_max = null, name_min = null; 
+	  Vector<Object> dataReturn = new Vector<>();
+	  
+			 
+			  for (Object element : mvecModel) {
+			  
+			  if (element instanceof Model_Konto) 
+			  { 
+				  if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) 
+				  {
+					  min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+					  name_min = ((Model_Konto) element).getMstrName(); 
+			  } 
+				  else
+				  { 
+					  max =  Integer.valueOf(((Model_Konto) element).getMstrBetrag());
+					  name_max = ((Model_Konto) element).getMstrName();
+			  }
+			  
+			  if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <=  Integer .valueOf(((Model_Konto) element).getMintMin())) 
+			  {
+				  dataReturn.addElement("Person: "+((Model_Konto) element).getMstrName()+" hat sein Limit überschritten!"
+						  +"Betrag: "+Integer.valueOf(((Model_Konto) element).getMstrBetrag())
+								  +"Minimum: "+ Integer .valueOf(((Model_Konto) element).getMintMin()));
+			  } 
+			 }
+			  
+			  }
+			  dataReturn.add("Den niedrigsten Kontostand hat " + name_min + " mit "
+			  + min + " EURO\n");
+			  dataReturn.add("Den hoechsten Kontostand hat " + name_max + " mit "
+					  + max + " EURO\n");
+
+			  
+			  Vector<String> bezeichner = new Vector<String>();
+			  bezeichner.add("Name\tadresse\tAVG(entfernung)");
+			  bezeichner.add("Name\tadresse\tmax(entfernung)");
+			  bezeichner.add("Name\tadresse\tmin(entfernung)");
+			  bezeichner.add("Marktname\tProduktname\tmax(anzahl)");
+			  bezeichner.add("Marktname\tProduktname\tmin(anzahl)");
+			  bezeichner.add("Marktname\tProduktname\tmax(datum)");
+			  bezeichner.add("Marktname\tProduktname\tmin(datum)");
+			  bezeichner.add("Produktname\tGewicht\tmax(preis)");
+			  bezeichner.add("Produktname\tGewicht\tmin(preis)");
+			  bezeichner.add("Produktname\tGewicht\tavg(preis)");
+			  
+			  for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
+			  mstrContent += bezeichner.get(i).toString() + "\n"; mstrContent +=
+			  SQLStatistic(Controll_Statments.statistic().get(i)) + "\n"; }
+			  
+			  
+			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.
+			  toString()))) { mstrContent +=
+			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
+			  SQLStatistic(Controll_Statments.Q1.toString()); String myArray[] =
+			  tmp.split("\t"); //mstrContent +=
+			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
+			  else
+			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2
+			  .toString()))) { mstrContent +=
+			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
+			  SQLStatistic(Controll_Statments.Q2.toString()); String myArray[] =
+			  tmp.split("\t"); mstrContent +=
+			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
+			  else
+			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3
+			  .toString()))) { mstrContent +=
+			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
+			  SQLStatistic(Controll_Statments.Q3.toString()); String myArray[] =
+			  tmp.split("\t"); //mstrContent +=
+			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
+			  
+			  
+			  return dataReturn.toArray();
+			  
+			  } 
+	
 }
