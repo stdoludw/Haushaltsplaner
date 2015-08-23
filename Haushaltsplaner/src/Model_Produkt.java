@@ -78,7 +78,7 @@ public class Model_Produkt {
 	}
 
 	public Object[] print() {
-		Object [] tmp ={this.mstrName,this.getMfltPreis(),this.mintGewicht,this.getMintID()};
+		Object [] tmp ={this.mstrName,this.mintGewicht,this.getMfltPreis(),this.getMintID()};
 		return tmp;
 	}
 

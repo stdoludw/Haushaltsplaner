@@ -391,21 +391,37 @@ public class Controll_Main implements ActionListener {
 		{
 			for(int i=0;i<mguiMain.getMtblTable().getRowCount();i++)
 			{
-				toUpdate.add(new Model_Produkt(mguiMain.getMtblTable().getValueAt(i, 0).toString(), Integer.valueOf((String) mguiMain.getMtblTable().getValueAt(i, 1)), Float.valueOf((String) mguiMain.getMtblTable().getValueAt(i, 2)), Integer.valueOf((String) mguiMain.getMtblTable().getValueAt(i, 3))));
+					
+				toUpdate.add(new Model_Produkt(
+						mguiMain.getMtblTable().getValueAt(i, 0).toString(), 
+						Integer.valueOf( mguiMain.getMtblTable().getValueAt(i, 1).toString()),
+						Float.valueOf( mguiMain.getMtblTable().getValueAt(i, 2).toString()), 
+						Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 3).toString())));
 			}
 		}
 		else if(mguiMain.getComboBox().getSelectedItem() == cmbAuswahl.Konto.toString())
 		{
 			for(int i=0;i<mguiMain.getMtblTable().getRowCount();i++)
 			{
-				toUpdate.add(new Model_Konto(mguiMain.getMtblTable().getValueAt(i, 0).toString(),mguiMain.getMtblTable().getValueAt(i, 1).toString(),mguiMain.getMtblTable().getValueAt(i, 2).toString(),mguiMain.getMtblTable().getValueAt(i, 3).toString(),mguiMain.getMtblTable().getValueAt(i, 4).toString(),Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 5).toString())));
+				toUpdate.add(new Model_Konto(
+						mguiMain.getMtblTable().getValueAt(i, 0).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 1).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 2).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 3).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 4).toString(),
+						Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 5).toString())));
 			}
 		}
 		else if(mguiMain.getComboBox().getSelectedItem() == cmbAuswahl.Markt.toString())
 		{
 			for(int i=0;i<mguiMain.getMtblTable().getRowCount();i++)
 			{
-				toUpdate.add(new Model_Markt(mguiMain.getMtblTable().getValueAt(i, 0).toString(),mguiMain.getMtblTable().getValueAt(i, 1).toString(),mguiMain.getMtblTable().getValueAt(i, 2).toString(),Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 3).toString()),Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 4).toString())));
+				toUpdate.add(new Model_Markt(
+						mguiMain.getMtblTable().getValueAt(i, 0).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 1).toString(),
+						mguiMain.getMtblTable().getValueAt(i, 2).toString(),
+						Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 3).toString()),
+						Integer.valueOf(mguiMain.getMtblTable().getValueAt(i, 4).toString())));
 			}
 		}
 		

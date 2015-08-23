@@ -84,7 +84,6 @@ public class Model_Markt {
 
 		return statment;
 	}
-
 	public Object[] print() {
 		Object[] tmp = {this.mstrName, this.mstrPLZ , this.mstrAdr ,this.mintEntfernung,this.mintID};
 		return tmp;

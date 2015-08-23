@@ -93,9 +93,8 @@ public class Model_Konto {
 		statment = Controll_Statments.kontoUpdateInsert.toString() + mintID + ";";
 		return statment;
 	}
-
 	public Object[] print() {
-		Object [] tmp = {this.mstrName,this.mstrBLZ,this.mstrKnr,this.mstrBetrag,this.mstrMin,this.mintID};
+		Object [] tmp = {this.mstrName,this.mstrKnr,this.mstrBLZ,this.mstrBetrag,this.mstrMin,this.mintID};
 		return tmp;
 
 	}
