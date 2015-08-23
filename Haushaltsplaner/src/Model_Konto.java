@@ -82,10 +82,15 @@ public class Model_Konto {
 		this.mstrMin = mintMin;
 	}
 
-	public String SQLerstellenKonto() {
+	public String SQLerstellen() {
 		String statment;
 		statment = Controll_Statments.kontoUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrBLZ
 				+ "\"" + "," + "\"" + mstrKnr + "\"" + "," + mstrBetrag + "," + mstrMin + "," + mintID + ");";
+		return statment;
+	}
+	public String SQLentfernen() {
+		String statment;
+		statment = Controll_Statments.kontoUpdateInsert.toString() + mintID + ";";
 		return statment;
 	}
 

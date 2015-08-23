@@ -1,4 +1,3 @@
-import java.util.Vector;
 
 public class Model_Produkt {
 
@@ -61,10 +60,18 @@ public class Model_Produkt {
 		this.mfltPreis = mfltPreis;
 	}
 
-	public String SQLerstellenProdukt() {
+	public String SQLerstellen() {
 		String statment;
 		statment = Controll_Statments.produktUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + mintGewicht + ","
 				+ mfltPreis + mintID + "," + mintID + ");";
+
+		return statment;
+
+	}
+	
+	public String SQLentfernen() {
+		String statment;
+		statment = Controll_Statments.produktUpdateDelete.toString() + mintID + ";";
 
 		return statment;
 
@@ -76,8 +83,6 @@ public class Model_Produkt {
 	}
 
 	public boolean equal(Model_Produkt tmp) {
-		System.out.println(tmp.print());
-		System.out.println(this.print());
 		if (this.mstrName == tmp.mstrName && this.mintGewicht == tmp.mintGewicht && this.mfltPreis == tmp.mfltPreis) {
 			mboolequal = true;
 			return true;

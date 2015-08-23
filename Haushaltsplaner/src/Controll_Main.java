@@ -278,18 +278,18 @@ public class Controll_Main implements ActionListener {
 				if (mvecModel.get(i) instanceof Model_Produkt) {
 
 					mfioStream.write(((Model_Produkt) mvecModel.get(i))
-							.SQLerstellenProdukt());
+							.SQLerstellen());
 					mfioStream.newLine();
 
 				} else if (mvecModel.get(i) instanceof Model_Konto) {
 
 					mfioStream.write(((Model_Konto) mvecModel.get(i))
-							.SQLerstellenKonto());
+							.SQLerstellen());
 					mfioStream.newLine();
 
 				} else if (mvecModel.get(i) instanceof Model_Markt) {
 					mfioStream.write(((Model_Markt) mvecModel.get(i))
-							.SQLerstellenMarkt());
+							.SQLerstellen());
 					mfioStream.newLine();
 				} else if (mvecModel.get(i) instanceof Model_Einkauf) {
 					mfioStream.write(((Model_Einkauf) mvecModel.get(i))
@@ -385,6 +385,7 @@ public class Controll_Main implements ActionListener {
 
 	private void update() { 
 	
+		//aus table in toUpdate
 		Vector<Object> toUpdate = new Vector<Object>();
 		if(mguiMain.getComboBox().getSelectedItem() == cmbAuswahl.Produkt.toString())
 		{
@@ -408,7 +409,71 @@ public class Controll_Main implements ActionListener {
 			}
 		}
 		
+		//prüfen auf gleichheit
+		for (Object element : toUpdate) {
+			if(element instanceof Model_Produkt)
+			{
+				for(Object model : mvecModel)
+				{
+					if(model instanceof Model_Produkt)
+					{
+				((Model_Produkt)element).equal(((Model_Produkt)model));
+					}
+				}
+			}
+			else if(element instanceof Model_Markt)
+			{
+				for(Object model : mvecModel)
+				{
+					if(model instanceof Model_Markt)
+					{
+				((Model_Markt)element).equal(((Model_Markt)model));
+					}
+				}
+			}
+			else if(element instanceof Model_Konto)
+			{
+				for(Object model : mvecModel)
+				{
+					if(model instanceof Model_Konto)
+					{
+				((Model_Konto)element).equal(((Model_Konto)model));
+					}
+				}
+			}
+			
+		}
 		
+		//schreibe in db
+		for(Object element : mvecModel)
+		{
+			if(element instanceof Model_Produkt)
+			{
+				if(!((Model_Produkt)element).isMboolequal())
+				{
+					SQLModifizieren(((Model_Produkt)element).SQLentfernen());
+					SQLModifizieren(((Model_Produkt)element).SQLerstellen());
+				}
+			}
+			else if(element instanceof Model_Konto)
+			{
+				if(!((Model_Konto)element).isMboolequal())
+				{
+					SQLModifizieren(((Model_Konto)element).SQLentfernen());
+					SQLModifizieren(((Model_Konto)element).SQLerstellen());
+				}
+			}
+			else if(element instanceof Model_Markt)
+			{
+				if(!((Model_Markt)element).isMboolequal())
+				{
+					SQLModifizieren(((Model_Markt)element).SQLentfernen());
+					SQLModifizieren(((Model_Markt)element).SQLerstellen());
+				}
+			}
+		}
+		//abfragen der db
+		auslesen();
 		}
 	
 	private void create() {

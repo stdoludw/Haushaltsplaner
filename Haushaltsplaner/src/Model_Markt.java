@@ -70,10 +70,17 @@ public class Model_Markt {
 		this.mintEntfernung = mintEntfernung;
 	}
 
-	public String SQLerstellenMarkt() {
+	public String SQLerstellen() {
 		String statment;
 		statment = Controll_Statments.marktUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrPLZ
 				+ "\"" + "," + "\"" + mstrAdr + "\"" + "," + mintEntfernung + mintID + ");";
+
+		return statment;
+	}
+	
+	public String SQLentfernen() {
+		String statment;
+		statment = Controll_Statments.marktUpdateDelete.toString() + mintID + ";";
 
 		return statment;
 	}

@@ -45,7 +45,7 @@ public enum Controll_Statments {
 		}
 	},
 
-	kontoUpdate {
+	kontoUpdateDelete {
 		public String toString() {
 			return "delete from Konto where K_ID = ";
 		}
@@ -56,7 +56,7 @@ public enum Controll_Statments {
 		}
 	},
 
-	produktUpdate {
+	produktUpdateDelete {
 		public String toString() {
 			return "delete from Produkt where P_ID = ";
 		}
@@ -66,7 +66,7 @@ public enum Controll_Statments {
 			return "insert into Produkt(name,gewicht,preis,P_ID) Values(";
 		}
 	},
-	marktUpdate {
+	marktUpdateDelete {
 		public String toString() {
 			return "delete from Markt where M_ID = ";
 		}
@@ -74,12 +74,6 @@ public enum Controll_Statments {
 	marktUpdateInsert {
 		public String toString() {
 			return "insert into Markt(name,postleitzahl,adresse,entfernung,M_ID) Values(";
-		}
-	},
-
-	AllUpdate {
-		public String toString() {
-			return "delete from Markt where M_ID = ";
 		}
 	},
 
