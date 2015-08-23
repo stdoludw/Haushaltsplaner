@@ -11,8 +11,6 @@ import java.io.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import lib.*;
 
 public class Controll_Main implements ActionListener {
@@ -58,6 +56,7 @@ public class Controll_Main implements ActionListener {
 		this.mguiMain.getMmenLaden().addActionListener(this);
 		this.mguiMain.getComboBox().addActionListener(this);
 		this.mguiMain.getMcmbMonat().addActionListener(this);
+		this.mguiMain.getBtnUpdate().addActionListener(this);
 
 		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
 		this.mguiHinzufuegen.getMbtmMarkt().addActionListener(this);
@@ -75,26 +74,31 @@ public class Controll_Main implements ActionListener {
 
 		// auslesen des listeners
 		String mstrCommand = ae.getActionCommand().toString();
-		if (GUI_Abfrage.LOGIN.equals(mstrCommand)) {
+		if (cmbAuswahl.LoginAbfrageAktion.toString().equals(mstrCommand)) {
 			login();
-		} else if (GUI_Main.HINZUFUEGEN.equals(mstrCommand)) {
-			GUIHinzufuegen();
-		} else if (GUI_Abfrage.ERSTELLEN.equals(mstrCommand)) {
+		} else if (cmbAuswahl.ErstellenAbfrageAktion.toString().equals(mstrCommand)) {
 			create();
-		} else if (GUI_Hinzufuegen.HINZUFUEGENALL.equals(mstrCommand)) {
+		} else if (cmbAuswahl.AllHinzufuegenAktion.toString().equals(mstrCommand)) {
 			AddAll();
-		} else if (GUI_Hinzufuegen.HINZUFUEGENKONTO.equals(mstrCommand)) {
+		} else if (cmbAuswahl.KontoHinzufuegenAktion.toString().equals(mstrCommand)) {
 			AddKonto();
-		} else if (GUI_Hinzufuegen.HINZUFUEGENMARKT.equals(mstrCommand)) {
+		} else if (cmbAuswahl.MarktHinzufuegenAktion.toString().equals(mstrCommand)) {
 			AddMarkt();
-		} else if (GUI_Hinzufuegen.HINZUFUEGENPRODUKT.equals(mstrCommand)) {
+		} else if (cmbAuswahl.ProduktHinzufuegenAktion.toString().equals(mstrCommand)) {
 			AddProdukt();
-		} else if (GUI_Main.EXPORT.equals(mstrCommand)) {
+		} else if (cmbAuswahl.ExportMainAktion.toString().equals(mstrCommand)) {
 			SQLExport();
-		} else if (GUI_Main.LADEN.equals(mstrCommand)) {
+		} else if (cmbAuswahl.LadenMainAktion.toString().equals(mstrCommand)) {
 			SQLImport();
-		} else if (GUI_Main.AUSWAHL.equals(mstrCommand)) {
+		} else if (cmbAuswahl.AuswahlMainAktion.toString().equals(mstrCommand)) {
 			print();
+		}
+		else if(cmbAuswahl.UpdateMainAktion.toString().equals(mstrCommand))
+		{
+			update();
+		}
+		else if (cmbAuswahl.HinzufuegenMainAktion.toString().equals(mstrCommand)) {
+			GUIHinzufuegen();
 		}
 	}
 
@@ -354,7 +358,6 @@ public class Controll_Main implements ActionListener {
 		SQLAbfrage(Controll_Statments.produkt.toString());
 	}
 
-	@SuppressWarnings("unchecked")
 	private void GUIHinzufuegen() {
 		mguiHinzufuegen.show(mguiHinzufuegen);
 
@@ -380,94 +383,10 @@ public class Controll_Main implements ActionListener {
 
 	}
 
-	/*
-	 * @SuppressWarnings("unused") private void update() { String content =
-	 * mguiMain.getTextArea().getText(); String[] tmp = content.split("\n");
-	 * Vector<String[]> value = new Vector<>();
-	 * 
-	 * for (int i = 0; i < tmp.length; i++) { value.add(tmp[i].split("\t")); }
-	 * Vector<Object> tmpObject = new Vector<Object>();
-	 * 
-	 * String selectedItem = mguiMain.getComboBox().getSelectedItem()
-	 * .toString(); if (selectedItem == cmbAuswahl.Produkt.toString()) {
-	 * tmpObject.clear(); // einzelne Produkte in vektor schreiben for (int i =
-	 * 1; i < value.size(); i++) { tmpObject.add(new
-	 * Model_Produkt(value.get(i)[0], Integer .valueOf(value.get(i)[1]),
-	 * Float.valueOf(value.get(i)[2]), -1)); }
-	 * 
-	 * // vergleiche vector tmpObject mit mvec for (int i = 0; i <
-	 * mvecModel.size(); i++) { if (mvecModel.get(i) instanceof Model_Produkt) {
-	 * for (int j = 0; j < tmpObject.size(); j++) { ((Model_Produkt)
-	 * mvecModel.get(i)) .equal((Model_Produkt) tmpObject.get(j)); break; } } }
-	 * 
-	 * } else if (selectedItem == cmbAuswahl.Markt.toString()) {
-	 * tmpObject.clear();
-	 * 
-	 * for (int i = 1; i < value.size(); i++) { tmpObject.add(new
-	 * Model_Markt(value.get(i)[0], value.get(i)[1], value.get(i)[2],
-	 * Integer.valueOf(value.get(i)[3]), -1)); }
-	 * 
-	 * for (int i = 0; i < mvecModel.size(); i++) { if (mvecModel.get(i)
-	 * instanceof Model_Markt) { for (int j = 0; j < tmpObject.size(); j++) {
-	 * ((Model_Markt) mvecModel.get(i)) .equal((Model_Markt) tmpObject.get(j));
-	 * break; } } }
-	 * 
-	 * } else if (selectedItem == cmbAuswahl.Konto.toString()) {
-	 * tmpObject.clear();
-	 * 
-	 * for (int i = 1; i < value.size(); i++) { tmpObject.add(new
-	 * Model_Konto(value.get(i)[0], value.get(i)[1], value.get(i)[2],
-	 * value.get(i)[3], value.get(i)[4], -1)); }
-	 * 
-	 * for (int i = 0; i < mvecModel.size(); i++) { if (mvecModel.get(i)
-	 * instanceof Model_Konto) { for (int j = 0; j < tmpObject.size(); j++) {
-	 * ((Model_Konto) mvecModel.get(i)) .equal((Model_Konto) tmpObject.get(j));
-	 * break; } } } }
-	 * 
-	 * // wenn !equal im tmpObject schreibe in DB for (int i = 0; i <
-	 * mvecModel.size(); i++) { if (mvecModel.get(i) instanceof Model_Konto) {
-	 * if (!((Model_Konto) mvecModel.get(i)).isMboolequal()) {
-	 * 
-	 * // nur not equal entfernen
-	 * SQLModifizieren(Controll_Statments.kontoUpdate.toString() +
-	 * ((Model_Konto) mvecModel.get(i)).getMintID() + ";");
-	 * 
-	 * // beonserheit insert into mit aes
-	 * SQLModifizieren(Controll_Statments.kontoUpdateInsert .toString() + "\'" +
-	 * aes.verschluesselnAES(((Model_Konto) mvecModel .get(i)).getMstrName()) +
-	 * "\'" + "," + "\'" + aes.verschluesselnAES(((Model_Konto) mvecModel
-	 * .get(i)).getMstrBLZ()) + "\'" + "," + "\'" +
-	 * aes.verschluesselnAES(((Model_Konto) mvecModel .get(i)).getMstrKnr()) +
-	 * "\'" + "," + "\'" + aes.verschluesselnAES(((Model_Konto) mvecModel
-	 * .get(i)).getMintMin()) + "\'" + "," + ((Model_Konto)
-	 * mvecModel.get(i)).getMintID() + ");");
-	 * 
-	 * } } else if (mvecModel.get(i) instanceof Model_Produkt) { if
-	 * (!((Model_Produkt) mvecModel.get(i)).isMboolequal()) {
-	 * 
-	 * SQLModifizieren(Controll_Statments.produktUpdate.toString() +
-	 * ((Model_Produkt) mvecModel.get(i)).getMintID() + ";");
-	 * 
-	 * SQLModifizieren(Controll_Statments.produktUpdateInsert .toString() + "\'"
-	 * + ((Model_Produkt) mvecModel.get(i)).getMstrName() + "\'" + "," +
-	 * ((Model_Produkt) mvecModel.get(i)) .getMintGewicht() + "," +
-	 * ((Model_Produkt) mvecModel.get(i)).getMfltPreis() + "," +
-	 * ((Model_Produkt) mvecModel.get(i)).getMintID() + ");");
-	 * 
-	 * } } else if (mvecModel.get(i) instanceof Model_Markt) { if
-	 * (!((Model_Markt) mvecModel.get(i)).isMboolequal()) {
-	 * 
-	 * SQLModifizieren(Controll_Statments.marktUpdate.toString() +
-	 * ((Model_Markt) mvecModel.get(i)).getMintID() + ";");
-	 * SQLModifizieren(Controll_Statments.marktUpdateInsert .toString() + "\'" +
-	 * ((Model_Markt) mvecModel.get(i)).getMstrName() + "\'" + "," + "\'" +
-	 * ((Model_Markt) mvecModel.get(i)).getMstrPLZ() + "\'" + "," + "\'" +
-	 * ((Model_Markt) mvecModel.get(i)).getMstrAdr() + "\'" + "," +
-	 * ((Model_Markt) mvecModel.get(i)) .getMintEntfernung() + "," +
-	 * ((Model_Markt) mvecModel.get(i)).getMintID() + ");");
-	 * 
-	 * } } // Daten auslesen auslesen(); } }
-	 */
+	private void update() { 
+	
+	}
+	
 	private void create() {
 		// hiden des alten fensters
 		mguiAbfrage.dispose();

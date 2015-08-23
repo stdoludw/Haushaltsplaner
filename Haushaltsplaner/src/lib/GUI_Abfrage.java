@@ -26,8 +26,7 @@ public class GUI_Abfrage extends JFrame {
 	private JButton mbtnLogin;
 	private static GUI_Abfrage frame = null;
 
-	public static final String LOGIN = "Login";
-	public static final String ERSTELLEN = "Erstellen";
+
 	
 	public void clear()
 	{
@@ -139,11 +138,11 @@ public class GUI_Abfrage extends JFrame {
 		mbntErstellen = new JButton("Neue erstellen");
 		mbntErstellen.setBounds(58, 221, 158, 25);
 		contentPane.add(mbntErstellen);
-		mbntErstellen.setActionCommand(ERSTELLEN);
+		mbntErstellen.setActionCommand(cmbAuswahl.ErstellenAbfrageAktion.toString());
 		
 		mbtnLogin = new JButton("login");
 		mbtnLogin.setBounds(231, 221, 172, 25);
 		contentPane.add(mbtnLogin);
-		mbtnLogin.setActionCommand(LOGIN);
+		mbtnLogin.setActionCommand(cmbAuswahl.LoginAbfrageAktion.toString());
 	}
 }

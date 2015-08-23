@@ -7,7 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.Label;
+
 import javax.swing.JComboBox;
 
 
@@ -38,18 +40,11 @@ public class GUI_Hinzufuegen extends JFrame {
 	private JPanel mpnlMarkt;
 	private JPanel mpnlAlles;
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox mcmbProdukt;
-	@SuppressWarnings("rawtypes")
-	private JComboBox mcmbMarkt;
-	@SuppressWarnings("rawtypes")
-	private JComboBox mcmbKonto;
+	private JComboBox<String> mcmbProdukt;
+	private JComboBox<String> mcmbMarkt;
+	private JComboBox<String> mcmbKonto;
 	private static GUI_Hinzufuegen frame = null;
 
-	public static final String HINZUFUEGENPRODUKT = "HinzufuegenProdukt";
-	public static final String HINZUFUEGENKONTO = "HinzufuegenKonto";
-	public static final String HINZUFUEGENMARKT = "HinzufuegenMarkt";
-	public static final String HINZUFUEGENALL = "HinzufuegenAll";
 
 
 	public void clear()
@@ -146,18 +141,15 @@ public class GUI_Hinzufuegen extends JFrame {
 		return mbtmAlles;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getMcmbProdukt() {
+	public JComboBox<String> getMcmbProdukt() {
 		return mcmbProdukt;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public JComboBox getMcmbMarkt() {
+	public JComboBox<String> getMcmbMarkt() {
 		return mcmbMarkt;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public JComboBox getMcmbKonto() {
+	public JComboBox<String> getMcmbKonto() {
 		return mcmbKonto;
 	}
 
@@ -184,7 +176,6 @@ public class GUI_Hinzufuegen extends JFrame {
 		tmp.setVisible(true);
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
 	private GUI_Hinzufuegen() {
 		setBounds(100, 100, 457, 385);
 		setResizable(false);
@@ -363,15 +354,15 @@ public class GUI_Hinzufuegen extends JFrame {
 		label_13.setBounds(27, 69, 74, 21);
 		mpnlAlles.add(label_13);
 		
-		mcmbProdukt = new JComboBox();
+		mcmbProdukt = new JComboBox<String>();
 		mcmbProdukt.setBounds(127, 107, 238, 19);
 		mpnlAlles.add(mcmbProdukt);
 		
-		mcmbMarkt = new JComboBox();
+		mcmbMarkt = new JComboBox<String>();
 		mcmbMarkt.setBounds(127, 142, 238, 19);
 		mpnlAlles.add(mcmbMarkt);
 		
-		mcmbKonto = new JComboBox();
+		mcmbKonto = new JComboBox<String>();
 		mcmbKonto.setBounds(127, 176, 238, 19);
 		mpnlAlles.add(mcmbKonto);
 		
@@ -388,9 +379,9 @@ public class GUI_Hinzufuegen extends JFrame {
 		mpnlAlles.add(label_16);
 		
 
-		mbtmKonto.setActionCommand(HINZUFUEGENKONTO);
-		mbtmMarkt.setActionCommand(HINZUFUEGENMARKT);
-		mbtmProdukt.setActionCommand(HINZUFUEGENPRODUKT);
-		mbtmAlles.setActionCommand(HINZUFUEGENALL);
+		mbtmKonto.setActionCommand(cmbAuswahl.KontoHinzufuegenAktion.toString());
+		mbtmMarkt.setActionCommand(cmbAuswahl.MarktHinzufuegenAktion.toString());
+		mbtmProdukt.setActionCommand(cmbAuswahl.ProduktHinzufuegenAktion.toString());
+		mbtmAlles.setActionCommand(cmbAuswahl.AllHinzufuegenAktion.toString());
 	}
 }
