@@ -746,8 +746,9 @@ public class Controll_Main implements ActionListener {
 		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik
 				.toString()) {
 			
+			mguiMain.getMcmbMonat().setEnabled(true);
 			Object[][] databaseInfo = null;
-			Object[] columns = {"Name","info","info"};
+			Object[] columns = {"info"};
 					
 			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
 					columns) {
@@ -766,15 +767,22 @@ public class Controll_Main implements ActionListener {
 					return returnValue;
 				}
 			};
+				
+			  Object [][] statistic = getStatistic();
+			  
+			  for(int i=0;i<statistic.length;i++)
+			  {
+				dTableModel.addRow(statistic[i]);
+			  }
 			
-			dTableModel.addRow(getStatistic());
+			
 			mguiMain.setTableModel(dTableModel);
 		}
 		
 		 
 	}
 
-	private Object[] getStatistic()
+	private Object[][] getStatistic()
 {
 	  int max = -1, min = 999; 
 	  String name_max = null, name_min = null; 
@@ -798,7 +806,9 @@ public class Controll_Main implements ActionListener {
 			  
 			  if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <=  Integer .valueOf(((Model_Konto) element).getMintMin())) 
 			  {
-				  dataReturn.addElement("Person: "+((Model_Konto) element).getMstrName()+" hat sein Limit überschritten!"
+				  
+				 
+				  dataReturn.add("Person: "+((Model_Konto) element).getMstrName()+" hat sein Limit überschritten!"
 						  +"Betrag: "+Integer.valueOf(((Model_Konto) element).getMstrBetrag())
 								  +"Minimum: "+ Integer .valueOf(((Model_Konto) element).getMintMin()));
 			  } 
@@ -807,50 +817,66 @@ public class Controll_Main implements ActionListener {
 			  }
 			  dataReturn.add("Den niedrigsten Kontostand hat " + name_min + " mit "
 			  + min + " EURO\n");
+			  
 			  dataReturn.add("Den hoechsten Kontostand hat " + name_max + " mit "
 					  + max + " EURO\n");
 
 			  
 			  Vector<String> bezeichner = new Vector<String>();
-			  bezeichner.add("Name\tadresse\tAVG(entfernung)");
-			  bezeichner.add("Name\tadresse\tmax(entfernung)");
-			  bezeichner.add("Name\tadresse\tmin(entfernung)");
-			  bezeichner.add("Marktname\tProduktname\tmax(anzahl)");
-			  bezeichner.add("Marktname\tProduktname\tmin(anzahl)");
-			  bezeichner.add("Marktname\tProduktname\tmax(datum)");
-			  bezeichner.add("Marktname\tProduktname\tmin(datum)");
-			  bezeichner.add("Produktname\tGewicht\tmax(preis)");
-			  bezeichner.add("Produktname\tGewicht\tmin(preis)");
-			  bezeichner.add("Produktname\tGewicht\tavg(preis)");
+			  bezeichner.add("Name\tadresse\tAVG(entfernung): ");
+			  bezeichner.add("Name\tadresse\tmax(entfernung): ");
+			  bezeichner.add("Name\tadresse\tmin(entfernung): ");
+			  bezeichner.add("Marktname\tProduktname\tmax(anzahl): ");
+			  bezeichner.add("Marktname\tProduktname\tmin(anzahl): ");
+			  bezeichner.add("Marktname\tProduktname\tmax(datum): ");
+			  bezeichner.add("Marktname\tProduktname\tmin(datum): ");
+			  bezeichner.add("Produktname\tGewicht\tmax(preis): ");
+			  bezeichner.add("Produktname\tGewicht\tmin(preis): ");
+			  bezeichner.add("Produktname\tGewicht\tavg(preis): ");
 			  
 			  for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-			  mstrContent += bezeichner.get(i).toString() + "\n"; mstrContent +=
-			  SQLStatistic(Controll_Statments.statistic().get(i)) + "\n"; }
+				  dataReturn.add(bezeichner.get(i).toString()+SQLStatistic(Controll_Statments.statistic().get(i)));
+			
+			  }
 			  
 			  
-			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.
-			  toString()))) { mstrContent +=
-			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-			  SQLStatistic(Controll_Statments.Q1.toString()); String myArray[] =
-			  tmp.split("\t"); //mstrContent +=
-			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
-			  else
-			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2
-			  .toString()))) { mstrContent +=
-			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-			  SQLStatistic(Controll_Statments.Q2.toString()); String myArray[] =
-			  tmp.split("\t"); mstrContent +=
-			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
-			  else
-			  if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3
-			  .toString()))) { mstrContent +=
-			  "(Alles) Kontoinhaber\tProduktname\tMarktname\n"; String tmp =
-			  SQLStatistic(Controll_Statments.Q3.toString()); String myArray[] =
-			  tmp.split("\t"); //mstrContent +=
-			  aes.entschluesselnAES(myArray[0])+"\t"+myArray[1]+"\t"+myArray[2]; }
+			 if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.toString()))) 
+			 {
+				 String toComp = SQLStatistic(Controll_Statments.Q1.toString());
+				 if(toComp != "")
+				 {
+					 dataReturn.add("Einkauf in Quartal 1: " + toComp);
+
+				 }
+			  }
+			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2.toString()))) { 
+				  String toComp = SQLStatistic(Controll_Statments.Q2.toString());
+					 if(toComp != "")
+					 {
+						 dataReturn.add("Einkauf in Quartal 2: " + toComp);
+						  }
+			  }
+			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3.toString()))) 
+			  { 
+				  String toComp = SQLStatistic(Controll_Statments.Q3.toString());
+					 if(toComp != "")
+					 {
+						 dataReturn.add("Einkauf in Quartal 3: " + toComp);
+						  }
+			  }
+			  
+			 //umwandeln von vector<Object> in Object[][]
+			  Object [][] returnObject = new Object[dataReturn.size()][1];
+			  
+			  for (int i=0;i<dataReturn.size();i++)
+			  {
+				  returnObject[i][0] = dataReturn.get(i);
+			  }
 			  
 			  
-			  return dataReturn.toArray();
+			  
+			  
+			  return returnObject;
 			  
 			  } 
 	
