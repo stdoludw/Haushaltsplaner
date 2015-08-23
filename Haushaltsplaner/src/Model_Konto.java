@@ -82,10 +82,15 @@ public class Model_Konto {
 		this.mstrMin = mintMin;
 	}
 
-	public String SQLerstellen() {
+	public String SQLerstellen(AES_verschluesselung aes) {
 		String statment;
-		statment = Controll_Statments.kontoUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrBLZ
-				+ "\"" + "," + "\"" + mstrKnr + "\"" + "," + mstrBetrag + "," + mstrMin + "," + mintID + ");";
+		statment = Controll_Statments.kontoUpdateInsert.toString() + "\"" + 
+		aes.verschluesselnAES(mstrName) + "\"" + "," +
+		"\"" + aes.verschluesselnAES(mstrBLZ)+ "\"" + 
+		"," + "\"" + aes.verschluesselnAES(mstrKnr) + "\"" + "," + 
+		aes.verschluesselnAES(mstrBetrag) + "," + 
+		aes.verschluesselnAES(mstrMin) + "," +
+		mintID + ");";
 		return statment;
 	}
 	public String SQLentfernen() {

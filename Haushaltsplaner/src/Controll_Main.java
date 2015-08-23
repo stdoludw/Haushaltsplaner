@@ -242,6 +242,8 @@ public class Controll_Main implements ActionListener {
 
 	private void SQLModifizieren(String sql) {
 		try {
+			//#TODO
+			System.out.println(sql);
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
 
@@ -284,7 +286,7 @@ public class Controll_Main implements ActionListener {
 				} else if (mvecModel.get(i) instanceof Model_Konto) {
 
 					mfioStream.write(((Model_Konto) mvecModel.get(i))
-							.SQLerstellen());
+							.SQLerstellen(aes));
 					mfioStream.newLine();
 
 				} else if (mvecModel.get(i) instanceof Model_Markt) {
@@ -429,31 +431,41 @@ public class Controll_Main implements ActionListener {
 		for (Object element : toUpdate) {
 			if(element instanceof Model_Produkt)
 			{
-				for(Object model : mvecModel)
+				for(int i=0;i<mvecModel.size();i++)
 				{
-					if(model instanceof Model_Produkt)
+					if(mvecModel.get(i) instanceof Model_Produkt)
 					{
-				((Model_Produkt)element).equal(((Model_Produkt)model));
+						if(((Model_Produkt)mvecModel.get(i)).getMintID() == ((Model_Produkt)element).getMintID())
+						{
+							((Model_Produkt)mvecModel.get(i)).equal(((Model_Produkt)element));
+						}
+			
 					}
 				}
 			}
 			else if(element instanceof Model_Markt)
 			{
-				for(Object model : mvecModel)
+				for(int i=0;i<mvecModel.size();i++)
 				{
-					if(model instanceof Model_Markt)
+					if(mvecModel.get(i) instanceof Model_Markt)
 					{
-				((Model_Markt)element).equal(((Model_Markt)model));
+						if(((Model_Markt)mvecModel.get(i)).getMintID() == ((Model_Markt)element).getMintID())
+						{
+							((Model_Markt)mvecModel.get(i)).equal(((Model_Markt)element));
+						}
 					}
 				}
 			}
 			else if(element instanceof Model_Konto)
 			{
-				for(Object model : mvecModel)
+				for(int i=0;i<mvecModel.size();i++)
 				{
-					if(model instanceof Model_Konto)
+					if(mvecModel.get(i) instanceof Model_Konto)
 					{
-				((Model_Konto)element).equal(((Model_Konto)model));
+						if(((Model_Konto)mvecModel.get(i)).getMintID() == ((Model_Konto)element).getMintID())
+						{
+							((Model_Konto)mvecModel.get(i)).equal(((Model_Konto)element));
+						}
 					}
 				}
 			}
@@ -476,7 +488,7 @@ public class Controll_Main implements ActionListener {
 				if(!((Model_Konto)element).isMboolequal())
 				{
 					SQLModifizieren(((Model_Konto)element).SQLentfernen());
-					SQLModifizieren(((Model_Konto)element).SQLerstellen());
+					SQLModifizieren(((Model_Konto)element).SQLerstellen(aes));
 				}
 			}
 			else if(element instanceof Model_Markt)
