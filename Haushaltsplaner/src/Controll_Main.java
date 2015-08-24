@@ -860,7 +860,7 @@ public class Controll_Main implements ActionListener {
 			  bezeichner.add("Produktname\tGewicht\tavg(preis): ");
 			  
 			  for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-				  dataReturn.add(bezeichner.get(i).toString()+SQLStatistic(Controll_Statments.statistic().get(i)));
+				  dataReturn.add(bezeichner.get(i).toString()+"\t"+SQLStatistic(Controll_Statments.statistic().get(i)));
 			
 			  }
 			  
