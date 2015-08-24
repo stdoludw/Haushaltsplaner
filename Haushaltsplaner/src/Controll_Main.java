@@ -429,11 +429,10 @@ public class Controll_Main implements ActionListener {
 		
 		//prüfen auf gleichheit
 		for (Object element : toUpdate) {
-			if(element instanceof Model_Produkt)
-			{
+			
 				for(int i=0;i<mvecModel.size();i++)
 				{
-					if(mvecModel.get(i) instanceof Model_Produkt)
+					if(mvecModel.get(i) instanceof Model_Produkt && element instanceof Model_Produkt)
 					{
 						if(((Model_Produkt)mvecModel.get(i)).getMintID() == ((Model_Produkt)element).getMintID())
 						{
@@ -441,37 +440,26 @@ public class Controll_Main implements ActionListener {
 						}
 			
 					}
-				}
-			}
-			else if(element instanceof Model_Markt)
-			{
-				for(int i=0;i<mvecModel.size();i++)
-				{
-					if(mvecModel.get(i) instanceof Model_Markt)
-					{
-						if(((Model_Markt)mvecModel.get(i)).getMintID() == ((Model_Markt)element).getMintID())
-						{
-							((Model_Markt)mvecModel.get(i)).equal(((Model_Markt)element));
-						}
-					}
-				}
-			}
-			else if(element instanceof Model_Konto)
-			{
-				for(int i=0;i<mvecModel.size();i++)
-				{
-					if(mvecModel.get(i) instanceof Model_Konto)
+					else if(mvecModel.get(i) instanceof Model_Konto && element instanceof Model_Konto)
 					{
 						if(((Model_Konto)mvecModel.get(i)).getMintID() == ((Model_Konto)element).getMintID())
 						{
 							((Model_Konto)mvecModel.get(i)).equal(((Model_Konto)element));
 						}
-					}
-				}
-			}
 			
+					}
+					else if(mvecModel.get(i) instanceof Model_Markt && element instanceof Model_Markt)
+					{
+						if(((Model_Markt)mvecModel.get(i)).getMintID() == ((Model_Markt)element).getMintID())
+						{
+							((Model_Markt)mvecModel.get(i)).equal(((Model_Markt)element));
+						}
+			
+					}
+					
+				}
 		}
-		
+	
 		//schreibe in db
 		for(Object element : mvecModel)
 		{
