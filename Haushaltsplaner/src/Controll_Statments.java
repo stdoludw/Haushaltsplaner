@@ -29,10 +29,10 @@ public class Controll_Statments {
 			
 		}
 	
-	public static String AddKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum) 
+	public static String AddKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, AES_verschluesselung aes) 
 	{
-			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values("+"\'" + name +"\'" + ","
-					+"\'" + bankleitzahl +"\'" + ","+"\'" + kontonummer +"\'" + ","+"\'" + betrag +"\'" + ","+"\'" + minimum +"\'" + ");";
+			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values("+"\'" + aes.verschluesselnAES(name) +"\'" + ","
+					+"\'" + aes.verschluesselnAES(bankleitzahl) +"\'" + ","+"\'" +aes.verschluesselnAES( kontonummer) +"\'" + ","+"\'" + aes.verschluesselnAES(betrag) +"\'" + ","+"\'" + aes.verschluesselnAES(minimum) +"\'" + ");";
 	}
 	
 	public static String  AddMarkt(String name, String postleitzahl, String adresse, int entfernung) {
@@ -59,28 +59,21 @@ public class Controll_Statments {
 
 	public static String UpdateProdukt(String name, int gewicht, float preis, int PK) {
 
-		return "update Produkt set name = " + "\'" +name+"\' where P_ID = "+ PK +
-		 "update Produkt set gewicht = " + "\'" +gewicht+"\' where P_ID = "+ PK +
-		 "update Produkt set preis = " + "\'" +preis+"\' where P_ID = "+ PK +";";
+		return "update Produkt set name = " + "\'" +name+"\' , gewicht = " + gewicht+ ", preis = " + "\'" +preis+"\' where P_ID = "+ PK +";";
 
 		
 	}
 
 public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK) 
 {
-	return "update Konto set name = " + "\'" +name+"\' where K_ID = "+ PK +
-	 "update Konto set bankleitzahl = " + "\'" +bankleitzahl+"\' where K_ID = "+ PK +
-	 "update Konto set kontonummer = " + "\'" +kontonummer+"\' where K_ID = "+ PK +
-	 "update Konto set betrag = " + "\'" +betrag+"\' where K_ID = "+ PK +
-	 "update Konto set minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
+	return "update Konto set name = " + "\'" +name+"\' ,bankleitzahl = " + "\'" +bankleitzahl+"\',"
+			+ " kontonummer = " + "\'" +kontonummer+"\' ,betrag = " + "\'" +betrag+"\' ,minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
 
 }
 
 public static String  UpdateMarkt(String name, String postleitzahl, String adresse, int entfernung, int PK) {
-	return "update Markt set name = " + "\'" +name+"\' where M_ID = "+ PK +
-	 "update Markt set postleitzahl = " + "\'" +postleitzahl+"\' where M_ID = "+ PK +
-	 "update Markt set adresse = " + "\'" +adresse+"\' where M_ID = "+ PK +
-	 "update Markt set entfernung = " + "\'" +entfernung+"\' where M_ID = "+ PK +";";
+	return "update Markt set name = " + "\'" +name+"\' , postleitzahl = " + "\'" +postleitzahl+"\' , adresse = " + "\'" +adresse+"\' "
+			+ ", entfernung = " + +entfernung+ "where M_ID = "+ PK +";";
 	}
 
 	

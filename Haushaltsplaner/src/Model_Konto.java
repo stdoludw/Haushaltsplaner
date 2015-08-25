@@ -84,7 +84,7 @@ public class Model_Konto {
 
 	public String SQLerstellen(AES_verschluesselung aes) {
 	
-		return Controll_Statments.AddKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin);
+		return Controll_Statments.AddKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin,aes);
 	}
 	public String SQLentfernen() {
 
