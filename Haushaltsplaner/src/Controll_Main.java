@@ -834,7 +834,7 @@ public class Controll_Main implements ActionListener {
 			  
 			 if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.toString()))) 
 			 {
-				 String toComp = SQLStatistic(Controll_Statments.Q1.toString());
+				 String toComp = SQLStatistic(Controll_Statments.SortQ1());
 				 if(toComp != "")
 				 {
 					 dataReturn.add("Einkauf in Quartal 1: " + toComp);
@@ -842,7 +842,7 @@ public class Controll_Main implements ActionListener {
 				 }
 			  }
 			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2.toString()))) { 
-				  String toComp = SQLStatistic(Controll_Statments.Q2.toString());
+				  String toComp = SQLStatistic(Controll_Statments.SortQ2());
 					 if(toComp != "")
 					 {
 						 dataReturn.add("Einkauf in Quartal 2: " + toComp);
@@ -850,7 +850,7 @@ public class Controll_Main implements ActionListener {
 			  }
 			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3.toString()))) 
 			  { 
-				  String toComp = SQLStatistic(Controll_Statments.Q3.toString());
+				  String toComp = SQLStatistic(Controll_Statments.SortQ3());
 					 if(toComp != "")
 					 {
 						 dataReturn.add("Einkauf in Quartal 3: " + toComp);
