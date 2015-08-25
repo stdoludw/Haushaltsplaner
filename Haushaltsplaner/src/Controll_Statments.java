@@ -21,7 +21,8 @@ public class Controll_Statments {
 	}
 
 	public static String AddAlles(int anzhal,String datum, int K_ID, int P_ID, int M_ID) {
-			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values("+anzhal+","+"\'"+datum+"\'"+","+K_ID+","+P_ID+","+M_ID+");";
+			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values("+anzhal+","+
+	"STR_TO_DATE(\'"+datum+"\', '%d-%m-%Y')"+","+K_ID+","+P_ID+","+M_ID+");";
 
 		}
 	public static String AddProdukt(String name, int gewicht, float preis) {

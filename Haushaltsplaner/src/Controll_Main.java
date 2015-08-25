@@ -175,7 +175,7 @@ public class Controll_Main implements ActionListener {
 			// speichern in Klasse
 			while (result.next()) {
 
-				if (sql == Controll_Statments.all.toString()) {
+				if (sql == Controll_Statments.ViewAll()){
 					Model_Konto k = new Model_Konto(result.getString("betrag"),
 							result.getString("Kontoinhaber"),
 							result.getString("bankleitzahl"),
@@ -199,7 +199,7 @@ public class Controll_Main implements ActionListener {
 					mvecModel.add(me);
 				}
 
-				else if (sql == Controll_Statments.konto.toString()) {
+				else if (sql == Controll_Statments.ViewKonto()) {
 					Model_Konto k = new Model_Konto(
 							aes.entschluesselnAES(result.getString("k.name")),
 							aes.entschluesselnAES(result
@@ -212,7 +212,7 @@ public class Controll_Main implements ActionListener {
 
 					mvecModel.add(k);
 
-				} else if (sql == Controll_Statments.markt.toString()) {
+				} else if (sql == Controll_Statments.ViewMarkt()) {
 					Model_Markt m = new Model_Markt(result.getString("m.name"),
 							result.getString("m.postleitzahl"),
 							result.getString("m.adresse"),
@@ -221,7 +221,7 @@ public class Controll_Main implements ActionListener {
 
 					mvecModel.add(m);
 
-				} else if (sql == Controll_Statments.produkt.toString()) {
+				} else if (sql == Controll_Statments.ViewProdukt()) {
 					Model_Produkt p = new Model_Produkt(
 							result.getString("p.name"),
 							result.getInt("p.gewicht"),
@@ -242,8 +242,7 @@ public class Controll_Main implements ActionListener {
 
 	private void SQLModifizieren(String sql) {
 		try {
-			//#TODO
-			System.out.println(sql);
+
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
 
@@ -259,8 +258,7 @@ public class Controll_Main implements ActionListener {
 
 		try {
 			// neue Datenbank erstellen
-			Vector<String> mvecMod = Controll_Statments.toExtendString(kuerzel);
-			mvecMod.add(Controll_Statments.commit.toString());
+			Vector<String> mvecMod = Controll_Statments.createDatenbank(kuerzel);
 
 			for (int i = 0; i < mvecMod.size(); i++) {
 				SQLModifizieren(mvecMod.get(i));
@@ -354,10 +352,11 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void auslesen() {
-		SQLAbfrage(Controll_Statments.all.toString());
-		SQLAbfrage(Controll_Statments.konto.toString());
-		SQLAbfrage(Controll_Statments.markt.toString());
-		SQLAbfrage(Controll_Statments.produkt.toString());
+		mvecModel.clear();
+		SQLAbfrage(Controll_Statments.ViewAll());
+		SQLAbfrage(Controll_Statments.ViewKonto());
+		SQLAbfrage(Controll_Statments.ViewMarkt());
+		SQLAbfrage(Controll_Statments.ViewProdukt());
 	}
 
 	private void GUIHinzufuegen() {
@@ -537,19 +536,12 @@ public class Controll_Main implements ActionListener {
 
 				// Einkauf hinzufuegen
 				try {
-					SQLModifizieren(Controll_Statments.allHinzufuegen
-							.toString()
-							+ mguiHinzufuegen.getMtxtAlles_Anzahl().getText()
-							+ ","
-							+ "STR_TO_DATE("
-							+ "\'"
-							+ mguiHinzufuegen.getMtxtAlles_Datum().getText()
-									.toString()
-							+ "\', '%d-%m-%Y') "
-							+ ","
-							+ m.getMintID() + "," + k.getMintID() + "," + p.getMintID() + ");");
-
-					SQLAbfrage(Controll_Statments.all.toString());
+					SQLModifizieren(Controll_Statments.AddAlles(
+							Integer.valueOf(mguiHinzufuegen.getMtxtAlles_Anzahl().getText()), mguiHinzufuegen.getMtxtAlles_Datum().getText(),
+							k.getMintID(), p.getMintID(),  m.getMintID()));
+						
+							
+						auslesen();
 				} finally {
 					mguiHinzufuegen.clear();
 				}
@@ -560,33 +552,16 @@ public class Controll_Main implements ActionListener {
 
 	private void AddKonto() {
 		try {
-			SQLModifizieren(Controll_Statments.kontoHinzufuegen.toString()
-					+ '\''
-					+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_name()
-							.getText())
-					+ '\''
-					+ ","
-					+ '\''
-					+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Blz()
-							.getText())
-					+ '\''
-					+ ","
-					+ '\''
-					+ aes.verschluesselnAES(mguiHinzufuegen
-							.getMtxtKonto_kontonummer().getText())
-					+ '\''
-					+ ","
-					+ '\''
-					+ aes.verschluesselnAES(mguiHinzufuegen
-							.getMtxtKonto_Betrag().getText())
-					+ '\''
-					+ ","
-					+ '\''
-					+ aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Min()
-							.getText()) + '\'' + ");");
+			SQLModifizieren(Controll_Statments.AddKonto(mguiHinzufuegen.getMtxtKonto_name()
+					.getText(), mguiHinzufuegen.getMtxtKonto_Blz()
+					.getText(), mguiHinzufuegen
+					.getMtxtKonto_kontonummer().getText(), mguiHinzufuegen
+					.getMtxtKonto_Betrag().getText(), mguiHinzufuegen.getMtxtKonto_Min()
+					.getText(), aes));
+				
 
 			// Model Akutell halten
-			SQLAbfrage(Controll_Statments.konto.toString());
+			auslesen();
 
 		} finally {
 			mguiHinzufuegen.clear();
@@ -596,15 +571,13 @@ public class Controll_Main implements ActionListener {
 
 	private void AddMarkt() {
 		try {
-			SQLModifizieren(Controll_Statments.marktHinzufuegen.toString()
-					+ '\'' + mguiHinzufuegen.getMtxtMarkt_Name().getText()
-					+ '\'' + "," + mguiHinzufuegen.getMtxtMarkt_Plz().getText()
-					+ "," + '\''
-					+ mguiHinzufuegen.getMtxtMarkt_Adresse().getText() + '\''
-					+ "," + mguiHinzufuegen.getMtxtMarkt_Entfernung() + ");");
+			SQLModifizieren(Controll_Statments.AddMarkt(mguiHinzufuegen.getMtxtMarkt_Name().getText(), 
+					mguiHinzufuegen.getMtxtMarkt_Plz().getText(), 
+					mguiHinzufuegen.getMtxtMarkt_Adresse().getText(), Integer.valueOf(mguiHinzufuegen.getMtxtMarkt_Entfernung().getText())));
+			
 
 			// Model Akutell halten
-			SQLAbfrage(Controll_Statments.markt.toString());
+			auslesen();
 		} finally {
 			mguiHinzufuegen.clear();
 		}
@@ -612,15 +585,12 @@ public class Controll_Main implements ActionListener {
 
 	private void AddProdukt() {
 		try {
-			SQLModifizieren(Controll_Statments.produktHinzufuegen.toString()
-					+ '\'' + mguiHinzufuegen.getMtxtProdukt_Name().getText()
-					+ '\'' + ","
-					+ mguiHinzufuegen.getMtxtProdukt_Gewicht().getText() + ","
-					+ mguiHinzufuegen.getMtxtProdukt_Preis().getText() + ");");
-
+			SQLModifizieren(Controll_Statments.AddProdukt(mguiHinzufuegen.getMtxtProdukt_Name().getText(),
+					Integer.valueOf(mguiHinzufuegen.getMtxtProdukt_Gewicht().getText()),
+					Float.valueOf(mguiHinzufuegen.getMtxtProdukt_Preis().getText())));
+			
 			// Model Akutell halten
-			SQLAbfrage(Controll_Statments.produkt.toString());
-
+			auslesen();
 		} finally {
 			mguiHinzufuegen.clear();
 		}
