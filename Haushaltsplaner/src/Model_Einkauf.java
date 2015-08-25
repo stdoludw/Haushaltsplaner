@@ -49,8 +49,7 @@ public class Model_Einkauf {
 
 	public String SQlerstellenAll() {
 		String statement;
-		statement = Controll_Statments.allHinzufuegen.toString() + mintAnzahl + "," + "now()" + "," + mkntKonto.getMintID() + ","
-				+ mprdProdukt.getMintID() + "," + mmkrMarkt.getMintID() + ");";
+		statement = Controll_Statments.AddAlles(this.mintAnzahl, this.mstrDatum, this.mkntKonto.getMintID(), this.mprdProdukt.getMintID(), this.mmkrMarkt.getMintID());
 		return statement;
 
 	}

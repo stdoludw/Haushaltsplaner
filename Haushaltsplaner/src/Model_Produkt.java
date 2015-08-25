@@ -61,19 +61,15 @@ public class Model_Produkt {
 	}
 
 	public String SQLerstellen() {
-		String statment;
-		statment = Controll_Statments.produktUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + mintGewicht + ","
-				+ mfltPreis + mintID + "," + mintID + ");";
+	
 
-		return statment;
+		return Controll_Statments.AddProdukt(this.mstrName, this.mintGewicht, this.mfltPreis);
 
 	}
 	
 	public String SQLentfernen() {
-		String statment;
-		statment = Controll_Statments.produktUpdateDelete.toString() + mintID + ";";
 
-		return statment;
+		return Controll_Statments.UpdateProdukt(this.mstrName, this.mintGewicht, this.mfltPreis,this.mintID);
 
 	}
 

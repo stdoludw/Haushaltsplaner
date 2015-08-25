@@ -468,7 +468,6 @@ public class Controll_Main implements ActionListener {
 				if(!((Model_Produkt)element).isMboolequal())
 				{
 					SQLModifizieren(((Model_Produkt)element).SQLentfernen());
-					SQLModifizieren(((Model_Produkt)element).SQLerstellen());
 				}
 			}
 			else if(element instanceof Model_Konto)
@@ -476,7 +475,6 @@ public class Controll_Main implements ActionListener {
 				if(!((Model_Konto)element).isMboolequal())
 				{
 					SQLModifizieren(((Model_Konto)element).SQLentfernen());
-					SQLModifizieren(((Model_Konto)element).SQLerstellen(aes));
 				}
 			}
 			else if(element instanceof Model_Markt)
@@ -484,7 +482,6 @@ public class Controll_Main implements ActionListener {
 				if(!((Model_Markt)element).isMboolequal())
 				{
 					SQLModifizieren(((Model_Markt)element).SQLentfernen());
-					SQLModifizieren(((Model_Markt)element).SQLerstellen());
 				}
 			}
 		}

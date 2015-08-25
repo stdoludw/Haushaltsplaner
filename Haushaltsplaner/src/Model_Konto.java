@@ -83,20 +83,12 @@ public class Model_Konto {
 	}
 
 	public String SQLerstellen(AES_verschluesselung aes) {
-		String statment;
-		statment = Controll_Statments.kontoUpdateInsert.toString() + "\"" + 
-		aes.verschluesselnAES(mstrName) + "\"" + "," +
-		"\"" + aes.verschluesselnAES(mstrBLZ)+ "\"" + 
-		"," + "\"" + aes.verschluesselnAES(mstrKnr) + "\"" + "," + 
-		aes.verschluesselnAES(mstrBetrag) + "," + 
-		aes.verschluesselnAES(mstrMin) + "," +
-		mintID + ");";
-		return statment;
+	
+		return Controll_Statments.AddKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin);
 	}
 	public String SQLentfernen() {
-		String statment;
-		statment = Controll_Statments.kontoUpdateInsert.toString() + mintID + ";";
-		return statment;
+
+		return Controll_Statments.UpdateKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin, this.mintID);
 	}
 	public Object[] print() {
 		Object [] tmp = {this.mstrName,this.mstrKnr,this.mstrBLZ,this.mstrBetrag,this.mstrMin,this.mintID};

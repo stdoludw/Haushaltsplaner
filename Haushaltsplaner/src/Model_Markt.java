@@ -71,18 +71,13 @@ public class Model_Markt {
 	}
 
 	public String SQLerstellen() {
-		String statment;
-		statment = Controll_Statments.marktUpdateInsert.toString() + "\"" + mstrName + "\"" + "," + "\"" + mstrPLZ
-				+ "\"" + "," + "\"" + mstrAdr + "\"" + "," + mintEntfernung + mintID + ");";
-
-		return statment;
+	
+		return Controll_Statments.AddMarkt(this.mstrName, this.mstrPLZ, this.mstrAdr, this.mintEntfernung);
 	}
 	
 	public String SQLentfernen() {
-		String statment;
-		statment = Controll_Statments.marktUpdateDelete.toString() + mintID + ";";
 
-		return statment;
+		return Controll_Statments.UpdateMarkt(this.mstrName, this.mstrPLZ, this.mstrAdr, this.mintEntfernung, this.mintID);
 	}
 	public Object[] print() {
 		Object[] tmp = {this.mstrName, this.mstrPLZ , this.mstrAdr ,this.mintEntfernung,this.mintID};

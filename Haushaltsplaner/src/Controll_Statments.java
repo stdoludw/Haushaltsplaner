@@ -1,135 +1,112 @@
 import java.util.Vector;
 
-public enum Controll_Statments {
-	all {
-		public String toString() {
+public class Controll_Statments {
+	public static String ViewAll()
+	{
 			return "select * from ViewAll;";
-		}
-	},
+	}
 
-	produkt {
-		public String toString() {
+
+	public static String ViewProdukt() {
 			return "select * from Produkt p;";
-		}
-	},
-	konto {
-		public String toString() {
+		
+	}
+	public static String ViewKonto() {
 			return "select * from Konto k;";
-		}
-	},
-	markt {
-		public String toString() {
+		
+	}
+	public static String ViewMarkt() {
 			return "select * from Markt m;";
-		}
-	},
+		
+	}
 
-	allHinzufuegen {
-		public String toString() {
-			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values(";
+	public static String AddAlles(int anzhal,String datum, int K_ID, int P_ID, int M_ID) {
+			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values("+anzhal+","+"\'"+datum+"\'"+","+K_ID+","+P_ID+","+M_ID+");";
 
 		}
-	},
-	produktHinzufuegen {
-		public String toString() {
-			return "insert into Produkt(name,gewicht,preis) Values(";
+	public static String AddProdukt(String name, int gewicht, float preis) {
+			return "insert into Produkt(name,gewicht,preis) Values("+"\'"+name+"\'"+","+gewicht+","+preis+");";
+			
 		}
-	},
-	kontoHinzufuegen {
-		public String toString() {
-			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values(";
+	
+	public static String AddKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum) 
+	{
+			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum) Values("+"\'" + name +"\'" + ","
+					+"\'" + bankleitzahl +"\'" + ","+"\'" + kontonummer +"\'" + ","+"\'" + betrag +"\'" + ","+"\'" + minimum +"\'" + ");";
+	}
+	
+	public static String  AddMarkt(String name, String postleitzahl, String adresse, int entfernung) {
+			return "insert into Markt(name,postleitzahl,adresse,entfernung) Values("+"\'" + name +"\'" + ","
+					+"\'" + postleitzahl +"\'" + ","+"\'" + adresse +"\'" + ","+entfernung + ");";
 		}
-	},
-	marktHinzufuegen {
-		public String toString() {
-			return "insert into Markt(name,postleitzahl,adresse,entfernung) Values(";
-		}
-	},
-
-	kontoUpdateDelete {
-		public String toString() {
-			return "delete from Konto where K_ID = ";
-		}
-	},
-	kontoUpdateInsert {
-		public String toString() {
-			return "insert into Konto(name,bankleitzahl,kontonummer,betrag,minimum,K_ID) Values(";
-		}
-	},
-
-	produktUpdateDelete {
-		public String toString() {
-			return "delete from Produkt where P_ID = ";
-		}
-	},
-	produktUpdateInsert {
-		public String toString() {
-			return "insert into Produkt(name,gewicht,preis,P_ID) Values(";
-		}
-	},
-	marktUpdateDelete {
-		public String toString() {
-			return "delete from Markt where M_ID = ";
-		}
-	},
-	marktUpdateInsert {
-		public String toString() {
-			return "insert into Markt(name,postleitzahl,adresse,entfernung,M_ID) Values(";
-		}
-	},
-
-	PreisSortierung {
-		public String toString() {
+	
+	/*wird eventuel spaeter mal verwendet
+	public static String  SortPreis() {
 			return "select * from SortPreis;";
 		}
-	},
 
-	AusgabenSortierung {
-		public String toString() {
+	public static String  SortAusgaben() {
 			return "select * from SortAusgaben;";
 		}
-	},
 
-	DatumSortierung {
-		public String toString() {
+	public static String SortDatum() {
 			return "select * from SortDatum;";
 		}
-	},
-	EntfernungsSortierung {
-		public String toString() {
+	public static String SortEntfernung() {
 			return "select * from SortEntfernung;";
-		}
-	},
-	commit {
-		public String toString() {
-			return "commit";
-		}
-	},
-	Q1
+		}*/
+
+
+	public static String UpdateProdukt(String name, int gewicht, float preis, int PK) {
+
+		return "update Produkt set name = " + "\'" +name+"\' where P_ID = "+ PK +
+		 "update Produkt set gewicht = " + "\'" +gewicht+"\' where P_ID = "+ PK +
+		 "update Produkt set preis = " + "\'" +preis+"\' where P_ID = "+ PK +";";
+
+		
+	}
+
+public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK) 
+{
+	return "update Konto set name = " + "\'" +name+"\' where K_ID = "+ PK +
+	 "update Konto set bankleitzahl = " + "\'" +bankleitzahl+"\' where K_ID = "+ PK +
+	 "update Konto set kontonummer = " + "\'" +kontonummer+"\' where K_ID = "+ PK +
+	 "update Konto set betrag = " + "\'" +betrag+"\' where K_ID = "+ PK +
+	 "update Konto set minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
+
+}
+
+public static String  UpdateMarkt(String name, String postleitzahl, String adresse, int entfernung, int PK) {
+	return "update Markt set name = " + "\'" +name+"\' where M_ID = "+ PK +
+	 "update Markt set postleitzahl = " + "\'" +postleitzahl+"\' where M_ID = "+ PK +
+	 "update Markt set adresse = " + "\'" +adresse+"\' where M_ID = "+ PK +
+	 "update Markt set entfernung = " + "\'" +entfernung+"\' where M_ID = "+ PK +";";
+	}
+
+	
+	public static String SortQ1()
 	{
-		public String toString() {
 		return "select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-01-__')"
 				+ "		or ve.datum like('____-02-__')or ve.datum like('____-03-__')or ve.datum like('____-04-__');";
-		}
 		
-	},Q2
+		
+	}
+	public static String SortQ2()
 	{
-		public String toString() {
 		return"select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-05-__')"
 				+ "		or ve.datum like('____-06-__')or ve.datum like('____-07-__')or ve.datum like('____-08-__');";
 		}
-		},
-	Q3
+		
+	public static String SortQ3()
 	{
-			public String toString() {
+
 		return "select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-09-__')"
 				+ "		or ve.datum like('____-10-__')or ve.datum like('____-11-__')or ve.datum like('____-12-__');";
 			
-			}
-	};
+	}
 
-	@SuppressWarnings("null")
-	public static Vector<String> toExtendString(String kuerzel) {
-		Vector<String> mstrAttNew = null;
+	public static Vector<String> createDatenbank(String kuerzel) {
+		Vector<String> mstrAttNew = new Vector<String>();
 		mstrAttNew.add("create database HausHaltsPlaner_" + kuerzel + ";");
 		mstrAttNew.add("use HausHaltsPlaner_" + kuerzel + ";");
 		mstrAttNew.add("create table Einkauf like master.Einkauf;");
@@ -162,9 +139,8 @@ public enum Controll_Statments {
 		return mstrAttNew;
 	}
 
-	@SuppressWarnings("null")
-	public static Vector<String> MasterErstellen() {
-		Vector<String> mstrAttNew = null;
+	public static Vector<String> createMaster() {
+		Vector<String> mstrAttNew = new Vector<String>();
 
 		mstrAttNew.add("create database master");
 		mstrAttNew.add("use master;");
