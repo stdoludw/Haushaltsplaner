@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 
 @SuppressWarnings("serial")
@@ -60,8 +61,9 @@ public class GUI_Main extends JFrame {
 	
 	
 	private GUI_Main() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 438);
+		setBounds(100, 100, 773, 438);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -90,11 +92,11 @@ public class GUI_Main extends JFrame {
 		mjpPane.setLayout(null);
 
 		JLabel lblAnzeigen = new JLabel("Anzeigen");
-		lblAnzeigen.setBounds(175, 12, 70, 15);
+		lblAnzeigen.setBounds(369, 12, 70, 15);
 		mjpPane.add(lblAnzeigen);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setBounds(104, 51, 188, 24);
+		comboBox.setBounds(125, 51, 493, 24);
 		comboBox.setActionCommand(cmbAuswahl.AuswahlMainAktion.toString());
 		comboBox.addItem(cmbAuswahl.Produkt.toString());
 		comboBox.addItem(cmbAuswahl.Konto.toString());
@@ -105,18 +107,21 @@ public class GUI_Main extends JFrame {
 		
 		mcmbMonat = new JComboBox<String>();
 		mcmbMonat.setEnabled(false);
-		mcmbMonat.setBounds(22, 51, 70, 24);
+		mcmbMonat.setBounds(22, 51, 91, 24);
 		mjpPane.add(mcmbMonat);
 		mcmbMonat.setActionCommand(cmbAuswahl.AuswahlMainAktion.toString());
 		
-		mtblTable = new JTable();
-		mtblTable.setBounds(22, 87, 402, 283);
-		mjpPane.add(mtblTable);
-		
 		btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(307, 51, 117, 25);
+		btnUpdate.setBounds(630, 51, 117, 25);
 		btnUpdate.setActionCommand(cmbAuswahl.UpdateMainAktion.toString());
 		mjpPane.add(btnUpdate);
+		
+		JScrollPane scrollPane = new JScrollPane(mtblTable);
+		scrollPane.setBounds(22, 95, 725, 275);
+		mjpPane.add(scrollPane);
+		
+		mtblTable = new JTable();
+		scrollPane.setViewportView(mtblTable);
 		mcmbMonat.addItem(cmbAuswahl.Q1.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q2.toString());
 		mcmbMonat.addItem(cmbAuswahl.Q3.toString());

@@ -55,30 +55,9 @@ public class Controll_Statments {
 		}
 	public static String SortEntfernung() {
 			return "select * from SortEntfernung;";
-		}*/
-
-
-	public static String UpdateProdukt(String name, int gewicht, float preis, int PK) {
-
-		return "update Produkt set name = " + "\'" +name+"\' , gewicht = " + gewicht+ ", preis = " + "\'" +preis+"\' where P_ID = "+ PK +";";
-
+		}
 		
-	}
-
-public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK) 
-{
-	return "update Konto set name = " + "\'" +name+"\' ,bankleitzahl = " + "\'" +bankleitzahl+"\',"
-			+ " kontonummer = " + "\'" +kontonummer+"\' ,betrag = " + "\'" +betrag+"\' ,minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
-
-}
-
-public static String  UpdateMarkt(String name, String postleitzahl, String adresse, int entfernung, int PK) {
-	return "update Markt set name = " + "\'" +name+"\' , postleitzahl = " + "\'" +postleitzahl+"\' , adresse = " + "\'" +adresse+"\' "
-			+ ", entfernung = " + +entfernung+ "where M_ID = "+ PK +";";
-	}
-
-	
-	public static String SortQ1()
+			public static String SortQ1()
 	{
 		return "select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-01-__')"
 				+ "		or ve.datum like('____-02-__')or ve.datum like('____-03-__')or ve.datum like('____-04-__');";
@@ -98,6 +77,30 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 				+ "		or ve.datum like('____-10-__')or ve.datum like('____-11-__')or ve.datum like('____-12-__');";
 			
 	}
+	*/
+
+
+	public static String UpdateProdukt(String name, int gewicht, float preis, int PK) {
+
+		return "update Produkt set name = " + "\'" +name+"\' , gewicht = " + gewicht+ ", preis = " + "\'" +preis+"\' where P_ID = "+ PK +";";
+
+		
+	}
+
+public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK) 
+{
+	return "update Konto set name = " + "\'" +name+"\' ,bankleitzahl = " + "\'" +bankleitzahl+"\',"
+			+ " kontonummer = " + "\'" +kontonummer+"\' ,betrag = " + "\'" +betrag+"\' ,minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
+
+}
+
+public static String  UpdateMarkt(String name, String postleitzahl, String adresse, int entfernung, int PK) {
+	return "update Markt set name = " + "\'" +name+"\' , postleitzahl = " + "\'" +postleitzahl+"\' , adresse = " + "\'" +adresse+"\' "
+			+ ", entfernung = " + +entfernung+ " where M_ID = "+ PK +";";
+	}
+
+	
+
 
 	public static Vector<String> createDatenbank(String kuerzel) {
 		Vector<String> mstrAttNew = new Vector<String>();

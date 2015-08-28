@@ -242,6 +242,7 @@ public class Controll_Main implements ActionListener {
 
 	private void SQLModifizieren(String sql) {
 		try {
+			System.out.println(sql);
 
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
@@ -829,32 +830,6 @@ public class Controll_Main implements ActionListener {
 			  for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
 				  dataReturn.add(bezeichner.get(i).toString()+"\t"+SQLStatistic(Controll_Statments.statistic().get(i)));
 			
-			  }
-			  
-			  
-			 if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q1.toString()))) 
-			 {
-				 String toComp = SQLStatistic(Controll_Statments.SortQ1());
-				 if(toComp != "")
-				 {
-					 dataReturn.add("Einkauf in Quartal 1: " + toComp);
-
-				 }
-			  }
-			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q2.toString()))) { 
-				  String toComp = SQLStatistic(Controll_Statments.SortQ2());
-					 if(toComp != "")
-					 {
-						 dataReturn.add("Einkauf in Quartal 2: " + toComp);
-						  }
-			  }
-			  else if((mguiMain.getMcmbMonat().getSelectedItem().equals(cmbAuswahl.Q3.toString()))) 
-			  { 
-				  String toComp = SQLStatistic(Controll_Statments.SortQ3());
-					 if(toComp != "")
-					 {
-						 dataReturn.add("Einkauf in Quartal 3: " + toComp);
-						  }
 			  }
 			  
 			 //umwandeln von vector<Object> in Object[][]
