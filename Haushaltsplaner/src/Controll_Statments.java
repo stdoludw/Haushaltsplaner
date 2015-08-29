@@ -87,10 +87,10 @@ public class Controll_Statments {
 		
 	}
 
-public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK) 
+public static String UpdateKonto(String name, String bankleitzahl, String kontonummer, String betrag, String minimum, int PK, AES_verschluesselung aes) 
 {
-	return "update Konto set name = " + "\'" +name+"\' ,bankleitzahl = " + "\'" +bankleitzahl+"\',"
-			+ " kontonummer = " + "\'" +kontonummer+"\' ,betrag = " + "\'" +betrag+"\' ,minimum = " + "\'" +minimum+"\' where K_ID = "+ PK +";";
+	return "update Konto set name = " + "\'" +aes.verschluesselnAES(name)+"\' ,bankleitzahl = " + "\'" +aes.verschluesselnAES(bankleitzahl)+"\',"
+			+ " kontonummer = " + "\'" +aes.verschluesselnAES(kontonummer)+"\' ,betrag = " + "\'" +aes.verschluesselnAES(betrag)+"\' ,minimum = " + "\'" +aes.verschluesselnAES(minimum)+"\' where K_ID = "+ PK +";";
 
 }
 

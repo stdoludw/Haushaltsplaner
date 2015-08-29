@@ -55,7 +55,6 @@ public class Controll_Main implements ActionListener {
 		this.mguiMain.getMmenExportiern().addActionListener(this);
 		this.mguiMain.getMmenLaden().addActionListener(this);
 		this.mguiMain.getComboBox().addActionListener(this);
-		this.mguiMain.getMcmbMonat().addActionListener(this);
 		this.mguiMain.getBtnUpdate().addActionListener(this);
 
 		this.mguiHinzufuegen.getMbtmAlles().addActionListener(this);
@@ -176,11 +175,14 @@ public class Controll_Main implements ActionListener {
 			while (result.next()) {
 
 				if (sql == Controll_Statments.ViewAll()){
-					Model_Konto k = new Model_Konto(result.getString("betrag"),
-							result.getString("Kontoinhaber"),
-							result.getString("bankleitzahl"),
-							result.getString("kontonummer"),
-							result.getString("minimum"), result.getInt("K_ID"));
+					Model_Konto k = new Model_Konto(aes.entschluesselnAES(result.getString("Kontoinhaber")),
+							aes.entschluesselnAES(result
+									.getString("bankleitzahl")),
+							aes.entschluesselnAES(result
+									.getString("kontonummer")),
+							aes.entschluesselnAES(result.getString("betrag")),
+							aes.entschluesselnAES(result.getString("minimum")),
+							result.getInt("K_ID"));
 					Model_Produkt p = new Model_Produkt(
 							result.getString("Produktname"),
 							result.getInt("gewicht"), result.getFloat("preis"),
@@ -242,7 +244,6 @@ public class Controll_Main implements ActionListener {
 
 	private void SQLModifizieren(String sql) {
 		try {
-			System.out.println(sql);
 
 			// abfrage statement erstellen
 			Statement query = mconCon.createStatement();
@@ -467,14 +468,14 @@ public class Controll_Main implements ActionListener {
 			{
 				if(!((Model_Produkt)element).isMboolequal())
 				{
-					SQLModifizieren(((Model_Produkt)element).SQLentfernen());
+					SQLModifizieren(((Model_Produkt)element).SQLUpdate());
 				}
 			}
 			else if(element instanceof Model_Konto)
 			{
 				if(!((Model_Konto)element).isMboolequal())
 				{
-					SQLModifizieren(((Model_Konto)element).SQLentfernen());
+					SQLModifizieren(((Model_Konto)element).SQLUpdate(aes));
 				}
 			}
 			else if(element instanceof Model_Markt)
@@ -516,25 +517,52 @@ public class Controll_Main implements ActionListener {
 		Model_Markt m = null;
 		Model_Produkt p= null;
 		
-		//objekte überschreiben
+		
+		/*objekte überschreiben
 		for (int i = 0; i < mvecModel.size(); i++) {
 			if (mvecModel.get(i) instanceof Model_Produkt) {
-				if (((Model_Produkt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
-						.getMcmbProdukt().getSelectedItem()) {
+				
+				System.out.println(((Model_Produkt) mvecModel.get(i)).getMstrName());
+				
+				if(((Model_Produkt) mvecModel.get(i)).getMstrName().equals(mguiHinzufuegen
+						.getMcmbProdukt().getSelectedItem()))
+				{
+					System.out.println(true);
+				}
+			}
+		}
+		System.out.println(mguiHinzufuegen
+						.getMcmbProdukt().getSelectedItem());*/
+		
+		
+		//objekte überschreiben
+		for (int i = 0; i < mvecModel.size(); i++) {
+			if (mvecModel.get(i) instanceof Model_Produkt) 
+			{
+				if (((Model_Produkt) mvecModel.get(i)).getMstrName().equals(mguiHinzufuegen
+						.getMcmbProdukt().getSelectedItem())) 
+				{
 					p = ((Model_Produkt) mvecModel.get(i));
 				}
-			} else if (mvecModel.get(i) instanceof Model_Konto) {
-
+			} else if (mvecModel.get(i) instanceof Model_Konto)
+			{
 				if (((Model_Konto) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
-						.getMcmbKonto().getSelectedItem()) {
+						.getMcmbKonto().getSelectedItem()) 
+				{
 					k = ((Model_Konto) mvecModel.get(i));
 				}
-			} else if (mvecModel.get(i) instanceof Model_Markt) {
+			} else if (mvecModel.get(i) instanceof Model_Markt) 
+			{
 				if (((Model_Markt) mvecModel.get(i)).getMstrName() == mguiHinzufuegen
-						.getMcmbMarkt().getSelectedItem()) {
+						.getMcmbMarkt().getSelectedItem()) 
+				{
 					m = ((Model_Markt) mvecModel.get(i));
 				}
+			}
+		}
 
+			
+				
 				// Einkauf hinzufuegen
 				try {
 					SQLModifizieren(Controll_Statments.AddAlles(
@@ -547,9 +575,7 @@ public class Controll_Main implements ActionListener {
 					mguiHinzufuegen.clear();
 				}
 
-			}
 		}
-	}
 
 	private void AddKonto() {
 		try {
@@ -598,7 +624,6 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void print() {
-		mguiMain.getMcmbMonat().setEnabled(false);
 
 		if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Produkt
 				.toString()) {
@@ -705,16 +730,16 @@ public class Controll_Main implements ActionListener {
 			Object[][] databaseInfo = null;
 			Object[] columns = { "Datum", "Anzahl", "Kontoinhaber",
 					"Kontonummer", "Bankleitzahl",
-					"Betrag", "Minimum","K_PK", 
+					"Betrag", "Minimum", 
 					"Marktname", "Adresse", "Entfernung",
-					"Postleitzahl","M_PK","Produktname", "Preis", "Gewicht","P_PK"};
+					"Postleitzahl","Produktname", "Preis", "Gewicht",};
 					
 			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
 					columns) {
 				/**
 						 * 
 						 */
-						private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
 				public Class<?> getColumnClass(int column) {
 					Class<?> returnValue;
@@ -739,7 +764,6 @@ public class Controll_Main implements ActionListener {
 		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik
 				.toString()) {
 			
-			mguiMain.getMcmbMonat().setEnabled(true);
 			Object[][] databaseInfo = null;
 			Object[] columns = {"info"};
 					

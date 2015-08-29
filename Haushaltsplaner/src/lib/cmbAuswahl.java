@@ -2,22 +2,7 @@ package lib;
 
 public enum cmbAuswahl {
 	
-	Q1 {
-		public String toString() {
-			return "Quartal eins";
-		}
-	},
-	Q2 {
-		public String toString() {
-			return "Quartal zwei";
-		}
-	},
-	Q3 {
-		public String toString() {
-			return "Quartal drei";
-		}
-	},
-	
+
 	Produkt {
 		public String toString() {
 			return "Produkt anzeigen";

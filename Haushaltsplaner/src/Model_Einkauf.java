@@ -69,7 +69,6 @@ public class Model_Einkauf {
 				}
 		mboolequal = false;
 		
-		//#TODO Fehler wegen tiefenkopie?
 		this.mintAnzahl = tmp.mintAnzahl;
 		this.mstrDatum = tmp.mstrDatum;
 		this.mprdProdukt = tmp.mprdProdukt;
@@ -82,8 +81,11 @@ public class Model_Einkauf {
 	
 		Object [] tmp=
 			{
-				this.mstrDatum,this.mintAnzahl,this.mkntKonto.print(), this.mmkrMarkt.print(), this.mprdProdukt.print()
-			};
+				
+				this.mstrDatum,this.mintAnzahl,
+				this.mkntKonto.getMstrName(),this.mkntKonto.getMstrKnr(),this.mkntKonto.getMstrBLZ(),this.mkntKonto.getMstrBetrag(),this.mkntKonto.getMintMin(),
+				this.mmkrMarkt.getMstrName(),this.mmkrMarkt.getMstrPLZ(),this.mmkrMarkt.getMstrAdr(),this.mmkrMarkt.getMintEntfernung(),
+				this.mprdProdukt.getMstrName(),this.mprdProdukt.getMintGewicht(),this.mprdProdukt.getMintGewicht()};
 				return tmp;
 		}
 

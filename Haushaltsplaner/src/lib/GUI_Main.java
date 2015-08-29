@@ -24,7 +24,6 @@ public class GUI_Main extends JFrame {
 	private JMenuItem mmenLaden;
 	private JMenu mnExtras;
 	private JMenuItem mntmHinzufgen;
-	private JComboBox<String> mcmbMonat;
 	private JTable mtblTable;
 	private JButton btnUpdate;
 
@@ -96,7 +95,7 @@ public class GUI_Main extends JFrame {
 		mjpPane.add(lblAnzeigen);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setBounds(125, 51, 493, 24);
+		comboBox.setBounds(22, 51, 596, 24);
 		comboBox.setActionCommand(cmbAuswahl.AuswahlMainAktion.toString());
 		comboBox.addItem(cmbAuswahl.Produkt.toString());
 		comboBox.addItem(cmbAuswahl.Konto.toString());
@@ -104,12 +103,6 @@ public class GUI_Main extends JFrame {
 		comboBox.addItem(cmbAuswahl.Einkauf.toString());
 		comboBox.addItem(cmbAuswahl.Statistik.toString());
 		mjpPane.add(comboBox);
-		
-		mcmbMonat = new JComboBox<String>();
-		mcmbMonat.setEnabled(false);
-		mcmbMonat.setBounds(22, 51, 91, 24);
-		mjpPane.add(mcmbMonat);
-		mcmbMonat.setActionCommand(cmbAuswahl.AuswahlMainAktion.toString());
 		
 		btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(630, 51, 117, 25);
@@ -122,9 +115,6 @@ public class GUI_Main extends JFrame {
 		
 		mtblTable = new JTable();
 		scrollPane.setViewportView(mtblTable);
-		mcmbMonat.addItem(cmbAuswahl.Q1.toString());
-		mcmbMonat.addItem(cmbAuswahl.Q2.toString());
-		mcmbMonat.addItem(cmbAuswahl.Q3.toString());
 
 	
 	}
@@ -146,9 +136,6 @@ public class GUI_Main extends JFrame {
 		return mtblTable;
 	}
 	
-	public JComboBox<String> getMcmbMonat() {
-		return mcmbMonat;
-	}
 	
 	public JComboBox<String> getComboBox() {
 		return comboBox;

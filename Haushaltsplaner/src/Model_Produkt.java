@@ -67,7 +67,7 @@ public class Model_Produkt {
 
 	}
 	
-	public String SQLentfernen() {
+	public String SQLUpdate() {
 
 		return Controll_Statments.UpdateProdukt(this.mstrName, this.mintGewicht, this.mfltPreis,this.mintID);
 

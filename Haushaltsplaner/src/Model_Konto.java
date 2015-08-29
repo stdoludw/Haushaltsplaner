@@ -86,9 +86,9 @@ public class Model_Konto {
 	
 		return Controll_Statments.AddKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin,aes);
 	}
-	public String SQLentfernen() {
+	public String SQLUpdate(AES_verschluesselung aes) {
 
-		return Controll_Statments.UpdateKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin, this.mintID);
+		return Controll_Statments.UpdateKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin, this.mintID,aes);
 	}
 	public Object[] print() {
 		Object [] tmp = {this.mstrName,this.mstrKnr,this.mstrBLZ,this.mstrBetrag,this.mstrMin,this.mintID};
