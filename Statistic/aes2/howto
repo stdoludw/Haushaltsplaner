@@ -1,0 +1,3 @@
+ 
+java -jar aes.jar bro test Decode
+java -jar aes.jar bro LxpH0dq6kdAazl7Se2lkuA== Encode
