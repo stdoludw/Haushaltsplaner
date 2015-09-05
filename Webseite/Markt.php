@@ -1,5 +1,13 @@
 <?php
 
+
+echo "<h2>Markt</h2>";
+//anzeigen entfernen ändern
+
+//SQL abfrage
+//vector mit märten
+
+
 class Markt
 {
 	private  $mstrName;
