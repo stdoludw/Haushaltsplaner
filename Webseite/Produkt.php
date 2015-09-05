@@ -15,8 +15,17 @@ class Produkt
 		$this->mintID = $pintID;
 	}
 	
-	function aausgabe()
+	function ausgabe()
 	{
+		return array($this->mstrName,$this->mintGewicht,$this->mfltPreis,$this->mintID);
+	}
+	function eintragen()
+	{
+		return "insert into Produkt(name,gewicht,preis) Values('$this->mstrName',$this->mintGewicht,$this->mfltPreis);";
+	}
+	function update()
+	{
+		return "update Produkt set name = '$this->mstrName' , gewicht = $this->mintGewicht, preis = $this->mfltPreis where P_ID = $this->mintID;";
 		
 	}
 	
