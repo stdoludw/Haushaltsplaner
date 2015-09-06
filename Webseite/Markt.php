@@ -1,6 +1,5 @@
 <?php
 
-
 class Markt {
 	private $mstrName;
 	private $mstrPLZ;
@@ -22,10 +21,20 @@ class Markt {
 		echo "<td> $this->mstrName</td>";
 		echo "<td> $this->mstrPLZ</td>";
 		echo "<td> $this->mstrAdr</td>";
-		echo "<td> $this->mintEntfernung</td>";
-		echo "<td><input type=radio name=radQ3 value=7 id=q7 title=aendern /></td>";
+		echo "<td> $this->mintEntfernung</td>";		
+		echo '<form id="Markt" method=post>';
+		echo '<td> <input type="radio" name="1" id="1" /></td>';
+		echo '</form>';
 		echo "</tr>";
+		
+		
+		
 	}
+	
+
+	
+	
+	
 	
 	function eintragen() {
 		return "insert into Markt (name,postleitzahl,adresse,entfernung) Values('$this->mstrName', '$this->mstrPLZ', '$this->mstrAdr', $this->mintEntfernung);";
