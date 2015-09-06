@@ -37,6 +37,25 @@ while ( $datensatz = mysqli_fetch_object ( $anfrage ) ) {
 ?>
  
  
- </table></center>
+ </table>
+ 
+ 
+ <table border=0>
+			<tr>
+				<td height=10></td>
+			</tr>
+			<tr>
+				<td bgcolor=#00FF00>
+					<form action=login.php method=post>
+						<input type=text name=i_produktname size=20> Name <br> <input
+							type=text name=i_produktgewicht size=20> Gewicht <br> <input
+							type=text name=i_produktpreis size=20> Preis <br> <input
+							type=submit name=wahl value=Eintragen <br> <input
+							type=submit name=wahl value=Update
+							
+		</form>
+		</table>
+ 
+ </center>
 </body>
 </html>

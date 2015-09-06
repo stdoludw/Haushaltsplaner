@@ -17,12 +17,13 @@ class Markt {
 	}
 	
 	function ausgabe() {
-	echo "<tr>";
+		echo "<tr>";
 		echo "<td> $this->mintID</td>";
 		echo "<td> $this->mstrName</td>";
 		echo "<td> $this->mstrPLZ</td>";
 		echo "<td> $this->mstrAdr</td>";
 		echo "<td> $this->mintEntfernung</td>";
+		echo "<td><input type=radio name=radQ3 value=7 id=q7 title=aendern /></td>";
 		echo "</tr>";
 	}
 	

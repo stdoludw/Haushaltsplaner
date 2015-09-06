@@ -81,6 +81,7 @@ class Einkauf {
 		echo "<td> $this->mstrKnr</td>";
 		echo "<td> $this->mstrBetrag</td>";
 		echo "<td> $this->mstrMin</td>";
+		echo "<td><input type=radio name=radQ3 value=7 id=q7 title=aendern /></td>";
 		echo "</tr>" ;
 		
 		

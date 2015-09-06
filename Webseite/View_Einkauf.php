@@ -60,7 +60,28 @@ while ( $datensatz = mysqli_fetch_object ( $anfrage ) ) {
 ?>
 
 
-</table></center>
+</table>
+
+	<table border=0>
+			<tr>
+				<td height=10></td>
+			</tr>
+			<tr>
+				<td bgcolor=#00FF00>
+					<form action=login.php method=post>
+						<input type=text name=i_einkaufanzahl size=20> Anzahl <br> <input
+							type=text name=i_einkaufdatum size=20> Datum <br> <input
+							type=text name=i_einkaufm_id size=20> M_ID <br> <input
+							type=text name=i_einkaufp_id size=20> P_ID <br> <input
+							type=text name=i_einkaufk_id size=20> K_ID <br> <input
+							type=submit name=wahl value=Eintragen <br> <input type=submit
+							name=wahl value=Update
+					
+					</form>
+		
+		</table>
+
+</center>
 
 
 </body>
