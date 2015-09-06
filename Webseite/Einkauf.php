@@ -59,10 +59,30 @@ class Einkauf {
 
 	function ausgabe() {
 
-		 return array($this->mintAnzahl,  $this->mstrDatum, $this->mintE_ID,		
-		   $this->mintM_ID, $this->mstrM_Name,  $this->mstrPLZ, $this->mstrAdr,	  $this->mintEntfernung,		
-		   $this->mintP_ID, $this->mstrP_Name,  $this->mintGewicht, $this->mfltPreis,		
-		   $this->mintK_ID, $this->mstrK_Name, $this->mstrBLZ, $this->mstrKnr, $this->mstrBetrag, $this->mstrMin);	
+		echo "<tr>" ;
+		echo "<td> $this->mintAnzahl </td>";
+		echo "<td> $this->mstrDatum </td>";
+		echo "<td> $this->mintE_ID </td>";
+		
+		echo "<td> $this->mintM_ID </td>";
+		echo "<td> $this->mstrM_Name </td>";
+		echo "<td> $this->mstrPLZ </td>";
+		echo "<td> $this->mstrAdr </td>";
+		echo "<td> $this->mintEntfernung</td>";
+		
+		echo "<td> $this->mintP_ID</td>";
+		echo "<td> $this->mstrP_Name</td>";
+		echo "<td> $this->mintGewicht</td>";
+		echo "<td> $this->mfltPreis</td>";
+		
+		echo "<td> $this->mintK_ID</td>";
+		echo "<td> $this->mstrK_Name</td>";
+		echo "<td> $this->mstrBLZ</td>";
+		echo "<td> $this->mstrKnr</td>";
+		echo "<td> $this->mstrBetrag</td>";
+		echo "<td> $this->mstrMin</td>";
+		echo "</tr>" ;
+		
 		
 		
 	}

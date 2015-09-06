@@ -17,8 +17,13 @@ class Markt {
 	}
 	
 	function ausgabe() {
-			 return array($this->mstrName, $this->mstrPLZ, $this->mstrAdr, $this->mintEntfernung, $this->mintID);
-		
+	echo "<tr>";
+		echo "<td> $this->mintID</td>";
+		echo "<td> $this->mstrName</td>";
+		echo "<td> $this->mstrPLZ</td>";
+		echo "<td> $this->mstrAdr</td>";
+		echo "<td> $this->mintEntfernung</td>";
+		echo "</tr>";
 	}
 	
 	function eintragen() {

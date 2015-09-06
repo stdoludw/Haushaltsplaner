@@ -28,14 +28,13 @@ class Konto {
 
 	
 	function ausgabe() {
-		return array (
-								$this->mintAnzahl,
-								$this->mstrDatum,
-								$this->mkntKonto,
-								$this->mmkrMarkt,
-								$this->mprdProdukt,
-								$this->mintID
-					);
+		
+		echo "<td> $this->mintK_ID</td>";
+		echo "<td> $this->mstrK_Name</td>";
+		echo "<td> $this->mstrBLZ</td>";
+		echo "<td> $this->mstrKnr</td>";
+		echo "<td> $this->mstrBetrag</td>";
+		echo "<td> $this->mstrMin</td>";
 		
 	}
 	

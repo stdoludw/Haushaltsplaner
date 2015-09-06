@@ -1,8 +1,5 @@
 <?php
-class login {
-	function login() 
 
-	{
 		// Benutzername
 		$user = $_POST ['i_username'];
 		
@@ -22,7 +19,8 @@ class login {
 		$verbindung = mysqli_connect ( $hostname, $user, $password, $database ) or die ( "Keine Vebindung möglich" );
 		
 		mysqli_select_db ( $verbindung, $database ) or die ( "Datenbank existiert nicht" );
-		return verbindung;
-	}
-}
+		
+		header("Location: View_Main.php");
+	
+
 ?>
