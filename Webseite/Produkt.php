@@ -1,12 +1,5 @@
 <?php
-echo "<h2>Produkt</h2>";
 
-echo "<tr>" ;
-echo "<th> ID</th>";
-echo "<th> Name</th>";
-echo "<th> Gewicht</th>";
-echo "<th> Preis</th>";
-echo "</tr>";
 
 class Produkt
 {
@@ -27,12 +20,8 @@ class Produkt
 	function ausgabe()
 	{
 	
-		echo "<tr>" ;
-		echo "<td> .$this->mintID,. ID</td>";
-		echo "<td> .$this->mstrName. Name</td>";
-		echo "<td> .$this->mintGewicht. Gewicht </td>";
-		echo "<td> .$this->mfltPreis. Preis</td>";
-		echo "</tr>";
+		return array($this->mstrName,$this->mintGewicht,$this->mfltPreis,$this->mintID);
+		
 	}
 	
 	function eintragen()

@@ -1,32 +1,5 @@
 <?php
 
-echo "<h2>Einkauf</h2>";
-
-echo "<tr>";
-echo "<th> Anzahl</th>";
-echo "<th> Datum</th>";
-echo "<th> E_ID </th>";
-
-echo "<th> M_ID</th>";
-echo "<th> Marktname</th>";
-echo "<th> Postleizahl </th>";
-echo "<th> Adresse</th>";
-echo "<th> Entfernung</th>";
-
-echo "<th> P_ID</th>";
-echo "<th> Produktname</th>";
-echo "<th> Gewicht</th>";
-echo "<th> Preis</th>";
-
-echo "<th> K_ID</th>";
-echo "<th> Kontoname</th>";
-echo "<th> Bankleitzahl </th>";
-echo "<th> Kontonummer</th>";
-echo "<th> Betrag</th>";
-echo "<th> Minimum</th>";
-
-echo "</tr>";
-
 
 class Einkauf {
 	private $mintAnzahl;
@@ -86,38 +59,19 @@ class Einkauf {
 
 	function ausgabe() {
 
-		echo "<tr>";
-		echo "<td> .$this->mintAnzahl. ID</td>";
-		echo "<td> .$this->mstrDatum. ID</td>";
-		echo "<td> .$this->mintE_ID. ID</td>";
-		
-		echo "<td> .$this->mintM_ID. ID</td>";
-		echo "<td> .$this->mstrM_Name. Name</td>";
-		echo "<td> .$this->mstrPLZ. Postleizahl</td>";
-		echo "<td> .$this->mstrAdr. Adresse</td>";
-		echo "<td> .$this->mintEntfernung. Entfernung</td>";
-		
-		echo "<td> .$this->mintP_ID,. ID</td>";
-		echo "<td> .$this->mstrP_Name. Name</td>";
-		echo "<td> .$this->mintGewicht. Gewicht </td>";
-		echo "<td> .$this->mfltPreis. Preis</td>";
-		
-		echo "<td> .$this->mintK_ID. ID</th>";
-		echo "<td> .$this->mstrK_Name. Name</th>";
-		echo "<td> .$this->mstrBLZ. Bankleitzahl </th>";
-		echo "<td> .$this->mstrKnr. Kontonummer</th>";
-		echo "<td> .$this->mstrBetrag. Betrag</th>";
-		echo "<td> .$this->mstrMin. Minimum</th>";
-		echo "</tr>";
+		 return array($this->mintAnzahl,  $this->mstrDatum, $this->mintE_ID,		
+		   $this->mintM_ID, $this->mstrM_Name,  $this->mstrPLZ, $this->mstrAdr,	  $this->mintEntfernung,		
+		   $this->mintP_ID, $this->mstrP_Name,  $this->mintGewicht, $this->mfltPreis,		
+		   $this->mintK_ID, $this->mstrK_Name, $this->mstrBLZ, $this->mstrKnr, $this->mstrBetrag, $this->mstrMin);	
 		
 		
 	}
 	
 	function eintragen() {
-		return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values($this->mintAnzahl, $this->mstrDatum, $this->mkntKonto, $this->mprdProdukt, $this->mmkrMarkt;)";
+		return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values($this->mintAnzahl, $this->mstrDatum, $this->mintK_ID, $this->mintP_ID, $this->mintM_ID;)";
 	}
 	function update() {
-		return "update Einkauf set anzahl = $this->mintAnzahl,set datum = $this->mstrDatum, set k_ID = $this->mkntKonto, set p_ID = $this->mprdProdukt, set m_ID = $this->mmkrMarkt where E_ID = $this->mintID);";
+		return "update Einkauf set anzahl = $this->mintAnzahl,set datum = $this->mstrDatum, set k_ID = $this->mintK_ID, set p_ID = $this->mintP_ID, set m_ID = $this->mintM_ID where E_ID = $this->mintE_ID);";
 	}
 }
 ?>

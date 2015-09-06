@@ -1,6 +1,7 @@
 <?php
 
 
+
 class Konto {
 	private $mstrBetrag;
 	private $mstrName;
@@ -27,15 +28,14 @@ class Konto {
 
 	
 	function ausgabe() {
-		
 		return array (
--				$this->mintAnzahl,
--				$this->mstrDatum,
--				$this->mkntKonto,
--				$this->mmkrMarkt,
--				$this->mprdProdukt,
--				$this->mintID 
--		);
+								$this->mintAnzahl,
+								$this->mstrDatum,
+								$this->mkntKonto,
+								$this->mmkrMarkt,
+								$this->mprdProdukt,
+								$this->mintID
+					);
 		
 	}
 	

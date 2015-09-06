@@ -1,13 +1,5 @@
 <?php
-echo "<h2>Markt</h2>";
 
-echo "<tr>";
-echo "<th> ID</th>";
-echo "<th> Name</th>";
-echo "<th> Postleizahl </th>";
-echo "<th> Adresse</th>";
-echo "<th> Entfernung</th>";
-echo "</tr>";
 
 class Markt {
 	private $mstrName;
@@ -25,13 +17,8 @@ class Markt {
 	}
 	
 	function ausgabe() {
-		echo "<tr>";
-		echo "<td> .$this->mintID. ID</td>";
-		echo "<td> .$this->mstrName. Name</td>";
-		echo "<td> .$this->mstrPLZ. Postleizahl</td>";
-		echo "<td> .$this->mstrAdr. Adresse</td>";
-		echo "<td> .$this->mintEntfernung. Entfernung</td>";
-		echo "</tr>";
+			 return array($this->mstrName, $this->mstrPLZ, $this->mstrAdr, $this->mintEntfernung, $this->mintID);
+		
 	}
 	
 	function eintragen() {
