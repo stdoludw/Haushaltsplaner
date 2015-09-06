@@ -1,15 +1,5 @@
 <?php
 
-echo "<h2>Konto</h2>";
-
-echo "<tr>";
-echo "<th> ID</th>";
-echo "<th> Name</th>";
-echo "<th> Bankleitzahl </th>";
-echo "<th> Kontonummer</th>";
-echo "<th> Betrag</th>";
-echo "<th> Minimum</th>";
-echo "</tr>";
 
 class Konto {
 	private $mstrBetrag;
@@ -38,14 +28,14 @@ class Konto {
 	
 	function ausgabe() {
 		
-		echo "<tr>";
-		echo "<td> .$this->mintID. ID</th>";
-		echo "<td> .$this->mstrName. Name</th>";
-		echo "<td> .$this->mstrBLZ. Bankleitzahl </th>";
-		echo "<td> .$this->mstrKnr. Kontonummer</th>";
-		echo "<td> .$this->mstrBetrag. Betrag</th>";
-		echo "<td> .$this->mstrMin. Minimum</th>";
-		echo "</tr>";
+		return array (
+-				$this->mintAnzahl,
+-				$this->mstrDatum,
+-				$this->mkntKonto,
+-				$this->mmkrMarkt,
+-				$this->mprdProdukt,
+-				$this->mintID 
+-		);
 		
 	}
 	
