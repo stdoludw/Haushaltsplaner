@@ -27,10 +27,7 @@ class Model_Markt {
 		$this->mintID = $pintID;
 	}
 	
-        function get_PK()
-        {
-            return $this->mintID;
-        }
+     
 	function array_return() {
 		
 		return array($this->mintID, $this->mstrName,

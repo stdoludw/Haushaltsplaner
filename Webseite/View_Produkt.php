@@ -2,7 +2,7 @@
 <html><header>
 
         <meta charset=UTF-8>
-        <title>Markt view</title>
+        <title>Produkt view</title>
 
         <style type=text/css media=screen>
             body {
@@ -16,21 +16,21 @@
                 color: #fff;
             }
         </style>
-        
+
     </header>
 
-  
+
     <center>
-        <h2 id=KleinererText>Alles um deine Märkte</h2>
+        <h2 id=KleinererText>Alles um deine Produkte</h2>
 
         <table bgcolor=#00FF00 border=1 cellspacing=1 cellpadding=1>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Postleizahl</th>
-                <th>Adresse</th>
-                <th>Entfernung</th>
-            </tr> 
+                <th> ID</th>
+                <th> Name</th>
+                <th> Gewicht</th>
+                <th> Preis</th>
+            </tr>
+
 
             <?php
             echo "<tr>";
@@ -44,9 +44,7 @@
                 }
                 echo "</tr>";
             }
-       
-            
             ?>
 
-        
+
             <html>

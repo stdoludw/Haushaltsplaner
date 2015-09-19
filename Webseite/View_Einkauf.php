@@ -2,7 +2,7 @@
 <html><header>
 
         <meta charset=UTF-8>
-        <title>Markt view</title>
+        <title>Einkauf view</title>
 
         <style type=text/css media=screen>
             body {
@@ -16,21 +16,39 @@
                 color: #fff;
             }
         </style>
-        
+
     </header>
 
-  
+
     <center>
-        <h2 id=KleinererText>Alles um deine Märkte</h2>
+        <h2 id=KleinererText>Alles um deine Einkaeufe</h2>
 
         <table bgcolor=#00FF00 border=1 cellspacing=1 cellpadding=1>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Postleizahl</th>
-                <th>Adresse</th>
-                <th>Entfernung</th>
+            <tr> 
+                <th> Anzahl</th> 
+                <th> Datum</th> 
+                <th> E_ID </th> 
+
+                <th> M_ID</th> 
+                <th> Marktname</th> 
+                <th> Postleizahl </th> 
+                <th> Adresse</th> 
+                <th> Entfernung</th> 
+
+                <th> P_ID</th> 
+                <th> Produktname</th> 
+                <th> Gewicht</th> 
+                <th> Preis</th> 
+
+                <th> K_ID</th> 
+                <th> Kontoname</th> 
+                <th> Bankleitzahl </th> 
+                <th> Kontonummer</th> 
+                <th> Betrag</th> 
+                <th> Minimum</th> 
+
             </tr> 
+
 
             <?php
             echo "<tr>";
@@ -44,9 +62,7 @@
                 }
                 echo "</tr>";
             }
-       
-            
             ?>
 
-        
+
             <html>

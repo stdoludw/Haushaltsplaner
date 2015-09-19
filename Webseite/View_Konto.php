@@ -2,7 +2,7 @@
 <html><header>
 
         <meta charset=UTF-8>
-        <title>Markt view</title>
+        <title>Konto view</title>
 
         <style type=text/css media=screen>
             body {
@@ -21,16 +21,18 @@
 
   
     <center>
-        <h2 id=KleinererText>Alles um deine Märkte</h2>
+        <h2 id=KleinererText>Alles um deine Konten</h2>
 
         <table bgcolor=#00FF00 border=1 cellspacing=1 cellpadding=1>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Postleizahl</th>
-                <th>Adresse</th>
-                <th>Entfernung</th>
-            </tr> 
+          	<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Bankleitzahl</th>
+				<th>Kontonummer</th>
+				<th>Betrag</th>
+				<th>Minimum</th>
+			</tr>
+
 
             <?php
             echo "<tr>";
