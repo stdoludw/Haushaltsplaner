@@ -23,17 +23,19 @@ class Model_Einkauf {
 	private  $mstrAdr;
 	private  $mintEntfernung;
 	private  $mintM_ID;
+        
+        private $mstrPasswort;
 	
 	function __construct(
-			$pintAnzhal, $pstrDatum,$E_ID,
+			$pintAnzahl, $pstrDatum,$E_ID,
 			$pstrP_Name, $pstrGewicht, $pfltPreis, $P_ID,
 			$pstrM_Name, $pstrPlz, $pstrAdr, $pstrEntfernung, $M_ID,
 			$pstrK_Name, $pstrBetrag, $pstrBLZ, $pstrKnr, $pstrMin,$K_ID, $pstrPasswort) 
 	
 	{
-		$this->mintAnzahl = $pintAnzhal;
+		$this->mintAnzahl = $pintAnzahl;
 		$this->mstrDatum = $pstrDatum;
-		$this->mintE_ID = E_ID;
+		$this->mintE_ID = $E_ID;
 		
 		$this->mstrM_Name = $pstrM_Name;
 		$this->mstrPLZ = $pstrPlz;
@@ -46,11 +48,11 @@ class Model_Einkauf {
 		$this->mfltPreis = $pfltPreis;
 		$this->mintP_ID = $P_ID;
 		
-		$this->mstrBetrag = exec("java aes $pstrPasswort $mstrBetrag Encode");
-		$this->mstrK_Name =  exec("java aes $pstrPasswort $mstrK_Name Encode");
-		$this->mstrBLZ =  exec("java aes $pstrPasswort $mstrBLZ Encode");
-		$this->mstrKnr =  exec("java aes $pstrPasswort $mstrKnr Encode");
-		$this->mstrMin =  exec("java aes $pstrPasswort $mstrMin Encode");
+		$this->mstrBetrag = exec("java aes $pstrPasswort $pstrBetrag Encode");
+		$this->mstrK_Name =  exec("java aes $pstrPasswort $pstrK_Name Encode");
+		$this->mstrBLZ =  exec("java aes $pstrPasswort $pstrBLZ Encode");
+		$this->mstrKnr =  exec("java aes $pstrPasswort $pstrKnr Encode");
+		$this->mstrMin =  exec("java aes $pstrPasswort $pstrMin Encode");
 		$this->mintK_ID =  $K_ID;
 		$this->mstrPasswort = $pstrPasswort;
 			
