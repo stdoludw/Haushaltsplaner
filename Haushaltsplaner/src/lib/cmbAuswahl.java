@@ -45,10 +45,7 @@ public enum cmbAuswahl {
 		return "Laden";
 		 }
 	},
-	StatistikMainAktion
-	{
-		public String toString() {return "Statistik";}
-	},
+	
 	AuswahlMainAktion
 	{
 		public String toString() {return "Auswahl";}

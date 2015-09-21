@@ -128,37 +128,7 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
-	@SuppressWarnings("finally")
-	private String SQLStatistic(String sql) {
-		String resultString = "";
-		try {
-
-			// abfrage statement erstellen
-			Statement query = mconCon.createStatement();
-
-			// Query bearbeiten
-			ResultSet result = null;
-
-			// executeQuerry nur fuer selects
-			result = query.executeQuery(sql);
-
-			// speichern in Klasse
-			while (result.next()) {
-				resultString += result.getObject(1).toString() + "\t";
-				resultString += result.getObject(2).toString() + "\t";
-				resultString += result.getObject(3).toString() + "\t";
-
-			}
-
-			return resultString;
-		} catch (SQLException ex) {
-			ex.getMessage();
-		} finally {
-			return resultString;
-		}
-
-	}
-
+	
 	private void SQLAbfrage(String sql) {
 
 		try {
@@ -517,23 +487,7 @@ public class Controll_Main implements ActionListener {
 		Model_Markt m = null;
 		Model_Produkt p= null;
 		
-		
-		/*objekte überschreiben
-		for (int i = 0; i < mvecModel.size(); i++) {
-			if (mvecModel.get(i) instanceof Model_Produkt) {
-				
-				System.out.println(((Model_Produkt) mvecModel.get(i)).getMstrName());
-				
-				if(((Model_Produkt) mvecModel.get(i)).getMstrName().equals(mguiHinzufuegen
-						.getMcmbProdukt().getSelectedItem()))
-				{
-					System.out.println(true);
-				}
-			}
-		}
-		System.out.println(mguiHinzufuegen
-						.getMcmbProdukt().getSelectedItem());*/
-		
+	
 		
 		//objekte überschreiben
 		for (int i = 0; i < mvecModel.size(); i++) {
@@ -760,115 +714,12 @@ public class Controll_Main implements ActionListener {
 				}
 			}
 			mguiMain.setTableModel(dTableModel);
-		}
-		else if (mguiMain.getComboBox().getSelectedItem().toString() == cmbAuswahl.Statistik
-				.toString()) {
-			
-			Object[][] databaseInfo = null;
-			Object[] columns = {"info"};
-					
-			DefaultTableModel dTableModel = new DefaultTableModel(databaseInfo,
-					columns) {
-				/**
-						 * 
-						 */
-				private static final long serialVersionUID = 1L;
-
-				public Class<?> getColumnClass(int column) {
-					Class<?> returnValue;
-					if ((column >= 0) && (column < getColumnCount())) {
-						returnValue = getValueAt(0, column).getClass();
-					} else {
-						returnValue = Object.class;
-					}
-					return returnValue;
-				}
-			};
-				
-			  Object [][] statistic = getStatistic();
-			  
-			  for(int i=0;i<statistic.length;i++)
-			  {
-				dTableModel.addRow(statistic[i]);
-			  }
-			
-			
-			mguiMain.setTableModel(dTableModel);
-		}
+		};
+	
 		
 		 
 	}
 
-	private Object[][] getStatistic()
-{
-	  int max = -1, min = 999; 
-	  String name_max = null, name_min = null; 
-	  Vector<Object> dataReturn = new Vector<>();
-	  
-			 
-			  for (Object element : mvecModel) {
-			  
-			  if (element instanceof Model_Konto) 
-			  { 
-				  if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) < min) 
-				  {
-					  min = Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-					  name_min = ((Model_Konto) element).getMstrName(); 
-			  } 
-				  else
-				  { 
-					  max =  Integer.valueOf(((Model_Konto) element).getMstrBetrag());
-					  name_max = ((Model_Konto) element).getMstrName();
-			  }
-			  
-			  if (Integer.valueOf(((Model_Konto) element).getMstrBetrag()) <=  Integer .valueOf(((Model_Konto) element).getMintMin())) 
-			  {
-				  
-				 
-				  dataReturn.add("Person: "+((Model_Konto) element).getMstrName()+" hat sein Limit überschritten!"
-						  +"Betrag: "+Integer.valueOf(((Model_Konto) element).getMstrBetrag())
-								  +"Minimum: "+ Integer .valueOf(((Model_Konto) element).getMintMin()));
-			  } 
-			 }
-			  
-			  }
-			  dataReturn.add("Den niedrigsten Kontostand hat " + name_min + " mit "
-			  + min + " EURO\n");
-			  
-			  dataReturn.add("Den hoechsten Kontostand hat " + name_max + " mit "
-					  + max + " EURO\n");
 
-			  
-			  Vector<String> bezeichner = new Vector<String>();
-			  bezeichner.add("Name\tadresse\tAVG(entfernung): ");
-			  bezeichner.add("Name\tadresse\tmax(entfernung): ");
-			  bezeichner.add("Name\tadresse\tmin(entfernung): ");
-			  bezeichner.add("Marktname\tProduktname\tmax(anzahl): ");
-			  bezeichner.add("Marktname\tProduktname\tmin(anzahl): ");
-			  bezeichner.add("Marktname\tProduktname\tmax(datum): ");
-			  bezeichner.add("Marktname\tProduktname\tmin(datum): ");
-			  bezeichner.add("Produktname\tGewicht\tmax(preis): ");
-			  bezeichner.add("Produktname\tGewicht\tmin(preis): ");
-			  bezeichner.add("Produktname\tGewicht\tavg(preis): ");
-			  
-			  for (int i = 0; i < Controll_Statments.statistic().size(); i++) {
-				  dataReturn.add(bezeichner.get(i).toString()+"\t"+SQLStatistic(Controll_Statments.statistic().get(i)));
-			
-			  }
-			  
-			 //umwandeln von vector<Object> in Object[][]
-			  Object [][] returnObject = new Object[dataReturn.size()][1];
-			  
-			  for (int i=0;i<dataReturn.size();i++)
-			  {
-				  returnObject[i][0] = dataReturn.get(i);
-			  }
-			  
-			  
-			  
-			  
-			  return returnObject;
-			  
-			  } 
 	
 }

@@ -41,44 +41,6 @@ public class Controll_Statments {
 					+"\'" + postleitzahl +"\'" + ","+"\'" + adresse +"\'" + ","+entfernung + ");";
 		}
 	
-	/*wird eventuel spaeter mal verwendet
-	public static String  SortPreis() {
-			return "select * from SortPreis;";
-		}
-
-	public static String  SortAusgaben() {
-			return "select * from SortAusgaben;";
-		}
-
-	public static String SortDatum() {
-			return "select * from SortDatum;";
-		}
-	public static String SortEntfernung() {
-			return "select * from SortEntfernung;";
-		}
-		
-			public static String SortQ1()
-	{
-		return "select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-01-__')"
-				+ "		or ve.datum like('____-02-__')or ve.datum like('____-03-__')or ve.datum like('____-04-__');";
-		
-		
-	}
-	public static String SortQ2()
-	{
-		return"select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-05-__')"
-				+ "		or ve.datum like('____-06-__')or ve.datum like('____-07-__')or ve.datum like('____-08-__');";
-		}
-		
-	public static String SortQ3()
-	{
-
-		return "select Kontoinhaber, Produktname, Marktname from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-09-__')"
-				+ "		or ve.datum like('____-10-__')or ve.datum like('____-11-__')or ve.datum like('____-12-__');";
-			
-	}
-	*/
-
 
 	public static String UpdateProdukt(String name, int gewicht, float preis, int PK) {
 
@@ -169,36 +131,5 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 		return mstrAttNew;
 	}
 
-	public static Vector<String> statistic() {
 
-		Vector<String> mstrAttNew = new Vector<String>();
-
-		// maximale anzahl an Produkten mit name des produkts und Markt
-		mstrAttNew.add("select name, AVG(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
-		mstrAttNew.add("select name, max(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
-		mstrAttNew.add("select name, min(entfernung), adresse from HausHaltsPlaner_Database.Markt; ");
-
-		mstrAttNew
-				.add("select  m.name,p.name, max(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
-						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and anzahl;");
-		mstrAttNew
-				.add("select  m.name,p.name, min(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
-						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and anzahl;");
-
-		mstrAttNew
-				.add("select  m.name,p.name,max(ein.datum) from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
-						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and datum;");
-		mstrAttNew
-				.add("select  m.name,p.name,min(ein.datum) from HausHaltsPlaner_Database.Einkauf ein, HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"
-						+ "		where ein.p_ID = p.P_ID AND ein.m_ID = m.M_ID and datum;");
-
-		mstrAttNew.add("select name,max(preis),gewicht from HausHaltsPlaner_Database.Produkt;");
-		mstrAttNew.add("select name,min(preis),gewicht from HausHaltsPlaner_Database.Produkt;");
-		mstrAttNew.add("select name,avg(preis),gewicht from HausHaltsPlaner_Database.Produkt;");
-
-	
-
-		return mstrAttNew;
-
-	}
 }

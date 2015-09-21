@@ -101,7 +101,6 @@ public class GUI_Main extends JFrame {
 		comboBox.addItem(cmbAuswahl.Konto.toString());
 		comboBox.addItem(cmbAuswahl.Markt.toString());
 		comboBox.addItem(cmbAuswahl.Einkauf.toString());
-		comboBox.addItem(cmbAuswahl.Statistik.toString());
 		mjpPane.add(comboBox);
 		
 		btnUpdate = new JButton("Update");
