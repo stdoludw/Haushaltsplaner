@@ -8,6 +8,7 @@
 </header>
 
 
+
 <center><h2 id="KleinererText">Alles um deine Konten</h2>
 
 
@@ -31,9 +32,9 @@
 <p><label>Bankleitzahl:<input type="text" name="i_kontobankleitzahl"></label><br>
 <p><label>Minimum:<input type="text" name="i_kontominimum"></label><br>
 <p><label>Betrag:<input type="text" name="i_kontobetrag"></label><br>
-
-<input type="submit" name="i_produkteintragen" value="Eintragen">
-<input type="submit" name="i_produktaendern" value="Aendern">
+<br></br>
+<input type="submit" name="i_kontoeintragen" value="Eintragen">
+<input type="submit" name="i_kontoaendern" value="Aendern">
 
 </fieldset>
 
