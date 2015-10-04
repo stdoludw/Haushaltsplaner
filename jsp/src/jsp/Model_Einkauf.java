@@ -48,6 +48,19 @@ public class Model_Einkauf {
 		this.mintAnzahl = mintAnzahl;
 	}
 
+	public Model_Konto getMkntKonto() {
+		return mkntKonto;
+	}
+
+	public Model_Produkt getMprdProdukt() {
+		return mprdProdukt;
+	}
+
+	public Model_Markt getMmkrMarkt() {
+		return mmkrMarkt;
+	}
+
+	
 	public String SQlerstellenAll() {
 		String statement;
 		statement = Controll_Statments.AddAlles(this.mintAnzahl, this.mstrDatum, this.mkntKonto.getMintID(), this.mprdProdukt.getMintID(), this.mmkrMarkt.getMintID());
@@ -55,28 +68,6 @@ public class Model_Einkauf {
 
 	}
 
-
-	public boolean equal(Model_Einkauf tmp) {
-		if (
-				(this.mintAnzahl == tmp.mintAnzahl) 
-				&& (this.mstrDatum == tmp.mstrDatum)
-				&& (this.mprdProdukt.getMintID() == tmp.mprdProdukt.getMintID())
-				&& (this.mmkrMarkt.getMintID() == tmp.mmkrMarkt.getMintID())
-				&& (this.mkntKonto.getMintID() == tmp.mkntKonto.getMintID())
-			) 
-				{
-			mboolequal = true;
-			return true;
-				}
-		mboolequal = false;
-		
-		this.mintAnzahl = tmp.mintAnzahl;
-		this.mstrDatum = tmp.mstrDatum;
-		this.mprdProdukt = tmp.mprdProdukt;
-		this.mmkrMarkt = tmp.mmkrMarkt;
-		this.mkntKonto = tmp.mkntKonto;
-		return false;
-	}
 
 	public Object[] print() {
 	

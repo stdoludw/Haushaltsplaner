@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.*;
 import javax.swing.JOptionPane;
 
 
@@ -16,42 +15,31 @@ public class Controll_Main {
 	private String mstrUserName;
 	private String mstrPasswort;
 	private Connection mconCon;
-	private int mintPort;
+	private final int mintPort = 3306;
 	private String mstrDatenbankName;
-	private String mstrHostName;
+	private final String mstrHostName = "dfch-ludwig.de";
 
 	// Instanzen von Model und View
-	private Vector<Object> mvecModel;
+	public static Vector<Object> mvecModel;
 
 	// aes verschluesslung
 	AES_verschluesselung aes;
 
 	public Controll_Main() {
-
-		// reinigen der variablen
-		this.mstrUserName = "";
-		this.mstrPasswort = "";
-		this.mconCon = null;
-		this.mintPort = 3306;
-		this.mstrDatenbankName = "";
-		this.mstrHostName = "";
-
-		// aes verschluesselung
-		this.aes = new AES_verschluesselung();
 	}
 
-	public void acces() {
+	@SuppressWarnings("static-access")
+	public void acces(String username, String passwort, String db) {
 
+		this.aes = new AES_verschluesselung();
+		this.mvecModel = new Vector<Object>();
 		try {
 			// neuen Vector erstellen
-			this.mvecModel = new Vector<Object>();
-			this.aes.setkey("bro");
+			this.aes.setkey(passwort);
 			
-			mstrUserName = "bro";
-			mstrPasswort = "bro";
-			mstrDatenbankName = "HausHaltsPlaner_Database";
-			mstrHostName = "dfch-ludwig.de";
-			mintPort = 3306;
+			mstrUserName = username;
+			mstrPasswort = passwort;
+			mstrDatenbankName = db;
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
 			Class.forName("com.mysql.jdbc.Driver");
@@ -180,13 +168,12 @@ public class Controll_Main {
 
 	public void auslesen() {
 		mvecModel.clear();
-		//SQLAbfrage(Controll_Statments.ViewAll());
+		SQLAbfrage(Controll_Statments.ViewAll());
 		SQLAbfrage(Controll_Statments.ViewKonto());
-		//SQLAbfrage(Controll_Statments.ViewMarkt());
-		//SQLAbfrage(Controll_Statments.ViewProdukt());
+		SQLAbfrage(Controll_Statments.ViewMarkt());
+		SQLAbfrage(Controll_Statments.ViewProdukt());
 	}
 
-	//#################################################################
 	
 	public String print()
 	{
@@ -194,21 +181,5 @@ public class Controll_Main {
 	}
 	
 	
-	private void AddAll() {
-			
-		}
-		
-	private void AddKonto() {
-
-	}
-
-	private void AddMarkt() {
-		
-	}
-
-	private void AddProdukt() {
-		
-	}
-
 	
 }

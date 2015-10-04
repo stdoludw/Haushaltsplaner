@@ -30,7 +30,6 @@ public class Model_Konto {
 		this.mstrKnr = knr;
 		this.mstrMin = min;
 		this.mintID = id;
-		this.mboolequal = true;
 
 	}
 
@@ -95,24 +94,6 @@ public class Model_Konto {
 	public Object[] print() {
 		Object [] tmp = {this.mstrName,this.mstrKnr,this.mstrBLZ,this.mstrBetrag,this.mstrMin,this.mintID};
 		return tmp;
-
-	}
-
-	public boolean equal(Model_Konto tmp) {
-		if (this.mstrBetrag == tmp.mstrBetrag && this.mstrName == tmp.mstrName && this.mstrBLZ == tmp.mstrBLZ
-				&& this.mstrKnr == tmp.mstrKnr && this.mstrMin == tmp.mstrMin) {
-			mboolequal = true;
-			return true;
-		}
-		mboolequal = false;
-
-		this.mstrBetrag = tmp.mstrBetrag;
-		this.mstrName = tmp.mstrName;
-		this.mstrBLZ = tmp.mstrBLZ;
-		this.mstrKnr = tmp.mstrKnr;
-		this.mstrMin = tmp.mstrMin;
-
-		return false;
 
 	}
 

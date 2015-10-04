@@ -29,13 +29,9 @@ public class Model_Produkt {
 		this.mboolequal = true;
 
 	}
-
-	public Model_Produkt() {
-		this.mstrName = "";
-		this.mintGewicht = 0;
-		this.mfltPreis = 0;
-		this.mintID = -1;
-	}
+public Model_Produkt() {
+	// TODO Auto-generated constructor stub
+}
 
 	public String getMstrName() {
 		return mstrName;
@@ -63,7 +59,6 @@ public class Model_Produkt {
 
 	public String SQLerstellen() {
 	
-
 		return Controll_Statments.AddProdukt(this.mstrName, this.mintGewicht, this.mfltPreis);
 
 	}
