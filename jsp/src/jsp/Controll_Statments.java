@@ -132,6 +132,96 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 
 		return mstrAttNew;
 	}
+	
+	public static Vector<String> statistik()
+	{
+		Vector<String> mstrAttNew = new Vector<String>();
+
+		  mstrAttNew.add("select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve  where ve.datum like('____-01-__') or"
+		  		+ "ve.datum like('____-02-__')or ve.datum like('____-03-__');");
+	          		
+		  mstrAttNew.add("select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-04-__') or"
+		  		+ "ve.datum like('____-05-__')or ve.datum like('____-06-__');");
+	        		
+		  mstrAttNew.add(" select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-07-__') or"
+		  		+ "       ve.datum like('____-08-__')or ve.datum like('____-09-__');");
+	        
+		  mstrAttNew.add(" select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-10-__') or "
+		  		+ "ve.datum like('____-11-__')or  ve.datum like('____-12-__');");
+	        
+	        
+		  mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	         " where ve.datum like('____-01-__');");
+	       
+		  mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	        "where ve.datum like('____-02-__');");
+	        
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-03-__');");
+	       
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-04-__');");
+	        
+	        mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-05-__');");
+	       
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-06-__');");
+	      
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	        "where ve.datum like('____-07-__');");
+	     
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	        "where ve.datum like('____-08-__');");
+	    
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	        "where ve.datum like('____-09-__');");
+	        
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-10-__');");
+	        
+	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	       " where ve.datum like('____-11-__');");
+	     
+	        mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+	        "where ve.datum like('____-12-__');");
+	       
+	        mstrAttNew.add( "select Produktname, SUM(anzahl) from HausHaltsPlaner_Database.ViewAll"+
+	        "group by Produktname order by 2 desc;");
+	       
+	        mstrAttNew.add("select Marktname, Count(Marktname) from HausHaltsPlaner_Database.ViewAll"+
+	        "group by Marktname order by 2 desc;");
+	       
+	        mstrAttNew.add( "select name, AVG(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+	       
+	        mstrAttNew.add("select name, max(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+	       
+	        mstrAttNew.add("select name, min(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+	      
+	        mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein,"+
+	                "HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"+
+	                "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and anzahl;");
+	                
+	                		 mstrAttNew.add( "select m.name as marktname, p.name as produktname, min(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein,"+
+	               " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"+
+	                "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and anzahl;");
+	        
+	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.datum) from HausHaltsPlaner_Database.Einkauf ein,"+
+	       " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"+
+	        "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and datum;");
+	     
+	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, min(ein.datum) from HausHaltsPlaner_Database.Einkauf ein,"+
+	       " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m"+
+	        "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and datum;");
+	       
+	        		mstrAttNew.add("select name, max(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	       
+	        		mstrAttNew.add("select name, min(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	      
+	        		mstrAttNew.add( "select name, avg(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	
+	        return mstrAttNew;
+	}
 
 
 }

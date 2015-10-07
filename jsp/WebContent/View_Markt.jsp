@@ -1,9 +1,8 @@
 <%@page import="jsp.Model_Markt"%>
-
+<%@page import="jsp.access"%>
 <%@page import="org.eclipse.jdt.internal.compiler.ast.ForeachStatement"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.Vector"%>
-<%@page import="jsp.Controll_Main"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -23,38 +22,40 @@
 <th> Entfernung</th> 
 </tr> 
 
-	<tr>
-	
 <%
-for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+
+access bean=(access)request.getAttribute("bean");  
+Vector<Object> tmp = bean.getMvecModel();
+
+for (int i = 0;i<tmp.size();i++)
 {
 	
 	
-	if (Controll_Main.mvecModel.get(i) instanceof Model_Markt) {
+	if (tmp.get(i) instanceof Model_Markt) {
 	%>
 	<td>
 	<%
-	out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMintID());
-	%>
-	</td>
-	<td>
-	<%
-	out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMstrName());
+	out.print(((Model_Markt)tmp.get(i)).getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMstrPLZ());
+	out.print(((Model_Markt)tmp.get(i)).getMstrName());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMstrAdr());
+	out.print(((Model_Markt)tmp.get(i)).getMstrPLZ());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMintEntfernung());
+	out.print(((Model_Markt)tmp.get(i)).getMstrAdr());
+	%>
+	</td>
+	<td>
+	<%
+	out.print(((Model_Markt)tmp.get(i)).getMintEntfernung());
 	%>
 	</td>
 	<%
@@ -72,7 +73,7 @@ for (int i = 0;i<Controll_Main.mvecModel.size();i++)
 <fieldset><legend><b>Maerkte Aendern/Eintragen</b></legend>
 
 
-<form action="add.jsp?file=markt" method="POST">
+<form action="Controller" method="POST">
 		ID<input type= "text" name="i_markt_ID" required>
 		Name<input type= "text" name="i_markt_name" required>
 		Adresse<input type="text" name="i_markt_adresse" required>

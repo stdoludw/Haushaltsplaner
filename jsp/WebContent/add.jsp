@@ -16,6 +16,17 @@
 
 <%
 
+/*#TODO 
+
+	:Statistic mit daten aus array füllen
+	:Ablauffolge der Seiten 
+	:HTML Tabelle auslesen -> an Controller
+	:Hellhero design
+	:remove add.jsp
+	:XML to Java Klasse
+
+*/
+
 
 
 String auswahl = request.getParameter("file");

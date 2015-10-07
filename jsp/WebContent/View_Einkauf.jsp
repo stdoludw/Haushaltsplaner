@@ -6,7 +6,7 @@
 <%@page import="org.eclipse.jdt.internal.compiler.ast.ForeachStatement"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.Vector"%>
-<%@page import="jsp.Controll_Main"%>
+<%@page import="jsp.access"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -45,100 +45,103 @@
 	<tr>
 	
 <%
-for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+
+access bean=(access)request.getAttribute("bean");  
+Vector<Object> tmp = bean.getMvecModel();
+
+for (int i = 0;i<tmp.size();i++)
 {
 	
-	
-	if (Controll_Main.mvecModel.get(i) instanceof Model_Einkauf) {
+	if (tmp.get(i) instanceof Model_Einkauf) {
 	%>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMintID());
-	%>
-	</td>
-	<td>
-	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMintAnzahl());
+	out.print(((Model_Einkauf)tmp.get(i)).getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMstrDatum());
+	out.print(((Model_Einkauf)tmp.get(i)).getMintAnzahl());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMintID());
+	out.print(((Model_Einkauf)tmp.get(i)).getMstrDatum());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMstrName());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMstrBLZ());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMstrName());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMstrKnr());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMstrBLZ());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMstrBetrag());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMstrKnr());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMkntKonto().getMintMin());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMstrBetrag());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMmkrMarkt().getMintID());
+	out.print(((Model_Einkauf)tmp.get(i)).getMkntKonto().getMintMin());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMmkrMarkt().getMstrName());
+	out.print(((Model_Einkauf)tmp.get(i)).getMmkrMarkt().getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMmkrMarkt().getMstrAdr());
+	out.print(((Model_Einkauf)tmp.get(i)).getMmkrMarkt().getMstrName());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMmkrMarkt().getMstrPLZ());
+	out.print(((Model_Einkauf)tmp.get(i)).getMmkrMarkt().getMstrAdr());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMmkrMarkt().getMintEntfernung());
+	out.print(((Model_Einkauf)tmp.get(i)).getMmkrMarkt().getMstrPLZ());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMprdProdukt().getMintID());
+	out.print(((Model_Einkauf)tmp.get(i)).getMmkrMarkt().getMintEntfernung());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMprdProdukt().getMstrName());
+	out.print(((Model_Einkauf)tmp.get(i)).getMprdProdukt().getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMprdProdukt().getMintGewicht());
+	out.print(((Model_Einkauf)tmp.get(i)).getMprdProdukt().getMstrName());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Einkauf)Controll_Main.mvecModel.get(i)).getMprdProdukt().getMfltPreis());
+	out.print(((Model_Einkauf)tmp.get(i)).getMprdProdukt().getMintGewicht());
+	%>
+	</td>
+	<td>
+	<%
+	out.print(((Model_Einkauf)tmp.get(i)).getMprdProdukt().getMfltPreis());
 	%>
 	</td>
 	<%
@@ -163,13 +166,13 @@ Datum<input type= "text" name="i_einkauf_datum" required>
 
       Kontoinhaber<select name="i_konto_cmb" >  
       <%
-      for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+      for (int i = 0;i<tmp.size();i++)
       {     	
-      	if (Controll_Main.mvecModel.get(i) instanceof Model_Konto) {
+      	if (tmp.get(i) instanceof Model_Konto) {
       		%>
       		<option>
       		<%
-      		out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMstrName());
+      		out.print(((Model_Konto)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -181,13 +184,13 @@ Datum<input type= "text" name="i_einkauf_datum" required>
       Marktname<select name="i_markt_cmb" > 
       
       <%
-      for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+      for (int i = 0;i<tmp.size();i++)
       {     	
-      	if (Controll_Main.mvecModel.get(i) instanceof Model_Markt) {
+      	if (tmp.get(i) instanceof Model_Markt) {
       		%>
       		<option>
       		<%
-      		out.print(((Model_Markt)Controll_Main.mvecModel.get(i)).getMstrName());
+      		out.print(((Model_Markt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -200,13 +203,13 @@ Datum<input type= "text" name="i_einkauf_datum" required>
      Produktname <select name="i_produkt_cmb" > 
       
       <%
-      for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+      for (int i = 0;i<tmp.size();i++)
       {     	
-      	if (Controll_Main.mvecModel.get(i) instanceof Model_Produkt) {
+      	if (tmp.get(i) instanceof Model_Produkt) {
       		%>
       		<option>
       		<%
-      		out.print(((Model_Produkt)Controll_Main.mvecModel.get(i)).getMstrName());
+      		out.print(((Model_Produkt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%

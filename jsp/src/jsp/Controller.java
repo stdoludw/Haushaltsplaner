@@ -1,0 +1,54 @@
+package jsp;
+
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+
+
+@WebServlet("/Controller")
+public class Controller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+  
+    public Controller() {
+        super();
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+		
+		String name=request.getParameter("i_username");  
+        String password=request.getParameter("i_passwort");  
+        String db=request.getParameter("i_datenbank");  
+        JspWriter out = null;
+
+        access as = new access();
+        as.login(name, password, db);
+        as.auslesen();
+        
+        request.setAttribute("bean",as);  
+                
+        if(as.status()){  
+        	        	
+        	
+            RequestDispatcher rd=request.getRequestDispatcher("login-success.jsp");  
+            rd.forward(request, response);  
+        }  
+        else{  
+            RequestDispatcher rd=request.getRequestDispatcher("login-error.jsp");  
+            rd.forward(request, response);  
+        }  
+	}
+
+}

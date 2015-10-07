@@ -1,6 +1,6 @@
 <%@page import="jsp.Model_Konto"%>
 <%@page import="java.util.Vector"%>
-<%@page import="jsp.Controll_Main"%>
+<%@page import="jsp.access"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -25,40 +25,44 @@
 	<tr>
 	
 <%
-for (int i = 0;i<Controll_Main.mvecModel.size();i++)
+
+access bean=(access)request.getAttribute("bean");  
+Vector<Object> tmp = bean.getMvecModel();
+
+for (int i = 0;i<tmp.size();i++)
 {
 	
 	
-	if (Controll_Main.mvecModel.get(i) instanceof Model_Konto) {
+	if (tmp.get(i) instanceof Model_Konto) {
 	%>
 	<td>
 	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMintID());
-	%>
-	</td>
-	<td>
-	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMstrName());
+	out.print(((Model_Konto)tmp.get(i)).getMintID());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMstrKnr());
+	out.print(((Model_Konto)tmp.get(i)).getMstrName());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMstrBLZ());
+	out.print(((Model_Konto)tmp.get(i)).getMstrKnr());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMstrBetrag());
+	out.print(((Model_Konto)tmp.get(i)).getMstrBLZ());
 	%>
 	</td>
 	<td>
 	<%
-	out.print(((Model_Konto)Controll_Main.mvecModel.get(i)).getMintMin());
+	out.print(((Model_Konto)tmp.get(i)).getMstrBetrag());
+	%>
+	</td>
+	<td>
+	<%
+	out.print(((Model_Konto)tmp.get(i)).getMintMin());
 	%>
 	</td>
 	<%
@@ -76,7 +80,7 @@ for (int i = 0;i<Controll_Main.mvecModel.size();i++)
 <fieldset><legend><b>Konten Aendern/Eintragen</b></legend>
 
 
-<form action="add.jsp?file=konto" method="POST">
+<form action="Controller" method="POST">
 
 		ID<input type= "text" name="i_konto_id" required>
 		Kontoinhaber<input type= "text" name="i_konto_name" required>
