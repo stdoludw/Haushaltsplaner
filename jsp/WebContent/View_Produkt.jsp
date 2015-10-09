@@ -9,25 +9,22 @@
     %>
 <html>
 <header>
-<h2>Alles um deine Produkten</h2>
-     
+<h2>Alles um deine Produkten</h2>    
 </header>
 
 
 <table bgcolor="#E0F2F7" border="1" cellspacing="1" cellpadding="1">
 <tr> 
-<th> P_ID</th> 
+<th> Aendern</th> 
 <th> Produktname</th> 
 <th> Gewicht </th> 
 <th> Preis</th> 
 </tr> 
 
-	<tr>
-	
+	<tr>	
 <%
 
-access bean=(access)request.getAttribute("bean");  
-Vector<Object> tmp = bean.getMvecModel();
+Vector<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {
@@ -64,25 +61,17 @@ for (int i = 0;i<tmp.size();i++)
 	
 }
 
-
-
 %>
+</form>
 </table>
-<p></p>
-<fieldset><legend><b>Produkte Aendern/Eintragen</b></legend>
 
-<form action="Controller" method="POST">
-		ID<input type="text" name="i_produkt_id" required>
-		Name<input type= "text" name="i_produkt_name" required>
-		Gewicht<input type="text" name="i_produkt_gewicht" required>
-		Preis<input type="text" name="i_produkt_preis" required>
-		
-		<input type="submit" name="produkt" value ="i_produkt_add" /> 
-       <input type="submit" name="produkt" value="i_produkt_change" /> 
-		
-	</form>
+<form action="Change_Produkt.jsp" method="POST">
+Produkt ID Eingeben: <input type="text" name="p_ID">
+<input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">
+</form>
 
-</fieldset>
-
+<form action="Add_Produkt.jsp" method="POST">
+<input class="w3-btn w3-color-teal" type="submit" value="Hinzufuegen">
+</form>
 </html>
             

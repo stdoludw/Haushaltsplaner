@@ -26,8 +26,9 @@
 	
 <%
 
-access bean=(access)request.getAttribute("bean");  
-Vector<Object> tmp = bean.getMvecModel();
+//access bean=(access)request.getAttribute("bean");  
+//Vector<Object> tmp = bean.getMvecModel();
+Vector<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {
@@ -76,25 +77,16 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 </table>
-<p></p>
-<fieldset><legend><b>Konten Aendern/Eintragen</b></legend>
+</table>
+<form action="Change_Konto.jsp" method="POST">
+Markt ID Eingeben: <input type="text" name="k_ID">
+<input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">
+</form>
 
-
-<form action="Controller" method="POST">
-
-		ID<input type= "text" name="i_konto_id" required>
-		Kontoinhaber<input type= "text" name="i_konto_name" required>
-		Kontonummer<input type="text"  name="i_konto_kontonummer" required>
-		Bankleitzahl<input type="text" name="i_konto_bankleitzahl" required>
-		Betrag<input type="text"  name="i_konto_betrag" required>
-		Minimum<input type="text" name="i_konto_minimum" required>
-		
-		<input type="submit" name="konto" value ="i_konto_add" /> 
-       <input type="submit" name="konto" value="i_konto_change" />
-		
-	</form>
-
-</fieldset>
+<form action="Add_Konto.jsp" method="POST">
+<input class="w3-btn w3-color-teal" type="submit" value="Hinzufuegen">
+</form>
+</html>
 
 </html>
             

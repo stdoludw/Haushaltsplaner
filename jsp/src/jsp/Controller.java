@@ -28,27 +28,32 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
+		
+		
 		String name=request.getParameter("i_username");  
         String password=request.getParameter("i_passwort");  
         String db=request.getParameter("i_datenbank");  
-        JspWriter out = null;
 
         access as = new access();
         as.login(name, password, db);
         as.auslesen();
         
-        request.setAttribute("bean",as);  
+        request.setAttribute("bean",as); 
                 
-        if(as.status()){  
-        	        	
-        	
-            RequestDispatcher rd=request.getRequestDispatcher("login-success.jsp");  
-            rd.forward(request, response);  
+        if(as.status())
+        {  
+        	response.sendRedirect("login-success.jsp");
         }  
-        else{  
-            RequestDispatcher rd=request.getRequestDispatcher("login-error.jsp");  
-            rd.forward(request, response);  
-        }  
+        else if(!as.status())
+        {  
+        	response.sendRedirect("login-error.jsp");
+
+        } 
+        
+   
+     
+
+	
 	}
 
 }

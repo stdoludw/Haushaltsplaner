@@ -24,8 +24,9 @@
 
 <%
 
-access bean=(access)request.getAttribute("bean");  
-Vector<Object> tmp = bean.getMvecModel();
+//access bean=(access)request.getAttribute("bean");  
+//Vector<Object> tmp = bean.getMvecModel();
+Vector<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {
@@ -69,23 +70,12 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 </table>
-<p></p>
-<fieldset><legend><b>Maerkte Aendern/Eintragen</b></legend>
+<form action="Change_Markt.jsp" method="POST">
+Markt ID Eingeben: <input type="text" name="m_ID">
+<input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">
+</form>
 
-
-<form action="Controller" method="POST">
-		ID<input type= "text" name="i_markt_ID" required>
-		Name<input type= "text" name="i_markt_name" required>
-		Adresse<input type="text" name="i_markt_adresse" required>
-		Postleitzahl<input type="text" name="i_marktpostleitzahl" required>
-				Entfernung<input type="text" name="i_marktentfernung" required>
-		
-		<input type="submit" name="markt" value ="i_markt_add" /> 
-       <input type="submit" name="markt" value="i_markt_change" />
-		
-	</form>
-
-</fieldset>
-
+<form action="Add_Markt.jsp" method="POST">
+<input class="w3-btn w3-color-teal" type="submit" value="Hinzufuegen">
+</form>
 </html>
-            

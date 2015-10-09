@@ -1,20 +1,52 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Tranitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Haushaltsplaner</title>
+
+<link rel='stylesheet' href='w3.css'/>
+
+<link rel="stylesheet" href="w3-theme-teal.css">
+
+<title>Login</title>
+
 </head>
+
 <body>
-	<h1>Willkommen</h1>
-		
-		<form action="Controller" method = "POST">
-		Username<input type= "text" id="i_username" name="i_username" required>
-		Datenbank<input type="text" id="i_datenbank" name="i_datenbank" required>
-		Passwort<input type="password" id="i_passwort" name="i_passwort" required>
-		<button type="submit">anmelden</button>
-	</form>
-	
+
+<center>
+
+
+<header class="w3-container w3-teal w3-padding-64" id="myHeader">
+
+  <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-opennav"></i> 
+
+  <div class="w3-center">
+
+  <h1>Willkommen</h1>
+
+  <h3> Login </h3>
+
+</header>
+
+
+<form class="w3-container w3-card-4" action="Controller" method="post">
+
+<div class="w3-group">
+
+		<input class="w3-input" type="text" name="i_username" size = "20" value = "" > Name <br>
+
+		<input class="w3-input" type="password" name = "i_passwort" size = "20" value = "" > Passwort  <br>
+
+    <input class="w3-input" type="text" name = "i_datenbank" size = "20" value = "" > Datenbank  <br>
+
+		<input class="w3-btn" type="submit" value="Login">
+
+</div>
+
+</form>
+
+
+</form>
+
 </body>
+
 </html>

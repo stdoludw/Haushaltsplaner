@@ -46,9 +46,9 @@
 	
 <%
 
-access bean=(access)request.getAttribute("bean");  
-Vector<Object> tmp = bean.getMvecModel();
-
+//access bean=(access)request.getAttribute("bean");  
+//Vector<Object> tmp = bean.getMvecModel();
+Vector<Object> tmp = access.getMvecModel();
 for (int i = 0;i<tmp.size();i++)
 {
 	
