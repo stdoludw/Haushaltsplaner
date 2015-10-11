@@ -22,8 +22,8 @@ public class Controll_Statments {
 		
 	}
 
-	public static String AddAlles(int anzhal,String datum, int K_ID, int P_ID, int M_ID) {
-			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values("+anzhal+","+
+	public static String AddEinkauf(int anzahl,String datum, int K_ID, int P_ID, int M_ID) {
+			return "insert into Einkauf(anzahl,datum,k_ID,p_ID,m_ID) Values("+anzahl+","+
 	"STR_TO_DATE(\'"+datum+"\', '%d-%m-%Y')"+","+K_ID+","+P_ID+","+M_ID+");";
 
 		}
@@ -60,11 +60,15 @@ public static String UpdateKonto(String name, String bankleitzahl, String konton
 
 public static String  UpdateMarkt(String name, String postleitzahl, String adresse, int entfernung, int PK) {
 	return "update Markt set name = " + "\'" +name+"\' , postleitzahl = " + "\'" +postleitzahl+"\' , adresse = " + "\'" +adresse+"\' "
-			+ ", entfernung = " + +entfernung+ " where M_ID = "+ PK +";";
+			+ ", entfernung = " + entfernung+ " where M_ID = "+ PK +";";
 	}
 
 	
-
+public static String  UpdateEinkauf(int anzahl, String datum, int k_ID, int p_ID, int m_ID, int PK) {
+	return "update Einkauf set anzahl = "  +anzahl+  ", datum = " +"\'"+datum+"\'"
+			+", k_ID = "+k_ID+", p_ID = "+p_ID+" , m_ID = "+m_ID + 
+			 "where E_ID = "+ PK +";";
+	}
 
 	public static Vector<String> createDatenbank(String kuerzel) {
 		Vector<String> mstrAttNew = new Vector<String>();
@@ -149,7 +153,14 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 		  mstrAttNew.add(" select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-10-__') or "
 		  		+ "ve.datum like('____-11-__')or  ve.datum like('____-12-__');");
 	        
-	        
+		  mstrAttNew.add( "select Produktname, SUM(anzahl) from HausHaltsPlaner_Database.ViewAll"+
+			        "group by Produktname order by 2 desc;");
+			       
+			        mstrAttNew.add("select Marktname, Count(Marktname) from HausHaltsPlaner_Database.ViewAll"+
+			        "group by Marktname order by 2 desc;");
+		  
+		  
+			        
 		  mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
 	         " where ve.datum like('____-01-__');");
 	       
@@ -186,11 +197,8 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 	        mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
 	        "where ve.datum like('____-12-__');");
 	       
-	        mstrAttNew.add( "select Produktname, SUM(anzahl) from HausHaltsPlaner_Database.ViewAll"+
-	        "group by Produktname order by 2 desc;");
+	        
 	       
-	        mstrAttNew.add("select Marktname, Count(Marktname) from HausHaltsPlaner_Database.ViewAll"+
-	        "group by Marktname order by 2 desc;");
 	       
 	        mstrAttNew.add( "select name, AVG(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
 	       

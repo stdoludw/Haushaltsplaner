@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="java.util.Vector"%>
+    <%@page import="jsp.access"%>
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -7,11 +11,8 @@
     google.load("visualization", "1.1", {"packages":["corechart", "bar", "table", "line"]});
       google.setOnLoadCallback(drawChart);
       
-      
-//#######################################################################################################################
-
-	 access bean=(access)request.getAttribute("bean");  
-Vector<Object> tmp = bean.getStatistik();
+      <%Vector<Object> tmp = access.getStatistik();%>
+   
 
 //#######################################################################################################################
 
@@ -117,16 +118,16 @@ Vector<Object> tmp = bean.getStatistik();
         data_char5.addColumn("string", "Value");
 
         data_char5.addRows([
-          [tmp[40], tmp[41],tmp[42]],
-          [tmp[43], tmp[44],tmp[45]],
-          [tmp[46], tmp[47],tmp[48]],
-          [tmp[49], tmp[50],tmp[51]],
-          [tmp[52], tmp[53],tmp[54]],
-          [tmp[55], tmp[56],tmp[57]],
-          [tmp[58], tmp[59],tmp[60]],
-          [tmp[61], tmp[62],tmp[63]],
-          [tmp[64], tmp[65],tmp[66]]
-
+          ["AVG(entfernung)",tmp[40], tmp[41],tmp[42]],
+          ["MIN(entfernung)",tmp[43], tmp[44],tmp[45]],
+          ["MAX(entfernung)",tmp[46], tmp[47],tmp[48]],
+          ["MAX(anzahl)",tmp[49], tmp[50],tmp[51]],
+          ["MIN(anzahl)",tmp[52], tmp[53],tmp[54]],
+          ["MAX(datum)",tmp[55], tmp[56],tmp[57]],
+          ["MIN(datum)",tmp[58], tmp[59],tmp[60]],
+          ["MAX(preis)", tmp[62],tmp[63]],
+          ["MIN(preis)",tmp[64], tmp[65],tmp[66]],        
+          ["AVG(preis)",tmp[64], tmp[65],tmp[66]]
 
         ]);
           

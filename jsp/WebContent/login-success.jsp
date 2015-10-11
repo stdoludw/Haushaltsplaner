@@ -7,8 +7,8 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
   class="w3-closenav w3-large">Close</a>
-  <a href="index.php">Hauptmenue</a>
-  <a href="usermanagement.php"> Benutzerverwaltung </a>
+  <a href="index.html">Hauptmenue</a>
+  <a href="usermanagement.jsp"> Benutzerverwaltung </a>
 </nav>
 
 <header class="w3-container w3-orange">
@@ -50,6 +50,13 @@
   </div>
 </div>
 
+<div class="w3-quarter">
+  <a href="View_Statistik.jsp" ><div class="w3-card-2" style="min-height:260px">
+  <h4>Einkaufe</h4><br>
+  <img src=buying.png>
+  <p> Anzeigen der Statistik </p> </a>
+  </div>
+</div>
 </div>
 
 <hr>

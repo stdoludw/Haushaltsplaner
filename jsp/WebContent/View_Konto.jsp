@@ -77,7 +77,6 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 </table>
-</table>
 <form action="Change_Konto.jsp" method="POST">
 Markt ID Eingeben: <input type="text" name="k_ID">
 <input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">
@@ -88,5 +87,4 @@ Markt ID Eingeben: <input type="text" name="k_ID">
 </form>
 </html>
 
-</html>
             

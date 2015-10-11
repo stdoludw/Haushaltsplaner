@@ -38,7 +38,7 @@ public class access {
 			this.aes.setkey("bro");
 			
 			mstrUserName = "bro";
-			mstrPasswort = "";
+			mstrPasswort = "P@ssw0rd";
 			mstrDatenbankName = "HausHaltsPlaner_Database";
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
@@ -68,7 +68,7 @@ public class access {
 		}
 	}
 	
-	public void SQLAbfrage(String sql) {
+	public static void SQLAbfrage(String sql) {
 
 		try {
 			// abfrage statement erstellen
@@ -217,90 +217,14 @@ public class access {
 		this.mvecModel = mvecModel;
 	}
 	
-	public Vector<Object> getStatistik()
+	public static Vector<Object> getStatistik()
 	{
 		
 		for(String i : Controll_Statments.statistik())
 		{
 			SQLAbfrage(i);
 		}
-		
-		/*SUM(ve.preis) 1 - 3
-		 * SUM(ve.preis) 4 -6
-		 * SUM(ve.preis) 7 - 9
-		 * SUM(ve.preis 10 - 12
-		 * 
-		 * SUM(ve.preis) 1
-		 * SUM(ve.preis) 2
-		 * SUM(ve.preis) 3
-		 * SUM(ve.preis) 4
-		 * SUM(ve.preis) 5
-		 * SUM(ve.preis) 6
-		 * SUM(ve.preis) 7
-		 * SUM(ve.preis) 8
-		 * SUM(ve.preis) 9
-		 * SUM(ve.preis) 10
-		 * SUM(ve.preis) 11
-		 * SUM(ve.preis) 12
-		 * 
-		 * SUM(anzahl)
-		 * Produktname)
-		 * 
-		 * Count(Marktname)
-		 * Marktname
-		 * 
-		 * name
-		 * AVG(entfernung)
-		 * adresse
-		 * Durchschnittliche Entfernung
-		 * 
-		 * name
-		 * "max(entfernung)
-		 * adresse
-		 * Maximale Entfernung Markt
-		 * 
-		 *  name
-		 * "min(entfernung)
-		 * adresse
-		 * Minimale Entfernung Markt
-		 * 
-		 * Marktname
-		 * Produktname
-		 * max(ein.anzahl)
-		 * Maximale Anzahl Produkte [Marktname]
-		 * 
-		 * Marktname
-		 * Produktname
-		 * min(ein.anzahl)
-		 * Minimale Anzahl Produkte [Marktname] * 
-		 * 
-		 * Marktname
-		 * Produktname
-		 * max(ein.datum)
-		 * Aelteste Produkt [Marktname]
-		 * 
-		 * Marktname
-		 * Produktname
-		 * min(ein.datum)
-		 * Neuste Produkt [Marktname]
-		 * 
-		 * Name
-		 * max(preis)
-		 * gewicht
-		 * Teuerste Produkt
-		 * 
-		 *  Name
-		 * min(preis)
-		 * gewicht
-		 * Guenstigstes Produkt
-		 * 
-		 *  Name
-		 * avg(preis)
-		 * gewicht
-		 * Durchschnittlicher Produkt
-		 * 
-		
-		 */
+	
 		return mvecStatistic;
 	}
 	public static AES_verschluesselung getAes() {

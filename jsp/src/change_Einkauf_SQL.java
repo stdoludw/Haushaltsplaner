@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import jsp.Controll_Statments;
 import jsp.access;
+import jsp.Model_Produkt;
+import jsp.Model_Konto;
+import jsp.Model_Markt;
 
 /**
  * Servlet implementation class change_Produkt_SQL
@@ -42,14 +46,50 @@ public class change_Einkauf_SQL extends HttpServlet {
 		doGet(request, response);
 		  PrintWriter out = response.getWriter(  ); 
 		  
-		access.SQLModifizieren(
-		Controll_Statments.UpdateProdukt(
-				request.getParameter("i_produkt_name"),		
-				Integer.valueOf(request.getParameter("i_produkt_gewicht")),
-				Float.valueOf(request.getParameter("i_produkt_preis")),
-				Integer.valueOf(request.getParameter("i_produkt_id"))));
 		
-		out.println("Produkt erfolgreich geupdatet");
+		int ID = Integer.valueOf(request.getParameter("i_einkauf_id"));
+		int anzahl = Integer.valueOf(request.getParameter("i_einkauf_anzahl"));
+		String datum = request.getParameter("i_einkauf_datum");
+		String konto = request.getParameter("i_einkauf_konto_cmb");
+		String markt = request.getParameter("i_einkauf_markt_cmb");
+		String produkt= request.getParameter("i_einkauf_produkt_cmb");
+		int k_ID = 0;
+		int p_ID = 0;
+		int m_ID = 0;
+		
+		Vector<Object> tmp = access.getMvecModel();
+	      for (int i = 0;i<tmp.size();i++)
+	      {     	
+	      	if (tmp.get(i) instanceof Model_Konto) {
+	      		
+	      		if(((Model_Konto) tmp.get(i)).getMstrName() == konto)
+	      		{
+	      			k_ID = ((Model_Konto) tmp.get(i)).getMintID();
+	      		}
+	      		
+	      	}
+	      	
+	      	if (tmp.get(i) instanceof Model_Markt) {
+	      		
+	      		if(((Model_Markt) tmp.get(i)).getMstrName() == markt)
+	      		{
+	      			m_ID = ((Model_Markt) tmp.get(i)).getMintID();
+	      		}	      		
+	      	}
+	      	if (tmp.get(i) instanceof Model_Produkt) {
+	      		
+	      		if(((Model_Produkt) tmp.get(i)).getMstrName() == produkt)
+	      		{
+	      			p_ID = ((Model_Produkt) tmp.get(i)).getMintID();
+	      		}		      		
+	      	}
+	      }
+	   
+	      access.SQLModifizieren(
+	    			Controll_Statments.UpdateEinkauf(anzahl, datum, k_ID, p_ID, m_ID, ID));
+	      
+		
+		out.println("Einkauf erfolgreich geupdatet");
 		
 	}
 

@@ -154,73 +154,14 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 </table>
-<p></p>
-<fieldset><legend><b>Einkaefe Eintragen</b></legend>
-
-
-<form action="add.jsp?file=einkauf" method="POST">
-ID<input type= "text" name="i_einkauf_id" required>	
-Anzahl<input type= "text" name="i_einkauf_anzahl" required>
-Datum<input type= "text" name="i_einkauf_datum" required>	
-
-
-      Kontoinhaber<select name="i_konto_cmb" >  
-      <%
-      for (int i = 0;i<tmp.size();i++)
-      {     	
-      	if (tmp.get(i) instanceof Model_Konto) {
-      		%>
-      		<option>
-      		<%
-      		out.print(((Model_Konto)tmp.get(i)).getMstrName());
-      		%>
-      		</option>
-      		<%
-      	}
-      }
-      %>
-      </select> 
-  
-      Marktname<select name="i_markt_cmb" > 
-      
-      <%
-      for (int i = 0;i<tmp.size();i++)
-      {     	
-      	if (tmp.get(i) instanceof Model_Markt) {
-      		%>
-      		<option>
-      		<%
-      		out.print(((Model_Markt)tmp.get(i)).getMstrName());
-      		%>
-      		</option>
-      		<%
-      	}
-      }
-      %>
-      </select> 
-  
-    
-     Produktname <select name="i_produkt_cmb" > 
-      
-      <%
-      for (int i = 0;i<tmp.size();i++)
-      {     	
-      	if (tmp.get(i) instanceof Model_Produkt) {
-      		%>
-      		<option>
-      		<%
-      		out.print(((Model_Produkt)tmp.get(i)).getMstrName());
-      		%>
-      		</option>
-      		<%
-      	}
-      }
-      %>
-      </select> 
-    
-<input type="submit" name="einkauf" value ="i_einkauf_add" /> 
+<form action="Change_Einkauf.jsp" method="POST">
+Einkauf ID Eingeben: <input type="text" name="ein_ID">
+<input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">
 </form>
-</fieldset>
 
+<form action="Add_Einkauf.jsp" method="POST">
+<input class="w3-btn w3-color-teal" type="submit" value="Hinzufuegen">
+</form>
+</html>
 </html>
             

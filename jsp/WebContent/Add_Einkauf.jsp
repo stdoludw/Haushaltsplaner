@@ -1,5 +1,8 @@
 <%@page import="jsp.access"%>
 <%@page import="java.util.Vector"%>
+<%@page import="jsp.Model_Einkauf"%>
+<%@page import="jsp.Model_Konto"%>
+<%@page import="jsp.Model_Markt"%>
 <%@page import="jsp.Model_Produkt"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,15 +14,65 @@
 </head>
 <body>
 
-<fieldset><legend><b>Produkte Eintragen</b></legend>
+<fieldset><legend><b>Einkauf Eintragen</b></legend>
 
-	        	  
-<form action="Add_Produkt_SQL" method="POST">
-Produktname<input class="w3-input" style="width:95%" type="text" name="i_produkt_name" size="20" >		
-Gewicht<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" >		
-Preis<input class="w3-input" style="width:95%" type="text" name="i_produkt_preis" size="20" >		
+<%Vector<Object> tmp = access.getMvecModel(); %>
+<form action="Add_Einkauf_SQL" method="POST">
+<input class="w3-input" style="width:95%" type="text" name="i_einkauf_id" size="20">	
+<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" >	
+<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" >	
+Kontoinhaber<select name="i_einkauf_konto_cmb" >  
+      <%
+      for (int i = 0;i<tmp.size();i++)
+      {     	
+      	if (tmp.get(i) instanceof Model_Konto) {
+      		%>
+      		<option>
+      		<%
+      		out.print(((Model_Konto)tmp.get(i)).getMstrName());
+      		%>
+      		</option>
+      		<%
+      	}
+      }
+      %>
+      </select> 
+      Marktname<select name="i_einkauf_markt_cmb" >   
+      <%
+      for (int i = 0;i<tmp.size();i++)
+      {     	
+      	if (tmp.get(i) instanceof Model_Markt) {
+      		%>
+      		<option>
+      		<%
+      		out.print(((Model_Markt)tmp.get(i)).getMstrName());
+      		%>
+      		</option>
+      		<%
+      	}
+      }
+      %>
+      </select> 
+  
+	Produktname <select name="i_einkauf_produkt_cmb" >   
+      <%
+      for (int i = 0;i<tmp.size();i++)
+      {     	
+      	if (tmp.get(i) instanceof Model_Produkt) {
+      		%>
+      		<option>
+      		<%
+      		out.print(((Model_Produkt)tmp.get(i)).getMstrName());
+      		%>
+      		</option>
+      		<%
+      	}
+      }
+      %>
+      </select> 
+
 	
-<input type="submit" name="produkt" value="i_produkt_change" /> 
+<input type="submit" name="einkauf" value="i_einkauf_change" /> 
 </form>
 
 </fieldset>
