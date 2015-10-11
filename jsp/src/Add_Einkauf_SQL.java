@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -56,7 +57,7 @@ public class Add_Einkauf_SQL extends HttpServlet {
 			int p_ID = 0;
 			int m_ID = 0;
 			
-			Vector<Object> tmp = access.getMvecModel();
+			ArrayList<Object> tmp = access.getMvecModel();
 		      for (int i = 0;i<tmp.size();i++)
 		      {     	
 		      	if (tmp.get(i) instanceof Model_Konto) {

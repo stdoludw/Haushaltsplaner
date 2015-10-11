@@ -1,8 +1,10 @@
 <%@page import="jsp.Model_Markt"%>
 <%@page import="jsp.access"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@page import="org.eclipse.jdt.internal.compiler.ast.ForeachStatement"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -24,9 +26,8 @@
 
 <%
 
-//access bean=(access)request.getAttribute("bean");  
-//Vector<Object> tmp = bean.getMvecModel();
-Vector<Object> tmp = access.getMvecModel();
+
+ArrayList<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {

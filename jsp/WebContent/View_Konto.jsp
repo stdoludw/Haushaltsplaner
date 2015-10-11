@@ -1,6 +1,8 @@
 <%@page import="jsp.Model_Konto"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.List"%>
 <%@page import="jsp.access"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -26,9 +28,7 @@
 	
 <%
 
-//access bean=(access)request.getAttribute("bean");  
-//Vector<Object> tmp = bean.getMvecModel();
-Vector<Object> tmp = access.getMvecModel();
+ArrayList<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {

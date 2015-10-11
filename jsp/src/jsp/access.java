@@ -1,11 +1,11 @@
 package jsp;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 
 public class access {
@@ -17,10 +17,8 @@ public class access {
 	private String mstrDatenbankName;
 	private final String mstrHostName = "dfch-ludwig.de";
 
-	private static Vector<Object> mvecModel;
-	private static Vector<Object> mvecStatistic;
-
-
+	private static ArrayList<Object> mvecModel;
+	private static ArrayList<String> mvecStatistic;
 	private static AES_verschluesselung aes;
 
 	public access() {
@@ -30,16 +28,16 @@ public class access {
 	public void login(String username, String passwort, String db) {
 
 		this.aes = new AES_verschluesselung();
-		this.mvecModel = new Vector<Object>();
-		this.mvecStatistic = new Vector<Object>();
+		this.mvecModel = new ArrayList<Object>();
+		this.mvecStatistic = new ArrayList<String>();
 		
 		try {
 			// neuen Vector erstellen
-			this.aes.setkey("bro");
+			this.aes.setkey(username);
 			
-			mstrUserName = "bro";
-			mstrPasswort = "P@ssw0rd";
-			mstrDatenbankName = "HausHaltsPlaner_Database";
+			mstrUserName = username;
+			mstrPasswort = passwort;
+			mstrDatenbankName = db;
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
 			Class.forName("com.mysql.jdbc.Driver");
@@ -52,23 +50,16 @@ public class access {
 			
 		
 		} catch (Exception ex) {
-			ex.getMessage();
 		}
 	}
 
 	public boolean status()
 	{
-		if (mconCon.equals(null))
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return !mconCon.equals(null);
+	
 	}
 	
-	public static void SQLAbfrage(String sql) {
+	public static void SQLAbfrage(String sql, int multi) {
 
 		try {
 			// abfrage statement erstellen
@@ -79,7 +70,10 @@ public class access {
 
 			// executeQuerry nur fuer selects
 			result = query.executeQuery(sql);
-
+			
+			//fuer iteration in statistic
+			int i=1;
+			
 			// speichern in Klasse
 			while (result.next()) {
 
@@ -141,22 +135,33 @@ public class access {
 
 					mvecModel.add(p);
 				}
-				else 
+				else if(multi == 0)
 				{
-					int i=0;
-					while(result.next())
-					{
-						mvecStatistic.add(result.getString(i));
-					}
+					mvecStatistic.add(result.getString(i));
+					i++;
 				}
+				else if(multi == 1)
+				{
+					mvecStatistic.add(result.getString(1));
+					mvecStatistic.add(result.getString(2));
+
+				}
+				else if(multi == 3)
+				{
+					mvecStatistic.add(result.getString(1));
+					mvecStatistic.add(result.getString(2));
+					mvecStatistic.add(result.getString(3));
+
+
+				}
+				
 
 			}
 
 			// scliessen des streams
 			result.close();
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage(), "Fail",
-					JOptionPane.OK_CANCEL_OPTION);
+			
 		}
 	}
 
@@ -169,8 +174,7 @@ public class access {
 			// executeQuerry nur fuer insert/update/alter
 			query.executeUpdate(sql);
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage(), "Fail",
-					JOptionPane.OK_CANCEL_OPTION);
+		
 		}
 	}
 
@@ -190,46 +194,50 @@ public class access {
 
 	public void auslesen() {
 		mvecModel.clear();
-		SQLAbfrage(Controll_Statments.ViewAll());
-		SQLAbfrage(Controll_Statments.ViewKonto());
-		SQLAbfrage(Controll_Statments.ViewMarkt());
-		SQLAbfrage(Controll_Statments.ViewProdukt());
+		SQLAbfrage(Controll_Statments.ViewAll(),2);
+		SQLAbfrage(Controll_Statments.ViewKonto(),2);
+		SQLAbfrage(Controll_Statments.ViewMarkt(),2);
+		SQLAbfrage(Controll_Statments.ViewProdukt(),2);
 	}
 
-	public String getMstrUserName() {
-		return mstrUserName;
-	}
 
-	public String getMstrDatenbankName() {
-		return mstrDatenbankName;
-	}
-
-	public String getMstrHostName() {
-		return mstrHostName;
-	}
-
-	public static Vector<Object> getMvecModel() {
+	public static ArrayList<Object> getMvecModel() {
 		return mvecModel;
 	}
 
 	@SuppressWarnings("static-access")
-	public void setMvecModel(Vector<Object> mvecModel) {
+	public void setMvecModel(ArrayList<Object> mvecModel) {
 		this.mvecModel = mvecModel;
 	}
 	
-	public static Vector<Object> getStatistik()
+	public static ArrayList<String> getStatistik()
 	{
-		
-		for(String i : Controll_Statments.statistik())
+		for(int i=0;i<Controll_Statments.getstatisticMonth().size();i++)
 		{
-			SQLAbfrage(i);
+			SQLAbfrage(Controll_Statments.getstatisticMonth().get(i),0);
+		}
+		
+		for(int i=0;i<Controll_Statments.getStatisticMulti().size();i++)
+		{
+			SQLAbfrage(Controll_Statments.getStatisticMulti().get(i),1);
 		}
 	
+		for(int i=0;i<Controll_Statments.getstatisticAllMonth().size();i++)
+		{
+			SQLAbfrage(Controll_Statments.getstatisticAllMonth().get(i),0);
+		}
+		
+		for(int i=0;i<Controll_Statments.getStatisticMultiTable().size();i++)
+		{
+			SQLAbfrage(Controll_Statments.getStatisticMultiTable().get(i),3);
+		}
+		
+		
 		return mvecStatistic;
 	}
 	public static AES_verschluesselung getAes() {
 		return aes;
 	}
 
-	
+
 }
