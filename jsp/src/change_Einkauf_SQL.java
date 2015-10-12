@@ -66,6 +66,7 @@ public class change_Einkauf_SQL extends HttpServlet {
 	      		if(((Model_Konto) tmp.get(i)).getMstrName() == konto)
 	      		{
 	      			k_ID = ((Model_Konto) tmp.get(i)).getMintID();
+	      			break;
 	      		}
 	      		
 	      	}
@@ -75,6 +76,7 @@ public class change_Einkauf_SQL extends HttpServlet {
 	      		if(((Model_Markt) tmp.get(i)).getMstrName() == markt)
 	      		{
 	      			m_ID = ((Model_Markt) tmp.get(i)).getMintID();
+	      			break;
 	      		}	      		
 	      	}
 	      	if (tmp.get(i) instanceof Model_Produkt) {
@@ -82,6 +84,7 @@ public class change_Einkauf_SQL extends HttpServlet {
 	      		if(((Model_Produkt) tmp.get(i)).getMstrName() == produkt)
 	      		{
 	      			p_ID = ((Model_Produkt) tmp.get(i)).getMintID();
+	      			break;
 	      		}		      		
 	      	}
 	      }

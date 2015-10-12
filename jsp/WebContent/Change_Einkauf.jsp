@@ -1,5 +1,5 @@
 <%@page import="jsp.access"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="jsp.Model_Einkauf"%>
 <%@page import="jsp.Model_Konto"%>
 <%@page import="jsp.Model_Markt"%>
@@ -18,7 +18,7 @@
 
 <%
 int ID = Integer.valueOf(request.getParameter("ein_ID"));
-Vector<Object> tmp = access.getMvecModel();
+ArrayList<Object> tmp = access.getMvecModel();
 Model_Einkauf einkauf = null;
 
 for (int i = 0;i<tmp.size();i++)

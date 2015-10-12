@@ -1,5 +1,5 @@
 <%@page import="jsp.access"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="jsp.Model_Markt"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,7 +15,7 @@
 
 <%
 int ID = Integer.valueOf(request.getParameter("m_ID"));
-Vector<Object> tmp = access.getMvecModel();
+ArrayList<Object> tmp = access.getMvecModel();
 Model_Markt markt = null;
 
 for (int i = 0;i<tmp.size();i++)
@@ -35,8 +35,7 @@ for (int i = 0;i<tmp.size();i++)
 %>
 
 
-
-<form action="Add_Markt_SQL" method="POST">
+<form action="change_Markt_SQL" method="POST">
 Marktname<input class="w3-input" style="width:95%" type="text" name="i_markt_name" size="20" 
 value="<%out.print(markt.getMstrName());%>">		
 Postleitzahl<input class="w3-input" style="width:95%" type="text" name="i_markt_plz" size="20" 
@@ -44,7 +43,8 @@ value="<%out.print(markt.getMstrPLZ());%>">
 Adresse<input class="w3-input" style="width:95%" type="text" name="i_markt_adresse" size="20" 
 value="<%out.print(markt.getMstrAdr());%>">			
 Entfernung<input class="w3-input" style="width:95%" type="text" name="i_markt_entfernung" size="20" 
-value="<%out.print(markt.getMintEntfernung());%>">			
+value="<%out.print(markt.getMintEntfernung());%>">
+<p></p>			
 ID<input class="w3-input" style="width:95%" type="text" name="i_markt_id" size="20" 
 value="<%out.print(markt.getMintID());%>">		
 	

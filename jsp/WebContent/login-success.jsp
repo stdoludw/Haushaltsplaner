@@ -52,7 +52,7 @@
 
 <div class="w3-quarter">
   <a href="View_Statistik.jsp" ><div class="w3-card-2" style="min-height:260px">
-  <h4>Einkaufe</h4><br>
+  <h4>Statistik</h4><br>
   <img src=statistic.png>
   <p> Anzeigen der Statistik </p> </a>
   </div>

@@ -1,5 +1,5 @@
 <%@page import="jsp.access"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="jsp.Model_Einkauf"%>
 <%@page import="jsp.Model_Konto"%>
 <%@page import="jsp.Model_Markt"%>
@@ -16,11 +16,10 @@
 
 <fieldset><legend><b>Einkauf Eintragen</b></legend>
 
-<%Vector<Object> tmp = access.getMvecModel(); %>
+<%ArrayList<Object> tmp = access.getMvecModel(); %>
 <form action="Add_Einkauf_SQL" method="POST">
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_id" size="20">	
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" >	
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" >	
+Einkaufsdatum<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" >	
+Einkaufs anzahl<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" >	
 Kontoinhaber<select name="i_einkauf_konto_cmb" >  
       <%
       for (int i = 0;i<tmp.size();i++)

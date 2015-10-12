@@ -16,7 +16,8 @@
 	        	  
 <form action="Add_Produkt_SQL" method="POST">
 Produktname<input class="w3-input" style="width:95%" type="text" name="i_produkt_name" size="20" >		
-Gewicht<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" >		
+Gewicht<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" >	
+<p></p>	
 Preis<input class="w3-input" style="width:95%" type="text" name="i_produkt_preis" size="20" >		
 	
 <input type="submit" name="produkt" value="i_produkt_change" /> 

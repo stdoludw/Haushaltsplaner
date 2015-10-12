@@ -1,5 +1,4 @@
 <%@page import="jsp.access"%>
-<%@page import="java.util.Vector"%>
 <%@page import="jsp.Model_Produkt"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
