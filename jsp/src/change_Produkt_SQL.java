@@ -50,7 +50,8 @@ public class change_Produkt_SQL extends HttpServlet {
 				Integer.valueOf(request.getParameter("i_produkt_id"))));
 		
 		out.println("Produkt erfolgreich geupdatet");
-		
+		access.auslesen();
+		 request.getRequestDispatcher("login-success.jsp").forward(request, response);
 	}
 
 }

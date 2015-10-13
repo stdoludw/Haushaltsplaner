@@ -9,11 +9,6 @@ public class Model_Konto {
 	private String mstrKnr;
 	private String mstrMin;
 	private int mintID;
-	private boolean mboolequal;
-
-	public boolean isMboolequal() {
-		return mboolequal;
-	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -91,10 +86,6 @@ public class Model_Konto {
 
 		return Controll_Statments.UpdateKonto(this.mstrName, this.mstrBLZ, this.mstrKnr, this.mstrBetrag, this.mstrMin, this.mintID,aes);
 	}
-	public Object[] print() {
-		Object [] tmp = {this.mstrName,this.mstrKnr,this.mstrBLZ,this.mstrBetrag,this.mstrMin,this.mintID};
-		return tmp;
 
-	}
 
 }

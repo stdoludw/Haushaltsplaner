@@ -1,13 +1,11 @@
 package jsp;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
 
 
 @WebServlet("/Controller")
@@ -36,9 +34,8 @@ public class Controller extends HttpServlet {
 
         access as = new access();
         as.login(name, password, db);
-        as.auslesen();
+        access.auslesen();
         
-        request.setAttribute("bean",as); 
                 
         if(as.status())
         {  

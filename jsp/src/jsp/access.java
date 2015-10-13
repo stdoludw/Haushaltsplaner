@@ -33,11 +33,11 @@ public class access {
 		
 		try {
 			// neuen Vector erstellen
-			this.aes.setkey(username);
+			this.aes.setkey("bro");
 			
-			mstrUserName = username;
-			mstrPasswort = passwort;
-			mstrDatenbankName = db;
+			mstrUserName = "bro";
+			mstrPasswort = "";
+			mstrDatenbankName = "HausHaltsPlaner_Database";
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
 			Class.forName("com.mysql.jdbc.Driver");
@@ -192,7 +192,7 @@ public class access {
 		}
 	}
 
-	public void auslesen() {
+	public static void auslesen() {
 		mvecModel.clear();
 		SQLAbfrage(Controll_Statments.ViewAll(),2);
 		SQLAbfrage(Controll_Statments.ViewKonto(),2);
@@ -205,10 +205,6 @@ public class access {
 		return mvecModel;
 	}
 
-	@SuppressWarnings("static-access")
-	public void setMvecModel(ArrayList<Object> mvecModel) {
-		this.mvecModel = mvecModel;
-	}
 	
 	public static ArrayList<String> getStatistik()
 	{

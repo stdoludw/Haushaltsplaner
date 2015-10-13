@@ -51,6 +51,8 @@ public class Add_Markt_SQL extends HttpServlet {
 							Integer.valueOf(request.getParameter("i_markt_entfernung"))));
 					
 			out.println("Markt erfolgreich hinzugefuegt");
+			access.auslesen();
+			 request.getRequestDispatcher("login-success.jsp").forward(request, response);
 			
 			
 	}

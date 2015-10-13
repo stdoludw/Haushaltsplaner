@@ -9,30 +9,44 @@
     pageEncoding="UTF-8"
     %>
 <html>
-<header>
-<h2>Alles um deine Produkten</h2>    
-</header>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="w3-theme-red.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 
+<body>
 
-<table bgcolor="#E0F2F7" border="1" cellspacing="1" cellpadding="1">
-<tr> 
+<div class="w3-container">
+  <hr>
+  <div class="w3-center">
+    <h2>Produkte</h2>	
+    <p w3-class="w3-large">Alles über deine Produkte</p>
+  </div>
+<div class="w3-responsive w3-card-4">
+<table class="w3-table w3-striped w3-bordered">
+<thead>
+<tr class="w3-theme">
 <th> Aendern</th> 
 <th> Produktname</th> 
 <th> Gewicht </th> 
 <th> Preis</th> 
 </tr> 
+</thead>
+<tbody>
+	
 
-	<tr>	
 <%
 
 ArrayList<Object> tmp = access.getMvecModel();
 
 for (int i = 0;i<tmp.size();i++)
 {
+
 	
-	
-	if (tmp.get(i) instanceof Model_Produkt) {
+	if (tmp.get(i) instanceof Model_Produkt) 
+	{
 	%>
+	<tr class="w3-white">	
 	<td>
 	<%
 	out.print(((Model_Produkt)tmp.get(i)).getMintID());
@@ -53,18 +67,20 @@ for (int i = 0;i<tmp.size();i++)
 	out.print(((Model_Produkt)tmp.get(i)).getMfltPreis());
 	%>
 	</td>
-	<%
-	}
-	
-	%>
 	</tr>
 	<%
+	}	
+	%>
 	
-}
 
-%>
-</form>
+	
+	<%	
+	}
+	%>
+</tbody>
 </table>
+</div>
+</div>
 
 <form action="Change_Produkt.jsp" method="POST">
 Produkt ID Eingeben: <input type="text" name="p_ID">
@@ -74,5 +90,6 @@ Produkt ID Eingeben: <input type="text" name="p_ID">
 <form action="Add_Produkt.jsp" method="POST">
 <input class="w3-btn w3-color-teal" type="submit" value="Hinzufuegen">
 </form>
+</body>
 </html>
             

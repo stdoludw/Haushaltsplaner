@@ -28,7 +28,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Konto)tmp.get(i)).getMstrName());
+      		out.print(((Model_Konto)tmp.get(i)).getMintID() + " " +
+      				((Model_Konto)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -44,7 +45,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Markt)tmp.get(i)).getMstrName());
+      		out.print(((Model_Markt)tmp.get(i)).getMintID() + " " +
+      				((Model_Markt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -61,7 +63,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Produkt)tmp.get(i)).getMstrName());
+      		out.print(((Model_Produkt)tmp.get(i)).getMintID() + " " +
+      				((Model_Produkt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -71,7 +74,7 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       </select> 
 
 	
-<input type="submit" name="einkauf" value="i_einkauf_change" /> 
+<input type="submit" name="einkauf" value="i_einkauf_add" /> 
 </form>
 
 </fieldset>

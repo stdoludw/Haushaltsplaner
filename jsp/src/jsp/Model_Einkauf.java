@@ -8,11 +8,7 @@ public class Model_Einkauf {
 	private Model_Produkt mprdProdukt;
 	private Model_Markt mmkrMarkt;
 	private int mintID;
-	private boolean mboolequal;
 
-	public boolean isMboolequal() {
-		return mboolequal;
-	}
 
 	public int getMintID() {
 		return mintID;
@@ -30,7 +26,6 @@ public class Model_Einkauf {
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
 		this.mintID = pk;
-		this.mboolequal = true;
 	}
 
 	public void ModelArray(Model_Konto k, Model_Produkt p, Model_Markt m) {
@@ -67,18 +62,5 @@ public class Model_Einkauf {
 		return statement;
 
 	}
-
-
-	public Object[] print() {
-	
-		Object [] tmp=
-			{
-				
-				this.mstrDatum,this.mintAnzahl,
-				this.mkntKonto.getMstrName(),this.mkntKonto.getMstrKnr(),this.mkntKonto.getMstrBLZ(),this.mkntKonto.getMstrBetrag(),this.mkntKonto.getMintMin(),
-				this.mmkrMarkt.getMstrName(),this.mmkrMarkt.getMstrPLZ(),this.mmkrMarkt.getMstrAdr(),this.mmkrMarkt.getMintEntfernung(),
-				this.mprdProdukt.getMstrName(),this.mprdProdukt.getMintGewicht(),this.mprdProdukt.getMintGewicht()};
-				return tmp;
-		}
 
 }

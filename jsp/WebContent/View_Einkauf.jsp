@@ -145,6 +145,7 @@ for (int i = 0;i<tmp.size();i++)
 	%>
 	</td>
 	<%
+	
 	}
 	
 	%>
@@ -154,6 +155,7 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 </table>
+
 <form action="Change_Einkauf.jsp" method="POST">
 Einkauf ID Eingeben: <input type="text" name="ein_ID">
 <input class="w3-btn w3-color-teal" type="submit" value="Bearbeiten">

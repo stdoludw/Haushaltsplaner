@@ -8,11 +8,6 @@ public class Model_Markt {
 	private String mstrAdr;
 	private int mintEntfernung;
 	private int mintID;
-	private boolean mboolequal;
-
-	public boolean isMboolequal() {
-		return mboolequal;
-	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -28,7 +23,6 @@ public class Model_Markt {
 		this.mstrAdr = adr;
 		this.mintEntfernung = entfernung;
 		this.mintID = id;
-		this.mboolequal = true;
 
 	}
 
@@ -81,23 +75,7 @@ public class Model_Markt {
 
 		return Controll_Statments.UpdateMarkt(this.mstrName, this.mstrPLZ, this.mstrAdr, this.mintEntfernung, this.mintID);
 	}
-	public Object[] print() {
-		Object[] tmp = {this.mstrName, this.mstrPLZ , this.mstrAdr ,this.mintEntfernung,this.mintID};
-		return tmp;
-	}
+	
 
-	public boolean equal(Model_Markt tmp) {
-		if (this.mstrName == tmp.mstrName && this.mstrPLZ == tmp.mstrPLZ && this.mstrAdr == tmp.mstrAdr
-				&& this.mintEntfernung == tmp.mintEntfernung) {
-			mboolequal = true;
-			return true;
-		}
-		mboolequal = false;
-		this.mstrName = tmp.mstrName;
-		this.mstrPLZ = tmp.mstrPLZ;
-		this.mstrAdr = tmp.mstrAdr;
-		this.mintEntfernung = tmp.mintEntfernung;
-		return false;
-	}
-
+	
 }

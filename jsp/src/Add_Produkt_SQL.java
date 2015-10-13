@@ -51,6 +51,8 @@ public class Add_Produkt_SQL extends HttpServlet {
 					));
 			
 			out.println("Produkt erfolgreich hinzugefuegt");
+			access.auslesen();
+			 request.getRequestDispatcher("login-success.jsp").forward(request, response);
 	}
 
 }

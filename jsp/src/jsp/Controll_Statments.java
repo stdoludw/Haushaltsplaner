@@ -66,8 +66,8 @@ public static String  UpdateMarkt(String name, String postleitzahl, String adres
 	
 public static String  UpdateEinkauf(int anzahl, String datum, int k_ID, int p_ID, int m_ID, int PK) {
 	return "update Einkauf set anzahl = "  +anzahl+  ", datum = " +"\'"+datum+"\'"
-			+", k_ID = "+k_ID+", p_ID = "+p_ID+" , m_ID = "+m_ID + 
-			 "where E_ID = "+ PK +";";
+			+" , k_ID = "+k_ID+", p_ID = "+p_ID+" , m_ID = "+m_ID + 
+			 " where E_ID = "+ PK +";";
 	}
 
 	public static Vector<String> createDatenbank(String kuerzel) {

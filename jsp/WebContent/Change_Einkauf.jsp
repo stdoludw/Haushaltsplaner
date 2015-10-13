@@ -37,12 +37,12 @@ for (int i = 0;i<tmp.size();i++)
 
 %>
 	        	  
-<form action="change_Einkauf_SQL" method="POST">
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_id" size="20" 
+<form action="change_Einkauf_SQL" method="POST">	
+ID<input class="w3-input" style="width:95%" type="text" name="i_einkauf_id" size="20" 
 value="<%out.print(einkauf.getMintID());%>">	
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" 
+Datum<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" 
 value="<%out.print(einkauf.getMstrDatum());%>">	
-<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" 
+Anzahl<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" 
 value="<%out.print(einkauf.getMintAnzahl());%>">	
 Kontoinhaber<select name="i_einkauf_konto_cmb" >  
       <%
@@ -52,7 +52,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Konto)tmp.get(i)).getMstrName());
+      		out.print(((Model_Konto)tmp.get(i)).getMintID() + " " +
+      				((Model_Konto)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -68,7 +69,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Markt)tmp.get(i)).getMstrName());
+      		out.print(((Model_Markt)tmp.get(i)).getMintID() + " " +
+      				((Model_Markt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%
@@ -85,7 +87,8 @@ Kontoinhaber<select name="i_einkauf_konto_cmb" >
       		%>
       		<option>
       		<%
-      		out.print(((Model_Produkt)tmp.get(i)).getMstrName());
+      		out.print(((Model_Produkt)tmp.get(i)).getMintID() + " " +
+      				((Model_Produkt)tmp.get(i)).getMstrName());
       		%>
       		</option>
       		<%

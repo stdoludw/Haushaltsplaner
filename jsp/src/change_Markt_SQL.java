@@ -51,7 +51,8 @@ public class change_Markt_SQL extends HttpServlet {
 							Integer.valueOf(request.getParameter("i_markt_id"))));
 					
 			out.println("Markt erfolgreich geandert");
-		
+			access.auslesen();
+			 request.getRequestDispatcher("login-success.jsp").forward(request, response);
 	}
 
 }

@@ -54,6 +54,8 @@ public class change_Konto_SQL extends HttpServlet {
 
 		
 		out.println("Konto erfolgreich geupdatet");
+		access.auslesen();
+		 request.getRequestDispatcher("login-success.jsp").forward(request, response);
 		
 	}
 

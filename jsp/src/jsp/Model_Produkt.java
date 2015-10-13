@@ -7,11 +7,6 @@ public class Model_Produkt {
 	private int mintGewicht;
 	private float mfltPreis;
 	private int mintID;
-	private boolean mboolequal;
-
-	public boolean isMboolequal() {
-		return mboolequal;
-	}
 
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
@@ -26,7 +21,6 @@ public class Model_Produkt {
 		this.mintGewicht = gewicht;
 		this.mfltPreis = preis;
 		this.mintID = id;
-		this.mboolequal = true;
 
 	}
 public Model_Produkt() {
@@ -69,27 +63,6 @@ public Model_Produkt() {
 
 	}
 
-	public Object[] print() {
-		Object [] tmp ={this.mstrName,this.mintGewicht,this.getMfltPreis(),this.getMintID()};
-		return tmp;
-	}
 
-	public boolean equal(Model_Produkt tmp) {
-		if (
-				this.mstrName == tmp.mstrName && 
-				this.mintGewicht == tmp.mintGewicht && 
-				this.mfltPreis == tmp.mfltPreis
-			) 
-		{
-			mboolequal = true;
-			return true;
-		}
-		mboolequal = false;
-		this.mstrName = tmp.mstrName;
-		System.out.println(this.mstrName);
-		this.mintGewicht = tmp.mintGewicht;
-		this.mfltPreis = tmp.mfltPreis;
-		return false;
-	}
 
 }
