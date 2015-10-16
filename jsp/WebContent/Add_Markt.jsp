@@ -3,14 +3,38 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="w3-theme-red.css">
+
+<body w3-white-grey>
+
+<nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none">
+  <a href="javascript:void(0)"
+  onclick="w3_close()"
+	    class="w3-closenav w3-large">Close</a>
+      <a href="index.html">Login</a>
+  <a href="login-success.jsp">Hauptmenue</a>
+  <a href="usermanagment.html"> Benutzerverwaltung </a>
+  
+</nav>
+
+<header class="w3-container w3-blue-grey">
+  <span class="w3-opennav w3-large" onclick="w3_open()">&#9776; Menue </span>
+</header>
+
 <body>
 
-<fieldset><legend><b>Produkte Eintragen</b></legend>
+<div class="w3-container">
+  <hr>
+  <div class="w3-center">
+    <h2>Mäkte</h2>	
+    <p w3-class="w3-large">Märkte Hinzufügen</p>
+  </div>
+<div class="w3-responsive w3-card-4">
+<table class="w3-table w3-striped w3-bordered">
+<thead>
 
 	        	  
 <form action="Add_Markt_SQL" method="POST">
@@ -19,11 +43,22 @@ Postleitzahl<input class="w3-input" style="width:95%" type="text" name="i_markt_
 Adresse<input class="w3-input" style="width:95%" type="text" name="i_markt_adresse" size="20" >		
 Entfernung<input class="w3-input" style="width:95%" type="text" name="i_markt_entfernung" size="20" >		
 	
-	
-<input type="submit" name="markt" value="i_markt_change" /> 
+	<br>
+	<center>
+<input class="w3-btn w3-light-green" type="submit" value="Markt Hinzufügen">
+</center>
 </form>
 
-</fieldset>
+
+<script>
+function w3_open() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+}
+function w3_close() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+}
+</script>
+
 
 </body>
 </html>

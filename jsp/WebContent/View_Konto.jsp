@@ -110,7 +110,7 @@ for (int i = 0;i<tmp.size();i++)
 <center>
 <br>
 <form action="Change_Konto.jsp" method="POST">
-Konto ID Eingeben: <input type="text" name="p_ID">
+Konto ID Eingeben: <input type="text" name="k_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>

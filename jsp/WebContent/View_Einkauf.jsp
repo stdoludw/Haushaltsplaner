@@ -187,7 +187,7 @@ for (int i = 0;i<tmp.size();i++)
 <center>
 <br>
 <form action="Change_Einkauf.jsp" method="POST">
-Einkauf ID Eingeben: <input type="text" name="p_ID">
+Einkauf ID Eingeben: <input type="text" name="ein_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>

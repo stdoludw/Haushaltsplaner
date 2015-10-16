@@ -33,7 +33,7 @@
 <div class="w3-container">
   <hr>
   <div class="w3-center">
-    <h2>Mäkrte</h2>	
+    <h2>Mäkte</h2>	
     <p w3-class="w3-large">Alles über deine Märkte</p>
   </div>
 <div class="w3-responsive w3-card-4">
@@ -104,7 +104,7 @@ for (int i = 0;i<tmp.size();i++)
 <center>
 <br>
 <form action="Change_Markt.jsp" method="POST">
-Markt ID Eingeben: <input type="text" name="p_ID">
+Markt ID Eingeben: <input type="text" name="m_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>
