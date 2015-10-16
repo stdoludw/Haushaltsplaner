@@ -18,7 +18,7 @@
 	    class="w3-closenav w3-large">Close</a>
       <a href="index.html">Login</a>
   <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.jsp"> Benutzerverwaltung </a>
+  <a href="usermanagment.html"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -204,7 +204,7 @@ function w3_close() {
 	<div class="w3-row-padding"> 
 <div class="w3-third">
 <div class="w3-card-2">
-	<div id="chart_div" style="width: 700px; height: 500px;"></div>
+	<div id="chart_div" style="width: 500px; height: 500px;"></div>
 	 <div class="w3-container">
   </div>
 </div>
@@ -214,7 +214,7 @@ function w3_close() {
 	<div class="w3-row-padding"> 
 <div class="w3-third">
 <div class="w3-card-2">	
-	<div id="chart_div2" style="width: 900px; height: 500px;"></div>
+	<div id="chart_div2" style="width: 500px; height: 500px;"></div>
 		 <div class="w3-container">
   </div>
 </div>
@@ -223,7 +223,7 @@ function w3_close() {
 <div class="w3-row-padding"> 
 <div class="w3-third">
 <div class="w3-card-2">
-<div id="chart_div3" style="width: 700px; height: 500px;"></div>
+<div id="chart_div3" style="width: 500px; height: 500px;"></div>
 <div class="w3-container">
 			 
   </div>

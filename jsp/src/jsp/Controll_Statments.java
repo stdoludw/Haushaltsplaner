@@ -89,6 +89,7 @@ public static Vector<String> createUser(String name, String passwort, String db)
 		mstrAttNew.add("create table Einkauf like master.Einkauf;");
 		mstrAttNew.add("create table Konto like master.Konto;");
 		mstrAttNew.add("create table Markt like master.Markt;");
+		mstrAttNew.add("create table Produkt like master.Produkt;");
 		mstrAttNew.add("create view HausHaltsPlaner_" + name
 				+ ".ViewAll as select k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID, p.name as 'Produktname',p.gewicht, p.preis, p.P_ID, m.name as 'Marktname',"
 				+ "m.postleitzahl,m.adresse, m.entfernung, m.M_ID,"

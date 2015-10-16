@@ -33,11 +33,11 @@ public class access {
 		
 		try {
 			// neuen Vector erstellen
-			this.aes.setkey("bro");
+			this.aes.setkey(passwort);
 			
-			mstrUserName = "bro";
-			mstrPasswort = "P@ssw0rd";
-			mstrDatenbankName = "HausHaltsPlaner_Database";
+			mstrUserName =  username;
+			mstrPasswort = passwort;
+			mstrDatenbankName = db;
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
 			Class.forName("com.mysql.jdbc.Driver");
