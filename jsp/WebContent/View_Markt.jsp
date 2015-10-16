@@ -108,6 +108,10 @@ Markt ID Eingeben: <input type="text" name="m_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>
+<form action="Del_Markt_SQL" method="POST">
+Markt ID Eingeben: <input type="text" name="m_ID">
+<input class="w3-btn w3-light-blue" type="submit" value="Entfernen">
+</form>
 
 
 

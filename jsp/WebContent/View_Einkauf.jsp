@@ -191,7 +191,10 @@ Einkauf ID Eingeben: <input type="text" name="ein_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>
-
+<form action="Del_Einkauf_SQL" method="POST">
+Einkauf ID Eingeben: <input type="text" name="ein_ID">
+<input class="w3-btn w3-light-blue" type="submit" value="Entfernen">
+</form>
 
 
 <form action="Add_Einkauf.jsp" method="POST">

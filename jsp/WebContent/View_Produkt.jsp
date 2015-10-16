@@ -101,8 +101,12 @@ Produkt ID Eingeben: <input type="text" name="p_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>
+<form action="Del_Produkt_SQL" method="POST">
+Produkt ID Eingeben: <input type="text" name="p_ID">
+<input class="w3-btn w3-light-blue" type="submit" value="Entfernen">
+</form>
 
-
+<br>
 
 <form action="Add_Produkt.jsp" method="POST">
 <input class="w3-btn w3-light-green" type="submit" value="Hinzufuegen">

@@ -70,6 +70,28 @@ public static String  UpdateEinkauf(int anzahl, String datum, int k_ID, int p_ID
 			 " where E_ID = "+ PK +";";
 	}
 
+public static String DeleteProdukt(int PK) {
+
+	return "delete from Produkt where P_ID = "+ PK +";";
+
+	
+}
+
+public static String DeleteKonto(int PK) 
+{
+return "delete from Konto where K_ID = "+ PK +";";
+
+}
+
+public static String  DeleteMarkt(int PK) {
+return "delete from Markt where M_ID = "+ PK +";";
+}
+
+
+public static String  DeleteEinkauf(int PK) {
+return "delete from Einkauf where E_ID = "+ PK +";";
+}
+
 public static Vector<String> createUser(String name, String passwort, String db)
 {
 	Vector<String> mstrAttNew = new Vector<String>();

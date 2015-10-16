@@ -31,7 +31,7 @@
 <div class="w3-container">
   <hr>
   <div class="w3-center">
-    <h2>Mäkte</h2>	
+    <h2>Produkte</h2>	
     <p w3-class="w3-large">Produkte ändern</p>
   </div>
 <div class="w3-responsive w3-card-4">

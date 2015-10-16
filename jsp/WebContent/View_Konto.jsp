@@ -115,7 +115,10 @@ Konto ID Eingeben: <input type="text" name="k_ID">
 </form>
 <br>
 
-
+<form action="Del_Konto_SQL" method="POST">
+Konto ID Eingeben: <input type="text" name="k_ID">
+<input class="w3-btn w3-light-blue" type="submit" value="Entfernen">
+</form>
 
 <form action="Add_Konto.jsp" method="POST">
 <input class="w3-btn w3-light-green" type="submit" value="Hinzufuegen">
