@@ -70,36 +70,48 @@ public static String  UpdateEinkauf(int anzahl, String datum, int k_ID, int p_ID
 			 " where E_ID = "+ PK +";";
 	}
 
-	public static Vector<String> createDatenbank(String kuerzel) {
+public static Vector<String> createUser(String name, String passwort, String db)
+{
+	Vector<String> mstrAttNew = new Vector<String>();
+	mstrAttNew.add("create user '"+name+"'@'%' IDENTIFIED BY '"+passwort+"';");
+	mstrAttNew.add("create database HausHaltsPlaner_"+name+";" );
+			mstrAttNew.add("grant select, insert, create, update, CREATE VIEW on HausHaltsPlaner_"+name+".* to '"+name+"'@'%';" );
+					mstrAttNew.add("grant select on master.* to '"+name+"'@'%';");
+							mstrAttNew.add("grant CREATE on *.* to '"+name+"'@'%';" );
+							return mstrAttNew;
+}
+
+	public static Vector<String> createDatenbank(String name) {
 		Vector<String> mstrAttNew = new Vector<String>();
-		mstrAttNew.add("create database HausHaltsPlaner_" + kuerzel + ";");
-		mstrAttNew.add("use HausHaltsPlaner_" + kuerzel + ";");
+				        
+		mstrAttNew.add("create database HausHaltsPlaner_" + name + ";");
+		mstrAttNew.add("use HausHaltsPlaner_" + name + ";");
 		mstrAttNew.add("create table Einkauf like master.Einkauf;");
 		mstrAttNew.add("create table Konto like master.Konto;");
 		mstrAttNew.add("create table Markt like master.Markt;");
-		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel
+		mstrAttNew.add("create view HausHaltsPlaner_" + name
 				+ ".ViewAll as select k.betrag, k.name as 'Kontoinhaber', k.bankleitzahl, k.kontonummer,k.minimum, k.K_ID, p.name as 'Produktname',p.gewicht, p.preis, p.P_ID, m.name as 'Marktname',"
 				+ "m.postleitzahl,m.adresse, m.entfernung, m.M_ID,"
-				+ "ein.anzahl,ein.datum,ein.E_ID from HausHaltsPlaner_" + kuerzel + ".Einkauf ein, HausHaltsPlaner_"
-				+ kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Konto k, HausHaltsPlaner_" + kuerzel
+				+ "ein.anzahl,ein.datum,ein.E_ID from HausHaltsPlaner_" + name + ".Einkauf ein, HausHaltsPlaner_"
+				+ name + ".Produkt p, HausHaltsPlaner_" + name + ".Konto k, HausHaltsPlaner_" + name
 				+ ".Markt m where ein.m_ID = m.M_ID AND ein.p_ID = p.P_ID AND ein.k_ID = k.K_ID;");
 
-		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortPreis as"
-				+ "			select p.name as 'Produktname', p.Preis, p.gewicht from HausHaltsPlaner_" + kuerzel
+		mstrAttNew.add("create view HausHaltsPlaner_" + name + ".SortPreis as"
+				+ "			select p.name as 'Produktname', p.Preis, p.gewicht from HausHaltsPlaner_" + name
 				+ ".Produkt p order by p.Preis;");
 
-		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortAusgaben as"
+		mstrAttNew.add("create view HausHaltsPlaner_" + name + ".SortAusgaben as"
 				+ "			select p.name as 'Produktname', p.preis , ein.anzahl,ein.E_ID ,ROUND((p.preis * ein.anzahl),2) as 'gesamtpreis',ein.E_ID from HausHaltsPlaner_"
-				+ kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel + ".Einkauf ein where p.P_ID = ein.p_ID;");
+				+ name + ".Produkt p, HausHaltsPlaner_" + name + ".Einkauf ein where p.P_ID = ein.p_ID;");
 
-		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortDatum as"
+		mstrAttNew.add("create view HausHaltsPlaner_" + name + ".SortDatum as"
 				+ "			select p.name as 'Produktname', p.preis , p.gewicht , ein.datum,ein.E_ID  from HausHaltsPlaner_"
-				+ kuerzel + ".Produkt p, HausHaltsPlaner_" + kuerzel
+				+ name + ".Produkt p, HausHaltsPlaner_" + name
 				+ ".Einkauf ein where p.P_ID = ein.p_ID Order by ein.Datum;");
 
-		mstrAttNew.add("create view HausHaltsPlaner_" + kuerzel + ".SortEntfernung as"
+		mstrAttNew.add("create view HausHaltsPlaner_" + name + ".SortEntfernung as"
 				+ "			select m.name as 'Martname', m.entfernung , m.postleitzahl, m.adresse  from HausHaltsPlaner_"
-				+ kuerzel + ".Markt m;");
+				+ name + ".Markt m;");
 
 		return mstrAttNew;
 	}

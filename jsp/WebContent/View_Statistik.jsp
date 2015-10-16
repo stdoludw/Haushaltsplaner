@@ -7,8 +7,31 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body w3-white-grey>
+
+<nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none">
+  <a href="javascript:void(0)"
+  onclick="w3_close()"
+	    class="w3-closenav w3-large">Close</a>
+      <a href="index.html">Login</a>
+  <a href="login-success.jsp">Hauptmenue</a>
+  <a href="usermanagement.jsp"> Benutzerverwaltung </a>
+  
+</nav>
+
+<header class="w3-container w3-blue-grey">
+  <span class="w3-opennav w3-large" onclick="w3_open()">&#9776; Menue </span>
+</header>
+
+<div class="w3-row-padding w3-center w3-margin-top">
+
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
+
 
 //########################################
 	google.load("visualization", "1.1", {
@@ -65,6 +88,7 @@
 		var options2 = {
 			title : 'Top 10 Produkte',
 			legend : 'none',
+			is3D : true,
 			pieSliceText : 'label',
 			slices : {
 				4 : {
@@ -88,19 +112,16 @@
 		
 //########################################
 
-		 var data_char3 = new google.visualization.DataTable();
-         data_char3.addColumn("string", "Topping");    
-         data_char3.addColumn("number", "Slices");
-         data_char3.addRows([
+		 var data_char3 = new google.visualization.arrayToDataTable([
+		[ 'Name', 'Ausgaben' ],
           ['<%out.print(tmp.get(24));%>',<%out.print(tmp.get(25));%>],
           ['<%out.print(tmp.get(26));%>',<%out.print(tmp.get(27));%>],
           ['<%out.print(tmp.get(28));%>',<%out.print(tmp.get(29));%>],
 
      ]);
          
-         var options_char3 = {"title":"TOP 3 Maerkte",
-                 "width":400,
-                 "height":300};
+         var options_char3 = {"title":"TOP 3 Maerkte"
+                 };
          
          var chart3 = new google.visualization.PieChart(document.getElementById("chart_div3"));
          chart3.draw(data_char3, options_char3);
@@ -166,13 +187,62 @@
 
 	}
 </script>
+
+<script>
+function w3_open() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+}
+function w3_close() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+}
+</script>
+
 </head>
 <body>
-	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+
+	<div class="w3-row-padding"> 
+<div class="w3-third">
+<div class="w3-card-2">
+	<div id="chart_div" style="width: 700px; height: 500px;"></div>
+	 <div class="w3-container">
+  </div>
+</div>
+</div>
+
+	
+	<div class="w3-row-padding"> 
+<div class="w3-third">
+<div class="w3-card-2">	
 	<div id="chart_div2" style="width: 900px; height: 500px;"></div>
-	<div id="chart_div3" style="width: 900px; height: 500px;"></div>
-	<div id="chart_div4" style="width: 900px; height: 500px;"></div>
-	<div id="chart_div5" style="width: 900px; height: 500px;"></div>
+		 <div class="w3-container">
+  </div>
+</div>
+</div>
+
+<div class="w3-row-padding"> 
+<div class="w3-third">
+<div class="w3-card-2">
+<div id="chart_div3" style="width: 700px; height: 500px;"></div>
+<div class="w3-container">
+			 
+  </div>
+</div>
+</div>
+
+		<div class="w3-row-padding w3-center  w3-margin-top"> 
+<div class="w3-half">
+<div class="w3-card-2">
+<div id="chart_div4" style="width: 1200px; height: 500px;"></div>
+			 <div class="w3-container">
+  </div>
+</div>
+</div>
+	
+	
+	<center>
+<div id="chart_div5" style="width: 900px; height: 500px;"></div>
+</center>
 
 
 </body>

@@ -36,7 +36,7 @@ public class access {
 			this.aes.setkey("bro");
 			
 			mstrUserName = "bro";
-			mstrPasswort = "";
+			mstrPasswort = "P@ssw0rd";
 			mstrDatenbankName = "HausHaltsPlaner_Database";
 
 			// Datenbanktreiber fuer JDBC Schnittstellen laden.
