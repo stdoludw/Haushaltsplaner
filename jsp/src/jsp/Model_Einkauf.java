@@ -22,6 +22,17 @@ public class Model_Einkauf {
 		return mstrDatum;
 	}
 
+	public void setMstrDatum(String mstrDatum) {
+		
+		if(mstrDatum.split("-")[1] == "00" || mstrDatum.split("-")[2] == "00")
+		{
+			this.mstrDatum = mstrDatum.split("-")[0] + "-01-01";
+		}
+		else
+		{
+	 this.mstrDatum = mstrDatum;
+		}
+	}
 	public Model_Einkauf(int anzahl, String today, int pk) {
 		this.mintAnzahl = anzahl;
 		this.mstrDatum = today;
@@ -40,7 +51,15 @@ public class Model_Einkauf {
 	}
 
 	public void setMintAnzahl(int mintAnzahl) {
+		
+		if(mintAnzahl>0)
+		{
 		this.mintAnzahl = mintAnzahl;
+		}
+		else
+		{
+			this.mintAnzahl =1;
+		}
 	}
 
 	public Model_Konto getMkntKonto() {

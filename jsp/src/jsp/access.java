@@ -15,7 +15,7 @@ public class access {
 	private static Connection mconCon;
 	private final int mintPort = 3306;
 	private String mstrDatenbankName;
-	private final String mstrHostName = "dfch-ludwig.de";
+	private final String mstrHostName = "localhost";
 
 	private static ArrayList<Object> mvecModel;
 	private static ArrayList<String> mvecStatistic;
@@ -50,6 +50,7 @@ public class access {
 			
 		
 		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -161,7 +162,7 @@ public class access {
 			// scliessen des streams
 			result.close();
 		} catch (SQLException ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 
@@ -174,7 +175,8 @@ public class access {
 			// executeQuerry nur fuer insert/update/alter
 			query.executeUpdate(sql);
 		} catch (SQLException ex) {
-		ex.fillInStackTrace();
+			ex.printStackTrace();
+		
 		}
 	}
 
@@ -187,17 +189,25 @@ public class access {
 			for (int i = 0; i < mvecMod.size(); i++) {
 				SQLModifizieren(mvecMod.get(i));
 			}
-		} finally {
+		} catch(Exception ex) {
+			ex.printStackTrace();
 
 		}
 	}
 
 	public static void auslesen() {
+		try{
 		mvecModel.clear();
 		SQLAbfrage(Controll_Statments.ViewAll(),2);
 		SQLAbfrage(Controll_Statments.ViewKonto(),2);
 		SQLAbfrage(Controll_Statments.ViewMarkt(),2);
 		SQLAbfrage(Controll_Statments.ViewProdukt(),2);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+
+		}
 	}
 
 

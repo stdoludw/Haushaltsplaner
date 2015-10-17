@@ -18,7 +18,7 @@
 	    class="w3-closenav w3-large">Close</a>
       <a href="index.html">Login</a>
   <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagment.html"> Benutzerverwaltung </a>
+  <a href="usermanagement.html"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -60,13 +60,13 @@ for (int i = 0;i<tmp.size();i++)
 %>
 	        	  
 <form action="change_Produkt_SQL" method="POST">
-<input class="w3-input" style="width:95%" type="text" name="i_produkt_id" size="20" 
+ProduktID<input class="w3-input" style="width:95%" type="text" name="i_produkt_id" size="20" 
 value="<%out.print(produkt.getMintID());%>">	
-<input class="w3-input" style="width:95%" type="text" name="i_produkt_name" size="20" 
+Produktname<input class="w3-input" style="width:95%" type="text" name="i_produkt_name" size="20" 
 value="<%out.print(produkt.getMstrName());%>">		
-<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" 
+Gewicht<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" 
 value="<%out.print(produkt.getMintGewicht());%>">		
-<input class="w3-input" style="width:95%" type="text" name="i_produkt_preis" size="20" 
+Preis<input class="w3-input" style="width:95%" type="text" name="i_produkt_preis" size="20" 
 value="<%out.print(produkt.getMfltPreis());%>">		
 	
 	<br>

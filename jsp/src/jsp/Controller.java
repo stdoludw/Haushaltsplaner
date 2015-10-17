@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
         }  
         else if(!as.status())
         {  
-        	response.sendRedirect("login-error.jsp");
+        	response.sendRedirect("error.jsp");
 
         } 
         

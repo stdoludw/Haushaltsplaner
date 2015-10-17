@@ -16,7 +16,7 @@
 	    class="w3-closenav w3-large">Close</a>
       <a href="index.html">Login</a>
   <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagment.html"> Benutzerverwaltung </a>
+  <a href="usermanagement.html"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -59,6 +59,7 @@ function w3_open() {
 function w3_close() {
     document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
 }
+</script>
 
 </body>
 </html>
