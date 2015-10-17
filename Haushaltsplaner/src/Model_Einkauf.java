@@ -1,6 +1,9 @@
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Model_Einkauf {
-
+//#TODO evt ginbt es mit der XML erstellung ärger
 	private int mintAnzahl;
 	private String mstrDatum;
 	private Model_Konto mkntKonto;
@@ -16,7 +19,7 @@ public class Model_Einkauf {
 	public int getMintID() {
 		return mintID;
 	}
-
+	@XmlElement
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
@@ -42,11 +45,40 @@ public class Model_Einkauf {
 	public int getMintAnzahl() {
 		return mintAnzahl;
 	}
-
+	@XmlElement
 	public void setMintAnzahl(int mintAnzahl) {
 		this.mintAnzahl = mintAnzahl;
 	}
 
+	
+	public Model_Konto getMkntKonto() {
+		return mkntKonto;
+	}
+
+	@XmlElement
+	public void setMkntKonto(Model_Konto mkntKonto) {
+		this.mkntKonto = mkntKonto;
+	}
+
+	public Model_Produkt getMprdProdukt() {
+		return mprdProdukt;
+	}
+	
+	@XmlElement
+	public void setMprdProdukt(Model_Produkt mprdProdukt) {
+		this.mprdProdukt = mprdProdukt;
+	}
+
+	public Model_Markt getMmkrMarkt() {
+		return mmkrMarkt;
+	}
+
+	@XmlElement
+	public void setMmkrMarkt(Model_Markt mmkrMarkt) {
+		this.mmkrMarkt = mmkrMarkt;
+	}
+	
+	
 	public String SQlerstellenAll() {
 		String statement;
 		statement = Controll_Statments.AddAlles(this.mintAnzahl, this.mstrDatum, this.mkntKonto.getMintID(), this.mprdProdukt.getMintID(), this.mmkrMarkt.getMintID());
@@ -88,5 +120,7 @@ public class Model_Einkauf {
 				this.mprdProdukt.getMstrName(),this.mprdProdukt.getMintGewicht(),this.mprdProdukt.getMintGewicht()};
 				return tmp;
 		}
+	
+	
 
 }

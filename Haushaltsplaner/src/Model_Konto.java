@@ -1,3 +1,8 @@
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+
 public class Model_Konto {
 
 	// Konto attribute
@@ -12,7 +17,7 @@ public class Model_Konto {
 	public boolean isMboolequal() {
 		return mboolequal;
 	}
-
+	@XmlElement
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
@@ -45,7 +50,7 @@ public class Model_Konto {
 	public String getMstrBetrag() {
 		return mstrBetrag;
 	}
-
+	@XmlElement
 	public void setMstrBetrag(String mstrBetrag) {
 		this.mstrBetrag = mstrBetrag;
 	}
@@ -53,7 +58,7 @@ public class Model_Konto {
 	public String getMstrName() {
 		return mstrName;
 	}
-
+	@XmlElement
 	public void setMstrName(String mstrName) {
 		this.mstrName = mstrName;
 	}
@@ -61,7 +66,7 @@ public class Model_Konto {
 	public String getMstrBLZ() {
 		return mstrBLZ;
 	}
-
+	@XmlElement
 	public void setMstrBLZ(String mstrBLZ) {
 		this.mstrBLZ = mstrBLZ;
 	}
@@ -69,7 +74,7 @@ public class Model_Konto {
 	public String getMstrKnr() {
 		return mstrKnr;
 	}
-
+	@XmlElement
 	public void setMstrKnr(String mstrKnr) {
 		this.mstrKnr = mstrKnr;
 	}
@@ -77,7 +82,7 @@ public class Model_Konto {
 	public String getMintMin() {
 		return mstrMin;
 	}
-
+	@XmlElement
 	public void setMintMin(String mintMin) {
 		this.mstrMin = mintMin;
 	}

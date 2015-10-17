@@ -12,6 +12,7 @@ import java.awt.Label;
 
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.JComboBox;
 
 
 @SuppressWarnings("serial")
@@ -24,6 +25,8 @@ public class GUI_Abfrage extends JFrame {
 	private TextField mtxtMeta_DatenabnkName;
 	private JButton mbntErstellen;
 	private JButton mbtnLogin;
+	private JComboBox<String> mchgXMLDB;
+	
 	private static GUI_Abfrage frame = null;
 
 
@@ -94,11 +97,11 @@ public class GUI_Abfrage extends JFrame {
 		contentPane.setLayout(null);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 206, 417, 14);
+		separator.setBounds(12, 213, 417, 14);
 		contentPane.add(separator);
 		
 		mtxtMeta_passwort = new JPasswordField();
-		mtxtMeta_passwort.setBounds(184, 144, 219, 19);
+		mtxtMeta_passwort.setBounds(184, 146, 219, 19);
 		contentPane.add(mtxtMeta_passwort);
 		
 		mtxtMeta_Username = new TextField();
@@ -136,13 +139,27 @@ public class GUI_Abfrage extends JFrame {
 		contentPane.add(lblHaushaltsplanerV);
 		
 		mbntErstellen = new JButton("Neue erstellen");
-		mbntErstellen.setBounds(58, 221, 158, 25);
+		mbntErstellen.setBounds(37, 229, 158, 25);
 		contentPane.add(mbntErstellen);
 		mbntErstellen.setActionCommand(cmbAuswahl.ErstellenAbfrageAktion.toString());
 		
 		mbtnLogin = new JButton("login");
-		mbtnLogin.setBounds(231, 221, 172, 25);
+		mbtnLogin.setBounds(231, 229, 172, 25);
 		contentPane.add(mbtnLogin);
 		mbtnLogin.setActionCommand(cmbAuswahl.LoginAbfrageAktion.toString());
+		
+		mchgXMLDB= new JComboBox<String>();
+		mchgXMLDB.addItem("XML");
+		mchgXMLDB.addItem("Locale DB");
+
+		mchgXMLDB.setBounds(184, 177, 219, 24);
+		contentPane.add(mchgXMLDB);
+		
+		Label label_4 = new Label("XML/ local:");
+		label_4.setBounds(37, 177, 116, 21);
+		contentPane.add(label_4);
+	}
+	public JComboBox<String> getMchgXMLDB() {
+		return mchgXMLDB;
 	}
 }

@@ -7,9 +7,22 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.NodeList;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
+
 
 import lib.*;
 
@@ -50,6 +63,7 @@ public class Controll_Main implements ActionListener {
 		// hinzufuegend der Listener
 		this.mguiAbfrage.getMbntErstellen().addActionListener(this);
 		this.mguiAbfrage.getMbtnLogin().addActionListener(this);
+		this.mguiAbfrage.getMchgXMLDB().addActionListener(this);
 
 		this.mguiMain.getMntmHinzufgen().addActionListener(this);
 		this.mguiMain.getMmenExportiern().addActionListener(this);
@@ -99,6 +113,7 @@ public class Controll_Main implements ActionListener {
 		else if (cmbAuswahl.HinzufuegenMainAktion.toString().equals(mstrCommand)) {
 			GUIHinzufuegen();
 		}
+		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -128,7 +143,6 @@ public class Controll_Main implements ActionListener {
 		}
 	}
 
-	
 	private void SQLAbfrage(String sql) {
 
 		try {
@@ -300,7 +314,7 @@ public class Controll_Main implements ActionListener {
 	private void login() {
 		// clearen des vectors
 		this.mvecModel = new Vector<Object>();
-
+		
 		// einmaliges setzen des aes key
 		aes.setkey(mguiAbfrage.getMtxtMeta_passwort().getText());
 
@@ -309,6 +323,8 @@ public class Controll_Main implements ActionListener {
 
 		// Hauptgui starten
 		// Das Main Window wird nur angezeigt wenn Daten fuer connection ok
+		
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
 		mguiMain.show(mguiMain);
 		try {
 			acces();
@@ -321,8 +337,95 @@ public class Controll_Main implements ActionListener {
 		} finally {
 			mguiAbfrage.clear();
 		}
+		}
+		else
+		{
+			try
+			{
+			accessXML();
+			String myarray [] = new String []{"name","preis","gewicht"};
+
+			readXML("data.xml",myarray);
+			}
+			catch(IOException ex)
+			{
+				JOptionPane.showMessageDialog(null, "404",
+						ex.getMessage(), JOptionPane.OK_CANCEL_OPTION);
+			}
+		}
 	}
 
+	private void accessXML() throws IOException
+	{
+		
+		String myarray [] = new String [] {"XMLProdukt","XMLKonto","XMLMarkt","XMLEinkauf"};
+		
+		for(String urlPart : myarray)
+		{
+		StringBuilder result = new StringBuilder();
+		@SuppressWarnings("deprecation")
+		String urlStr =  "http://dfch-ludwig.de/xml/"+urlPart+".php?username="+
+				mguiAbfrage.getMtxtMeta_Username().getText()+"&password="+
+				 mguiAbfrage.getMtxtMeta_passwort().getText()+"&db="+
+				 mguiAbfrage.getMtxtMeta_DatenabnkName().getText();
+		
+		//HTTP get auf url
+		  URL url = new URL(urlStr);
+	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	      conn.setRequestMethod("GET");
+	      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	      
+	      //zeilenweise einlesen
+	      String line;
+	      while ((line = rd.readLine()) != null) {
+	         result.append(line);
+	      }
+	      rd.close();
+	      
+	      //schreiben der XML 
+	      //#TODO
+	      FileWriter fw = new FileWriter("data.xml");
+	      BufferedWriter bw = new BufferedWriter(fw);
+	      bw.write(result.toString());
+	      bw.close();
+		}
+	      
+	}
+	
+	private void readXML(String filename, String [] elemente)
+	{
+
+	    try {
+
+		File fXmlFile = new File(filename);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		org.w3c.dom.Document doc = dBuilder.parse(fXmlFile);
+				
+		doc.getDocumentElement().normalize();				
+		NodeList nList = doc.getElementsByTagName("row");
+				
+		for (int i = 0; i < nList.getLength(); i++) {
+			Node nNode = nList.item(i);
+										
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElement = (Element) nNode;
+
+				for(String e : elemente){
+				System.out.println(eElement.getElementsByTagName(e).item(0).getTextContent());
+				}
+
+			}
+		}
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	  
+	
+	}
+	
+	
 	private void auslesen() {
 		mvecModel.clear();
 		SQLAbfrage(Controll_Statments.ViewAll());
@@ -355,9 +458,54 @@ public class Controll_Main implements ActionListener {
 		}
 
 	}
+	
+private void writeXML(Object element)
+{
+	  try {
 
+		  if(element instanceof Model_Produkt){
+			File file = new File("XMLProdukt");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Model_Produkt.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal((Model_Produkt)element, file);
+		  }
+		  else if(element instanceof Model_Konto){
+				File file = new File("XMLKonto");
+				JAXBContext jaxbContext = JAXBContext.newInstance(Model_Konto.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				jaxbMarshaller.marshal((Model_Konto)element, file);
+			  }
+		  else if(element instanceof Model_Markt){
+				File file = new File("XMLMarkt");
+				JAXBContext jaxbContext = JAXBContext.newInstance(Model_Markt.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				jaxbMarshaller.marshal((Model_Markt)element, file);
+			  }
+		  else if(element instanceof Model_Einkauf){
+				File file = new File("XMLEinkauf");
+				JAXBContext jaxbContext = JAXBContext.newInstance(Model_Einkauf.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				jaxbMarshaller.marshal((Model_Einkauf)element, file);
+			  }
+		      } catch (JAXBException e) {
+			e.printStackTrace();
+		      }
+}
 	private void update() { 
 	
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
 		//aus table in toUpdate
 		Vector<Object> toUpdate = new Vector<Object>();
 		if(mguiMain.getComboBox().getSelectedItem() == cmbAuswahl.Produkt.toString())
@@ -452,13 +600,22 @@ public class Controll_Main implements ActionListener {
 			{
 				if(!((Model_Markt)element).isMboolequal())
 				{
-					SQLModifizieren(((Model_Markt)element).SQLentfernen());
+					SQLModifizieren(((Model_Markt)element).SQLUpdate());
 				}
 			}
 		}
 		//abfragen der db
 		auslesen();
 		}
+		
+		//##########################################
+		//schreibe alles
+		for(Object i : mvecModel)
+		{
+		writeXML(i);
+		}
+		
+	}
 	
 	private void create() {
 		// hiden des alten fensters
@@ -482,13 +639,13 @@ public class Controll_Main implements ActionListener {
 	}
 
 	private void AddAll() {
+		
 		// Konto, Produkt und Markt ermitteln
 		Model_Konto k= null;
 		Model_Markt m = null;
 		Model_Produkt p= null;
 		
-	
-		
+			
 		//objekte überschreiben
 		for (int i = 0; i < mvecModel.size(); i++) {
 			if (mvecModel.get(i) instanceof Model_Produkt) 
@@ -516,7 +673,8 @@ public class Controll_Main implements ActionListener {
 		}
 
 			
-				
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
+
 				// Einkauf hinzufuegen
 				try {
 					SQLModifizieren(Controll_Statments.AddAlles(
@@ -527,11 +685,34 @@ public class Controll_Main implements ActionListener {
 						auslesen();
 				} finally {
 					mguiHinzufuegen.clear();
+				}}
+		else
+		{
+			
+			int max = -1;
+			for(Object ein : mvecModel)
+			{
+				if(ein instanceof Model_Einkauf)
+				{
+					if(((Model_Einkauf) ein).getMintID() > max)
+					{
+						max = ((Model_Einkauf) ein).getMintID();
+					}
 				}
+			}
+			
+			
+			Model_Einkauf mmeiEinkauf = new Model_Einkauf(Integer.valueOf(mguiHinzufuegen.getMtxtAlles_Anzahl().getText()), mguiHinzufuegen.getMtxtAlles_Datum().getText(), max+1);
+			mmeiEinkauf.ModelArray(k, p, m);
+			this.mvecModel.add(mmeiEinkauf);
+		}
+		
 
 		}
 
 	private void AddKonto() {
+		
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
 		try {
 			SQLModifizieren(Controll_Statments.AddKonto(mguiHinzufuegen.getMtxtKonto_name()
 					.getText(), mguiHinzufuegen.getMtxtKonto_Blz()
@@ -546,11 +727,37 @@ public class Controll_Main implements ActionListener {
 
 		} finally {
 			mguiHinzufuegen.clear();
+		}}
+		else
+		{
+			
+			int max = -1;
+			for(Object ein : mvecModel)
+			{
+				if(ein instanceof Model_Konto)
+				{
+					if(((Model_Konto) ein).getMintID() > max)
+					{
+						max = ((Model_Konto) ein).getMintID();
+					}
+				}
+			}
+			
+			String name = aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_name().getText());
+			String blz = aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Blz().getText());
+			String knr = aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_kontonummer().getText());
+			String betrag = aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Betrag().getText());
+			String min = aes.verschluesselnAES(mguiHinzufuegen.getMtxtKonto_Min().getText());
+			
+			Model_Konto mmknKonto = new Model_Konto(name, blz, knr, betrag, min, max+1);
+			this.mvecModel.add(mmknKonto);
 		}
 
 	}
 
 	private void AddMarkt() {
+		
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
 		try {
 			SQLModifizieren(Controll_Statments.AddMarkt(mguiHinzufuegen.getMtxtMarkt_Name().getText(), 
 					mguiHinzufuegen.getMtxtMarkt_Plz().getText(), 
@@ -561,10 +768,36 @@ public class Controll_Main implements ActionListener {
 			auslesen();
 		} finally {
 			mguiHinzufuegen.clear();
+		}}
+		else
+		{
+			
+			int max = -1;
+			for(Object ein : mvecModel)
+			{
+				if(ein instanceof Model_Markt)
+				{
+					if(((Model_Markt) ein).getMintID() > max)
+					{
+						max = ((Model_Markt) ein).getMintID();
+					}
+				}
+			}
+			
+			String name = mguiHinzufuegen.getMtxtMarkt_Name().getText(); 
+			String plz = mguiHinzufuegen.getMtxtMarkt_Plz().getText();
+			String adr = mguiHinzufuegen.getMtxtMarkt_Adresse().getText(); 
+			int entfernung = Integer.valueOf(mguiHinzufuegen.getMtxtMarkt_Entfernung().getText());
+	
+			
+			Model_Markt mmmrkMarkt = new Model_Markt(name, plz, adr, entfernung, max+1);
+			this.mvecModel.add(mmmrkMarkt);
 		}
 	}
 
 	private void AddProdukt() {
+		
+		if(!(mguiAbfrage.getMchgXMLDB().getSelectedItem().toString() == "XML")){
 		try {
 			SQLModifizieren(Controll_Statments.AddProdukt(mguiHinzufuegen.getMtxtProdukt_Name().getText(),
 					Integer.valueOf(mguiHinzufuegen.getMtxtProdukt_Gewicht().getText()),
@@ -574,6 +807,29 @@ public class Controll_Main implements ActionListener {
 			auslesen();
 		} finally {
 			mguiHinzufuegen.clear();
+		}}
+		else
+		{
+			
+			int max = -1;
+			for(Object ein : mvecModel)
+			{
+				if(ein instanceof Model_Produkt)
+				{
+					if(((Model_Produkt) ein).getMintID() > max)
+					{
+						max = ((Model_Produkt) ein).getMintID();
+					}
+				}
+			}
+			
+			String name = mguiHinzufuegen.getMtxtProdukt_Name().getText();
+			int gewicht = Integer.valueOf(mguiHinzufuegen.getMtxtProdukt_Gewicht().getText());
+			float preis = Float.valueOf(mguiHinzufuegen.getMtxtProdukt_Preis().getText());
+	
+			
+			Model_Produkt mprdProdukt = new Model_Produkt(name, gewicht, preis, max+1);
+			this.mvecModel.add(mprdProdukt);
 		}
 	}
 

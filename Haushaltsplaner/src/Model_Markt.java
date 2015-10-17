@@ -1,3 +1,8 @@
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+
 public class Model_Markt {
 
 	// Markt Attribute
@@ -11,7 +16,7 @@ public class Model_Markt {
 	public boolean isMboolequal() {
 		return mboolequal;
 	}
-
+	@XmlElement
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
@@ -41,7 +46,7 @@ public class Model_Markt {
 	public String getMstrName() {
 		return mstrName;
 	}
-
+	@XmlElement
 	public void setMstrName(String mstrName) {
 		this.mstrName = mstrName;
 	}
@@ -49,7 +54,7 @@ public class Model_Markt {
 	public String getMstrPLZ() {
 		return mstrPLZ;
 	}
-
+	@XmlElement
 	public void setMstrPLZ(String mstrPLZ) {
 		this.mstrPLZ = mstrPLZ;
 	}
@@ -57,7 +62,7 @@ public class Model_Markt {
 	public String getMstrAdr() {
 		return mstrAdr;
 	}
-
+	@XmlElement
 	public void setMstrAdr(String mstrAdr) {
 		this.mstrAdr = mstrAdr;
 	}
@@ -65,7 +70,7 @@ public class Model_Markt {
 	public int getMintEntfernung() {
 		return mintEntfernung;
 	}
-
+	@XmlElement
 	public void setMintEntfernung(int mintEntfernung) {
 		this.mintEntfernung = mintEntfernung;
 	}
@@ -75,7 +80,7 @@ public class Model_Markt {
 		return Controll_Statments.AddMarkt(this.mstrName, this.mstrPLZ, this.mstrAdr, this.mintEntfernung);
 	}
 	
-	public String SQLentfernen() {
+	public String SQLUpdate() {
 
 		return Controll_Statments.UpdateMarkt(this.mstrName, this.mstrPLZ, this.mstrAdr, this.mintEntfernung, this.mintID);
 	}

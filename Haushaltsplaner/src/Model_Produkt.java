@@ -1,4 +1,8 @@
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+//#TODO XML auf allen anderen Klassen
 public class Model_Produkt {
 
 	// Produkt Attribute
@@ -12,6 +16,7 @@ public class Model_Produkt {
 		return mboolequal;
 	}
 
+	@XmlElement
 	public void setMintID(int mintID) {
 		this.mintID = mintID;
 	}
@@ -40,6 +45,7 @@ public class Model_Produkt {
 		return mstrName;
 	}
 
+	@XmlElement
 	public void setMstrName(String mstrName) {
 		this.mstrName = mstrName;
 	}
@@ -47,7 +53,8 @@ public class Model_Produkt {
 	public int getMintGewicht() {
 		return mintGewicht;
 	}
-
+	
+	@XmlElement
 	public void setMintGewicht(int mintGewicht) {
 		this.mintGewicht = mintGewicht;
 	}
@@ -55,7 +62,8 @@ public class Model_Produkt {
 	public float getMfltPreis() {
 		return mfltPreis;
 	}
-
+	
+	@XmlElement
 	public void setMfltPreis(float mfltPreis) {
 		this.mfltPreis = mfltPreis;
 	}
