@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<modelProdukt>
+    <mfltPreis>1.0</mfltPreis>
+    <mintGewicht>9</mintGewicht>
+    <mintID>2</mintID>
+    <mstrName>Vaughan</mstrName>
+</modelProdukt>
+<modelProdukt>
+    <mfltPreis>2.0</mfltPreis>
+    <mintGewicht>2</mintGewicht>
+    <mintID>3</mintID>
+    <mstrName>Cody</mstrName>
+</modelProdukt>
