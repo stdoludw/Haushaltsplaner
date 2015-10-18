@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Haushaltsplaner</name>
+	<name>Haushaltsplaner_v2</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,16 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>testDaten.txt</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/testDaten.txt</locationURI>
-		</link>
-		<link>
-			<name>src/README.md</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/README.md</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

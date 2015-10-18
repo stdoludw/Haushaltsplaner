@@ -141,61 +141,61 @@ public static Vector<String> createUser(String name, String passwort, String db)
 
 	
 	
-	public static Vector<String> getstatisticMonth()
+	public static Vector<String> getstatisticMonth(String db)
 	{
 		Vector<String> mstrAttNew = new Vector<String>();
-mstrAttNew.add("select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve  where ve.datum like('____-01-__') or "
+mstrAttNew.add("select SUM(ve.preis) from "+ db+".ViewAll ve  where ve.datum like('____-01-__') or "
 		  		+ "ve.datum like('____-02-__') or ve.datum like('____-03-__');");
 	          		
-		  mstrAttNew.add("select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-04-__') or "
+		  mstrAttNew.add("select SUM(ve.preis) from "+ db+".ViewAll ve where ve.datum like('____-04-__') or "
 		  		+ "ve.datum like('____-05-__') or ve.datum like('____-06-__');");
 	        		
-		  mstrAttNew.add(" select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-07-__') or "
+		  mstrAttNew.add(" select SUM(ve.preis) from "+ db+".ViewAll ve where ve.datum like('____-07-__') or "
 		  		+ "       ve.datum like('____-08-__') or ve.datum like('____-09-__');");
 	        
-		  mstrAttNew.add(" select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve where ve.datum like('____-10-__') or "
+		  mstrAttNew.add(" select SUM(ve.preis) from "+ db+".ViewAll ve where ve.datum like('____-10-__') or "
 		  		+ "ve.datum like('____-11-__') or  ve.datum like('____-12-__');");
 	        
 		 return mstrAttNew;
 	}
 			        
-	public static Vector<String> getstatisticAllMonth()
+	public static Vector<String> getstatisticAllMonth(String db)
 	{
 		Vector<String> mstrAttNew = new Vector<String>();	        
-		  mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve"+
+		  mstrAttNew.add( " select SUM(ve.preis) from "+ db+".ViewAll ve"+
 	         " where ve.datum like('____-01-__');");
 	       
-		  mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+		  mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	        "where ve.datum like('____-02-__');");
 	        
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-03-__');");
 	       
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-04-__');");
 	        
-	        mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( " select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-05-__');");
 	       
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-06-__');");
 	      
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	        "where ve.datum like('____-07-__');");
 	     
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	        "where ve.datum like('____-08-__');");
 	    
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	        "where ve.datum like('____-09-__');");
 	        
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-10-__');");
 	        
-	        mstrAttNew.add( "select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( "select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	       " where ve.datum like('____-11-__');");
 	     
-	        mstrAttNew.add( " select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve "+
+	        mstrAttNew.add( " select SUM(ve.preis) from "+ db+".ViewAll ve "+
 	        "where ve.datum like('____-12-__');");
 	
 
@@ -203,49 +203,49 @@ mstrAttNew.add("select SUM(ve.preis) from HausHaltsPlaner_Database.ViewAll ve  w
 	}
 	
 	
-	public static Vector<String> getStatisticMulti()
+	public static Vector<String> getStatisticMulti(String db)
 	{		Vector<String> mstrAttNew = new Vector<String>();
 
-		  mstrAttNew.add( "select Produktname, SUM(anzahl) from HausHaltsPlaner_Database.ViewAll "+
+		  mstrAttNew.add( "select Produktname, SUM(anzahl) from "+ db+".ViewAll "+
 			        "group by Produktname order by 2 desc LIMIT 10;");
 			       
-			mstrAttNew.add("select Marktname, Count(Marktname) from HausHaltsPlaner_Database.ViewAll "+
+			mstrAttNew.add("select Marktname, Count(Marktname) from "+ db+".ViewAll "+
 			        "group by Marktname order by 2 desc LIMIT 3;");
 			return mstrAttNew;
 	}
 	
-	public static Vector<String> getStatisticMultiTable()
+	public static Vector<String> getStatisticMultiTable(String db)
 	{
 			Vector<String> mstrAttNew = new Vector<String>();
 
 		
-		 mstrAttNew.add( "select name, AVG(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+		 mstrAttNew.add( "select name, AVG(entfernung), adresse from "+ db+".Markt;");
 	       
-	        mstrAttNew.add("select name, max(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+	        mstrAttNew.add("select name, max(entfernung), adresse from "+ db+".Markt;");
 	       
-	        mstrAttNew.add("select name, min(entfernung), adresse from HausHaltsPlaner_Database.Markt;");
+	        mstrAttNew.add("select name, min(entfernung), adresse from "+ db+".Markt;");
 	      
-	        mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein, "+
-	                "HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "+
+	        mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.anzahl) from "+ db+".Einkauf ein, "+
+	                ""+ db+".Produkt p, "+ db+".Markt m "+
 	                "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and anzahl;");
 	                
-	                		 mstrAttNew.add( "select m.name as marktname, p.name as produktname, min(ein.anzahl) from HausHaltsPlaner_Database.Einkauf ein, "+
-	               " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "+
+	                		 mstrAttNew.add( "select m.name as marktname, p.name as produktname, min(ein.anzahl) from "+ db+".Einkauf ein, "+
+	               " "+ db+".Produkt p, "+ db+".Markt m "+
 	                "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and anzahl;");
 	        
-	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.datum) from HausHaltsPlaner_Database.Einkauf ein, "+
-	       " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "+
+	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, max(ein.datum) from "+ db+".Einkauf ein, "+
+	       " "+ db+".Produkt p, "+ db+".Markt m "+
 	        "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and datum;");
 	     
-	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, min(ein.datum) from HausHaltsPlaner_Database.Einkauf ein,"+
-	       " HausHaltsPlaner_Database.Produkt p, HausHaltsPlaner_Database.Markt m "+
+	        		mstrAttNew.add("select m.name as marktname, p.name as produktname, min(ein.datum) from "+ db+".Einkauf ein,"+
+	       " "+ db+".Produkt p, "+ db+".Markt m "+
 	        "where ein.p_ID = p.P_ID AND ein.m_ID = m . M_ID and datum;");
 	       
-	        		mstrAttNew.add("select name, max(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	        		mstrAttNew.add("select name, max(preis), gewicht from "+ db+".Produkt;");
 	       
-	        		mstrAttNew.add("select name, min(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	        		mstrAttNew.add("select name, min(preis), gewicht from "+ db+".Produkt;");
 	      
-	        		mstrAttNew.add( "select name, avg(preis), gewicht from HausHaltsPlaner_Database.Produkt;");
+	        		mstrAttNew.add( "select name, avg(preis), gewicht from "+ db+".Produkt;");
 	
 	        return mstrAttNew;
 	}

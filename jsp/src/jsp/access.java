@@ -14,7 +14,7 @@ public class access {
 	private String mstrPasswort;
 	private static Connection mconCon;
 	private final int mintPort = 3306;
-	private String mstrDatenbankName;
+	private static String mstrDatenbankName;
 	private final String mstrHostName = "localhost";
 
 	private static ArrayList<Object> mvecModel;
@@ -218,24 +218,25 @@ public class access {
 	
 	public static ArrayList<String> getStatistik()
 	{
-		for(int i=0;i<Controll_Statments.getstatisticMonth().size();i++)
+		
+		for(int i=0;i<Controll_Statments.getstatisticMonth(mstrDatenbankName).size();i++)
 		{
-			SQLAbfrage(Controll_Statments.getstatisticMonth().get(i),0);
+			SQLAbfrage(Controll_Statments.getstatisticMonth(mstrDatenbankName).get(i),0);
 		}
 		
-		for(int i=0;i<Controll_Statments.getStatisticMulti().size();i++)
+		for(int i=0;i<Controll_Statments.getStatisticMulti(mstrDatenbankName).size();i++)
 		{
-			SQLAbfrage(Controll_Statments.getStatisticMulti().get(i),1);
+			SQLAbfrage(Controll_Statments.getStatisticMulti(mstrDatenbankName).get(i),1);
 		}
 	
-		for(int i=0;i<Controll_Statments.getstatisticAllMonth().size();i++)
+		for(int i=0;i<Controll_Statments.getstatisticAllMonth(mstrDatenbankName).size();i++)
 		{
-			SQLAbfrage(Controll_Statments.getstatisticAllMonth().get(i),0);
+			SQLAbfrage(Controll_Statments.getstatisticAllMonth(mstrDatenbankName).get(i),0);
 		}
 		
-		for(int i=0;i<Controll_Statments.getStatisticMultiTable().size();i++)
+		for(int i=0;i<Controll_Statments.getStatisticMultiTable(mstrDatenbankName).size();i++)
 		{
-			SQLAbfrage(Controll_Statments.getStatisticMultiTable().get(i),3);
+			SQLAbfrage(Controll_Statments.getStatisticMultiTable(mstrDatenbankName).get(i),3);
 		}
 		
 		
