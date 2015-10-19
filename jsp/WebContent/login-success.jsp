@@ -7,7 +7,7 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.html">Login</a>
+      <a href="index.jsp">Login</a>
   <a href="login-success.jsp">Hauptmenue</a>
   <a href="usermanagement.html"> Benutzerverwaltung </a>
   
@@ -26,6 +26,7 @@
   <p>Anzeigen aller Eingetragener Maerkte</p> </a>
   </div>
 </div>
+
 
 <div class="w3-quarter">
   <a href="View_Konto.jsp" > <div class="w3-card-2" style="min-height:260px"> 
