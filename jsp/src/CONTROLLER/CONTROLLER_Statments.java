@@ -473,8 +473,7 @@ public class CONTROLLER_Statments {
 	public static ArrayList<String> getStatisticMulti(String db) {
 		ArrayList<String> mstrAttNew = new ArrayList<String>();
 
-		mstrAttNew.add("select Produktname, SUM(anzahl) from " + db + ".ViewAll "
-				+ "group by Produktname order by 2 desc LIMIT 10;");
+		mstrAttNew.add("select Produktname, anzahl from "+db+".ViewAll group by Produktname order by anzahl desc limit 10;;");
 
 		mstrAttNew.add("select Marktname, Count(Marktname) from " + db + ".ViewAll "
 				+ "group by Marktname order by 2 desc LIMIT 3;");

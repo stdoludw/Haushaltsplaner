@@ -66,7 +66,7 @@ public class UPDATE_Einkauf_SQL extends HttpServlet {
 		
 		 HttpSession session = request.getSession(true);
 		 @SuppressWarnings("unchecked")
-		ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute("mvecModel");
+		ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());
 
 		for (Object element : tmp) {
 			if (element instanceof MODEL_Produkt) {
@@ -83,6 +83,7 @@ public class UPDATE_Einkauf_SQL extends HttpServlet {
 					k = ((MODEL_Konto) element);
 				}
 			}
+		}
 	 
 		 
 			 session.setAttribute(CONTROLLER_Statments.session.Update_Einkauf.toString(),new MODEL_Einkauf(
@@ -99,6 +100,6 @@ public class UPDATE_Einkauf_SQL extends HttpServlet {
 		
 		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 		}
-	}
+	
 
 }

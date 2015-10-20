@@ -67,7 +67,7 @@ public class INSERT_Einkauf_SQL extends HttpServlet {
 
 		HttpSession session = request.getSession(true);
 		@SuppressWarnings("unchecked")
-		ArrayList<Object> tmp = (ArrayList<Object>) session.getAttribute("mvecModel");
+		ArrayList<Object> tmp = (ArrayList<Object>) session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());
 
 		for (Object element : tmp) {
 			if (element instanceof MODEL_Produkt) {

@@ -95,9 +95,7 @@ public class MODEL_Einkauf {
 
 	}
 	public String SQldelete() {
-		String statement;
-		statement = CONTROLLER_Statments.DeleteEinkauf(this.mmkrMarkt.getMintID());
-		return statement;
+		return CONTROLLER_Statments.DeleteEinkauf(this.getMintID());
 
 	}
 

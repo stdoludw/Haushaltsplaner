@@ -44,16 +44,12 @@ public class CONTROLLER extends HttpServlet {
 			String name = request.getParameter("i_username");
 			String password = request.getParameter("i_passwort");
 			String db = request.getParameter("i_datenbank");
-
-			name = "bro";
-			password = "P@ssw0rd";
-			db = "HausHaltsPlaner_dlu";
 			
 			as = CONTROLLER_Access.init();
 			as.login(name, password, db);
-			as.auslesen();
 
 			if (as.status()) {
+				as.auslesen();
 
 				session.setAttribute(CONTROLLER_Statments.session.mvecModel.toString(), as.getMvecModel());
 				session.setAttribute(CONTROLLER_Statments.session.mvStatistik.toString(), as.getStatistik());
@@ -65,17 +61,23 @@ public class CONTROLLER extends HttpServlet {
 		else if(site.equals(CONTROLLER_Statments.caller.Insert_Einkauf.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute(CONTROLLER_Statments.session.Insert_Einkauf.toString())).SQlinsert());
-			
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Update_Einkauf.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute(CONTROLLER_Statments.session.Update_Einkauf.toString())).SQlupdate());
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Delete_Einkauf.toString()))
 		{
 			MODEL_Einkauf tmp = new MODEL_Einkauf();
 			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Einkauf.toString()));
+			System.out.println(tmp.getMintID());
 			as.SQLModifizieren(tmp.SQldelete());
+			as.auslesen();
+
 		}
 		
 		
@@ -84,19 +86,22 @@ public class CONTROLLER extends HttpServlet {
 		else if(site.equals(CONTROLLER_Statments.caller.Insert_Konto.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Insert_Konto.toString())).SQLinsert(as.getAes()));
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Update_Konto.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Update_Konto.toString())).SQLUpdate(as.getAes()));
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Delete_Konto.toString()))
-		{
-			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Delete_Konto.toString())).SQLdelete());
-		
+		{		
 			MODEL_Konto tmp = new MODEL_Konto();
 			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Konto.toString()));
 			as.SQLModifizieren(tmp.SQLdelete());
-		
+			as.auslesen();
+
 		
 		}
 		
@@ -127,16 +132,21 @@ public class CONTROLLER extends HttpServlet {
 		else if(site.equals(CONTROLLER_Statments.caller.Insert_Produkt.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute(CONTROLLER_Statments.session.Insert_Produkt.toString())).SQLinsert());
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Update_Produkt.toString()))
 		{
 			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute(CONTROLLER_Statments.session.Update_Produkt.toString())).SQLupdate());
+			as.auslesen();
+
 		}
 		else if(site.equals(CONTROLLER_Statments.caller.Delete_Produkt.toString()))
 		{
 			MODEL_Produkt tmp = new MODEL_Produkt();
 			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Produkt.toString()));
 			as.SQLModifizieren(tmp.SQLdelete());
+			as.auslesen();
 		}
 		
 		
@@ -158,7 +168,8 @@ public class CONTROLLER extends HttpServlet {
         	as.SQLModifizieren(user.get(i));
         	}
 			
-			
+			as.auslesen();
+
 			
 			
 		}

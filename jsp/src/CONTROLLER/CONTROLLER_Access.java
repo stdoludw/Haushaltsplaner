@@ -225,6 +225,7 @@ public class CONTROLLER_Access {
 		SQLAbfrage(CONTROLLER_Statments.ViewKonto(),2);
 		SQLAbfrage(CONTROLLER_Statments.ViewMarkt(),2);
 		SQLAbfrage(CONTROLLER_Statments.ViewProdukt(),2);
+		this.mvecStatistic = getStatistik();
 		}
 		catch(Exception ex)
 		{
