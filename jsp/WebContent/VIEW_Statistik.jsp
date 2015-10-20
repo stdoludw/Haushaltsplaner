@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="jsp.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
+
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,9 +18,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+<a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -40,7 +42,7 @@
 	google.setOnLoadCallback(drawChart);
 	
 //########################################
-<%ArrayList<String> tmp = (ArrayList<String>)session.getAttribute("mvStatistik");
+<%ArrayList<String> tmp = (ArrayList<String>)session.getAttribute(CONTROLLER_Statments.session.mvStatistik.toString());
 %>
 //########################################
 

@@ -4,6 +4,7 @@ package SQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
 import MODEL.MODEL_Markt;
 
 
@@ -18,7 +20,7 @@ import MODEL.MODEL_Markt;
 /**
  * Servlet implementation class Add_Produkt_SQL
  */
-@WebServlet("/Add_Markt_SQL")
+@WebServlet("/INSERT_Markt_SQL")
 public class INSERT_Markt_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,17 +50,20 @@ public class INSERT_Markt_SQL extends HttpServlet {
 		  PrintWriter out = response.getWriter(  ); 
 			HttpSession session = request.getSession(true);
 
-			session.setAttribute("Add_Markt",new MODEL_Markt(
+			session.setAttribute(CONTROLLER_Statments.session.Insert_Markt.toString(),new MODEL_Markt(
 							request.getParameter("i_markt_name"),
 							request.getParameter("i_markt_plz"),
 							request.getParameter("i_markt_adresse"),
 							Integer.valueOf(request.getParameter("i_markt_entfernung")),-1));
 			
-			session.setAttribute("site","Add_Markt_SQL"); 
+			session.setAttribute("site", CONTROLLER_Statments.caller.Insert_Markt.toString()); 
 
 			out.println("Markt erfolgreich hinzugefuegt");
-			response.sendRedirect("login-success.jsp");
 			
+			RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+			rd.include(request, response);
+			
+			response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());			
 			
 	}
 

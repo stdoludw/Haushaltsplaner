@@ -1,5 +1,7 @@
-<%@page import="jsp.CONTROLLER_Access"%>
-<%@page import="jsp.MODEL_Markt"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
+<%@page import="MODEL.MODEL_Markt"%>
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,9 +16,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+ <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -37,7 +39,7 @@
 <thead>
 
 	        	  
-<form action="Add_Markt_SQL" method="POST">
+<form action="<%=CONTROLLER_Statments.caller.Insert_Markt.toString() %>" method="POST">
 Marktname<input class="w3-input" style="width:95%" type="text" name="i_markt_name" size="20" >		
 Postleitzahl<input class="w3-input" style="width:95%" type="text" name="i_markt_plz" size="20" >		
 Adresse<input class="w3-input" style="width:95%" type="text" name="i_markt_adresse" size="20" >		

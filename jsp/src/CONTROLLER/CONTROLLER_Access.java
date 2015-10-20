@@ -1,7 +1,6 @@
 package CONTROLLER;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import MODEL.AES_verschluesselung;
 import MODEL.MODEL_Einkauf;
@@ -208,7 +207,7 @@ public class CONTROLLER_Access {
 
 		try {
 			// neue Datenbank erstellen
-			Vector<String> mvecMod = CONTROLLER_Statments.createDatenbank(kuerzel);
+			ArrayList<String> mvecMod = CONTROLLER_Statments.createDatenbank(kuerzel);
 
 			for (int i = 0; i < mvecMod.size(); i++) {
 				SQLModifizieren(mvecMod.get(i));

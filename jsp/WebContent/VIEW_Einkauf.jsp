@@ -1,13 +1,12 @@
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jsp.MODEL_Einkauf"%>
-<%@page import="jsp.MODEL_Konto"%>
-<%@page import="jsp.MODEL_Markt"%>
-<%@page import="jsp.MODEL_Produkt"%>
+<%@page import="MODEL.MODEL_Einkauf"%>
+<%@page import="MODEL.MODEL_Konto"%>
+<%@page import="MODEL.MODEL_Markt"%>
+<%@page import="MODEL.MODEL_Produkt"%>
 
-<%@page import="org.eclipse.jdt.internal.compiler.ast.ForeachStatement"%>
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.List"%>
-<%@page import="jsp.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
@@ -22,9 +21,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+      <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -73,7 +72,7 @@
 <%
 
 
-ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute("mvecMODEL");
+ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());
 for (int i = 0;i<tmp.size();i++)
 {
 	
@@ -186,18 +185,18 @@ for (int i = 0;i<tmp.size();i++)
 
 <center>
 <br>
-<form action="Change_Einkauf.jsp" method="POST">
+<form action="<%=CONTROLLER_Statments.redirect.VIEW_UPDATE_Einkauf.toString() %>" method="POST">
 Einkauf ID Eingeben: <input type="text" name="ein_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Bearbeiten">
 </form>
 <br>
-<form action="Del_Einkauf_SQL" method="POST">
+<form action="<%=CONTROLLER_Statments.caller.Delete_Einkauf.toString() %>" method="POST">
 Einkauf ID Eingeben: <input type="text" name="ein_ID">
 <input class="w3-btn w3-light-blue" type="submit" value="Entfernen">
 </form>
 
 
-<form action="Add_Einkauf.jsp" method="POST">
+<form action="<%=CONTROLLER_Statments.redirect.VIEW_INSERT_Einkauf.toString()%>" method="POST">
 <input class="w3-btn w3-light-green" type="submit" value="Hinzufuegen">
 </form>
 </center>

@@ -3,6 +3,8 @@ package SQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
 import MODEL.MODEL_Einkauf;
 import MODEL.MODEL_Konto;
 import MODEL.MODEL_Markt;
@@ -18,7 +21,7 @@ import MODEL.MODEL_Produkt;
 /**
  * Servlet implementation class Add_Produkt_SQL
  */
-@WebServlet("/Add_Einkauf_SQL")
+@WebServlet("/INSERT_Einkauf_SQL")
 public class INSERT_Einkauf_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -86,14 +89,17 @@ public class INSERT_Einkauf_SQL extends HttpServlet {
 
 		}
 		
-		session.setAttribute("Add_Einkauf",
+		session.setAttribute(CONTROLLER_Statments.session.Insert_Einkauf.toString(),
 				new MODEL_Einkauf(Integer.valueOf(request.getParameter("i_einkauf_anzahl")),
 						request.getParameter("i_einkauf_datum"), -1, k, p, m));
-		session.setAttribute("site","Add_Einkauf_SQL");
+		
+		session.setAttribute("site",CONTROLLER_Statments.caller.Insert_Einkauf.toString());
 
 
 		out.println("Einkauf erfolgreich hinzugefuegt");
-		response.sendRedirect("login-success.jsp");
-	}
+		RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+		rd.include(request, response);
+		
+		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());	}
 
 }

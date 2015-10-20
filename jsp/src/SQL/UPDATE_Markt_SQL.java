@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
 import MODEL.MODEL_Markt;
 
 
@@ -19,7 +20,7 @@ import MODEL.MODEL_Markt;
 /**
  * Servlet implementation class change_Produkt_SQL
  */
-@WebServlet("/change_Markt_SQL")
+@WebServlet("/UPDATE_Markt_SQL")
 public class UPDATE_Markt_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,19 +49,20 @@ public class UPDATE_Markt_SQL extends HttpServlet {
 		PrintWriter out = response.getWriter(  ); 
 		 HttpSession session = request.getSession(true);
 		 
-		 session.setAttribute("Change_Markt",new MODEL_Markt(
+		 session.setAttribute(CONTROLLER_Statments.session.Update_Markt.toString(),new MODEL_Markt(
 							request.getParameter("i_markt_name"),
 							request.getParameter("i_markt_plz"),
 							request.getParameter("i_markt_adresse"),
 							Integer.valueOf(request.getParameter("i_markt_entfernung")),
 							Integer.valueOf(request.getParameter("i_markt_id"))));
 				
-			session.setAttribute("site","Change_Markt_SQL"); 
+			session.setAttribute("site",CONTROLLER_Statments.caller.Update_Markt.toString()); 
 			out.println("Markt erfolgreich geandert");
-	    	//response.sendRedirect("login-success.jsp");
 	    	
-	    	RequestDispatcher rd = request.getRequestDispatcher("Controller");
+	    	RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
 			rd.include(request, response);
+			
+			response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 	}
 
 }

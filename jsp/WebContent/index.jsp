@@ -1,3 +1,4 @@
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
@@ -26,7 +27,7 @@
 <center>
 <form class="w3-container w3-card-4" action="Controller" method="post">
 <%
-session.setAttribute("site", "index.jsp");
+session.setAttribute("site", CONTROLLER_Statments.caller.index.toString());
 %>
 <div class="w3-group">
 

@@ -1,3 +1,5 @@
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
+
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="w3.css">
@@ -7,9 +9,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+ <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -20,7 +22,7 @@
 <div class="w3-row-padding w3-center w3-margin-top">
 
 <div class="w3-quarter">
-  <a href="View_Markt.jsp">  <div class="w3-card-2" style="min-height:260px">
+  <a href="<%=CONTROLLER_Statments.redirect.VIEW_Markt.toString() %>">  <div class="w3-card-2" style="min-height:260px">
   <h4>Maerkte</h4><br>
   <img src=market.png>
   <p>Anzeigen aller Eingetragener Maerkte</p> </a>
@@ -29,7 +31,7 @@
 
 
 <div class="w3-quarter">
-  <a href="View_Konto.jsp" > <div class="w3-card-2" style="min-height:260px"> 
+  <a href="<%=CONTROLLER_Statments.redirect.VIEW_Konto.toString() %>" > <div class="w3-card-2" style="min-height:260px"> 
   <h4>Konten</h4><br>
   <img src=konto.png>
   <p>Anzeigen der Eingetragenen Konten</p> </a>
@@ -37,7 +39,7 @@
 </div>
 
 <div class="w3-quarter">
-  <a href="View_Produkt.jsp" ><div class="w3-card-2" style="min-height:260px">
+  <a href="<%=CONTROLLER_Statments.redirect.VIEW_Produkt.toString() %>" ><div class="w3-card-2" style="min-height:260px">
   <h4>Produkte</h4><br>
   <img src=products.png>
   <p> Anzeigen aller Produkte </p> </a>
@@ -45,7 +47,7 @@
 </div>
 
 <div class="w3-quarter">
-  <a href="View_Einkauf.jsp" ><div class="w3-card-2" style="min-height:260px">
+  <a href="<%=CONTROLLER_Statments.redirect.VIEW_Einkauf.toString() %>" ><div class="w3-card-2" style="min-height:260px">
   <h4>Einkaufe</h4><br>
   <img src=buying.png>
   <p> Anzeigen der Einkaufe </p> </a>
@@ -53,7 +55,7 @@
 </div>
 
 <div class="w3-quarter">
-  <a href="View_Statistik.jsp" ><div class="w3-card-2" style="min-height:260px">
+  <a href="<%=CONTROLLER_Statments.redirect.VIEW_Statistik.toString() %>" ><div class="w3-card-2" style="min-height:260px">
   <h4>Statistik</h4><br>
   <img src=statistic.png>
   <p> Anzeigen der Statistik </p> </a>

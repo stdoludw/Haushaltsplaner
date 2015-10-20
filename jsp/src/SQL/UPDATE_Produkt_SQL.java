@@ -4,6 +4,7 @@ package SQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
 import MODEL.MODEL_Produkt;
 
 /**
  * Servlet implementation class change_Produkt_SQL
  */
-@WebServlet("/change_Produkt_SQL")
+@WebServlet("/UPDATE_Produkt_SQL")
 public class UPDATE_Produkt_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,16 +46,18 @@ public class UPDATE_Produkt_SQL extends HttpServlet {
 		PrintWriter out = response.getWriter(  ); 
 		 HttpSession session = request.getSession(true);
 
-	  session.setAttribute("Change_Produkt",new MODEL_Produkt(
+	  session.setAttribute(CONTROLLER_Statments.session.Update_Produkt.toString(),new MODEL_Produkt(
 				request.getParameter("i_produkt_name"),		
 				Integer.valueOf(request.getParameter("i_produkt_gewicht")),
 				Float.valueOf(request.getParameter("i_produkt_preis")),
 				Integer.valueOf(request.getParameter("i_produkt_id"))));
 		
-		session.setAttribute("site","Change_Produkt_SQL"); 
+		session.setAttribute("site",CONTROLLER_Statments.caller.Update_Produkt.toString()); 
 		out.println("Produkt erfolgreich geupdatet");
-    	response.sendRedirect("login-success.jsp");
-
+		RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+		rd.include(request, response);
+		
+		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 	}
 
 }

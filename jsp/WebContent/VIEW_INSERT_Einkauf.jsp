@@ -1,9 +1,11 @@
-<%@page import="jsp.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jsp.MODEL_Einkauf"%>
-<%@page import="jsp.MODEL_Konto"%>
-<%@page import="jsp.MODEL_Markt"%>
-<%@page import="jsp.MODEL_Produkt"%>
+<%@page import="MODEL.MODEL_Einkauf"%>
+<%@page import="MODEL.MODEL_Konto"%>
+<%@page import="MODEL.MODEL_Markt"%>
+<%@page import="MODEL.MODEL_Produkt"%>
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -18,9 +20,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+      <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -40,8 +42,8 @@
 <table class="w3-table w3-striped w3-bordered">
 <thead>
 
-<%ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute("mvecMODEL");%>
-<form action="Add_Einkauf_SQL" method="POST">
+<%ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());%>
+<form action="<%=CONTROLLER_Statments.caller.Insert_Einkauf.toString() %>" method="POST">
 Einkaufsdatum<input class="w3-input" style="width:95%" type="text" name="i_einkauf_datum" size="20" >	
 Einkaufs anzahl<input class="w3-input" style="width:95%" type="text" name="i_einkauf_anzahl" size="20" >	
 Kontoinhaber<select name="i_einkauf_konto_cmb" >  

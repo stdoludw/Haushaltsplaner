@@ -3,6 +3,8 @@ package SQL;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
+
 /**
  * Servlet implementation class usermanagment
  */
-@WebServlet("/usermanagment")
+@WebServlet("/CREATE_User")
 public class CREATE_User extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,7 +57,7 @@ public class CREATE_User extends HttpServlet {
 
 		if (password.equals(password2)) {
 
-			session.setAttribute("site","usermanagement");
+			session.setAttribute("site",CONTROLLER_Statments.caller.usermanagement.toString());
 			out.println("User und Datenbank erfolgreich geupdatet");
 			out.println("Du hast folgenden User angelegt: " + name);
 			out.println("Mit folgendem Passwort: " + password);
@@ -64,10 +68,13 @@ public class CREATE_User extends HttpServlet {
 			tmp[1] = password;
 			tmp[2] = db;
 
-			session.setAttribute("usermanagement_data", tmp);
-			response.sendRedirect("login-success.jsp");
+			session.setAttribute(CONTROLLER_Statments.session.usermanagement_data.toString(), tmp);
+			RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+			rd.include(request, response);
+			
+			response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 		} else {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect(CONTROLLER_Statments.redirect.error.toString());
 
 		}
 	}

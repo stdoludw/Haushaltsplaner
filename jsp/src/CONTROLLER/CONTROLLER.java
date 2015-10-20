@@ -1,7 +1,7 @@
 package CONTROLLER;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,14 +39,14 @@ public class CONTROLLER extends HttpServlet {
 
 		
 
-		if (site.equals("index.jsp")) {
+		if (site.equals(CONTROLLER_Statments.caller.index.toString())) {
 			
 			String name = request.getParameter("i_username");
 			String password = request.getParameter("i_passwort");
 			String db = request.getParameter("i_datenbank");
 
 			name = "bro";
-			password = "";
+			password = "P@ssw0rd";
 			db = "HausHaltsPlaner_dlu";
 			
 			as = CONTROLLER_Access.init();
@@ -55,72 +55,97 @@ public class CONTROLLER extends HttpServlet {
 
 			if (as.status()) {
 
-				session.setAttribute("mvecMODEL", as.getMvecModel());
-				session.setAttribute("mvStatistik", as.getStatistik());
-				response.sendRedirect("login-success.jsp");
+				session.setAttribute(CONTROLLER_Statments.session.mvecModel.toString(), as.getMvecModel());
+				session.setAttribute(CONTROLLER_Statments.session.mvStatistik.toString(), as.getStatistik());
+				response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 			} else {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect(CONTROLLER_Statments.redirect.error.toString());
 			}
 		}
-		else if(site.equals("Add_Einkauf_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Insert_Einkauf.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute("Add_Einkauf")).SQlinsert());
+			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute(CONTROLLER_Statments.session.Insert_Einkauf.toString())).SQlinsert());
 			
 		}
-		else if(site.equals("Change_Einkauf_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Update_Einkauf.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute("Change_Einkauf")).SQlupdate());
+			as.SQLModifizieren(((MODEL_Einkauf)session.getAttribute(CONTROLLER_Statments.session.Update_Einkauf.toString())).SQlupdate());
 		}
-		else if(site.equals("Del_Einkauf_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Delete_Einkauf.toString()))
 		{
 			MODEL_Einkauf tmp = new MODEL_Einkauf();
-			tmp.setMintID((int)session.getAttribute("Del_Einkauf"));
+			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Einkauf.toString()));
 			as.SQLModifizieren(tmp.SQldelete());
 		}
-		else if(site.equals("Add_Konto_SQL"))
+		
+		
+		
+		
+		else if(site.equals(CONTROLLER_Statments.caller.Insert_Konto.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Konto)session.getAttribute("Add_Konto")).SQLinsert(as.getAes()));
+			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Insert_Konto.toString())).SQLinsert(as.getAes()));
 		}
-		else if(site.equals("Change_Konto_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Update_Konto.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Konto)session.getAttribute("Change_Konto")).SQLUpdate(as.getAes()));
+			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Update_Konto.toString())).SQLUpdate(as.getAes()));
 		}
-		else if(site.equals("Del_Konto_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Delete_Konto.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Konto)session.getAttribute("Del_Konto")).SQLdelete());
-		}
-		else if(site.equals("Add_Markt_SQL"))
-		{
-			as.SQLModifizieren(((MODEL_Markt)session.getAttribute("Add_Markt")).SQLinsert());
-		}
-		else if(site.equals("Change_Markt_SQL"))
-		{
-			as.SQLModifizieren(((MODEL_Markt)session.getAttribute("Change_Markt")).SQLupdate());
-		}
-		else if(site.equals("Del_Markt_SQL"))
-		{
-			as.SQLModifizieren(((MODEL_Markt)session.getAttribute("Del_Markt")).SQLdelete());
+			as.SQLModifizieren(((MODEL_Konto)session.getAttribute(CONTROLLER_Statments.session.Delete_Konto.toString())).SQLdelete());
+		
+			MODEL_Konto tmp = new MODEL_Konto();
+			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Konto.toString()));
+			as.SQLModifizieren(tmp.SQLdelete());
+		
+		
 		}
 		
 		
-		else if(site.equals("Add_Produkt_SQL"))
+		
+		else if(site.equals(CONTROLLER_Statments.caller.Insert_Markt.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute("Add_Produkt")).SQLinsert());
+			as.SQLModifizieren(((MODEL_Markt)session.getAttribute(CONTROLLER_Statments.session.Insert_Markt.toString())).SQLinsert());
+			as.auslesen();
 		}
-		else if(site.equals("Change_Produkt_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Update_Markt.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute("Change_Produkt")).SQLupdate());
+			as.SQLModifizieren(((MODEL_Markt)session.getAttribute(CONTROLLER_Statments.session.Update_Markt.toString())).SQLupdate());
+			as.auslesen();
+			
 		}
-		else if(site.equals("Del_Produkt_SQL"))
+		else if(site.equals(CONTROLLER_Statments.caller.Delete_Markt.toString()))
 		{
-			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute("Del_Produkt")).SQLdelete());
+			MODEL_Markt tmp = new MODEL_Markt();
+			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Markt.toString()));
+			as.SQLModifizieren(tmp.SQLdelete());
+			as.auslesen();
+		
 		}
-		else if(site.equals("usermanagement"))
+		
+		
+		
+		else if(site.equals(CONTROLLER_Statments.caller.Insert_Produkt.toString()))
 		{
-			String[] tmp = (String[])session.getAttribute("usermanagement_data");
+			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute(CONTROLLER_Statments.session.Insert_Produkt.toString())).SQLinsert());
+		}
+		else if(site.equals(CONTROLLER_Statments.caller.Update_Produkt.toString()))
+		{
+			as.SQLModifizieren(((MODEL_Produkt)session.getAttribute(CONTROLLER_Statments.session.Update_Produkt.toString())).SQLupdate());
+		}
+		else if(site.equals(CONTROLLER_Statments.caller.Delete_Produkt.toString()))
+		{
+			MODEL_Produkt tmp = new MODEL_Produkt();
+			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Produkt.toString()));
+			as.SQLModifizieren(tmp.SQLdelete());
+		}
+		
+		
+		else if(site.equals(CONTROLLER_Statments.caller.usermanagement.toString()))
+		{
+			String[] tmp = (String[])session.getAttribute(CONTROLLER_Statments.session.usermanagement_data.toString());
 					
-			Vector<String> user =         	CONTROLLER_Statments.createUser(tmp[0], tmp[1], tmp[2]);
-        	Vector<String> datenbank =     	CONTROLLER_Statments.createDatenbank(tmp[2]);
+			ArrayList<String> user =         	CONTROLLER_Statments.createUser(tmp[0], tmp[1], tmp[2]);
+			ArrayList<String> datenbank =     	CONTROLLER_Statments.createDatenbank(tmp[2]);
         	
         
         	for(int i=0;i<datenbank.size();i++)

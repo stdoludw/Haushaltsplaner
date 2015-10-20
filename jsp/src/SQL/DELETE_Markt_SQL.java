@@ -4,6 +4,7 @@ package SQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
+
 
 /**
  * Servlet implementation class Del_Markt_SQL
  */
-@WebServlet("/Del_Markt_SQL")
+@WebServlet("/DELETE_Markt_SQL")
 public class DELETE_Markt_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,12 +50,14 @@ public class DELETE_Markt_SQL extends HttpServlet {
 		HttpSession session = request.getSession(true); 		
 		int m_ID = Integer.valueOf(request.getParameter("m_ID"));	
 
-		session.setAttribute("site","Del_Markt_SQL"); 
-		 session.setAttribute("Del_Markt",m_ID);
+		session.setAttribute("site", CONTROLLER_Statments.caller.Delete_Markt.toString()); 
+		 session.setAttribute(CONTROLLER_Statments.session.Delete_Markt.toString(),m_ID);
 		
 		out.println("Markt erfolgreich entfernt");
-    	response.sendRedirect("login-success.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+		rd.include(request, response);
 		
+		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 		
 
 	}

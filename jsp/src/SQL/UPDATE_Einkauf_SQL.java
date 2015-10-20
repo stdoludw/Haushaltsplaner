@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
 import MODEL.MODEL_Einkauf;
 import MODEL.MODEL_Konto;
 import MODEL.MODEL_Markt;
@@ -21,7 +23,7 @@ import MODEL.MODEL_Produkt;
 /**
  * Servlet implementation class change_Produkt_SQL
  */
-@WebServlet("/change_Einkauf_SQL")
+@WebServlet("/UPDATE_Einkauf_SQL")
 public class UPDATE_Einkauf_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -83,17 +85,19 @@ public class UPDATE_Einkauf_SQL extends HttpServlet {
 			}
 	 
 		 
-			 session.setAttribute("Change_Einkauf",new MODEL_Einkauf(
+			 session.setAttribute(CONTROLLER_Statments.session.Update_Einkauf.toString(),new MODEL_Einkauf(
 			 Integer.valueOf(request.getParameter("i_einkauf_anzahl")), 
 				request.getParameter("i_einkauf_datum"),ID,
 				k, p, m));
 
 	   
-				session.setAttribute("site","Change_Einkauf_SQL"); 
+				session.setAttribute("site",CONTROLLER_Statments.caller.Update_Einkauf.toString()); 
 		
 		out.println("Einkauf erfolgreich geupdatet");
-    	response.sendRedirect("login-success.jsp");
-
+		RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+		rd.include(request, response);
+		
+		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());
 		}
 	}
 

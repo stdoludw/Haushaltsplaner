@@ -1,6 +1,8 @@
-<%@page import="jsp.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
 <%@page import="java.util.Vector"%>
-<%@page import="jsp.MODEL_Produkt"%>
+<%@page import="MODEL.MODEL_Produkt"%>
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,9 +17,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+ <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -37,7 +39,7 @@
 <table class="w3-table w3-striped w3-bordered">
 <thead>
 	        	  
-<form action="Add_Produkt_SQL" method="POST">
+<form action="<%=CONTROLLER_Statments.caller.Insert_Produkt.toString() %>" method="POST">
 Produktname<input class="w3-input" style="width:95%" type="text" name="i_produkt_name" size="20" >		
 Gewicht<input class="w3-input" style="width:95%" type="text" name="i_produkt_gewicht" size="20" >	
 <p></p>	

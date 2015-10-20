@@ -1,6 +1,7 @@
-<%@page import="jsp.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Access"%>
+<%@page import="CONTROLLER.CONTROLLER_Statments"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jsp.MODEL_Konto"%>
+<%@page import="MODEL.MODEL_Konto"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,9 +16,9 @@
   <a href="javascript:void(0)"
   onclick="w3_close()"
 	    class="w3-closenav w3-large">Close</a>
-      <a href="index.jsp">Login</a>
-  <a href="login-success.jsp">Hauptmenue</a>
-  <a href="usermanagement.html"> Benutzerverwaltung </a>
+ <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
+  <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
+  <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
   
 </nav>
 
@@ -39,7 +40,7 @@
 
 <%
 int ID = Integer.valueOf(request.getParameter("k_ID"));
-ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute("mvecMODEL");
+ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());
 MODEL_Konto konto = null;
 
 for (int i = 0;i<tmp.size();i++)
@@ -60,7 +61,7 @@ for (int i = 0;i<tmp.size();i++)
 
 
       	  
-<form action="change_Konto_SQL" method="POST">
+<form action="<%=CONTROLLER_Statments.caller.Update_Konto.toString() %>" method="POST">
 KontoID<input class="w3-input" style="width:95%" type="text" name="i_konto_id" size="20" 
 value="<%out.print(konto.getMintID());%>">	
 Kontoinhaber<input class="w3-input" style="width:95%" type="text" name="i_konto_kontoinhaber" size="20" 

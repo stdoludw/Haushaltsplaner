@@ -4,6 +4,7 @@ package SQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import CONTROLLER.CONTROLLER_Statments;
+
 
 /**
  * Servlet implementation class Del_Konto_SQL
  */
-@WebServlet("/Del_Konto_SQL")
+@WebServlet("/DELETE_Konto_SQL")
 public class DELETE_Konto_SQL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,12 +50,14 @@ public class DELETE_Konto_SQL extends HttpServlet {
 
 		int k_ID = Integer.valueOf(request.getParameter("k_ID"));	
 
-		session.setAttribute("site","Del_Konto_SQL"); 
-		 session.setAttribute("Del_Konto",k_ID);
+		session.setAttribute("site",CONTROLLER_Statments.caller.Delete_Konto.toString()); 
+		 session.setAttribute(CONTROLLER_Statments.session.Delete_Konto.toString(),k_ID);
 		
 		out.println("Konto erfolgreich entfernt");
-    	response.sendRedirect("login-success.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(CONTROLLER_Statments.redirect.Controller.toString());
+		rd.include(request, response);
 		
+		response.sendRedirect(CONTROLLER_Statments.redirect.login_success.toString());		
 		
 
 	
