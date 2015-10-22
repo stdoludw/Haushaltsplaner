@@ -169,10 +169,9 @@ public class CONTROLLER extends HttpServlet {
         	}
 			
 			as.auslesen();
-
-			
-			
+	
 		}
+		
 
 	}
 
