@@ -36,16 +36,18 @@ public class CONTROLLER_Import extends HttpServlet {
 	 
 	            try {
 	            	// Parse the request
-	            	List /* FileItem */ items = upload.parseRequest(request);
-	                Iterator iterator = items.iterator();
+	            	@SuppressWarnings("rawtypes")
+					List /* FileItem */ items = upload.parseRequest(request);
+	                @SuppressWarnings("rawtypes")
+					Iterator iterator = items.iterator();
 	                while (iterator.hasNext()) {
 	                    FileItem item = (FileItem) iterator.next();
 	                    if (!item.isFormField()) {
 	                        String fileName = item.getName();	 
-	                        String root = getServletContext().getRealPath("/");
-	                        File path = new File(root + "/uploads");
+	                        File path = new File("/home/dominik/Downloads/uploads");
 	                        if (!path.exists()) {
-	                            boolean status = path.mkdirs();
+	                            @SuppressWarnings("unused")
+								boolean status = path.mkdirs();
 	                        }
 	 
 	                        File uploadedFile = new File(path + "/" + fileName);
