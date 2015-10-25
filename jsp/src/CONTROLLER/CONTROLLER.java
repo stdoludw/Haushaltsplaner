@@ -14,6 +14,7 @@ import MODEL.MODEL_Einkauf;
 import MODEL.MODEL_Konto;
 import MODEL.MODEL_Markt;
 import MODEL.MODEL_Produkt;
+import wox.serial.Easy;
 
 @WebServlet("/Controller")
 public class CONTROLLER extends HttpServlet {
@@ -30,6 +31,7 @@ public class CONTROLLER extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
@@ -147,6 +149,51 @@ public class CONTROLLER extends HttpServlet {
 			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Produkt.toString()));
 			as.SQLModifizieren(tmp.SQLdelete());
 			as.auslesen();
+		}
+		else if(site.equals(CONTROLLER_Statments.caller.CONTROLLER_Import.toString()))
+		{
+			String path = CONTROLLER_Statments.upload.path.toString() +"/"+session.getAttribute(CONTROLLER_Statments.session.filename.toString());
+			
+			//xml to object
+			ArrayList<Object> xml2Obj = (ArrayList<Object>) Easy.load(path);
+			session.setAttribute(CONTROLLER_Statments.session.mvStatistik.toString(),xml2Obj);
+			
+			//Truncate all table
+			as.SQLModifizieren(CONTROLLER_Statments.TruncateProdukt());
+			as.SQLModifizieren(CONTROLLER_Statments.TruncateMarkt());
+			as.SQLModifizieren(CONTROLLER_Statments.TruncateKonto());
+			as.SQLModifizieren(CONTROLLER_Statments.TruncateEinkauf());
+
+			
+			//SQL Insert
+			for(Object i : xml2Obj)
+			{
+				if(i instanceof MODEL_Produkt)
+				{
+			as.SQLModifizieren(((MODEL_Produkt)i).SQLinsert());
+				}
+				else if(i instanceof MODEL_Konto)
+				{
+					as.SQLModifizieren(((MODEL_Konto)i).SQLinsert(as.getAes()));
+
+				}
+				else if(i instanceof MODEL_Markt)
+				{
+					as.SQLModifizieren(((MODEL_Markt)i).SQLinsert());
+
+				}
+				else if(i instanceof MODEL_Einkauf)
+				{
+					as.SQLModifizieren(((MODEL_Einkauf)i).SQlinsert());
+
+				}
+			
+			}
+			
+			
+			
+			
+			
 		}
 		
 		

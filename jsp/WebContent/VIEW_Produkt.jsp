@@ -21,8 +21,8 @@
  <a href="<%=CONTROLLER_Statments.menu.login.toString()%>"  >Login</a>
   <a href="<%=CONTROLLER_Statments.menu.Hauptmenue.toString()%>">Hauptmenue</a>
   <a href="<%=CONTROLLER_Statments.menu.Benutzerverwaltung.toString()%>"> Benutzerverwaltung </a>
-   <a href="VIEW_Export.jsp"> Export </a>
-      <a href="VIEW_Import.jsp"> Import </a>
+    <a href="<%=CONTROLLER_Statments.menu.Export.toString()%>"> Datenexport </a>
+    <a href="<%=CONTROLLER_Statments.menu.Import.toString()%>"> Datenimport </a>
 </nav>
 
 <header class="w3-container w3-blue-grey">

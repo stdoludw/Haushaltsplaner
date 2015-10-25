@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-    <h1>File Upload Form</h1> 
+    <h1>File Upload</h1> 
     <fieldset>
         <legend>Upload File</legend>
         <form action="CONTROLLER_Import" method="post" enctype="multipart/form-data">

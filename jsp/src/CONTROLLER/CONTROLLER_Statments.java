@@ -80,6 +80,11 @@ public class CONTROLLER_Statments {
 			public String toString() {
 				return "DELETE_Produkt_SQL";
 			}
+		},
+		CONTROLLER_Import {
+			public String toString() {
+				return "CONTROLLER_Import";
+			}
 		}
 	}
 
@@ -87,6 +92,13 @@ public class CONTROLLER_Statments {
 		mvecModel {
 			public String toString() {
 				return "mvecMODEL";
+			}
+		},
+
+		filename
+		{
+			public String toString() {
+				return "filename";
 			}
 		},
 		mvStatistik {
@@ -184,7 +196,11 @@ public class CONTROLLER_Statments {
 			}
 		},
 		
-		
+		VIEW_Import_Overview {
+			public String toString() {
+				return "VIEW_Import_Overview.jsp";
+			}
+		},
 		VIEW_Einkauf {
 			public String toString() {
 				return "VIEW_Einkauf.jsp";
@@ -285,9 +301,58 @@ public class CONTROLLER_Statments {
 			}
 
 		}
+		,
+
+		Import {
+			public String toString() {
+				return "VIEW_Import.jsp";
+			}
+
+		},
+
+		Export {
+			public String toString() {
+				return "VIEW_Export.jsp";
+			}
+
+		}
 
 	};
 
+	public enum upload
+	{
+		
+	path
+	{
+		public String toString() {
+		return ("/home/dlu/tomcat/upload/");	
+		}
+	}
+	
+	}
+	
+	public static String TruncateProdukt() {
+
+	return ("truncate Produkt;");
+	
+	}
+	
+	public static String TruncateMarkt() {
+
+		return("truncate Markt;");
+	}
+	
+	public static String TruncateKonto() {
+
+		return("truncate Konto;");
+	}
+	
+	public static String TruncateEinkauf() {
+
+		return("truncate Einkauf;");
+	}
+	
+	
 	public static String ViewAll() {
 		return "select * from ViewAll;";
 	}
