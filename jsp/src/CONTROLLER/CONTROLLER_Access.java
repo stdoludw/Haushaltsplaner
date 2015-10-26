@@ -235,6 +235,25 @@ public class CONTROLLER_Access {
 	}
 
 
+	public ArrayList<Object> getObjXML()
+	{
+		for (int i = 0; i<this.mvecModel.size();i++)
+			if (this.mvecModel.get(i) instanceof MODEL_Konto) 
+			{
+				((MODEL_Konto) this.mvecModel.get(i)).setMintMin(aes.verschluesselnAES((((MODEL_Konto) this.mvecModel.get(i)).getMintMin())));
+				((MODEL_Konto) this.mvecModel.get(i)).setMstrBetrag(aes.verschluesselnAES(((MODEL_Konto) this.mvecModel.get(i)).getMstrBetrag()));
+				((MODEL_Konto) this.mvecModel.get(i)).setMstrBLZ(aes.verschluesselnAES(((MODEL_Konto) this.mvecModel.get(i)).getMstrBLZ()));
+				((MODEL_Konto) this.mvecModel.get(i)).setMstrKnr(aes.verschluesselnAES(((MODEL_Konto) this.mvecModel.get(i)).getMstrKnr()));
+				((MODEL_Konto) this.mvecModel.get(i)).setMstrName(aes.verschluesselnAES(((MODEL_Konto) this.mvecModel.get(i)).getMstrName()));
+			}                 
+		
+		
+		return this.mvecModel;
+		
+	}
+	
+	
+	
 	public ArrayList<Object> getMvecModel() {
 		return mvecModel;
 	}

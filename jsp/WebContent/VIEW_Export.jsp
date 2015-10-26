@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.CONTROLLER_Statments"%>
 <%@page import="wox.serial.Easy" %>
+<%@page import="MODEL.MODEL_Konto"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,14 +29,9 @@
 
 <body>
 
-<% 
-ArrayList<Object> tmp = (ArrayList<Object>)session.getAttribute(CONTROLLER_Statments.session.mvecModel.toString());
-
-Easy.save(tmp, "/var/www/html/xml/data.xml"); 
-
-out.print("Daten wurden gespeichert");
-response.sendRedirect("http://www.dfch-ludwig.de/xml/data.xml");
-%>
+   <form action="<%=CONTROLLER_Statments.caller.CONTROLLER_Export.toString() %>" method="post" enctype="multipart/form-data">
+            <input type="submit" value="Bestätige Download"/>
+        </form>
 
 <script>
 function w3_open() {

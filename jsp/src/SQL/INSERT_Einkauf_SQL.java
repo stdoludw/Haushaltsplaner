@@ -85,8 +85,6 @@ public class INSERT_Einkauf_SQL extends HttpServlet {
 				}
 			}
 
-			
-
 		}
 		
 		session.setAttribute(CONTROLLER_Statments.session.Insert_Einkauf.toString(),

@@ -85,6 +85,11 @@ public class CONTROLLER_Statments {
 			public String toString() {
 				return "CONTROLLER_Import";
 			}
+		},
+		CONTROLLER_Export {
+			public String toString() {
+				return "CONTROLLER_Export";
+			}
 		}
 	}
 
@@ -185,6 +190,13 @@ public class CONTROLLER_Statments {
 		error {
 			public String toString() {
 				return "error.jsp";
+			}
+		},
+		data_xml
+		{
+			public String toString()
+			{
+				return "http://www.dfch-ludwig.de/xml/data.xml";
 			}
 		},
 		
@@ -327,7 +339,17 @@ public class CONTROLLER_Statments {
 		public String toString() {
 		return ("/home/dlu/tomcat/upload/");	
 		}
-	}
+	},
+	path_xml
+	{
+		public String toString() {
+		return ("/var/www/html/xml/data.xml");	
+		}
+	},
+	
+	
+	
+	
 	
 	}
 	

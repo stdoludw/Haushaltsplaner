@@ -76,7 +76,6 @@ public class CONTROLLER extends HttpServlet {
 		{
 			MODEL_Einkauf tmp = new MODEL_Einkauf();
 			tmp.setMintID((int)session.getAttribute(CONTROLLER_Statments.session.Delete_Einkauf.toString()));
-			System.out.println(tmp.getMintID());
 			as.SQLModifizieren(tmp.SQldelete());
 			as.auslesen();
 
@@ -189,13 +188,14 @@ public class CONTROLLER extends HttpServlet {
 				}
 			
 			}
-			
-			
-			
-			
-			
+				
 		}
-		
+		else if(site.equals(CONTROLLER_Statments.caller.CONTROLLER_Export.toString()))
+		{
+			
+			Easy.save(as.getObjXML(), CONTROLLER_Statments.upload.path_xml.toString()); 
+
+		}
 		
 		else if(site.equals(CONTROLLER_Statments.caller.usermanagement.toString()))
 		{
